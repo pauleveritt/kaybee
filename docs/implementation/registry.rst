@@ -9,6 +9,8 @@ Kaybee provides a registry, based on
 that is processed once Sphinx starts its initializing. The registry provides
 extensibility for docs projects, Kaybee plugins, and Kaybee itself.
 
+.. _registry_action:
+
 Actions
 =======
 
