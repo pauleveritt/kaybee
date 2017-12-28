@@ -19,6 +19,7 @@ with an "editable" project.
 #. ``pip install -r requirements.txt`` to get dev requirements plus the
    editable package.
 
+.. _livereload_script:
 
 Live Reload
 -----------
