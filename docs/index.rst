@@ -7,4 +7,5 @@ extensible, schema-driven resource directives in YAML.
 .. toctree::
     :maxdepth: 2
 
+    using/index
     development/index
