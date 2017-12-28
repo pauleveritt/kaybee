@@ -1,6 +1,6 @@
-========================
-Kaybee Development Setup
-========================
+=================
+Development Setup
+=================
 
 Want to hack on Kaybee? This page gives instructions for getting an
 environment setup, as well as making releases.
@@ -18,6 +18,26 @@ with an "editable" project.
 
 #. ``pip install -r requirements.txt`` to get dev requirements plus the
    editable package.
+
+
+Live Reload
+-----------
+
+It's a chore to fire up a web server, make a change to your docs/code, re-run
+Sphinx, possibly re-run Webpack, and then reload your browser. With help
+from `livereload <https://pypi.python.org/pypi/livereload>`_ this can be made
+easier. It watches for changes, runs some commands, and tells the browser
+to reload.
+
+You can run this with defaults with the following:
+
+.. code-block:: bash
+
+    $ python -m kaybee.utils.livereload
+
+This will watch for any changes in the ``kaybee`` or ``docs`` directory,
+minus any changes in ``_build``, and re-run Sphinx. You can subclass
+``Livereload`` to change some options.
 
 Release
 -------

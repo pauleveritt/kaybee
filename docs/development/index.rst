@@ -7,6 +7,5 @@ setup a Kaybee project in a similar way, these docs will get you started.
 
 .. toctree::
     :maxdepth: 2
-    :caption: Contents:
 
     setup
