@@ -4,3 +4,5 @@ bumpversion
 pytest
 travis-encrypt
 livereload
+beautifulsoup4
+html5lib
