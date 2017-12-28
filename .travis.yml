@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -r requirements.txt
+script:
+  - pytest
+deploy:
+  provider: pypi
+  user: pauleveritt
+  password:
+    secure: G1aCzqR5kCtbwRRPBCsZWM6ag56wniOwPi3neKFylSoiiI7KoIdnflIYboJ500c6XTL1voltMOHVW39bN/NQYq7fVUJmOGn8bBZNFg4iyNiYSth6spgYDRCBtyOc0Js9975Vzwa6FCuFtMAU5PvVNsth3Lr3gzOmlPxPYHVxVwmRM0BXBQkk8uNaU1HjmbGRDrG/jc+uVj9hB/0TmhtzMZ5tfwbWnCh/dkktAkNCldzB2o3KxCikewfABKky4n56W6K7qV2oNzJmbvMDXc7VEwAtslQKCU3Lk6kCqH2nItkP71mOl46/CyXNACdIxs0Lq7P38PuMmU3I1qt/gg0TeXgYzFNSLqIstT8wzKKZRMB50G4hTvESOaDFcmU5GRSurM6F0JPEXtfqNpsiLuTi4INHLlf2FX7d8CL4QZJ4IVlFwiOpdTFKKkmqIeNc4gycUwwJMnXHq++cu1UA8/XxuJo2YRmKJCrQY63XbGnrPvNWGihLhg/rA4Yyef8R8q5ddlQzVaMzmI038jR7zlz3N07bE8O+dvsVFT5vq8405+bZJ0Rn2YRV7EPGMfXlx9JHltpZho2znUp49ji/TTDrIbLOzjCvJ6KeQEhPuzKRRfrwSD29ZcsQanx9lCGyMsOy6+03MpUOFCgKzZoGfExIjrs+84o8TI+Z0ab05lqQ6+Q=
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  on:
+    tags: true
+    python: 3.6
