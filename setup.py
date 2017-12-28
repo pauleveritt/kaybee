@@ -28,6 +28,7 @@ setup(
         'sphinx',
         'dectate',
         'ruamel.yaml',
-        'pydantic'
+        'pydantic',
+        'importscan'
     ],
 )

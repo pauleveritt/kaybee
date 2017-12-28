@@ -7,6 +7,7 @@ extensible, schema-driven resource directives in YAML.
 .. toctree::
     :maxdepth: 2
 
+    whysphinx
     using/index
     development/index
     implementation/index

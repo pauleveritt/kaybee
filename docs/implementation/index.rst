@@ -10,3 +10,4 @@ the development of major features.
     :maxdepth: 1
 
     setup_function
+    registry
