@@ -29,6 +29,32 @@ def conflicting_events(kb_app):
 
 
 @pytest.fixture()
+def system_nonconflicting_events(kb_app):
+    @kb_app.event(SphinxEvent.HPC, system_order=50)
+    def handle_pagecontext1(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext2(*args):
+        return
+
+    yield (handle_pagecontext1, handle_pagecontext2)
+
+
+@pytest.fixture()
+def system_conflicting_events(kb_app):
+    @kb_app.event(SphinxEvent.HPC, system_order=50)
+    def handle_pagecontext1(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC, system_order=50)
+    def handle_pagecontext2(*args):
+        return
+
+    yield (handle_pagecontext1, handle_pagecontext2)
+
+
+@pytest.fixture()
 def multiple_events(kb_app):
     @kb_app.event(SphinxEvent.HPC)
     def handle_pagecontext1(*args):
@@ -169,6 +195,16 @@ class TestPluginEvents:
         assert 'builder-inited-20' == ea1.identifier([])
 
     def test_identifiers_conflict(self, kb_app, conflicting_events):
+        # We provide two handlers for same event without distinguishing
+        # by order
+        with pytest.raises(dectate.error.ConflictError):
+            dectate.commit(kb_app)
+
+    def test_system_nonconflict(self, kb_app, system_nonconflicting_events):
+        # A system handler won't conflict with a non-system handler
+        dectate.commit(kb_app)
+
+    def test_system_conflict(self, kb_app, system_conflicting_events):
         # We provide two handlers for same event without distinguishing
         # by order
         with pytest.raises(dectate.error.ConflictError):

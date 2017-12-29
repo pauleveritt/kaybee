@@ -5,7 +5,7 @@ Dectate action to manage event callbacks in the configuration.
 """
 
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
 from docutils.readers import doctree
 from sphinx.application import Sphinx
@@ -32,14 +32,20 @@ class EventAction(dectate.Action):
         'events': dict
     }
 
-    def __init__(self, name, order: int = 20):
+    def __init__(self, name, order: int = 20,
+                 system_order=None):
         assert name in SphinxEvent
         super().__init__()
         self.name = name
 
-        # 40 to 80 is reserved for Kaybee events
-        assert order < 40 or order > 80
-        self.order = order
+        if system_order is None:
+            # This is a user handler
+            # 40 to 80 is reserved for system handlers.
+            assert order < 40 or order > 80
+            self.order = order
+        else:
+            assert 40 <= system_order <= 80
+            self.order = system_order
 
     def identifier(self, events):
         return f'{self.name.value}-{self.order}'

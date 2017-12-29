@@ -12,3 +12,4 @@ Kaybee is based on Sphinx, Python's static site generator for documentation.
     app
     loading_directives
     events
+    templates
