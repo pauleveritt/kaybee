@@ -5,6 +5,11 @@ Dectate action to manage event callbacks in the configuration.
 """
 
 from enum import Enum
+from typing import List
+
+from docutils.readers import doctree
+from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 
 import dectate
 
@@ -53,7 +58,7 @@ class EventAction(dectate.Action):
     # Dispatchers for each of the Sphinx methods
     #
     @classmethod
-    def call_builder_init(cls, kb_app, sphinx_app):
+    def call_builder_init(cls, kb_app, sphinx_app: Sphinx):
         """ On builder init event, commit registry and do callbacks """
 
         dectate.commit(kb_app)
@@ -61,14 +66,17 @@ class EventAction(dectate.Action):
             callback(kb_app, sphinx_app)
 
     @classmethod
-    def call_purge_doc(cls, kb_app, sphinx_app, env, docname):
+    def call_purge_doc(cls, kb_app, sphinx_app: Sphinx, env,
+                       docname: str):
         """ On env-purge-doc, do callbacks """
 
         for callback in EventAction.get_callbacks(kb_app, SphinxEvent.EPD):
             callback(kb_app, sphinx_app, env, docname)
 
     @classmethod
-    def call_env_before_read_docs(cls, kb_app, sphinx_app, env, docnames):
+    def call_env_before_read_docs(cls, kb_app, sphinx_app: Sphinx,
+                                  env: BuildEnvironment,
+                                  docnames: List[str]):
         """ On env-read-docs, do callbacks"""
 
         for callback in EventAction.get_callbacks(kb_app,
@@ -76,8 +84,19 @@ class EventAction(dectate.Action):
             callback(kb_app, sphinx_app, env, docnames)
 
     @classmethod
-    def call_env_doctree_read(cls, kb_app, sphinx_app, doctree):
-        """ On env-read-docs, do callbacks"""
+    def call_env_doctree_read(cls, kb_app, sphinx_app: Sphinx,
+                              doctree: doctree):
+        """ On doctree-read, do callbacks"""
+
+        for callback in EventAction.get_callbacks(kb_app,
+                                                  SphinxEvent.DREAD):
+            callback(kb_app, sphinx_app, doctree)
+
+    @classmethod
+    def call_doctree_resolved(cls, kb_app, sphinx_app: Sphinx,
+                              doctree: doctree,
+                              fromdocname: str):
+        """ On doctree-resolved, do callbacks"""
 
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.DREAD):
