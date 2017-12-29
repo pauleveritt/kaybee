@@ -15,6 +15,16 @@ def register_valid_event(kb_app):
 
 
 @pytest.fixture()
+def register_scoped_event(kb_app):
+    @kb_app.event(SphinxEvent.EBRD, scope='resources')
+    def handle_event():
+        return
+
+    dectate.commit(kb_app)
+    yield handle_event
+
+
+@pytest.fixture()
 def conflicting_events(kb_app):
     # Omit the "order" to disambiguate
     @kb_app.event(SphinxEvent.HPC)
@@ -22,6 +32,20 @@ def conflicting_events(kb_app):
         return
 
     @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext2(*args):
+        return
+
+    yield (handle_pagecontext1, handle_pagecontext2)
+
+
+@pytest.fixture()
+def scoped_conflict_event(kb_app):
+    # Omit the "order" to disambiguate
+    @kb_app.event(SphinxEvent.HPC, scope='resources')
+    def handle_pagecontext1(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC, scope='resources')
     def handle_pagecontext2(*args):
         return
 
@@ -194,6 +218,13 @@ class TestPluginEvents:
         ea2 = EventAction(SphinxEvent.BI, 10)
         assert 'builder-inited-20' == ea1.identifier([])
 
+    def test_scoped_identifiers(self):
+        # We provide two handlers for same event and distinguish
+        # using 'order'
+        ea1 = EventAction(SphinxEvent.BI, scope='resources')
+        ea2 = EventAction(SphinxEvent.BI, 10)
+        assert 'builder-inited-resources-20' == ea1.identifier([])
+
     def test_identifiers_conflict(self, kb_app, conflicting_events):
         # We provide two handlers for same event without distinguishing
         # by order
@@ -207,6 +238,15 @@ class TestPluginEvents:
     def test_system_conflict(self, kb_app, system_conflicting_events):
         # We provide two handlers for same event without distinguishing
         # by order
+        with pytest.raises(dectate.error.ConflictError):
+            dectate.commit(kb_app)
+
+    def test_scoped_nonconflict(self, kb_app, register_scoped_event):
+        # A system handler won't conflict with a non-system handler
+        dectate.commit(kb_app)
+
+    def test_scoped_conflict(self, kb_app, scoped_conflict_event):
+        # A system handler won't conflict with a non-system handler
         with pytest.raises(dectate.error.ConflictError):
             dectate.commit(kb_app)
 

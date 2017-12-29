@@ -33,10 +33,12 @@ class EventAction(dectate.Action):
     }
 
     def __init__(self, name, order: int = 20,
+                 scope=None,
                  system_order=None):
         assert name in SphinxEvent
         super().__init__()
         self.name = name
+        self.scope = scope
 
         if system_order is None:
             # This is a user handler
@@ -48,7 +50,10 @@ class EventAction(dectate.Action):
             self.order = system_order
 
     def identifier(self, events):
-        return f'{self.name.value}-{self.order}'
+        if self.scope:
+            return f'{self.name.value}-{self.scope}-{self.order}'
+        else:
+            return f'{self.name.value}-{self.order}'
 
     # noinspection PyMethodOverriding
     def perform(self, obj, events):
