@@ -1,5 +1,6 @@
 import dectate
 import pytest
+from docutils.readers import doctree
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 
@@ -28,3 +29,9 @@ def sphinx_app():
 def sphinx_env():
     env: BuildEnvironment = dict()
     yield env
+
+
+@pytest.fixture()
+def sphinx_doctree():
+    dt: doctree = dict()
+    yield dt

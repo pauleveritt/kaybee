@@ -25,6 +25,11 @@ def setup(app: Sphinx):
                     kb, sphinx_app, env, docnames)
                 )
 
+    app.connect(SphinxEvent.DREAD.value,
+                lambda sphinx_app, doctree: EventAction.call_env_doctree_read(
+                    kb, sphinx_app, doctree)
+                )
+
     return dict(
         version=__version__,
         parallel_read_safe=False

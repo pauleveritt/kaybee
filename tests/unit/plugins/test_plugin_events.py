@@ -93,7 +93,6 @@ class TestPluginEvents:
         callbacks = EventAction.get_callbacks(kb_app,
                                               SphinxEvent.BI)
         assert builderinit_event in callbacks
-        assert 'handle_builderinit' == callbacks[0].__name__
         assert 987 == sphinx_app.flag
 
     def test_purge_doc(self, kb_app, sphinx_app, sphinx_env, purgedoc_event):
@@ -103,7 +102,6 @@ class TestPluginEvents:
         callbacks = EventAction.get_callbacks(kb_app,
                                               SphinxEvent.EPD)
         assert purgedoc_event in callbacks
-        assert 'handle_purgedoc' == callbacks[0].__name__
         assert 876 == sphinx_app.flag
 
     def test_before_read_docs(self, kb_app, sphinx_app, sphinx_env,
@@ -115,14 +113,13 @@ class TestPluginEvents:
         callbacks = EventAction.get_callbacks(kb_app,
                                               SphinxEvent.EBRD)
         assert before_read_docs_event in callbacks
-        assert 'handle_beforereaddocs' == callbacks[0].__name__
         assert 765 == sphinx_app.flag
 
-    # def test_env_doctree_read(self, kb_app, sphinx_app, doctree_read_event):
-    #     dectate.commit(kb_app)
-    #     dt = dict()
-    #     EventAction.call_env_doctree_read(kb_app, sphinx_app, dt)
-    #     callbacks = EventAction.get_callbacks(kb_app,
-    #                                           SphinxEvent.DREAD)
-    #     assert 'handle_beforereaddocs' == callbacks[0].__name__
-    #     assert 765 == sphinx_app.flag
+    def test_env_doctree_read(self, kb_app, sphinx_app, sphinx_doctree,
+                              doctree_read_event):
+        dectate.commit(kb_app)
+        EventAction.call_env_doctree_read(kb_app, sphinx_app, sphinx_doctree)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.DREAD)
+        assert doctree_read_event in callbacks
+        assert 654 == sphinx_app.flag
