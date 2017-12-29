@@ -23,6 +23,15 @@ def builderinit_event(kb_app):
     yield handle_builderinit
 
 
+@pytest.fixture()
+def purgedoc_event(kb_app):
+    @kb_app.event('env-purge-doc', 'somescope')
+    def handle_purgedoc(kb_app, sphinx_app, env, docname):
+        sphinx_app['flag'] = 876
+
+    yield handle_purgedoc
+
+
 class TestPluginEvents:
     def test_import(self):
         assert 'EventAction' == EventAction.__name__
@@ -55,10 +64,21 @@ class TestPluginEvents:
         callbacks = EventAction.get_callbacks(kb_app, 'html-context')
         assert 0 == len(callbacks)
 
-    def test_call_builder_init(self, kb_app, builderinit_event):
+    def test_builder_init(self, kb_app, builderinit_event):
         sphinx_app = dict()
         EventAction.call_builder_init(kb_app, sphinx_app)
         callbacks = EventAction.get_callbacks(kb_app,
                                               'builder-init')
         assert 'handle_builderinit' == callbacks[0].__name__
         assert 987 == sphinx_app['flag']
+
+    def test_purge_doc(self, kb_app, purgedoc_event):
+        dectate.commit(kb_app)
+        sphinx_app = dict()
+        env = dict()
+        docname = ''
+        EventAction.call_purge_doc(kb_app, sphinx_app, env, docname)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              'env-purge-doc')
+        assert 'handle_purgedoc' == callbacks[0].__name__
+        assert 876 == sphinx_app['flag']

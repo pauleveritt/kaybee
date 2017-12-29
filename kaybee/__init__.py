@@ -11,8 +11,13 @@ def setup(app: Sphinx):
     """ Initialize Kaybee as a Sphinx extension """
 
     app.connect('builder-inited',
-                lambda sphinx_app: EventAction.call_builder_init(kb,
-                                                                 sphinx_app))
+                lambda sphinx_app: EventAction.call_builder_init(
+                    kb, sphinx_app)
+                )
+    app.connect('env-purge-doc',
+                lambda sphinx_app, env, docname: EventAction.call_purge_doc(
+                    kb, sphinx_app, env, docname)
+                )
 
     return dict(
         version=__version__,
