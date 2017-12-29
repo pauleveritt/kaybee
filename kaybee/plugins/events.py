@@ -31,6 +31,7 @@ class EventAction(dectate.Action):
     def identifier(self, events):
         return self.name + '-' + self.scope
 
+    # noinspection PyMethodOverriding
     def perform(self, obj, events):
         events[self.name] = obj
 
@@ -44,7 +45,9 @@ class EventAction(dectate.Action):
         q = dectate.Query('event')
         return [args[1] for args in q(registry) if args[0].name == event_name]
 
+    #
     # Dispatchers for each of the Sphinx methods
+    #
     @classmethod
     def call_builder_init(cls, kb_app, sphinx_app):
         """ On builder init event, commit registry and do callbacks """
