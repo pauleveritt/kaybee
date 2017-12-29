@@ -58,26 +58,30 @@ class EventAction(dectate.Action):
 
     @classmethod
     def call_purge_doc(cls, kb_app, sphinx_app, env, docname):
-        """ On env-purge-doc, commit registry and do callbacks """
+        """ On env-purge-doc, do callbacks """
 
         for callback in EventAction.get_callbacks(kb_app, 'env-purge-doc'):
             callback(kb_app, sphinx_app, env, docname)
 
-    # @classmethod
-    # def call_env_before_read_docs(app, env, docnames):
-    #     """ On env-read-docs, commit registry and do callbacks"""
-    #
-    #     if not hasattr(env, 'site'):
-    #         config = getattr(app.config, 'kaybee_config')
-    #         if config:
-    #             env.site = Site(config)
-    #
-    #     template_bridge = app.builder.templates
-    #
-    #     # Add _templates in the conf directory
-    #     confdir = os.path.join(app.confdir, '_templates')
-    #     template_bridge.loaders.append(SphinxFileSystemLoader(confdir))
-    #
-    #     for callback in EventAction.get_callbacks(kb, 'env-before-read-docs'):
-    #         callback(kb, app, env, docnames)
-    #
+    @classmethod
+    def call_env_before_read_docs(cls, kb_app, sphinx_app, env, docnames):
+        """ On env-read-docs, do callbacks"""
+
+        for callback in EventAction.get_callbacks(kb_app,
+                                                  'env-before-read-docs'):
+            callback(kb_app, sphinx_app, env, docnames)
+
+        # if not hasattr(env, 'site'):
+        #     config = getattr(app.config, 'kaybee_config')
+        #     if config:
+        #         env.site = Site(config)
+        #
+        # template_bridge = app.builder.templates
+        #
+        # # Add _templates in the conf directory
+        # confdir = os.path.join(app.confdir, '_templates')
+        # template_bridge.loaders.append(SphinxFileSystemLoader(confdir))
+        #
+        # for callback in EventAction.get_callbacks(kb,
+        # 'env-before-read-docs'):
+        #     callback(kb, app, env, docnames)

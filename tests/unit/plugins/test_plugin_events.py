@@ -32,6 +32,15 @@ def purgedoc_event(kb_app):
     yield handle_purgedoc
 
 
+@pytest.fixture()
+def before_read_docs_event(kb_app):
+    @kb_app.event('env-before-read-docs', 'somescope')
+    def handle_beforereaddocs(kb_app, sphinx_app, env, docnames):
+        sphinx_app['flag'] = 765
+
+    yield handle_beforereaddocs
+
+
 class TestPluginEvents:
     def test_import(self):
         assert 'EventAction' == EventAction.__name__
@@ -82,3 +91,15 @@ class TestPluginEvents:
                                               'env-purge-doc')
         assert 'handle_purgedoc' == callbacks[0].__name__
         assert 876 == sphinx_app['flag']
+
+    def test_before_read_docs(self, kb_app, before_read_docs_event):
+        dectate.commit(kb_app)
+        sphinx_app = dict()
+        env = dict()
+        docnames = []
+        EventAction.call_env_before_read_docs(kb_app, sphinx_app, env,
+                                              docnames)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              'env-before-read-docs')
+        assert 'handle_beforereaddocs' == callbacks[0].__name__
+        assert 765 == sphinx_app['flag']

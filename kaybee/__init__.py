@@ -19,6 +19,12 @@ def setup(app: Sphinx):
                     kb, sphinx_app, env, docname)
                 )
 
+    app.connect('env-before-read-docs',
+                lambda sphinx_app, env,
+                       docnames: EventAction.call_env_before_read_docs(
+                    kb, sphinx_app, env, docnames)
+                )
+
     return dict(
         version=__version__,
         parallel_read_safe=False
