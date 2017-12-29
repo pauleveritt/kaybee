@@ -1,12 +1,12 @@
 import dectate
 import pytest
 
-from kaybee.plugins.events import EventAction
+from kaybee.plugins.events import EventAction, SphinxEvent
 
 
 @pytest.fixture()
 def register_valid_event(kb_app):
-    @kb_app.event('env-before-read-docs', 'somescope')
+    @kb_app.event(SphinxEvent.EBRD, 'somescope')
     def handle_event():
         return
 
@@ -16,7 +16,7 @@ def register_valid_event(kb_app):
 
 @pytest.fixture()
 def builderinit_event(kb_app):
-    @kb_app.event('builder-init', 'somescope')
+    @kb_app.event(SphinxEvent.BI, 'somescope')
     def handle_builderinit(kb_app, sphinx_app):
         sphinx_app['flag'] = 987
 
@@ -25,7 +25,7 @@ def builderinit_event(kb_app):
 
 @pytest.fixture()
 def purgedoc_event(kb_app):
-    @kb_app.event('env-purge-doc', 'somescope')
+    @kb_app.event(SphinxEvent.EPD, 'somescope')
     def handle_purgedoc(kb_app, sphinx_app, env, docname):
         sphinx_app['flag'] = 876
 
@@ -34,7 +34,7 @@ def purgedoc_event(kb_app):
 
 @pytest.fixture()
 def before_read_docs_event(kb_app):
-    @kb_app.event('env-before-read-docs', 'somescope')
+    @kb_app.event(SphinxEvent.EBRD, 'somescope')
     def handle_beforereaddocs(kb_app, sphinx_app, env, docnames):
         sphinx_app['flag'] = 765
 
@@ -57,12 +57,12 @@ class TestPluginEvents:
             EventAction('xxx', 'somescope')
 
     def test_valid_event_name(self):
-        ea = EventAction('env-before-read-docs', 'somescope')
-        assert 'env-before-read-docs' == ea.name
+        ea = EventAction(SphinxEvent.EBRD, 'somescope')
+        assert SphinxEvent.EBRD == ea.name
 
     def test_get_callbacks(self, kb_app, register_valid_event):
         callbacks = EventAction.get_callbacks(kb_app,
-                                              'env-before-read-docs')
+                                              SphinxEvent.EBRD)
         assert 1 == len(callbacks)
 
     def test_get_invalid_callback(self, kb_app):
@@ -70,14 +70,14 @@ class TestPluginEvents:
             EventAction.get_callbacks(kb_app, 'xxx')
 
     def test_get_no_callbacks(self, kb_app, register_valid_event):
-        callbacks = EventAction.get_callbacks(kb_app, 'html-context')
+        callbacks = EventAction.get_callbacks(kb_app, SphinxEvent.HC)
         assert 0 == len(callbacks)
 
     def test_builder_init(self, kb_app, builderinit_event):
         sphinx_app = dict()
         EventAction.call_builder_init(kb_app, sphinx_app)
         callbacks = EventAction.get_callbacks(kb_app,
-                                              'builder-init')
+                                              SphinxEvent.BI)
         assert 'handle_builderinit' == callbacks[0].__name__
         assert 987 == sphinx_app['flag']
 
@@ -88,7 +88,7 @@ class TestPluginEvents:
         docname = ''
         EventAction.call_purge_doc(kb_app, sphinx_app, env, docname)
         callbacks = EventAction.get_callbacks(kb_app,
-                                              'env-purge-doc')
+                                              SphinxEvent.EPD)
         assert 'handle_purgedoc' == callbacks[0].__name__
         assert 876 == sphinx_app['flag']
 
@@ -100,6 +100,6 @@ class TestPluginEvents:
         EventAction.call_env_before_read_docs(kb_app, sphinx_app, env,
                                               docnames)
         callbacks = EventAction.get_callbacks(kb_app,
-                                              'env-before-read-docs')
+                                              SphinxEvent.EBRD)
         assert 'handle_beforereaddocs' == callbacks[0].__name__
         assert 765 == sphinx_app['flag']

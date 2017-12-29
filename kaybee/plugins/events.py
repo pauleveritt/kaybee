@@ -3,44 +3,48 @@
 Dectate action to manage event callbacks in the configuration.
 
 """
+
+from enum import Enum
+
 import dectate
 
 
+class SphinxEvent(Enum):
+    BI = 'builder-inited'
+    EPD = 'env-purge-doc'
+    EBRD = 'env-before-read-docs'
+    DREAD = 'doctree-read'
+    DRES = 'doctree-resolved'
+    MR = 'missing-reference'
+    HCP = 'html-collect-pages'
+    ECC = 'env-check-consistency'
+    HC = 'html-context'
+
+
 class EventAction(dectate.Action):
-    _sphinx_event_names = [
-        'builder-init',
-        'env-purge-doc',
-        'env-before-read-docs',
-        'doctree-read',
-        'doctree-resolved',
-        'missing-reference',
-        'html-collect-pages',
-        'env-check-consistency',
-        'html-context'
-    ]
     config = {
         'events': dict
     }
 
     def __init__(self, name, scope):
-        assert name in self._sphinx_event_names
+        assert name in SphinxEvent
         super().__init__()
         self.name = name
         self.scope = scope
 
     def identifier(self, events):
-        return self.name + '-' + self.scope
+        return self.name.value + '-' + self.scope
 
     # noinspection PyMethodOverriding
     def perform(self, obj, events):
         events[self.name] = obj
 
     @classmethod
-    def get_callbacks(cls, registry, event_name: str):
+    def get_callbacks(cls, registry, event_name: SphinxEvent):
         # Presumes the registry has been committed
 
         # First ensure that event_name is valid
-        assert event_name in cls._sphinx_event_names
+        assert event_name in SphinxEvent
 
         q = dectate.Query('event')
         return [args[1] for args in q(registry) if args[0].name == event_name]
@@ -53,14 +57,14 @@ class EventAction(dectate.Action):
         """ On builder init event, commit registry and do callbacks """
 
         dectate.commit(kb_app)
-        for callback in cls.get_callbacks(kb_app, 'builder-init'):
+        for callback in cls.get_callbacks(kb_app, SphinxEvent.BI):
             callback(kb_app, sphinx_app)
 
     @classmethod
     def call_purge_doc(cls, kb_app, sphinx_app, env, docname):
         """ On env-purge-doc, do callbacks """
 
-        for callback in EventAction.get_callbacks(kb_app, 'env-purge-doc'):
+        for callback in EventAction.get_callbacks(kb_app, SphinxEvent.EPD):
             callback(kb_app, sphinx_app, env, docname)
 
     @classmethod
@@ -68,20 +72,13 @@ class EventAction(dectate.Action):
         """ On env-read-docs, do callbacks"""
 
         for callback in EventAction.get_callbacks(kb_app,
-                                                  'env-before-read-docs'):
+                                                  SphinxEvent.EBRD):
             callback(kb_app, sphinx_app, env, docnames)
 
-        # if not hasattr(env, 'site'):
-        #     config = getattr(app.config, 'kaybee_config')
-        #     if config:
-        #         env.site = Site(config)
-        #
-        # template_bridge = app.builder.templates
-        #
-        # # Add _templates in the conf directory
-        # confdir = os.path.join(app.confdir, '_templates')
-        # template_bridge.loaders.append(SphinxFileSystemLoader(confdir))
-        #
-        # for callback in EventAction.get_callbacks(kb,
-        # 'env-before-read-docs'):
-        #     callback(kb, app, env, docnames)
+    @classmethod
+    def call_env_doctree_read(cls, kb_app, sphinx_app, doctree):
+        """ On env-read-docs, do callbacks"""
+
+        for callback in EventAction.get_callbacks(kb_app,
+                                                  SphinxEvent.DREAD):
+            callback(kb_app, sphinx_app, doctree)

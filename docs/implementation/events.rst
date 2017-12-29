@@ -26,6 +26,9 @@ Why does Kaybee have its own event system?
   we might like. Stated differently, the surface area for those arguments is
   huge
 
+- Sphinx event names are string-based, which are easy to get wrong, causing
+  silent errors. Kaybee uses enums (and type hinting) to ensure accuracy.
+
 - Test writing...meaning, controlling the API might make it easier to write
   isolated tests for isolated callbacks
 
@@ -47,9 +50,15 @@ registering an event:
 
 .. code-block:: python
 
-    @kb.event('env-before-read-docs', 'coretype')
+    from kaybee.plugins.events import SphinxEvent
+
+
+    @kb.event(SphinxEvent.EBRD, 'coretype')
     def register_templates(kb, app, env, docnames):
         pass
 
 That's all it takes. If the module that contains this gets imported by
 anything, then this callback is registered.
+
+Note the ``SphinxEvent.EPRD``. This is the enum which ensures the
+proper event value.
