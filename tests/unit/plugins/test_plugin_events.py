@@ -54,6 +54,56 @@ def doctree_read_event(kb_app):
     yield handle_doctreeread
 
 
+@pytest.fixture()
+def doctree_resolved_event(kb_app):
+    @kb_app.event(SphinxEvent.DRES, 'somescope')
+    def handle_doctreeresolved(*args):
+        sphinx_app = args[1]
+        sphinx_app.flag = 543
+
+    yield handle_doctreeresolved
+
+
+@pytest.fixture()
+def html_collect_pages_event(kb_app):
+    @kb_app.event(SphinxEvent.HCP, 'somescope')
+    def handle_collectpages(*args):
+        sphinx_app = args[1]
+        sphinx_app.flag = 432
+
+    yield handle_collectpages
+
+
+@pytest.fixture()
+def check_consistency_event(kb_app):
+    @kb_app.event(SphinxEvent.ECC, 'somescope')
+    def handle_checkconsistency(*args):
+        builder = args[1]
+        builder.flag = 321
+
+    yield handle_checkconsistency
+
+
+@pytest.fixture()
+def missing_reference_event(kb_app):
+    @kb_app.event(SphinxEvent.MR, 'somescope')
+    def handle_missingreference(*args):
+        sphinx_app = args[1]
+        sphinx_app.flag = 210
+
+    yield handle_missingreference
+
+
+@pytest.fixture()
+def html_page_context_event(kb_app):
+    @kb_app.event(SphinxEvent.HPC, 'somescope')
+    def handle_pagecontext(*args):
+        sphinx_app = args[1]
+        sphinx_app.flag = 123
+
+    yield handle_pagecontext
+
+
 class TestPluginEvents:
     def test_import(self):
         assert 'EventAction' == EventAction.__name__
@@ -84,7 +134,7 @@ class TestPluginEvents:
             EventAction.get_callbacks(kb_app, 'xxx')
 
     def test_get_no_callbacks(self, kb_app, register_valid_event):
-        callbacks = EventAction.get_callbacks(kb_app, SphinxEvent.HC)
+        callbacks = EventAction.get_callbacks(kb_app, SphinxEvent.HPC)
         assert 0 == len(callbacks)
         assert register_valid_event not in callbacks
 
@@ -123,3 +173,68 @@ class TestPluginEvents:
                                               SphinxEvent.DREAD)
         assert doctree_read_event in callbacks
         assert 654 == sphinx_app.flag
+
+    def test_doctree_resolved(self, kb_app, sphinx_app, sphinx_doctree,
+                              doctree_resolved_event):
+        dectate.commit(kb_app)
+        fromdocname = ''
+        EventAction.call_doctree_resolved(kb_app, sphinx_app, sphinx_doctree,
+                                          fromdocname)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.DRES)
+        assert doctree_resolved_event in callbacks
+        assert 543 == sphinx_app.flag
+
+    def test_html_collect_pages(self, kb_app, sphinx_app,
+                                html_collect_pages_event):
+        dectate.commit(kb_app)
+        # This is an iterator, call list() on it
+        list(EventAction.call_html_collect_pages(kb_app, sphinx_app))
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.HCP)
+        assert html_collect_pages_event in callbacks
+        assert 432 == sphinx_app.flag
+
+    def test_env_check_consistency(self, kb_app,
+                                   sphinx_env,
+                                   html_builder,
+                                   check_consistency_event):
+        dectate.commit(kb_app)
+        EventAction.call_env_check_consistency(kb_app, html_builder,
+                                               sphinx_env)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.ECC)
+        assert check_consistency_event in callbacks
+        assert 321 == html_builder.flag
+
+    def test_missing_reference(self, kb_app, sphinx_app,
+                               sphinx_env,
+                               missing_reference_event
+                               ):
+        dectate.commit(kb_app)
+        node = object()
+        contnode = object()
+        EventAction.call_missing_reference(kb_app, sphinx_app,
+                                           sphinx_env, node, contnode)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.MR)
+        assert missing_reference_event in callbacks
+        assert 210 == sphinx_app.flag
+
+    def test_html_page_context(self, kb_app, sphinx_app,
+                               sphinx_doctree,
+                               html_page_context_event):
+        dectate.commit(kb_app)
+        pagename = ''
+        templatename = ''
+        context = dict()
+        EventAction.call_html_page_context(kb_app, sphinx_app,
+                                           pagename,
+                                           templatename,
+                                           context,
+                                           sphinx_doctree
+                                           )
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.HPC)
+        assert html_page_context_event in callbacks
+        assert 123 == sphinx_app.flag

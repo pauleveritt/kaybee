@@ -2,6 +2,7 @@ import dectate
 import pytest
 from docutils.readers import doctree
 from sphinx.application import Sphinx
+from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
 from kaybee.plugins.events import EventAction
@@ -35,3 +36,11 @@ def sphinx_env():
 def sphinx_doctree():
     dt: doctree = dict()
     yield dt
+
+
+@pytest.fixture()
+def html_builder():
+    class Builder:
+        pass
+    builder: StandaloneHTMLBuilder = Builder()
+    yield builder

@@ -15,19 +15,44 @@ def setup(app: Sphinx):
                     kb, sphinx_app)
                 )
     app.connect(SphinxEvent.EPD.value,
-                lambda sphinx_app, env, docname: EventAction.call_purge_doc(
-                    kb, sphinx_app, env, docname)
+                lambda sphinx_app, sphinx_env,
+                       docname: EventAction.call_purge_doc(
+                    kb, sphinx_app, sphinx_env, docname)
                 )
 
     app.connect(SphinxEvent.EBRD.value,
-                lambda sphinx_app, env,
+                lambda sphinx_app, sphinx_env,
                        docnames: EventAction.call_env_before_read_docs(
-                    kb, sphinx_app, env, docnames)
+                    kb, sphinx_app, sphinx_env, docnames)
                 )
 
-    app.connect(SphinxEvent.DREAD.value,
-                lambda sphinx_app, doctree: EventAction.call_env_doctree_read(
-                    kb, sphinx_app, doctree)
+    app.connect(SphinxEvent.DRES.value,
+                lambda sphinx_app, doctree,
+                       fromdocname: EventAction.call_doctree_resolved(
+                    kb, sphinx_app, doctree, fromdocname)
+                )
+
+    app.connect(SphinxEvent.HCP.value,
+                lambda sphinx_app: EventAction.call_html_collect_pages(
+                    kb, sphinx_app)
+                )
+
+    app.connect(SphinxEvent.ECC.value,
+                lambda sphinx_builder,
+                       sphinx_env: EventAction.call_env_check_consistency(
+                    kb, sphinx_builder, sphinx_env)
+                )
+
+    app.connect(SphinxEvent.MR.value,
+                lambda sphinx_app, sphinx_env, node,
+                       contnode: EventAction.call_missing_reference(
+                    kb, sphinx_app, sphinx_env, node, contnode)
+                )
+
+    app.connect(SphinxEvent.HPC.value,
+                lambda sphinx_app, pagename, templatename, context,
+                       doctree: EventAction.call_html_page_context(
+                    kb, sphinx_app, pagename, templatename, context, doctree)
                 )
 
     return dict(
