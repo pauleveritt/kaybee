@@ -11,3 +11,7 @@ looks in its registry for all the callbacks, and processes those callbacks in
 a richer way. These callbacks are registered with directives.
 
 Let's take a look.
+
+Multiple Events and Ordering
+============================
+

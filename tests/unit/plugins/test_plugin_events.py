@@ -6,7 +6,7 @@ from kaybee.plugins.events import EventAction, SphinxEvent
 
 @pytest.fixture()
 def register_valid_event(kb_app):
-    @kb_app.event(SphinxEvent.EBRD, 'somescope')
+    @kb_app.event(SphinxEvent.EBRD)
     def handle_event():
         return
 
@@ -15,8 +15,49 @@ def register_valid_event(kb_app):
 
 
 @pytest.fixture()
+def conflicting_events(kb_app):
+    # Omit the "order" to disambiguate
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext1(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext2(*args):
+        return
+
+    yield (handle_pagecontext1, handle_pagecontext2)
+
+
+@pytest.fixture()
+def multiple_events(kb_app):
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext1(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC, order=10)
+    def handle_pagecontext2(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC, order=9)
+    def handle_pagecontext3(*args):
+        return
+
+    @kb_app.event(SphinxEvent.HPC, order=90)
+    def handle_pagecontext4(*args):
+        return
+
+    @kb_app.event(SphinxEvent.BI)
+    def handle_builderinit1(*args):
+        return
+
+    dectate.commit(kb_app)
+    yield (handle_pagecontext1, handle_pagecontext2, handle_pagecontext3,
+           handle_pagecontext4)
+
+
+@pytest.fixture()
 def builderinit_event(kb_app):
-    @kb_app.event(SphinxEvent.BI, 'somescope')
+    @kb_app.event(SphinxEvent.BI)
     def handle_builderinit(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 987
@@ -26,7 +67,7 @@ def builderinit_event(kb_app):
 
 @pytest.fixture()
 def purgedoc_event(kb_app):
-    @kb_app.event(SphinxEvent.EPD, 'somescope')
+    @kb_app.event(SphinxEvent.EPD)
     def handle_purgedoc(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 876
@@ -36,7 +77,7 @@ def purgedoc_event(kb_app):
 
 @pytest.fixture()
 def before_read_docs_event(kb_app):
-    @kb_app.event(SphinxEvent.EBRD, 'somescope')
+    @kb_app.event(SphinxEvent.EBRD)
     def handle_beforereaddocs(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 765
@@ -46,7 +87,7 @@ def before_read_docs_event(kb_app):
 
 @pytest.fixture()
 def doctree_read_event(kb_app):
-    @kb_app.event(SphinxEvent.DREAD, 'somescope')
+    @kb_app.event(SphinxEvent.DREAD)
     def handle_doctreeread(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 654
@@ -56,7 +97,7 @@ def doctree_read_event(kb_app):
 
 @pytest.fixture()
 def doctree_resolved_event(kb_app):
-    @kb_app.event(SphinxEvent.DRES, 'somescope')
+    @kb_app.event(SphinxEvent.DRES)
     def handle_doctreeresolved(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 543
@@ -66,7 +107,7 @@ def doctree_resolved_event(kb_app):
 
 @pytest.fixture()
 def html_collect_pages_event(kb_app):
-    @kb_app.event(SphinxEvent.HCP, 'somescope')
+    @kb_app.event(SphinxEvent.HCP)
     def handle_collectpages(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 432
@@ -76,7 +117,7 @@ def html_collect_pages_event(kb_app):
 
 @pytest.fixture()
 def check_consistency_event(kb_app):
-    @kb_app.event(SphinxEvent.ECC, 'somescope')
+    @kb_app.event(SphinxEvent.ECC)
     def handle_checkconsistency(*args):
         builder = args[1]
         builder.flag = 321
@@ -86,7 +127,7 @@ def check_consistency_event(kb_app):
 
 @pytest.fixture()
 def missing_reference_event(kb_app):
-    @kb_app.event(SphinxEvent.MR, 'somescope')
+    @kb_app.event(SphinxEvent.MR)
     def handle_missingreference(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 210
@@ -96,7 +137,7 @@ def missing_reference_event(kb_app):
 
 @pytest.fixture()
 def html_page_context_event(kb_app):
-    @kb_app.event(SphinxEvent.HPC, 'somescope')
+    @kb_app.event(SphinxEvent.HPC)
     def handle_pagecontext(*args):
         sphinx_app = args[1]
         sphinx_app.flag = 123
@@ -112,16 +153,33 @@ class TestPluginEvents:
         dectate.commit(kb_app)
         assert True
 
+    def test_identifier_default(self):
+        ea = EventAction(SphinxEvent.BI)
+        assert 'builder-inited-20' == ea.identifier([])
+
+    def test_identifier_order(self):
+        ea = EventAction(SphinxEvent.BI, 10)
+        assert 'builder-inited-10' == ea.identifier([])
+
+    def test_identifiers_valid(self):
+        # We provide two handlers for same event and distinguish
+        # using 'order'
+        ea1 = EventAction(SphinxEvent.BI)
+        ea2 = EventAction(SphinxEvent.BI, 10)
+        assert 'builder-inited-20' == ea1.identifier([])
+
+    def test_identifiers_conflict(self, kb_app, conflicting_events):
+        # We provide two handlers for same event without distinguishing
+        # by order
+        with pytest.raises(dectate.error.ConflictError):
+            dectate.commit(kb_app)
+
     def test_invalid_event_name(self):
         # The class has a sequence with known Sphinx event names. If
         # you try to register an event that doesn't match, you should
         # get an error.
         with pytest.raises(AssertionError):
-            EventAction('xxx', 'somescope')
-
-    def test_valid_event_name(self):
-        ea = EventAction(SphinxEvent.EBRD, 'somescope')
-        assert SphinxEvent.EBRD == ea.name
+            EventAction('xxx')
 
     def test_get_callbacks(self, kb_app, register_valid_event):
         callbacks = EventAction.get_callbacks(kb_app,
@@ -137,6 +195,18 @@ class TestPluginEvents:
         callbacks = EventAction.get_callbacks(kb_app, SphinxEvent.HPC)
         assert 0 == len(callbacks)
         assert register_valid_event not in callbacks
+
+    def test_multiple_callbacks_sorted(self, kb_app, multiple_events):
+        callbacks = EventAction.get_callbacks(kb_app, SphinxEvent.HPC)
+        assert len(multiple_events) == len(callbacks)
+        assert multiple_events[0] == callbacks[2]
+        assert multiple_events[1] == callbacks[1]
+        assert multiple_events[2] == callbacks[0]
+        assert multiple_events[3] == callbacks[3]
+
+    #
+    # Sphinx event handlers
+    #
 
     def test_builder_init(self, kb_app, sphinx_app, builderinit_event):
         EventAction.call_builder_init(kb_app, sphinx_app)

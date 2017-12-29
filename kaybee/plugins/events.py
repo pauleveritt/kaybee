@@ -32,14 +32,17 @@ class EventAction(dectate.Action):
         'events': dict
     }
 
-    def __init__(self, name, scope):
+    def __init__(self, name, order: int = 20):
         assert name in SphinxEvent
         super().__init__()
         self.name = name
-        self.scope = scope
+
+        # 40 to 80 is reserved for Kaybee events
+        assert order < 40 or order > 80
+        self.order = order
 
     def identifier(self, events):
-        return self.name.value + '-' + self.scope
+        return f'{self.name.value}-{self.order}'
 
     # noinspection PyMethodOverriding
     def perform(self, obj, events):
@@ -53,7 +56,8 @@ class EventAction(dectate.Action):
         assert event_name in SphinxEvent
 
         q = dectate.Query('event')
-        return [args[1] for args in q(registry) if args[0].name == event_name]
+        qr = sorted(q(registry), key=lambda args: args[0].order)
+        return [args[1] for args in qr if args[0].name == event_name]
 
     #
     # Dispatchers for each of the Sphinx methods
