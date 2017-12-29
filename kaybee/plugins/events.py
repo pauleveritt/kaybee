@@ -66,7 +66,7 @@ class EventAction(dectate.Action):
             callback(kb_app, sphinx_app)
 
     @classmethod
-    def call_purge_doc(cls, kb_app, sphinx_app: Sphinx, env,
+    def call_purge_doc(cls, kb_app, sphinx_app: Sphinx, env: BuildEnvironment,
                        docname: str):
         """ On env-purge-doc, do callbacks """
 
@@ -99,5 +99,5 @@ class EventAction(dectate.Action):
         """ On doctree-resolved, do callbacks"""
 
         for callback in EventAction.get_callbacks(kb_app,
-                                                  SphinxEvent.DREAD):
-            callback(kb_app, sphinx_app, doctree)
+                                                  SphinxEvent.DRES):
+            callback(kb_app, sphinx_app, doctree, fromdocname)
