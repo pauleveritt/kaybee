@@ -7,7 +7,6 @@ extensions = [kaybee.__title__]
 master_doc = 'index'
 html_title = ''
 exclude_patterns = ['_build']
-templates_path = ['_templates']
 
 
 @kb.event(SphinxEvent.BI)
