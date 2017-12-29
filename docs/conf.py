@@ -10,6 +10,7 @@ extensions = ['sphinx.ext.intersphinx', 'alabaster']
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sphinx': ('http://www.sphinx-doc.org', None),
+    'dectate': ('http://dectate.readthedocs.io/en/latest', None),
 }
 
 # Theme setup

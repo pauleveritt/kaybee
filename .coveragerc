@@ -1,0 +1,5 @@
+[run]
+omit =
+    */env36/*
+    */docs/*
+    */tests/*

@@ -9,5 +9,6 @@ Kaybee is based on Sphinx, Python's static site generator for documentation.
     :maxdepth: 2
 
     installation
+    app
     loading_directives
     events
