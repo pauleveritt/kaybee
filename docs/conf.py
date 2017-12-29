@@ -6,7 +6,7 @@ version = kaybee.__version__
 release = version
 master_doc = 'index'
 exclude_patterns = ['_build']
-extensions = ['sphinx.ext.intersphinx', 'alabaster']
+extensions = ['sphinx.ext.intersphinx', 'alabaster', 'kaybee']
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sphinx': ('http://www.sphinx-doc.org', None),

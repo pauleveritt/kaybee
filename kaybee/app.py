@@ -12,6 +12,8 @@ the app.
 """
 import dectate
 
+from kaybee.plugins.events import EventAction
+
 
 class kb(dectate.App):
-    pass
+    event = dectate.directive(EventAction)
