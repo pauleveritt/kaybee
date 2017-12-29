@@ -1,7 +1,14 @@
+import dectate
 import pytest
+
+from kaybee.plugins.events import EventAction
 
 
 @pytest.fixture()
-def app_minimum():
-    app = dict()
+def kb_app():
+    class app(dectate.App):
+        event = dectate.directive(EventAction)
+
     yield app
+
+
