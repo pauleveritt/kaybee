@@ -2,6 +2,7 @@
 gitchangelog
 bumpversion
 pytest
+pytest-mock
 travis-encrypt
 livereload
 beautifulsoup4

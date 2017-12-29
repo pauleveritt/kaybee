@@ -30,12 +30,12 @@ class CustomWatcher(Watcher):
 
     def is_glob_changed(self, path, ignore=None):
         for f in glob.glob(path, recursive=True):
-            if self.is_file_changed(f, ignore):
+            if self.is_file_changed(f, ignore): # pragma: no cover
                 return True
         return False
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     watcher = CustomWatcher()
     server = Server(watcher=CustomWatcher())
     for p in watcher.paths:

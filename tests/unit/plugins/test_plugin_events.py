@@ -14,6 +14,15 @@ def register_valid_event(kb_app):
     yield handle_event
 
 
+@pytest.fixture()
+def builderinit_event(kb_app):
+    @kb_app.event('builder-init', 'somescope')
+    def handle_builderinit(kb_app, sphinx_app):
+        sphinx_app['flag'] = 987
+
+    yield handle_builderinit
+
+
 class TestPluginEvents:
     def test_import(self):
         assert 'EventAction' == EventAction.__name__
@@ -38,6 +47,18 @@ class TestPluginEvents:
                                               'env-before-read-docs')
         assert 1 == len(callbacks)
 
+    def test_get_invalid_callback(self, kb_app):
+        with pytest.raises(AssertionError):
+            EventAction.get_callbacks(kb_app, 'xxx')
+
     def test_get_no_callbacks(self, kb_app, register_valid_event):
-        callbacks = EventAction.get_callbacks(kb_app, 'xyzpdg')
+        callbacks = EventAction.get_callbacks(kb_app, 'html-context')
         assert 0 == len(callbacks)
+
+    def test_call_builder_init(self, kb_app, builderinit_event):
+        sphinx_app = dict()
+        EventAction.call_builder_init(kb_app, sphinx_app)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              'builder-init')
+        assert 'handle_builderinit' == callbacks[0].__name__
+        assert 987 == sphinx_app['flag']

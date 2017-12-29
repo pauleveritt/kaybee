@@ -12,3 +12,11 @@ def kb_app():
     yield app
 
 
+@pytest.fixture()
+def sphinx_app():
+    class SphinxApp:
+        def connect(self, event_name, callable):
+            pass
+
+    app = SphinxApp()
+    yield app
