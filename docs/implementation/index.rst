@@ -12,3 +12,4 @@ the development of major features.
     setup_function
     registry
     events
+    resources

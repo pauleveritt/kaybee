@@ -9,6 +9,19 @@ Both types of tests use ``pytest`` as the foundation, with top-level
 ``conftest.py`` fixtures providing variations of important common data and
 mocks.
 
+Personal Preferences
+====================
+
+I spend most of my development time in TDD. It's more efficient than running
+Sphinx and looking at a browser. I try to avoid taking a shortcut and running
+Sphinx directly and checking the output. It's pretty easy to make a small
+integration test.
+
+For PyCharm, when I actually run Sphinx, I don't use the Sphinx-flavored run
+configuration. I make a Pythonrun config that points at my
+``sphinx-quickstart``, with arguments of ``-E -b html . _build``, and a
+working directory above the ``docs`` directory.
+
 Unit Testing
 ============
 
