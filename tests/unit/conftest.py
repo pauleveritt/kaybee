@@ -5,7 +5,7 @@ from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
-from kaybee.plugins.debugdumper import DumperAction
+from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 
 

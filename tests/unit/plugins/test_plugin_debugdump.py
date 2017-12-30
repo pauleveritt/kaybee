@@ -4,8 +4,8 @@ import json
 import dectate
 import pytest
 
-from kaybee.plugins.debugdumper import (
-    DumperAction,
+from kaybee.plugins.debugdumper.action import DumperAction
+from kaybee.plugins.debugdumper.events import (
     datetime_handler,
     generate_debug_info,
 )

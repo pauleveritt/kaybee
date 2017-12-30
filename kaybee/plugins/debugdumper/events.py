@@ -1,13 +1,13 @@
 import datetime
 import json
 
-import dectate
 import os
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
 from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
+from kaybee.plugins.debugdumper.action import DumperAction
 
 
 def datetime_handler(x):
@@ -17,34 +17,9 @@ def datetime_handler(x):
     raise TypeError("Unknown type")
 
 
-class DumperAction(dectate.Action):
-    config = {
-        'dumpers': dict
-    }
-
-    def __init__(self, name: str):
-        super().__init__()
-        self.name = name
-
-    def identifier(self, dumpers):
-        return self.name
-
-    # noinspection PyMethodOverriding
-    def perform(self, obj, dumpers):
-        dumpers[self.name] = obj
-
-    @classmethod
-    def get_callbacks(cls, registry):
-        # Presumes the registry has been committed
-
-        q = dectate.Query('dumper')
-        return [args[1] for args in q(registry)]
-
-
 @kb.event(SphinxEvent.ECC, 'debugdump')
 def generate_debug_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
-
     # Get all the dumpers and dump their results
     dumpers = DumperAction.get_callbacks(kb_app)
     dumper_results = [dumper(kb_app) for dumper in dumpers]
