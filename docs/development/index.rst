@@ -9,4 +9,5 @@ setup a Kaybee project in a similar way, these docs will get you started.
     :maxdepth: 2
 
     setup
+    debugging
     testing
