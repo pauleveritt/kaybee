@@ -32,7 +32,9 @@ class EventAction(dectate.Action):
         'events': dict
     }
 
-    def __init__(self, name, order: int = 20,
+    def __init__(self,
+                 name: str,
+                 order: int = 20,
                  scope=None,
                  system_order=None):
         assert name in SphinxEvent

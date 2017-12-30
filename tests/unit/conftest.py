@@ -5,6 +5,7 @@ from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
+from kaybee.plugins.debugdumper import DumperAction
 from kaybee.plugins.events import EventAction
 
 
@@ -12,6 +13,7 @@ from kaybee.plugins.events import EventAction
 def kb_app():
     class app(dectate.App):
         event = dectate.directive(EventAction)
+        dumper = dectate.directive(DumperAction)
 
     yield app
 
@@ -41,6 +43,7 @@ def sphinx_doctree():
 @pytest.fixture()
 def html_builder():
     class Builder:
-        pass
+        outdir = '/tmp/faker'
+
     builder: StandaloneHTMLBuilder = Builder()
     yield builder
