@@ -20,6 +20,24 @@ Or do you? The ``debugdump`` plugin serializes a JSON representation of your
 entire system, into a single file. When combined with JSON-oriented
 integration tests, this is a key tool during development.
 
+To use it, write some code like this:
+
+.. code-block:: python
+
+    @kb_app.dumper('resources')
+    def handle_event(kb_app=None):
+        return dict(
+            resource=dict(
+                published=datetime.datetime.now()
+
+            )
+        )
+
+The dict you return will be merged with the dicts from all the other
+callbacks and written to ``debug_dump.json`` in the output directory. You
+can then write integration test fixtures which load this file, letting you
+easily make assertions about the state of the system.
+
 For more information, read about the
 :ref:`implementation of debugdump <debugdump-implementation>`.
 

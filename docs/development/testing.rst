@@ -49,7 +49,10 @@ The fixtures provide two variations of results:
 - JSON "pages" parsed into Python dicts to reason about the results as data
 
 The Kaybee integration tests favor the latter. Read more about this in
-:ref:`debugdump-dev`.
+:ref:`debugdump-dev`. For example, here is a simple example of a debugdump
+test:
+
+.. literalinclude:: ../../tests/integration/test_debugdumper.py
 
 The top-level ``conftest.py`` has the magic from ``sphinx.testing.fixtures``
 that makes this work, along with a customization that does cleanup of the

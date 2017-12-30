@@ -50,3 +50,11 @@ def page(content, request):
     c = (content.outdir / pagename).text()
 
     yield BeautifulSoup(c, 'html5lib')
+
+
+@pytest.fixture()
+def json_page(content, request):
+    pagename = request.param
+    c = (content.outdir / pagename).text()
+
+    yield json.loads(c)

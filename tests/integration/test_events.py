@@ -1,7 +1,3 @@
-"""
-Test the kaybee.setup function
-"""
-
 import pytest
 
 pytestmark = pytest.mark.sphinx('html', testroot='events')
