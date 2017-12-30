@@ -17,7 +17,7 @@ def datetime_handler(x):
     raise TypeError("Unknown type")
 
 
-@kb.event(SphinxEvent.ECC, 'debugdump')
+@kb.event(SphinxEvent.ECC, scope='debugdump')
 def generate_debug_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
     # Get all the dumpers and dump their results
