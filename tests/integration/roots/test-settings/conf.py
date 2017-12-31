@@ -1,11 +1,4 @@
-import os
-import sys
-
 import kaybee
-
-sys.path.insert(0, os.path.abspath('.'))
-# noinspection PyUnresolvedReferences
-import kaybee_plugins
 
 extensions = [kaybee.__title__]
 

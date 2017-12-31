@@ -1,4 +1,7 @@
+from importlib import import_module
+
 import importscan
+import sys
 from sphinx.application import Sphinx
 
 from kaybee import plugins
@@ -13,7 +16,11 @@ __title__ = "kaybee"
 def setup(app: Sphinx):
     """ Initialize Kaybee as a Sphinx extension """
 
+    # Scan for directives, first in the system, second in the docs project
     importscan.scan(plugins)
+    conf_dir = app.confdir
+    sys.path.insert(0, conf_dir)
+    import_module('kaybee_plugins.events')
 
     app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
 
