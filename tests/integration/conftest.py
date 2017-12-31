@@ -37,10 +37,6 @@ def rootdir(remove_sphinx_projects):
     roots = path(os.path.dirname(__file__) or '.').abspath() / 'roots'
     yield roots
 
-    # This is obviously fishy. pytest keeps giving ConflictErrors on
-    # Dectate actions, as if it isn't resetting the app/registry state
-    # between runs.
-
 
 @pytest.fixture()
 def content(app):

@@ -3,6 +3,9 @@ import pytest
 
 from kaybee.plugins.events import EventAction, SphinxEvent
 
+import importlib
+import importscan
+
 
 @pytest.fixture()
 def register_valid_event(kb_app):
@@ -284,7 +287,9 @@ class TestPluginEvents:
     # Sphinx event handlers
     #
 
-    def test_builder_init(self, kb_app, sphinx_app, builderinit_event):
+    def test_builder_init(self, monkeypatch, kb_app, sphinx_app, builderinit_event):
+        monkeypatch.setattr(importlib, 'import_module', lambda x: None)
+        monkeypatch.setattr(importscan, 'scan', lambda x: None)
         EventAction.call_builder_init(kb_app, sphinx_app)
         callbacks = EventAction.get_callbacks(kb_app,
                                               SphinxEvent.BI)

@@ -24,6 +24,7 @@ def kb_app():
 def kaybee_settings():
     class KaybeeSettings(BaseModel):
         debugdumper: DebugdumperModel = DebugdumperModel()
+        plugins_dir = ''
 
     yield KaybeeSettings()
 
@@ -43,6 +44,7 @@ def sphinx_app(sphinx_config, html_builder):
         def __init__(self):
             self.config = sphinx_config
             self.builder = html_builder
+            self.confdir = ''
 
         def add_config_value(self, *args):
             pass

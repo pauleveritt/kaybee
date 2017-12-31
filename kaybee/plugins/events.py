@@ -6,12 +6,12 @@ Dectate action to manage event callbacks in the configuration.
 
 import sys
 from enum import Enum
-from importlib import import_module
+import importlib
 from typing import List
 
 import dectate
 from docutils.readers import doctree
-from importscan import scan
+import importscan
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
@@ -85,8 +85,8 @@ class EventAction(dectate.Action):
         conf_dir = sphinx_app.confdir
         sys.path.insert(0, conf_dir)
         plugins_dir = sphinx_app.config.kaybee_settings.plugins_dir
-        plugin_package = import_module(plugins_dir)
-        scan(plugin_package)
+        plugin_package = importlib.import_module(plugins_dir)
+        importscan.scan(plugin_package)
 
         dectate.commit(kb_app)
         for callback in cls.get_callbacks(kb_app, SphinxEvent.BI):

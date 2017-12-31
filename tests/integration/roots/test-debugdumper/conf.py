@@ -1,7 +1,4 @@
-from sphinx.environment import BuildEnvironment
-
 import kaybee
-from kaybee.app import kb
 
 extensions = [kaybee.__title__]
 
@@ -14,8 +11,3 @@ kaybee_settings = kaybee.KaybeeSettings(
         use_debug=True
     )
 )
-
-
-@kb.dumper('testdumper')
-def dump_hello(kb_app: kb, sphinx_env: BuildEnvironment):
-    return dict(hello='world')
