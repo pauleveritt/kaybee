@@ -9,13 +9,15 @@ from sphinx.environment import BuildEnvironment
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
+from kaybee.plugins.resources.action import ResourceAction
 
 
 @pytest.fixture()
 def kb_app():
     class app(dectate.App):
-        event = dectate.directive(EventAction)
         dumper = dectate.directive(DumperAction)
+        event = dectate.directive(EventAction)
+        resource = dectate.directive(ResourceAction)
 
     yield app
 
