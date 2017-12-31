@@ -7,4 +7,4 @@ pytestmark = pytest.mark.sphinx('html', testroot='resources')
 class TestResourceDebug:
 
     def test_settings(self, json_page):
-        assert 'use_debug' in json_page['settings']['debugdumper'].keys()
+        assert 'use_debug' in json_page['settings']['debugdumper']
