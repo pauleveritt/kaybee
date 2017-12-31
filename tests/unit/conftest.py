@@ -1,11 +1,13 @@
 import dectate
 import pytest
 from docutils.readers import doctree
+from pydantic import BaseModel
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
 from kaybee.plugins.debugdumper.action import DumperAction
+from kaybee.plugins.debugdumper.model import DebugdumperModel
 from kaybee.plugins.events import EventAction
 
 
@@ -19,8 +21,21 @@ def kb_app():
 
 
 @pytest.fixture()
-def sphinx_app():
+def kaybee_settings():
+    class KaybeeSettings(BaseModel):
+        debugdumper: DebugdumperModel = DebugdumperModel()
+
+    yield KaybeeSettings()
+
+
+@pytest.fixture()
+def sphinx_app(kaybee_settings):
     class SphinxApp:
+        def __init__(self):
+            self.config = dict(
+                kaybee_settings=kaybee_settings
+            )
+
         def add_config_value(self, *args):
             pass
 
@@ -32,8 +47,11 @@ def sphinx_app():
 
 
 @pytest.fixture()
-def sphinx_env():
-    env: BuildEnvironment = dict()
+def sphinx_env(sphinx_app):
+    class SphinxEnv:
+        app = sphinx_app
+
+    env: BuildEnvironment = SphinxEnv()
     yield env
 
 

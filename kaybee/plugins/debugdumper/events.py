@@ -20,6 +20,13 @@ def datetime_handler(x):
 @kb.event(SphinxEvent.ECC, scope='debugdump')
 def generate_debug_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
+    # If the config value doesn't enable dumping, bail out
+    dumper_settings = sphinx_env.app.config['kaybee_settings'].debugdumper
+    use_debug = dumper_settings.use_debug
+
+    if not use_debug:
+        return
+
     # Get all the dumpers and dump their results
     dumpers = DumperAction.get_callbacks(kb_app)
     dumper_results = [dumper(kb_app, sphinx_env) for dumper in dumpers]

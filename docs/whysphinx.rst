@@ -7,3 +7,5 @@ Why Sphinx
 - Rich interlinking
 
 - Intersphinx
+
+- Powerful inclusion of source code

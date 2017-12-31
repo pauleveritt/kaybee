@@ -16,3 +16,4 @@ class TestSettingsDebug:
 
     def test_settings(self, json_page):
         assert 'use_debug' in json_page['settings']['debugdumper'].keys()
+        assert 'using_demo' in json_page['demosettings']
