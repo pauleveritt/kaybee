@@ -5,7 +5,6 @@ generated HTML.
 
 """
 
-from importlib import reload
 import json
 import os
 from pathlib import Path
@@ -14,8 +13,6 @@ from shutil import rmtree
 import pytest
 from bs4 import BeautifulSoup
 from sphinx.testing.path import path
-
-from kaybee import app
 
 pytest_plugins = 'sphinx.testing.fixtures'
 
@@ -43,7 +40,6 @@ def rootdir(remove_sphinx_projects):
     # This is obviously fishy. pytest keeps giving ConflictErrors on
     # Dectate actions, as if it isn't resetting the app/registry state
     # between runs.
-    reload(app)
 
 
 @pytest.fixture()
