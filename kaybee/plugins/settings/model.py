@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from kaybee.plugins.debugdumper.model import DebugdumperModel
+from kaybee.plugins.debugdumper.settings import DebugdumperModel
 
 
 class KaybeeSettings(BaseModel):
