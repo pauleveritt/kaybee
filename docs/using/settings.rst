@@ -30,9 +30,6 @@ Here is an example of a ``conf.py`` file with basic settings.
    .. literalinclude:: ../../tests/integration/roots/test-settings/conf.py
 
 
-
-
-- XXX TODO wrap debugdump in config value
 - model.py -> settings.py
 - events.py -> handlers.py (and docs changes)
 - Unit test for localtemplates and increase coverage
