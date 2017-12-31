@@ -21,7 +21,7 @@ def datetime_handler(x):
 def generate_debug_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
     # If the config value doesn't enable dumping, bail out
-    dumper_settings = sphinx_env.app.config['kaybee_settings'].debugdumper
+    dumper_settings = sphinx_env.app.config.kaybee_settings.debugdumper
     use_debug = dumper_settings.use_debug
 
     if not use_debug:

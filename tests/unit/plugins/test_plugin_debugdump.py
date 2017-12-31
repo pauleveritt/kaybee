@@ -95,7 +95,7 @@ class TestPluginGenerateDebugEvent:
     def test_debug_true(self, mocker, kb_app, html_builder,
                         sphinx_env, register_valid_event):
         # Turn on debug
-        sphinx_env.app.config['kaybee_settings'].debugdumper.use_debug = True
+        sphinx_env.app.config.kaybee_settings.debugdumper.use_debug = True
 
         output_file = mocker.mock_open()
         mocker.patch('builtins.open', output_file, create=True)

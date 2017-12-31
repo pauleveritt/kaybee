@@ -29,17 +29,25 @@ def kaybee_settings():
 
 
 @pytest.fixture()
-def sphinx_app(kaybee_settings):
+def sphinx_config(kaybee_settings):
+    class SphinxConfig:
+        def __init__(self):
+            self.kaybee_settings = kaybee_settings
+
+    yield SphinxConfig()
+
+
+@pytest.fixture()
+def sphinx_app(sphinx_config, html_builder):
     class SphinxApp:
         def __init__(self):
-            self.config = dict(
-                kaybee_settings=kaybee_settings
-            )
+            self.config = sphinx_config
+            self.builder = html_builder
 
         def add_config_value(self, *args):
             pass
 
-        def connect(self, event_name, callable):
+        def connect(self, event_name, some_callable):
             pass
 
     app: Sphinx = SphinxApp()
@@ -47,8 +55,11 @@ def sphinx_app(kaybee_settings):
 
 
 @pytest.fixture()
-def sphinx_env(sphinx_app):
+def sphinx_env(sphinx_app, sphinx_config):
     class SphinxEnv:
+        def __init__(self):
+            self.config = sphinx_config
+
         app = sphinx_app
 
     env: BuildEnvironment = SphinxEnv()
@@ -62,9 +73,22 @@ def sphinx_doctree():
 
 
 @pytest.fixture()
-def html_builder():
+def template_bridge():
+    """ Fixture for the template bridge """
+
+    class TemplateBridge:
+        def __init__(self):
+            self.loaders = []
+
+    yield TemplateBridge()
+
+
+@pytest.fixture()
+def html_builder(template_bridge):
     class Builder:
-        outdir = '/tmp/faker'
+        def __init__(self):
+            self.outdir = '/tmp/faker'
+            self.templates = template_bridge
 
     builder: StandaloneHTMLBuilder = Builder()
     yield builder
