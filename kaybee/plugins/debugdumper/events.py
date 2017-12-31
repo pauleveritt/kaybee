@@ -22,7 +22,7 @@ def generate_debug_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
     # Get all the dumpers and dump their results
     dumpers = DumperAction.get_callbacks(kb_app)
-    dumper_results = [dumper(kb_app) for dumper in dumpers]
+    dumper_results = [dumper(kb_app, sphinx_env) for dumper in dumpers]
     result = {k: v for d in dumper_results for k, v in d.items()}
 
     # Now write the result to disk

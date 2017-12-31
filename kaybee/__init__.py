@@ -4,6 +4,7 @@ from sphinx.application import Sphinx
 from kaybee import plugins
 from kaybee.app import kb
 from kaybee.plugins.events import EventAction, SphinxEvent
+from kaybee.plugins.settings.model import KaybeeSettings
 
 __version__ = '0.0.7'
 __title__ = "kaybee"
@@ -13,6 +14,8 @@ def setup(app: Sphinx):
     """ Initialize Kaybee as a Sphinx extension """
 
     importscan.scan(plugins)
+
+    app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
 
     app.connect(SphinxEvent.BI.value,
                 lambda sphinx_app: EventAction.call_builder_init(

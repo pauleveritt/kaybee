@@ -21,6 +21,9 @@ def kb_app():
 @pytest.fixture()
 def sphinx_app():
     class SphinxApp:
+        def add_config_value(self, *args):
+            pass
+
         def connect(self, event_name, callable):
             pass
 

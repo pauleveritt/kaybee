@@ -11,3 +11,4 @@ setup a Kaybee project in a similar way, these docs will get you started.
     setup
     debugging
     testing
+    settings

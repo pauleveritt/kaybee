@@ -13,3 +13,4 @@ the development of major features.
     registry
     events
     debugdump
+    settings

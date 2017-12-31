@@ -30,7 +30,7 @@ def conflicting_events(kb_app):
 @pytest.fixture()
 def register_valid_event(kb_app):
     @kb_app.dumper(RESOURCES)
-    def handle_event(kb_app=None):
+    def handle_event(kb_app=None, sphinx_env=None):
         return dict(
             resource=dict(
                 published=datetime.datetime.now()
