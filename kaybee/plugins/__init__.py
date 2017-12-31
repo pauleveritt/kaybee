@@ -1,3 +1,3 @@
-import kaybee.plugins.debugdumper.events
-import kaybee.plugins.localtemplates.events
-import kaybee.plugins.settings.events
+import kaybee.plugins.debugdumper.handlers
+import kaybee.plugins.localtemplates.handlers
+import kaybee.plugins.settings.handlers

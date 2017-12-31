@@ -1,4 +1,4 @@
-from kaybee.plugins.settings.events import dump_settings
+from kaybee.plugins.settings.handlers import dump_settings
 
 
 class TestPluginSettings:

@@ -1,4 +1,4 @@
-from kaybee.plugins.localtemplates.events import (
+from kaybee.plugins.localtemplates.handlers import (
     handle_beforereaddocs,
 )
 
