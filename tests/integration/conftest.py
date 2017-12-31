@@ -4,15 +4,18 @@ Integration-oriented fixtures for sphinx.testing of
 generated HTML.
 
 """
+
+from importlib import reload
 import json
 import os
 from pathlib import Path
 from shutil import rmtree
-from xml.etree import ElementTree
 
 import pytest
 from bs4 import BeautifulSoup
 from sphinx.testing.path import path
+
+from kaybee import app
 
 pytest_plugins = 'sphinx.testing.fixtures'
 
@@ -36,6 +39,11 @@ def remove_sphinx_projects(sphinx_test_tempdir):
 def rootdir(remove_sphinx_projects):
     roots = path(os.path.dirname(__file__) or '.').abspath() / 'roots'
     yield roots
+
+    # This is obviously fishy. pytest keeps giving ConflictErrors on
+    # Dectate actions, as if it isn't resetting the app/registry state
+    # between runs.
+    reload(app)
 
 
 @pytest.fixture()
