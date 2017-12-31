@@ -4,11 +4,11 @@ Integration-oriented fixtures for sphinx.testing of
 generated HTML.
 
 """
+
 import json
 import os
 from pathlib import Path
 from shutil import rmtree
-from xml.etree import ElementTree
 
 import pytest
 from bs4 import BeautifulSoup
@@ -50,3 +50,11 @@ def page(content, request):
     c = (content.outdir / pagename).text()
 
     yield BeautifulSoup(c, 'html5lib')
+
+
+@pytest.fixture()
+def json_page(content, request):
+    pagename = request.param
+    c = (content.outdir / pagename).text()
+
+    yield json.loads(c)

@@ -12,8 +12,10 @@ the app.
 """
 import dectate
 
+from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 
 
 class kb(dectate.App):
     event = dectate.directive(EventAction)
+    dumper = dectate.directive(DumperAction)

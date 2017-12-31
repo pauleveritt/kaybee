@@ -31,6 +31,17 @@ deeply-nested data passed as arguments into functions. Kaybee itself has been
 designed to isolate its feature implementations from the Sphinx environment,
 to make testing easier.
 
+To make test-running faster (especially under the debugger), and to focus on
+on the task at hand, right-click on the test/class/file/directory that you
+want to run and choose ``Run 'py.test' on ...``. Or better yet, choose to
+run that test using ``Debug 'py.test' on ...``. PyCharm creates a temporary
+(gray colored name) run configuration on-the-fly and sets that as the active
+run config.
+
+To go into real TDD mode, using ``Run`` and click ``Toggle auto-test`` then
+run. PyCharm will re-run your selected test/tests as you type your code. The
+delay is configurable.
+
 Integration Testing
 ===================
 
@@ -50,3 +61,12 @@ The fixtures provide two variations of results:
 
 - JSON "pages" parsed into Python dicts to reason about the results as data
 
+The Kaybee integration tests favor the latter. Read more about this in
+:ref:`debugdump-dev`. For example, here is a simple example of a debugdump
+test:
+
+.. literalinclude:: ../../tests/integration/test_debugdumper.py
+
+The top-level ``conftest.py`` has the magic from ``sphinx.testing.fixtures``
+that makes this work, along with a customization that does cleanup of the
+Sphinx build at the appropriate time.

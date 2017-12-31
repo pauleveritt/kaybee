@@ -4,15 +4,21 @@ Dectate action to manage event callbacks in the configuration.
 
 """
 
+import importlib
+import os
+import sys
 from enum import Enum
-from typing import List, Optional
+from typing import List
 
+import dectate
+import importscan
 from docutils.readers import doctree
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
+from sphinx.util import logging
 
-import dectate
+logger = logging.getLogger(__name__)
 
 
 class SphinxEvent(Enum):
@@ -32,7 +38,9 @@ class EventAction(dectate.Action):
         'events': dict
     }
 
-    def __init__(self, name, order: int = 20,
+    def __init__(self,
+                 name: str,
+                 order: int = 20,
                  scope=None,
                  system_order=None):
         assert name in SphinxEvent
@@ -76,6 +84,18 @@ class EventAction(dectate.Action):
     @classmethod
     def call_builder_init(cls, kb_app, sphinx_app: Sphinx):
         """ On builder init event, commit registry and do callbacks """
+
+        # Find and commit docs project plugins
+        conf_dir = sphinx_app.confdir
+        plugins_dir = sphinx_app.config.kaybee_settings.plugins_dir
+        full_plugins_dir = os.path.join(conf_dir, plugins_dir)
+
+        if os.path.exists(full_plugins_dir):
+            sys.path.insert(0, conf_dir)
+            plugin_package = importlib.import_module(plugins_dir)
+            importscan.scan(plugin_package)
+        else:
+            logger.info(f'## Kaybee: No plugin dir at {plugins_dir}')
 
         dectate.commit(kb_app)
         for callback in cls.get_callbacks(kb_app, SphinxEvent.BI):
@@ -123,8 +143,8 @@ class EventAction(dectate.Action):
     def call_html_collect_pages(cls, kb_app, sphinx_app: Sphinx):
         """ On html-collect-pages, do callbacks"""
 
-        a = EventAction.get_callbacks(kb_app,
-                                      SphinxEvent.HCP)
+        EventAction.get_callbacks(kb_app,
+                                  SphinxEvent.HCP)
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.HCP):
             yield callback(kb_app, sphinx_app)

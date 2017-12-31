@@ -1,10 +1,13 @@
 import dectate
 import pytest
 from docutils.readers import doctree
+from pydantic import BaseModel
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
+from kaybee.plugins.debugdumper.action import DumperAction
+from kaybee.plugins.debugdumper.model import DebugdumperModel
 from kaybee.plugins.events import EventAction
 
 
@@ -12,14 +15,41 @@ from kaybee.plugins.events import EventAction
 def kb_app():
     class app(dectate.App):
         event = dectate.directive(EventAction)
+        dumper = dectate.directive(DumperAction)
 
     yield app
 
 
 @pytest.fixture()
-def sphinx_app():
+def kaybee_settings():
+    class KaybeeSettings(BaseModel):
+        debugdumper: DebugdumperModel = DebugdumperModel()
+        plugins_dir = ''
+
+    yield KaybeeSettings()
+
+
+@pytest.fixture()
+def sphinx_config(kaybee_settings):
+    class SphinxConfig:
+        def __init__(self):
+            self.kaybee_settings = kaybee_settings
+
+    yield SphinxConfig()
+
+
+@pytest.fixture()
+def sphinx_app(sphinx_config, html_builder):
     class SphinxApp:
-        def connect(self, event_name, callable):
+        def __init__(self):
+            self.config = sphinx_config
+            self.builder = html_builder
+            self.confdir = ''
+
+        def add_config_value(self, *args):
+            pass
+
+        def connect(self, event_name, some_callable):
             pass
 
     app: Sphinx = SphinxApp()
@@ -27,8 +57,14 @@ def sphinx_app():
 
 
 @pytest.fixture()
-def sphinx_env():
-    env: BuildEnvironment = dict()
+def sphinx_env(sphinx_app, sphinx_config):
+    class SphinxEnv:
+        def __init__(self):
+            self.config = sphinx_config
+
+        app = sphinx_app
+
+    env: BuildEnvironment = SphinxEnv()
     yield env
 
 
@@ -39,8 +75,22 @@ def sphinx_doctree():
 
 
 @pytest.fixture()
-def html_builder():
+def template_bridge():
+    """ Fixture for the template bridge """
+
+    class TemplateBridge:
+        def __init__(self):
+            self.loaders = []
+
+    yield TemplateBridge()
+
+
+@pytest.fixture()
+def html_builder(template_bridge):
     class Builder:
-        pass
+        def __init__(self):
+            self.outdir = '/tmp/faker'
+            self.templates = template_bridge
+
     builder: StandaloneHTMLBuilder = Builder()
     yield builder
