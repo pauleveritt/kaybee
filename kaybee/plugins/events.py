@@ -4,17 +4,21 @@ Dectate action to manage event callbacks in the configuration.
 
 """
 
+import importlib
+import os
 import sys
 from enum import Enum
-import importlib
 from typing import List
 
 import dectate
-from docutils.readers import doctree
 import importscan
+from docutils.readers import doctree
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
+from sphinx.util import logging
+
+logger = logging.getLogger(__name__)
 
 
 class SphinxEvent(Enum):
@@ -83,10 +87,15 @@ class EventAction(dectate.Action):
 
         # Find and commit docs project plugins
         conf_dir = sphinx_app.confdir
-        sys.path.insert(0, conf_dir)
         plugins_dir = sphinx_app.config.kaybee_settings.plugins_dir
-        plugin_package = importlib.import_module(plugins_dir)
-        importscan.scan(plugin_package)
+        full_plugins_dir = os.path.join(conf_dir, plugins_dir)
+
+        if os.path.exists(full_plugins_dir):
+            sys.path.insert(0, conf_dir)
+            plugin_package = importlib.import_module(plugins_dir)
+            importscan.scan(plugin_package)
+        else:
+            logger.info(f'## Kaybee: No plugin dir at {plugins_dir}')
 
         dectate.commit(kb_app)
         for callback in cls.get_callbacks(kb_app, SphinxEvent.BI):
