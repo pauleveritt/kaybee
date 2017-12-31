@@ -4,15 +4,17 @@ Dectate action to manage event callbacks in the configuration.
 
 """
 
+import sys
 from enum import Enum
-from typing import List, Optional
+from importlib import import_module
+from typing import List
 
+import dectate
 from docutils.readers import doctree
+from importscan import scan
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
-
-import dectate
 
 
 class SphinxEvent(Enum):
@@ -79,6 +81,13 @@ class EventAction(dectate.Action):
     def call_builder_init(cls, kb_app, sphinx_app: Sphinx):
         """ On builder init event, commit registry and do callbacks """
 
+        # Find and commit docs project plugins
+        conf_dir = sphinx_app.confdir
+        sys.path.insert(0, conf_dir)
+        plugins_dir = sphinx_app.config.kaybee_settings.plugins_dir
+        plugin_package = import_module(plugins_dir)
+        scan(plugin_package)
+
         dectate.commit(kb_app)
         for callback in cls.get_callbacks(kb_app, SphinxEvent.BI):
             callback(kb_app, sphinx_app)
@@ -125,8 +134,8 @@ class EventAction(dectate.Action):
     def call_html_collect_pages(cls, kb_app, sphinx_app: Sphinx):
         """ On html-collect-pages, do callbacks"""
 
-        a = EventAction.get_callbacks(kb_app,
-                                      SphinxEvent.HCP)
+        EventAction.get_callbacks(kb_app,
+                                  SphinxEvent.HCP)
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.HCP):
             yield callback(kb_app, sphinx_app)

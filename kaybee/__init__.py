@@ -1,7 +1,5 @@
-from importlib import import_module
-
+import dectate
 import importscan
-import sys
 from sphinx.application import Sphinx
 
 from kaybee import plugins
@@ -18,9 +16,7 @@ def setup(app: Sphinx):
 
     # Scan for directives, first in the system, second in the docs project
     importscan.scan(plugins)
-    conf_dir = app.confdir
-    sys.path.insert(0, conf_dir)
-    import_module('kaybee_plugins.events')
+    dectate.commit(kb)
 
     app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
 
