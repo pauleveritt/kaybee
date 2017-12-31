@@ -1,7 +1,11 @@
-from sphinx.environment import BuildEnvironment
+import os
+import sys
 
 import kaybee
-from kaybee.app import kb
+
+sys.path.insert(0, os.path.abspath('.'))
+# noinspection PyUnresolvedReferences
+import kaybee_plugins
 
 extensions = [kaybee.__title__]
 
@@ -14,12 +18,3 @@ kaybee_settings = kaybee.KaybeeSettings(
         use_debug=True
     )
 )
-
-
-@kb.dumper('demosettings')
-def dump_hello(kb_app: kb, sphinx_env: BuildEnvironment):
-    settings = sphinx_env.app.config['kaybee_settings']
-    use_debug = settings.debugdumper.use_debug
-    return dict(
-        demosettings=dict(using_demo=use_debug)
-    )
