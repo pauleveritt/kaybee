@@ -1,6 +1,7 @@
 import pytest
 
 from kaybee.plugins.resources.base_resource import BaseResource
+from kaybee.plugins.resources.directive import ResourceDirective
 
 
 class ResourcesContainer:
@@ -31,3 +32,65 @@ def sample_resources():
         resources[r.docname] = r
 
     yield resources
+
+
+class DummySite:
+    added_label = None
+
+    def __init__(self):
+        self.resources = dict()
+
+    def add_reference(self, rtype, label, this_resource):
+        self.added_label = label
+
+
+class Dummy:
+    pass
+
+
+@pytest.fixture()
+def dummy_props():
+    class DummyProps:
+        template = 'foo'
+        label = 'somelabel'
+
+    yield DummyProps
+
+
+@pytest.fixture()
+def dummy_resource_class(dummy_props):
+    class DummyResource:
+
+        def __init__(self, docname, rtype, content):
+            self.docname = docname
+            self.rtype = rtype
+            self.content = content
+            self.props = dummy_props()
+
+    yield DummyResource
+
+
+@pytest.fixture()
+def dummy_directive_class():
+    class DummyDirective(ResourceDirective):
+        name = 'dummy_directive'
+
+    yield DummyDirective
+
+
+@pytest.fixture()
+def dummy_directive(dummy_directive_class):
+    # monkeypatch.setattr(ResourceDirective, 'get_resource_class',
+    #                     lambda x: SampleResource)
+    # monkeypatch.setattr(ResourceDirective, 'docname', 'somedocname')
+    # monkeypatch.setattr(ResourceDirective, 'site', DummySite())
+    bd = dummy_directive_class(
+        dummy_directive_class.name, [], dict(), '', 0, 0, '', {}, {})
+    bd.state = Dummy()
+    bd.state.document = Dummy()
+    bd.state.document.settings = Dummy()
+    bd.state.document.settings.env = Dummy()
+    bd.state.document.settings.env.docname = 'somedoc'
+    bd.state.document.settings.env.resources = dict()
+
+    yield bd
