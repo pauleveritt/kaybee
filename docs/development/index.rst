@@ -12,3 +12,7 @@ setup a Kaybee project in a similar way, these docs will get you started.
     debugging
     testing
     settings
+    resources
+    lineage
+    models
+

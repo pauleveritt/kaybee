@@ -18,3 +18,9 @@ Templates
   resource types
 
 
+More
+====
+
+- BaseResource class with a decorator
+- Assigning a model
+- Inheriting from BaseResourceModel
