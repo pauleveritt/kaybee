@@ -1,0 +1,17 @@
+================
+Extending Kaybee
+================
+
+Out-of-the box, Kaybee provides a number of useful features. Also, others can
+provide a "box": plugins which provide you with new kinds of things to
+use in your documents.
+
+But perhaps you'd like to extend Kaybee yourself, either inline in a docs
+project or as Python packages that get installed.
+
+This section covers aspects of extending Kaybee.
+
+.. toctree::
+    :maxdepth: 2
+
+    resources
