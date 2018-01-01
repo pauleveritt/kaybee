@@ -3,4 +3,3 @@ omit =
     */env36/*
     */docs/*
     */tests/*
-    kaybee/__init__.py

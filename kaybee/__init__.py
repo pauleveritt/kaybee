@@ -21,45 +21,53 @@ def setup(app: Sphinx):
     app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
 
     app.connect(SphinxEvent.BI.value,
+                # pragma nocover
                 lambda sphinx_app: EventAction.call_builder_init(
                     kb, sphinx_app)
                 )
     app.connect(SphinxEvent.EPD.value,
+                # pragma nocover
                 lambda sphinx_app, sphinx_env,
                        docname: EventAction.call_purge_doc(
                     kb, sphinx_app, sphinx_env, docname)
                 )
 
     app.connect(SphinxEvent.EBRD.value,
+                # pragma nocover
                 lambda sphinx_app, sphinx_env,
                        docnames: EventAction.call_env_before_read_docs(
                     kb, sphinx_app, sphinx_env, docnames)
                 )
 
     app.connect(SphinxEvent.DRES.value,
+                # pragma nocover
                 lambda sphinx_app, doctree,
                        fromdocname: EventAction.call_doctree_resolved(
                     kb, sphinx_app, doctree, fromdocname)
                 )
 
     app.connect(SphinxEvent.HCP.value,
+                # pragma nocover
                 lambda sphinx_app: EventAction.call_html_collect_pages(
                     kb, sphinx_app)
                 )
 
     app.connect(SphinxEvent.ECC.value,
+                # pragma nocover
                 lambda sphinx_builder,
                        sphinx_env: EventAction.call_env_check_consistency(
                     kb, sphinx_builder, sphinx_env)
                 )
 
     app.connect(SphinxEvent.MR.value,
+                # pragma nocover
                 lambda sphinx_app, sphinx_env, node,
                        contnode: EventAction.call_missing_reference(
                     kb, sphinx_app, sphinx_env, node, contnode)
                 )
 
     app.connect(SphinxEvent.HPC.value,
+                # pragma nocover
                 lambda sphinx_app, pagename, templatename, context,
                        doctree: EventAction.call_html_page_context(
                     kb, sphinx_app, pagename, templatename, context, doctree)
