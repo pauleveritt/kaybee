@@ -10,7 +10,7 @@ from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
 
 
-@kb.event(SphinxEvent.EBRD, system_order=50)
+@kb.event(SphinxEvent.EBRD, scope='localtemplates')
 def handle_beforereaddocs(kb_app: kb, sphinx_app: Sphinx,
                           sphinx_env: BuildEnvironment,
                           docnames: List[str]):

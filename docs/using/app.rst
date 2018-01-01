@@ -59,3 +59,5 @@ get all the configuration added by any of the code.
 
 Sure would be a great place to store document state, instead of passing around
 a "site". At the moment, Kaybee doesn't plan to go that far.
+
+- Using the Sphinx app in the html context

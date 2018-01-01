@@ -11,6 +11,7 @@ the development of major features.
     setup_function
     registry
     events
+    templates
     debugdump
     settings
     resources
