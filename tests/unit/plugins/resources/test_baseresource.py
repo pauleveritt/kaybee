@@ -34,7 +34,7 @@ class TestBaseResource:
     def test_instance(self):
         br = BaseResource('somepage', 'resource', '')
         assert 'somepage' == br.docname
-        assert 'resource' == br.kbtype
+        assert 'resource' == br.rtype
         assert 'index' == br.parent
         assert 1 == br.props.auto_excerpt
 
@@ -48,10 +48,18 @@ class TestBaseResource:
         ('r1/r2/r3/index', 3, 'r1/r2/index'),
         ('r1/r2/r3/about', 4, 'r1/r2/r3/index'),
     ])
-    def test_root_parents(self, sample_resources, docname, parents_len, parentname):
+    def test_root_parents(self, sample_resources, docname, parents_len,
+                          parentname):
         a = sample_resources[docname]
         parents = a.parents(sample_resources)
         assert parents_len == len(parents)
         if parents_len:
             assert 'index' == parents[-1].docname  # Homepage
             assert parentname == parents[0].docname
+
+    def test_to_json(self, sample_resources):
+        actual = sample_resources['r1/r2/r3/r4/about'].__json__
+        assert 'r1/r2/r3/r4/about' == actual['docname']
+        assert 'resource' == actual['rtype']
+        assert 'r1/r2/r3/r4/index' == actual['parent']
+        assert 1 == actual['props']['auto_excerpt']

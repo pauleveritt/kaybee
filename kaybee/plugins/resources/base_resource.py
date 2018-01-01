@@ -53,10 +53,11 @@ class BaseResourceModel(BaseModel):
 
 class BaseResource:
     model = BaseResourceModel
+    json_attrs = ('docname', 'rtype', 'parent')
 
-    def __init__(self, docname: str, kbtype: str, yaml_content: str):
+    def __init__(self, docname: str, rtype: str, yaml_content: str):
         self.docname = docname
-        self.kbtype = kbtype
+        self.rtype = rtype
         self.parent = parse_parent(docname)
         self.props = load_model(self.model, yaml_content)
 
@@ -76,3 +77,11 @@ class BaseResource:
             parent = resources.get(parent.parent)
         return parents
 
+    @property
+    def __json__(self):
+        return dict(
+            docname=self.docname,
+            rtype=self.rtype,
+            parent=self.parent,
+            props=self.props.values()
+        )

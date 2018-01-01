@@ -18,16 +18,16 @@ def sample_resources():
     r2about = BaseResource('r1/r2/about', 'resource', '')
     r3 = BaseResource('r1/r2/r3/index', 'resource', '')
     r3about = BaseResource('r1/r2/r3/about', 'resource', '')
-    r4 = BaseResource('r1/r2/r3/r4/index','resource', '')
+    r4 = BaseResource('r1/r2/r3/r4/index', 'resource', '')
     r4about = BaseResource('r1/r2/r3/r4/about', 'resource', '')
 
     resources = dict()
     for r in (root, about,
-           r1, r1about,
-           r2, r2about,
-           r3, r3about,
-           r4, r4about
-           ):
+              r1, r1about,
+              r2, r2about,
+              r3, r3about,
+              r4, r4about,
+              ):
         resources[r.docname] = r
 
     yield resources
