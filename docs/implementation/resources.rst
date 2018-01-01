@@ -27,7 +27,11 @@ This ``Resources`` object is a Python dictionary (``UserDict``) which
 overrides some of the built-in methods. For example, adding a resource does
 several things behind the scenes:
 
+- Adding resource container to sphinx_app
+
+
+- Adding sphinx app to html context
+
 - Validation
 
-- Putting into the correct "multidict"
-
+- Getting the resource into the html context

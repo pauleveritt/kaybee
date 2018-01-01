@@ -4,6 +4,7 @@ import pytest
 from kaybee.plugins.resources.handlers import (
     handle_builderinited,
     dump_settings,
+    initialize_resources_container,
     register_template_directory,
 )
 
@@ -41,10 +42,20 @@ class TestPluginResourcesTemplateDirEvent:
         assert 'register_template_directory' == \
                register_template_directory.__name__
 
-    def test_result(self, mocker, kb_app, sphinx_app, sphinx_env,
-                    valid_registration):
+    def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
         register_template_directory(kb_app, sphinx_app, sphinx_env,
                                     [])
         loaders = sphinx_app.builder.templates.loaders
         search_path = loaders[0].searchpath[0]
         assert 'tests/unit/plugins/resources' in search_path
+
+
+class TestPluginResourcesInitializeContainer:
+    def test_import(self):
+        assert 'initialize_resources_container' == \
+               initialize_resources_container.__name__
+
+    def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
+        initialize_resources_container(kb_app, sphinx_app, sphinx_env,
+                                    [])
+        assert hasattr(sphinx_app, 'resources')

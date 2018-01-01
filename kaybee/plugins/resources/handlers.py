@@ -8,7 +8,8 @@ from sphinx.jinja2glue import SphinxFileSystemLoader
 
 from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
-from plugins.resources.action import ResourceAction
+from kaybee.plugins.resources.action import ResourceAction
+from kaybee.plugins.resources.container import ResourcesContainer
 
 
 @kb.event(SphinxEvent.BI, scope='resources')
@@ -16,21 +17,16 @@ def handle_builderinited(kb_app: kb, sphinx_app: Sphinx):
     pass
 
 
-@kb.dumper('resources')
-def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
-    # First get the kb app configuration for resources
-    config = dict()
-
-    # Next, get the actual resources in the app.resources DB
-    values = dict()
-    resources = dict(
-        config=config,
-        values=values
-    )
-    return dict(resources=resources)
+@kb.event(SphinxEvent.EBRD, scope='resource', system_order=40)
+def initialize_resources_container(kb_app: kb,
+                                   sphinx_app: Sphinx,
+                                   sphinx_env: BuildEnvironment,
+                                   docnames=List[str],
+                                   ):
+    sphinx_app.resources = ResourcesContainer()
 
 
-@kb.event(SphinxEvent.EBRD, scope='resource')
+@kb.event(SphinxEvent.EBRD, scope='resource', system_order=50)
 def register_template_directory(kb_app: kb,
                                 sphinx_app: Sphinx,
                                 sphinx_env: BuildEnvironment,
@@ -45,3 +41,17 @@ def register_template_directory(kb_app: kb,
     for action in actions:
         f = os.path.dirname(inspect.getfile(action))
         template_bridge.loaders.append(SphinxFileSystemLoader(f))
+
+
+@kb.dumper('resources')
+def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
+    # First get the kb app configuration for resources
+    config = dict()
+
+    # Next, get the actual resources in the app.resources DB
+    values = dict()
+    resources = dict(
+        config=config,
+        values=values
+    )
+    return dict(resources=resources)
