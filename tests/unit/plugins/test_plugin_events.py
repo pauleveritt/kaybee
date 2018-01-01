@@ -1,10 +1,11 @@
+import importlib
+import os
+
 import dectate
+import importscan
 import pytest
 
 from kaybee.plugins.events import EventAction, SphinxEvent
-
-import importlib
-import importscan
 
 
 @pytest.fixture()
@@ -287,7 +288,9 @@ class TestPluginEvents:
     # Sphinx event handlers
     #
 
-    def test_builder_init(self, monkeypatch, kb_app, sphinx_app, builderinit_event):
+    def test_builder_init_path_exists(self, monkeypatch, kb_app, sphinx_app,
+                                      builderinit_event):
+        monkeypatch.setattr(os.path, 'exists', lambda x: True)
         monkeypatch.setattr(importlib, 'import_module', lambda x: None)
         monkeypatch.setattr(importscan, 'scan', lambda x: None)
         EventAction.call_builder_init(kb_app, sphinx_app)
@@ -295,6 +298,19 @@ class TestPluginEvents:
                                               SphinxEvent.BI)
         assert builderinit_event in callbacks
         assert 987 == sphinx_app.flag
+
+    def test_builder_init_not_path_exists(self, mocker, monkeypatch, kb_app,
+                                          sphinx_app, builderinit_event):
+        monkeypatch.setattr(os.path, 'exists', lambda x: False)
+        from kaybee.plugins.events import logger
+        mocker.patch.object(logger, 'info')
+        EventAction.call_builder_init(kb_app, sphinx_app)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.BI)
+        assert builderinit_event in callbacks
+        assert 987 == sphinx_app.flag
+        expected = '## Kaybee: No plugin dir at '
+        logger.info.assert_called_once_with(expected)
 
     def test_purge_doc(self, kb_app, sphinx_app, sphinx_env, purgedoc_event):
         dectate.commit(kb_app)

@@ -38,6 +38,11 @@ class TestBaseResource:
         assert 'index' == br.parent
         assert 1 == br.props.auto_excerpt
 
+    def test_repr(self):
+        # The repr is primarily useful in pytest listing
+        br = BaseResource('somepage', 'resource', '')
+        assert 'somepage' == repr(br)
+
     @pytest.mark.parametrize('docname, parents_len, parentname', [
         ('index', 0, 'site'),
         ('about', 1, 'index'),
