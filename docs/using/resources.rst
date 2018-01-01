@@ -75,3 +75,6 @@ of ``folder1/subfolder2/about``, the parents would be:
 The resource has a method ``parents`` which, when passed the resources
 collection, will return the actual resource objects for each parent.
 
+- ``.. resource::`` as a built-in resource type
+- Custom resource type, both in ``conf.py`` and in ``kaybee_plugins``
+- Putting local definitions in a docs project dir NOT named ``kaybee_plugin``
