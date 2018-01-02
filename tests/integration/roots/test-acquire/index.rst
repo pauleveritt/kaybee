@@ -1,5 +1,4 @@
-.. resource::
-    use_excerpt: 99
+.. homepage::
 
 Hello World
 ===========

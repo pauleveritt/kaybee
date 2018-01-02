@@ -7,12 +7,12 @@ pytestmark = pytest.mark.sphinx('html', testroot='acquire')
 class TestAcquire:
 
     @pytest.mark.parametrize('docname, template', [
-        ('index', 'resource'),
-        ('about', 'resource'),
-        ('folder1/index', 'resource'),
-        ('folder1/about', 'resource'),
-        ('folder1/subfolder2/index', 'resource'),
-        ('folder1/subfolder2/about', 'resource'),
+        ('index', 'homepage'),
+        ('about', 'article'),
+        ('folder1/index', 'folder1_section'),
+        ('folder1/about', 'root_article'),
+        ('folder1/subfolder2/index', 'subfolder2_section'),
+        ('folder1/subfolder2/about', 'root_article'),
     ])
     def test_page(self, json_page, docname, template):
         resources = json_page['resources']['values']

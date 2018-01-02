@@ -1,4 +1,4 @@
-.. resource::
+.. article::
 
 About
 =====

@@ -20,7 +20,7 @@ class TestResourceTypeDebug:
         r = 'kaybee.plugins.resources.resource.Resource'
 
         # Check the config
-        assert dict(resource=r) == resources['config']
+        assert r == resources['config']['resource']
 
         # Now values
         v = resources['values']
