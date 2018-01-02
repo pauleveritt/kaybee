@@ -35,3 +35,5 @@ several things behind the scenes:
 - Validation
 
 - Getting the resource into the html context
+
+- pydash for queries
