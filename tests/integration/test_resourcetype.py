@@ -25,10 +25,10 @@ class TestResourceTypeDebug:
         # Now values
         v = resources['values']
         assert 6 == len(v.values())
-        assert docname == v[docname]['docname']
+        resource = v[docname]
+        assert docname == resource['docname']
 
         # Now the custom debugdumper for this test root which serializes
         # parents and repr
-        doc = json_page['testing'][docname]
-        assert parents == doc['parent_docnames']
-        assert docname == doc['repr']
+        assert parents == resource['parent_docnames']
+        assert docname == resource['repr']

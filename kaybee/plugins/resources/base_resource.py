@@ -116,10 +116,18 @@ class BaseResource:
             return self.__class__.__name__.lower()
 
     def __json__(self, resources):
+        # The root has different rules about parents
+        if self.docname == 'index':
+            parent_docnames = self.parents(resources)
+        else:
+            parent_docnames = [p.docname for p in
+                               self.parents(resources)]
         return dict(
             docname=self.docname,
+            parent_docnames=parent_docnames,
             template=self.template(resources),
             rtype=self.rtype,
             parent=self.parent,
-            props=self.props.values()
+            props=self.props.values(),
+            repr=repr(self),
         )

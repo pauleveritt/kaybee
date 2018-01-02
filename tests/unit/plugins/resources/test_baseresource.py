@@ -68,4 +68,4 @@ class TestBaseResource:
         assert 'r1/r2/r3/r4/about' == actual['docname']
         assert 'resource' == actual['rtype']
         assert 'r1/r2/r3/r4/index' == actual['parent']
-        assert 1 == actual['props']['auto_exce  rpt']
+        assert 1 == actual['props']['auto_excerpt']
