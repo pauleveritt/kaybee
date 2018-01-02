@@ -63,8 +63,9 @@ class TestBaseResource:
             assert parentname == parents[0].docname
 
     def test_to_json(self, sample_resources):
-        actual = sample_resources['r1/r2/r3/r4/about'].__json__
+        r4about = 'r1/r2/r3/r4/about'
+        actual = sample_resources[r4about].__json__(sample_resources)
         assert 'r1/r2/r3/r4/about' == actual['docname']
         assert 'resource' == actual['rtype']
         assert 'r1/r2/r3/r4/index' == actual['parent']
-        assert 1 == actual['props']['auto_excerpt']
+        assert 1 == actual['props']['auto_exce  rpt']

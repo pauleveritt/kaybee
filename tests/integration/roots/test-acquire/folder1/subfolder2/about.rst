@@ -1,0 +1,6 @@
+.. resource::
+
+About
+=====
+
+body

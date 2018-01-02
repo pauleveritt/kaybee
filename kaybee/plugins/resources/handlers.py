@@ -65,7 +65,8 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
     }
 
     # Next, get the actual resources in the app.resources DB
-    values = {k: v.__json__ for (k, v) in sphinx_env.app.resources.items()}
+    resources = sphinx_env.app.resources
+    values = {k: v.__json__(resources) for (k, v) in resources.items()}
     resources = dict(
         config=config,
         values=values

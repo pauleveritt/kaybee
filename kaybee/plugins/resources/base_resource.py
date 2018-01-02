@@ -78,16 +78,7 @@ class BaseResource:
             parent = resources.get(parent.parent)
         return parents
 
-    @property
-    def __json__(self):
-        return dict(
-            docname=self.docname,
-            rtype=self.rtype,
-            parent=self.parent,
-            props=self.props.values()
-        )
-
-    def find_prop(self, resources, prop_name):
+    def acquire(self, resources, prop_name):
         """ Starting with self, walk until you find prop or None """
 
         # Instance
@@ -95,7 +86,7 @@ class BaseResource:
         if custom_prop:
             return custom_prop
 
-        # Parents...can't use find_prop as have to keep going on acquireds
+        # Parents...can't use acquire as have to keep going on acquireds
         for parent in self.parents(resources):
             acquireds = parent.props.acquireds
             if acquireds:
@@ -118,8 +109,17 @@ class BaseResource:
     def template(self, resources):
         """ Get the template from: YAML, hierarchy, or class """
 
-        template_name = self.find_prop(resources, 'template')
+        template_name = self.acquire(resources, 'template')
         if template_name:
             return template_name
         else:
             return self.__class__.__name__.lower()
+
+    def __json__(self, resources):
+        return dict(
+            docname=self.docname,
+            template=self.template(resources),
+            rtype=self.rtype,
+            parent=self.parent,
+            props=self.props.values()
+        )

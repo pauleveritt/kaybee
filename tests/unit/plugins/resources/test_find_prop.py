@@ -67,12 +67,12 @@ class TestResourcesFindProp:
 
     def test_article_template_from_props(self, resources, da):
         da = resources['f1/f2/index']
-        actual = da.find_prop(resources, 'template')
+        actual = da.acquire(resources, 'template')
         assert 'f1template' == actual
 
     def test_section_template_from_props(self, resources):
         da = resources['f1/f2/f3/index']
-        actual = da.find_prop(resources, 'template')
+        actual = da.acquire(resources, 'template')
         assert 'f3template' == actual
 
     def test_template_from_section(self, resources, da):
@@ -88,4 +88,4 @@ class TestResourcesFindProp:
     def test_flag_from_all_acquireds(self, resources):
         # Get a flag from the "all" section of acquireds
         da = resources['f1/f2/f3/index']
-        assert '9933' == da.find_prop(resources, 'flag')
+        assert '9933' == da.acquire(resources, 'flag')

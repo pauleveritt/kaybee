@@ -4,7 +4,7 @@ pytestmark = pytest.mark.sphinx('html', testroot='resourcetype')
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
-class TestPageDebug:
+class TestResourceTypeDebug:
 
     @pytest.mark.parametrize('docname, parents', [
         ('index', []),
