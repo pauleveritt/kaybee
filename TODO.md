@@ -1,10 +1,9 @@
 # Now
 
-- Integration test coverage
+- Overrides with find_prop
+
 
 # Next
-
-- Overrides with find_prop
 
 - Get kaybee_settings into the html context as ``settings``
 
@@ -43,3 +42,8 @@
   class
   
 - Resources: kbtype -> rtype
+
+# Done
+
+- Integration test coverage
+
