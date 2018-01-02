@@ -1,27 +1,12 @@
 # Now
 
-- Overrides with find_prop
-
+- Get html context event to return the template name
 
 # Next
 
 - Get kaybee_settings into the html context as ``settings``
 
 - Purge resources events (but document that it probably won't be used)
-
-- "Properties"
-
-    - Docs (which might subsume models)
-    
-    - Overrides
-
-- Template
-
-    - Docs
-
-    - Method which returns it
-    
-    - html context which returns it
 
 - extract_title plugin
 
