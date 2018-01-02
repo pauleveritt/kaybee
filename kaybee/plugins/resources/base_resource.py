@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Mapping
 
 from pydantic import BaseModel
 from ruamel.yaml import load, Loader
@@ -47,6 +47,7 @@ class BaseResourceModel(BaseModel):
     """ Kaybee default schema definitions for resources """
 
     template: str = None
+    acquireds: Mapping[str, Mapping[str, str]] = None
     excerpt: str = None
     auto_excerpt: int = 1
 
@@ -85,3 +86,40 @@ class BaseResource:
             parent=self.parent,
             props=self.props.values()
         )
+
+    def find_prop(self, resources, prop_name):
+        """ Starting with self, walk until you find prop or None """
+
+        # Instance
+        custom_prop = getattr(self.props, prop_name, None)
+        if custom_prop:
+            return custom_prop
+
+        # Parents...can't use find_prop as have to keep going on acquireds
+        for parent in self.parents(resources):
+            acquireds = parent.props.acquireds
+            if acquireds:
+                # First try in the per-type acquireds
+                rtype_acquireds = acquireds.get(self.rtype)
+                if rtype_acquireds:
+                    prop_acquired = rtype_acquireds.get(prop_name)
+                    if prop_acquired:
+                        return prop_acquired
+
+                # Next in the "all" section of acquireds
+                all_acquireds = acquireds.get('all')
+                if all_acquireds:
+                    prop_acquired = all_acquireds.get(prop_name)
+                    if prop_acquired:
+                        return prop_acquired
+
+        return
+
+    def template(self, resources):
+        """ Get the template from: YAML, hierarchy, or class """
+
+        template_name = self.find_prop(resources, 'template')
+        if template_name:
+            return template_name
+        else:
+            return self.__class__.__name__.lower()

@@ -30,7 +30,10 @@ Let's go through the basics.
 The Base Directive
 ------------------
 
-- The Properties Model
+Properties
+----------
+
+- ``template`` is special, needed for machinery, has some extra logic
 
 The Resource
 ------------
@@ -74,6 +77,34 @@ of ``folder1/subfolder2/about``, the parents would be:
 
 The resource has a method ``parents`` which, when passed the resources
 collection, will return the actual resource objects for each parent.
+
+Acquired Properties
+-------------------
+
+Sometimes you have properties that might appear in all, or some, documents
+in part of your site. You'd prefer to define the property once, at the
+top of that part of the tree, then have child nodes "acquire" them as
+needed. Like inheritance, but for data instead of classes. And like i
+inheritance, a child can provide its own value instead of "acquiring" it
+from its parentage.
+
+This is particularly useful for system-oriented properties such as template
+name. You might want all the templates for a certain part of the site to
+be customized. Or you might want a custom template only for a certain
+resource type.
+
+Kaybee supports setting an ``acquired`` mapping value in the YAML of a node,
+to provide property values for its ancestors. This mapping can provide
+per-type mappings of properties or a mapping to apply to all types.
+
+.. note::
+
+    Regular properties have validated schemas. You can't just add an
+    extra property. Acquired properties, though, allow anything inside
+    their mappings -- the acquired property doesn't have to be in a schema.
+
+TODO
+====
 
 - ``.. resource::`` as a built-in resource type
 - Custom resource type, both in ``conf.py`` and in ``kaybee_plugins``
