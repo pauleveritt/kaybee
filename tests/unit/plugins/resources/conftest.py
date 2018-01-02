@@ -91,6 +91,7 @@ def dummy_directive(dummy_directive_class):
     bd.state.document.settings = Dummy()
     bd.state.document.settings.env = Dummy()
     bd.state.document.settings.env.docname = 'somedoc'
-    bd.state.document.settings.env.resources = dict()
+    bd.state.document.settings.env.app = Dummy()
+    bd.state.document.settings.env.app.resources = dict()
 
     yield bd

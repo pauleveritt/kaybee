@@ -51,6 +51,9 @@ def sphinx_app(sphinx_config, html_builder):
         def add_config_value(self, *args):
             pass
 
+        def add_directive(self, *args):
+            pass
+
         def connect(self, event_name, some_callable):
             pass
 

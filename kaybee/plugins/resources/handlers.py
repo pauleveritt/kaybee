@@ -1,7 +1,7 @@
 import inspect
+import os
 from typing import List
 
-import os
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.jinja2glue import SphinxFileSystemLoader
@@ -10,6 +10,7 @@ from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.resources.container import ResourcesContainer
+from kaybee.plugins.resources.directive import ResourceDirective
 
 
 @kb.event(SphinxEvent.BI, scope='resources')
@@ -43,13 +44,28 @@ def register_template_directory(kb_app: kb,
         template_bridge.loaders.append(SphinxFileSystemLoader(f))
 
 
+@kb.event(SphinxEvent.EBRD, scope='resource', system_order=55)
+def add_directives(kb_app: kb,
+                   sphinx_app: Sphinx,
+                   sphinx_env: BuildEnvironment,
+                   docnames=List[str],
+                   ):
+    """ For each resource type, register a new Sphinx directive """
+
+    for k, v in list(kb_app.config.resources.items()):
+        sphinx_app.add_directive(k, ResourceDirective)
+
+
 @kb.dumper('resources')
 def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
     # First get the kb app configuration for resources
-    config = dict()
+    config = {
+        k: v.__module__ + '.' + v.__name__
+        for (k, v) in kb_app.config.resources.items()
+    }
 
     # Next, get the actual resources in the app.resources DB
-    values = dict()
+    values = {k: v.__json__ for (k, v) in sphinx_env.app.resources.items()}
     resources = dict(
         config=config,
         values=values

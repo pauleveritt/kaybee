@@ -1,11 +1,13 @@
 import dectate
 import pytest
 
+from kaybee.plugins.resources.directive import ResourceDirective
 from kaybee.plugins.resources.handlers import (
     handle_builderinited,
-    dump_settings,
     initialize_resources_container,
     register_template_directory,
+    add_directives,
+    dump_settings,
 )
 
 
@@ -19,7 +21,7 @@ def valid_registration(kb_app):
     yield article1
 
 
-class TestPluginResourcesBuilderInitEvent:
+class TestResourcesBuilderInit:
     def test_import(self):
         assert 'handle_builderinited' == handle_builderinited.__name__
 
@@ -28,16 +30,18 @@ class TestPluginResourcesBuilderInitEvent:
         assert None is result
 
 
-class TestPluginResourcesDumpSettingsEvent:
+class TestResourcesDumpSettings:
     def test_import(self):
         assert 'dump_settings' == dump_settings.__name__
 
     def test_result(self, kb_app, sphinx_env):
+        kb_app.config.resources = dict()
+        sphinx_env.app.resources = dict()
         result = dump_settings(kb_app, sphinx_env)
         assert 'resources' in result
 
 
-class TestPluginResourcesTemplateDirEvent:
+class TestResourcesTemplateDir:
     def test_import(self):
         assert 'register_template_directory' == \
                register_template_directory.__name__
@@ -50,12 +54,25 @@ class TestPluginResourcesTemplateDirEvent:
         assert 'tests/unit/plugins/resources' in search_path
 
 
-class TestPluginResourcesInitializeContainer:
+class TestResourcesAddDirectives:
+    def test_import(self):
+        assert 'add_directives' == add_directives.__name__
+
+    def test_result(self, mocker, kb_app, sphinx_app, sphinx_env,
+                    valid_registration):
+        mocker.patch.object(sphinx_app, 'add_directive')
+        add_directives(kb_app, sphinx_app, sphinx_env,
+                       [])
+        sphinx_app.add_directive.assert_called_once_with('article',
+                                                         ResourceDirective)
+
+
+class TestResourcesInitializeContainer:
     def test_import(self):
         assert 'initialize_resources_container' == \
                initialize_resources_container.__name__
 
     def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
         initialize_resources_container(kb_app, sphinx_app, sphinx_env,
-                                    [])
+                                       [])
         assert hasattr(sphinx_app, 'resources')
