@@ -7,4 +7,4 @@ pytestmark = pytest.mark.sphinx('html', testroot='debugdumper')
 class TestDebugDumper:
 
     def test_testdumper(self, json_page):
-        assert 'world' == json_page['hello']
+        assert '2017' in json_page['then']
