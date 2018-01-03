@@ -1,8 +1,8 @@
-from docutils.readers import doctree
 import inspect
 import os
-from typing import List
+from typing import List, Dict
 
+from docutils.readers import doctree
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.jinja2glue import SphinxFileSystemLoader
@@ -64,8 +64,7 @@ def resource_into_html_context(
         pagename,
         templatename: str,
         context,
-        doctree: doctree,
-):
+        doctree: doctree) -> Dict[str, str]:
     # Get the resource for this pagename
     resources = sphinx_app.resources
     resource = resources[pagename]
