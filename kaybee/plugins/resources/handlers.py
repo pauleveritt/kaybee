@@ -1,3 +1,4 @@
+from docutils.readers import doctree
 import inspect
 import os
 from typing import List
@@ -54,6 +55,23 @@ def add_directives(kb_app: kb,
 
     for k, v in list(kb_app.config.resources.items()):
         sphinx_app.add_directive(k, ResourceDirective)
+
+
+@kb.event(SphinxEvent.HPC, scope='resource')
+def resource_into_html_context(
+        kb_app: kb,
+        sphinx_app: Sphinx,
+        pagename,
+        templatename: str,
+        context,
+        doctree: doctree,
+):
+    # Get the resource for this pagename
+    resources = sphinx_app.resources
+    # resource = resources[pagename]
+    # context['resource'] = resource
+    # templatename = resource.template(resources)
+    return dict(templatename='page.html')
 
 
 @kb.dumper('resources')

@@ -9,5 +9,6 @@ extensible, schema-driven resource directives in YAML.
 
     whysphinx
     using/index
+    extending/index
     development/index
     implementation/index

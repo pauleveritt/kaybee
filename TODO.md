@@ -1,6 +1,14 @@
 # Now
 
+- Figure out integration test for Sphinx raising exceptions
+
+- Write tests for what was just added
+
 - Get html context event to return the template name
+
+- Get rid of resources.resource and just mark BaseResource
+
+- Integration bumpcoverage
 
 # Next
 
@@ -17,6 +25,8 @@
 - genericpage replacement
 
 # Could Be Better
+
+- Move excerpt support to article
 
 - Update documentation
 

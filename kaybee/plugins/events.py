@@ -179,7 +179,21 @@ class EventAction(dectate.Action):
                                ):
         """ On doctree-resolved, do callbacks"""
 
+        # We need to let one, and only one, callback return the name of
+        # the template. Detect multiple and raise an exception.
+        new_templatename = None
+
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.HPC):
-            callback(kb_app, sphinx_app, pagename, templatename, context,
-                     doctree)
+            # The protocol: the one controlling callback will return a value
+            # with a dictionary of {'templatename': 'sometemplate'}
+            result = callback(kb_app, sphinx_app, pagename, templatename,
+                              context,
+                              doctree)
+            if result and isinstance(result,
+                                     dict) and 'templatename' in result:
+                if new_templatename is not None:
+                    raise AssertionError('Multiple handlers returning')
+                new_templatename = result['templatename']
+
+        return new_templatename
