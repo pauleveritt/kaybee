@@ -68,10 +68,10 @@ def resource_into_html_context(
 ):
     # Get the resource for this pagename
     resources = sphinx_app.resources
-    # resource = resources[pagename]
-    # context['resource'] = resource
-    # templatename = resource.template(resources)
-    return dict(templatename='page.html')
+    resource = resources[pagename]
+    context['resource'] = resource
+    templatename = resource.template(resources) + '.html'
+    return dict(templatename=templatename)
 
 
 @kb.dumper('resources')

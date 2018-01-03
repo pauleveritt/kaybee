@@ -7,6 +7,7 @@ from kaybee.plugins.resources.handlers import (
     initialize_resources_container,
     register_template_directory,
     add_directives,
+    resource_into_html_context,
     dump_settings,
 )
 
@@ -65,6 +66,26 @@ class TestResourcesAddDirectives:
                        [])
         sphinx_app.add_directive.assert_called_once_with('article',
                                                          ResourceDirective)
+
+
+class TestResourcesResourceIntoHtml:
+    def test_import(self):
+        assert 'resource_into_html_context' == \
+               resource_into_html_context.__name__
+
+    def test_result(self, mocker, kb_app, sphinx_app, sphinx_env,
+                    sample_resources):
+        r3 = sample_resources['r1/r2/r3/index']
+        sphinx_app.resources = {r3.docname: r3}
+        pagename = r3.docname
+        templatename = ''
+        context = dict()
+        doctree = dict()
+        result = resource_into_html_context(kb_app, sphinx_app,
+                                   pagename, templatename, context, doctree
+                                   )
+        assert 'resource' in context
+        assert 'baseresource.html' == result['templatename']
 
 
 class TestResourcesInitializeContainer:
