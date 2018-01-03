@@ -1,5 +1,7 @@
 # Now
 
+- Write integration test for resource returning test.html
+
 - Figure out integration test for Sphinx raising exceptions
 
 - Write tests for what was just added

@@ -113,7 +113,14 @@ class BaseResource:
         if template_name:
             return template_name
         else:
-            return self.__class__.__name__.lower()
+            # We're putting an exception for "resource", the built-in
+            # rtype/directive. We want it to work out-of-the-box without
+            # requiring an _templates/resource.html in the docs project.
+            # Instead, use the page.html the ships with Sphinx.
+            if self.rtype == 'resource':
+                return 'page'
+            else:
+                return self.__class__.__name__.lower()
 
     def __json__(self, resources):
         # The root has different rules about parents

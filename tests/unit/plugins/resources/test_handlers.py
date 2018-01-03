@@ -85,7 +85,7 @@ class TestResourcesResourceIntoHtml:
                                    pagename, templatename, context, doctree
                                    )
         assert 'resource' in context
-        assert 'baseresource.html' == result['templatename']
+        assert 'page.html' == result['templatename']
 
 
 class TestResourcesInitializeContainer:

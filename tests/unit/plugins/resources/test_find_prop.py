@@ -85,6 +85,12 @@ class TestResourcesFindProp:
         del f1.props.acquireds['article']
         assert 'article' == da.template(resources)
 
+    def test_template_from_resource(self, resources, da):
+        # Test that 'resource' breaks the rules and returns 'page.html'
+        r = Resource('f1/someresource', 'resource', '')
+        resources['f1/someresource'] = r
+        assert 'page' == r.template(resources)
+
     def test_flag_from_all_acquireds(self, resources):
         # Get a flag from the "all" section of acquireds
         da = resources['f1/f2/f3/index']
