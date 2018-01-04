@@ -93,7 +93,7 @@ class TestResourcesInitializeContainer:
         assert 'initialize_resources_container' == \
                initialize_resources_container.__name__
 
-    def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
+    def test_result(self, kb_app, sphinx_app, sphinx_env):
         initialize_resources_container(kb_app, sphinx_app, sphinx_env,
                                        [])
         assert hasattr(sphinx_app, 'resources')
