@@ -110,3 +110,4 @@ TODO
 - Custom resource type, both in ``conf.py`` and in ``kaybee_plugins``
 - Putting local definitions in a docs project dir NOT named ``kaybee_plugin``
 - The current resource is available in templates as ``resource``
+- genericpage

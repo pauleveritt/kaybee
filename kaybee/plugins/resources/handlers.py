@@ -65,12 +65,15 @@ def resource_into_html_context(
         templatename: str,
         context,
         doctree: doctree) -> Dict[str, str]:
-    # Get the resource for this pagename
+
+    # Get the resource for this pagename. If no match, then this pagename
+    # must be a genericpage
     resources = sphinx_app.resources
-    resource = resources[pagename]
-    context['resource'] = resource
-    templatename = resource.template(resources) + '.html'
-    return dict(templatename=templatename)
+    resource = resources.get(pagename)
+    if resource:
+        context['resource'] = resource
+        templatename = resource.template(resources) + '.html'
+        return dict(templatename=templatename)
 
 
 @kb.dumper('resources')

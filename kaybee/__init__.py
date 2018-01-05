@@ -39,6 +39,13 @@ def setup(app: Sphinx):
                     kb, sphinx_app, sphinx_env, docnames)
                 )
 
+    app.connect(SphinxEvent.DREAD.value,
+                # pragma nocover
+                lambda sphinx_app,
+                       doctree: EventAction.call_env_doctree_read(
+                    kb, sphinx_app, doctree)
+                )
+
     app.connect(SphinxEvent.DRES.value,
                 # pragma nocover
                 lambda sphinx_app, doctree,

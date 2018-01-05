@@ -15,3 +15,4 @@ the development of major features.
     debugdump
     settings
     resources
+    genericpage
