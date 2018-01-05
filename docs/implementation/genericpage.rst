@@ -22,3 +22,5 @@ Generic Page
   ``kb.genericpage(order=10)`` to give a higher priority...lowest "order"
   wins (default is 40)
 
+- ``genericpage`` is put into html context, you can make your own class with
+  helpers

@@ -1,10 +1,10 @@
 import pytest
 
-pytestmark = pytest.mark.sphinx('html', testroot='genericpage3')
+pytestmark = pytest.mark.sphinx('html', testroot='genericpage4')
 
 
 @pytest.mark.parametrize('page', ['about.html', ], indirect=True)
-class TestGenericpage3:
+class TestGenericpage4:
 
     def test_about(self, page):
         # The root's acquireds has a all: template pointing to
@@ -13,9 +13,12 @@ class TestGenericpage3:
         content = page.find('h1').contents[0].strip()
         assert 'Using acquired_all' == content
 
+        p = page.find('p').contents[0].strip()
+        assert 'Hello: world' == p
+
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
-class TestGenericpage3Debug:
+class TestGenericpage4Debug:
     # Get template from the acquireds -> genericpage
 
     def test_settings(self, json_page):
@@ -23,9 +26,9 @@ class TestGenericpage3Debug:
         genericpages = json_page['genericpages']
         assert 'config' in genericpages
 
-        # genericpage3 contains no registered handlers
+        # genericpage4 has one registered handler
         config = genericpages['config']
-        assert {} == config
+        assert '40' in config
 
         # one value in genericpage, the 'about' document
         values = genericpages['values']

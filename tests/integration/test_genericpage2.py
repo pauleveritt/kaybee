@@ -13,6 +13,10 @@ class TestGenericpage2:
         content = page.find('h1').contents[0].strip()
         assert 'Using acquired_genericpage' == content
 
+        # Ensure that the template has access to genericpage
+        p = page.find('p').contents[0].strip()
+        assert 'Template name: acquired_genericpage' == p
+
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestGenericpage2Debug:
@@ -23,7 +27,7 @@ class TestGenericpage2Debug:
         genericpages = json_page['genericpages']
         assert 'config' in genericpages
 
-        # genericpage1 contains no registered handlers
+        # genericpage2 contains no registered handlers
         config = genericpages['config']
         assert {} == config
 
