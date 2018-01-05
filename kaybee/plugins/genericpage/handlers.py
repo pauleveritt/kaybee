@@ -56,8 +56,9 @@ def genericpage_into_html_context(
     resources = sphinx_app.resources
     gp = genericpages.get(pagename)
     if gp:
-        context['resource'] = gp
-        templatename = gp.template(resources) + '.html'
+        context['genericpage'] = gp
+        template = gp.template(resources)
+        templatename = template + '.html'
         return dict(templatename=templatename)
 
 

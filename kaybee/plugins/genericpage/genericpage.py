@@ -11,7 +11,7 @@ class Genericpage:
         # By default, just use the Sphinx built-in template for pages
         templatename = 'page'
 
-        root = resources.get('index')
+        root = resources.get('index', False)
         if root:
             acquireds = getattr(root.props, 'acquireds', False)
             if acquireds:
@@ -29,7 +29,7 @@ class Genericpage:
                     if prop_acquired:
                         return prop_acquired
 
-            return templatename
+        return templatename
 
     def __json__(self, resources):
         return dict(

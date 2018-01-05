@@ -213,7 +213,7 @@ class TestGenericpageIntoHtml:
         result = genericpage_into_html_context(
             kb_app, sphinx_app, pagename, templatename, context, doctree
         )
-        assert 'resource' in context
+        assert 'genericpage' in context
         assert 'page.html' == result['templatename']
 
 

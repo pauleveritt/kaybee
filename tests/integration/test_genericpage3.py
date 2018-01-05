@@ -1,20 +1,22 @@
 import pytest
 
-pytestmark = pytest.mark.sphinx('html', testroot='genericpage1')
+pytestmark = pytest.mark.sphinx('html', testroot='genericpage3')
 
 
 @pytest.mark.parametrize('page', ['about.html', ], indirect=True)
-class TestGenericpage1:
+class TestGenericpage3:
 
     def test_about(self, page):
-        # The genericpage doesn't have an acquire for template, so just use
-        # the normal page.html, which puts the doc title in the <h1>
+        # The root's acquireds has a all: template pointing to
+        # acquired_all. The _templates dir has a
+        # acquired_all.html template. We should match in that.
         content = page.find('h1').contents[0].strip()
-        assert 'About' == content
+        assert 'Using acquired_all' == content
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
-class TestGenericpage1Debug:
+class TestGenericpage3Debug:
+    # Get template from the acquireds -> genericpage
 
     def test_settings(self, json_page):
         assert 'genericpages' in json_page
@@ -25,10 +27,10 @@ class TestGenericpage1Debug:
         config = genericpages['config']
         assert {} == config
 
-        # one value in genericpage
+        # one value in genericpage, the 'about' document
         values = genericpages['values']
         assert 1 == len(values)
         assert 'about' in values
         about = values['about']
         assert 'about' == about['docname']
-        assert 'page' == about['template']
+        assert 'acquired_all' == about['template']

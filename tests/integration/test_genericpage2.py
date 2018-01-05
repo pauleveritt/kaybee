@@ -6,9 +6,12 @@ pytestmark = pytest.mark.sphinx('html', testroot='genericpage2')
 @pytest.mark.parametrize('page', ['about.html', ], indirect=True)
 class TestGenericpage2:
 
-    def test_index(self, page):
+    def test_about(self, page):
+        # The root's acquireds has a genericpage: template pointing to
+        # acquired_genericpage. The _templates dir has a
+        # acquired_genericpage.html template. We should match in that.
         content = page.find('h1').contents[0].strip()
-        assert 'Hello World' == content
+        assert 'Using acquired_genericpage' == content
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
@@ -24,7 +27,7 @@ class TestGenericpage2Debug:
         config = genericpages['config']
         assert {} == config
 
-        # one value in genericpage
+        # one value in genericpage, the 'about' document
         values = genericpages['values']
         assert 1 == len(values)
         assert 'about' in values
