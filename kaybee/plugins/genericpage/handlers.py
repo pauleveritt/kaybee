@@ -52,14 +52,16 @@ def genericpage_into_html_context(
 
     # Get the resource for this pagename. If no match, then this pagename
     # must be a genericpage
-    genericpages = sphinx_app.genericpages
     resources = sphinx_app.resources
-    gp = genericpages.get(pagename)
-    if gp:
-        context['genericpage'] = gp
-        template = gp.template(resources)
-        templatename = template + '.html'
-        return dict(templatename=templatename)
+    resource = resources.get(pagename)
+    if not resource:
+        genericpages = sphinx_app.genericpages
+        gp = genericpages.get(pagename)
+        if gp:
+            context['genericpage'] = gp
+            template = gp.template(resources)
+            templatename = template + '.html'
+            return dict(templatename=templatename)
 
 
 @kb.dumper('genericpages')

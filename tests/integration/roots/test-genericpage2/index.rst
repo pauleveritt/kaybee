@@ -1,5 +1,7 @@
 .. resource::
     acquireds:
+        all:
+
         genericpage:
             template: acquired_genericpage
 

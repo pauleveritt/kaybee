@@ -15,10 +15,6 @@ class GenericpageAction(dectate.Action):
     }
 
     def __init__(self, order: int = 40):
-        #
-        # TODO
-        # - can you acquire a prop that isn't in your schema, just hangs
-        #   off of acquires?
         super().__init__()
         self.order = order
 

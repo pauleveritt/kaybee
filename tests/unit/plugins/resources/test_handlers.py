@@ -73,8 +73,8 @@ class TestResourcesResourceIntoHtml:
         assert 'resource_into_html_context' == \
                resource_into_html_context.__name__
 
-    def test_result(self, mocker, kb_app, sphinx_app, sphinx_env,
-                    sample_resources):
+    def test_with_resource(self, mocker, kb_app, sphinx_app, sphinx_env,
+                           sample_resources):
         r3 = sample_resources['r1/r2/r3/index']
         sphinx_app.resources = {r3.docname: r3}
         pagename = r3.docname
@@ -82,10 +82,26 @@ class TestResourcesResourceIntoHtml:
         context = dict()
         doctree = dict()
         result = resource_into_html_context(kb_app, sphinx_app,
-                                   pagename, templatename, context, doctree
-                                   )
+                                            pagename, templatename, context,
+                                            doctree
+                                            )
         assert 'resource' in context
         assert 'page.html' == result['templatename']
+
+    def test_no_resource(self, mocker, kb_app, sphinx_app, sphinx_env,
+                         sample_resources):
+        r3 = sample_resources['r1/r2/r3/index']
+        sphinx_app.resources = {}
+        pagename = r3.docname
+        templatename = ''
+        context = dict()
+        doctree = dict()
+        result = resource_into_html_context(kb_app, sphinx_app,
+                                            pagename, templatename, context,
+                                            doctree
+                                            )
+        assert 'resource' not in context
+        assert None is result
 
 
 class TestResourcesInitializeContainer:

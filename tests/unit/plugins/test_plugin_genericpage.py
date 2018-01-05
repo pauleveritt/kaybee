@@ -113,6 +113,22 @@ class TestGeneripage:
         templatename = valid_gp.template(resources)
         assert 'page' == templatename
 
+    def test_root_gp_no_templatename(self, kb_app, valid_gp, root_resource):
+        # Root acquireds with 'genericpage' section
+        root_resource.props.acquireds = dict(flag=99)
+        resources = dict(index=root_resource)
+        templatename = valid_gp.template(resources)
+        assert 'page' == templatename
+
+    def test_root_gp_no_gp_templatename(self, kb_app, valid_gp, root_resource):
+        # Root acquireds with 'genericpage' section
+        root_resource.props.acquireds = dict(
+            genericpage=dict(flag=99)
+        )
+        resources = dict(index=root_resource)
+        templatename = valid_gp.template(resources)
+        assert 'page' == templatename
+
     def test_root_gp_templatename(self, kb_app, valid_gp, root_resource):
         # Root acquireds with 'genericpage' section
         root_resource.props.acquireds = dict(
@@ -121,6 +137,23 @@ class TestGeneripage:
         resources = dict(index=root_resource)
         templatename = valid_gp.template(resources)
         assert 'gp_custom' == templatename
+
+    def test_root_all_no_alltemplatename(self, kb_app, valid_gp,
+                                         root_resource):
+        # Root acquireds with 'all' section
+        root_resource.props.acquireds = dict(
+            all=dict(flag=99)
+        )
+        resources = dict(index=root_resource)
+        templatename = valid_gp.template(resources)
+        assert 'page' == templatename
+
+    def test_root_all_no_templatename(self, kb_app, valid_gp, root_resource):
+        # Root acquireds with 'all' section
+        root_resource.props.acquireds = dict(flag=99)
+        resources = dict(index=root_resource)
+        templatename = valid_gp.template(resources)
+        assert 'page' == templatename
 
     def test_root_all_templatename(self, kb_app, valid_gp, root_resource):
         # Root acquireds with 'all' section
@@ -200,7 +233,20 @@ class TestGenericpageIntoHtml:
         assert 'genericpage_into_html_context' == \
                genericpage_into_html_context.__name__
 
-    def test_result(self, mocker, kb_app, sphinx_app, sphinx_env,
+    def test_has_resource(self, mocker, kb_app, sphinx_app, sphinx_env,
+                          sample_resources):
+        index = sample_resources['index']
+        sphinx_app.resources = {index.docname: index}
+        pagename = index.docname
+        templatename = ''
+        context = dict()
+        doctree = dict()
+        result = genericpage_into_html_context(
+            kb_app, sphinx_app, pagename, templatename, context, doctree
+        )
+        assert {} == context
+
+    def test_has_gp(self, mocker, kb_app, sphinx_app, sphinx_env,
                     sample_resources):
         index = sample_resources['index']
         sphinx_app.resources = {index.docname: index}

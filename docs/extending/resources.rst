@@ -24,3 +24,5 @@ More
 - BaseResource class with a decorator
 - Assigning a model
 - Inheriting from BaseResourceModel
+- ``resource`` is available in the template
+- resource.acquire() can grab a property

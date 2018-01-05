@@ -199,6 +199,37 @@ def html_page_context_event(kb_app):
     yield handle_pagecontext
 
 
+@pytest.fixture()
+def html_page_context_notemplatename_event(kb_app):
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext(*args):
+        return dict()
+
+    yield handle_pagecontext
+
+
+@pytest.fixture()
+def html_page_context_templatename_event(kb_app):
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext(*args):
+        return dict(templatename='foobar')
+
+    yield handle_pagecontext
+
+
+@pytest.fixture()
+def html_page_context_two_templatename_events(kb_app):
+    @kb_app.event(SphinxEvent.HPC, scope='A')
+    def handle_pagecontext1(*args):
+        return dict(templatename='foobar1')
+
+    @kb_app.event(SphinxEvent.HPC)
+    def handle_pagecontext2(*args, scope='B'):
+        return dict(templatename='foobar2')
+
+    yield (handle_pagecontext1, handle_pagecontext2)
+
+
 class TestPluginEvents:
     def test_import(self):
         assert 'EventAction' == EventAction.__name__
@@ -405,3 +436,61 @@ class TestPluginEvents:
                                               SphinxEvent.HPC)
         assert html_page_context_event in callbacks
         assert 123 == sphinx_app.flag
+
+    def test_html_page_context_no_templatename(
+            self, kb_app, sphinx_app,
+            sphinx_doctree,
+            html_page_context_notemplatename_event):
+        dectate.commit(kb_app)
+        pagename = ''
+        templatename = ''
+        context = dict()
+        templatename = EventAction.call_html_page_context(kb_app, sphinx_app,
+                                                          pagename,
+                                                          templatename,
+                                                          context,
+                                                          sphinx_doctree
+                                                          )
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.HPC)
+        assert html_page_context_notemplatename_event in callbacks
+        assert None is templatename
+
+    def test_html_page_context_templatename(
+            self, kb_app, sphinx_app,
+            sphinx_doctree,
+            html_page_context_templatename_event):
+        dectate.commit(kb_app)
+        pagename = ''
+        templatename = ''
+        context = dict()
+        templatename = EventAction.call_html_page_context(kb_app, sphinx_app,
+                                                          pagename,
+                                                          templatename,
+                                                          context,
+                                                          sphinx_doctree
+                                                          )
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.HPC)
+        assert html_page_context_templatename_event in callbacks
+        assert 'foobar' is templatename
+
+    def test_html_page_context_two_templatename2(
+            self, kb_app, sphinx_app,
+            sphinx_doctree,
+            html_page_context_two_templatename_events):
+        dectate.commit(kb_app)
+        pagename = ''
+        templatename = ''
+        context = dict()
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.HPC)
+        assert html_page_context_two_templatename_events[0] in callbacks
+        with pytest.raises(AssertionError):
+            EventAction.call_html_page_context(
+                kb_app, sphinx_app,
+                pagename,
+                templatename,
+                context,
+                sphinx_doctree
+            )

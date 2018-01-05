@@ -3,6 +3,7 @@
     acquireds:
         article:
             template: root_article
+            flag: 99
         section:
             template: root_section
 

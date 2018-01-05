@@ -29,11 +29,8 @@ several things behind the scenes:
 
 - Adding resource container to sphinx_app
 
-
 - Adding sphinx app to html context
 
 - Validation
 
 - Getting the resource into the html context
-
-- pydash for queries

@@ -27,6 +27,10 @@ def resources():
         all:
             flag: 9933
         """
+    f4_content = """
+    acquireds:
+        all:
+    """
     index = Homepage('index', 'homepage', '')
     about = Article('about', 'article', '')
     f1 = Section('f1/index', 'section', f1_content)
@@ -37,7 +41,8 @@ def resources():
     f2_about.title = 'F2 About'
     f3 = Section('f1/f2/f3/index', 'section', 'template: f3template')
     f3_about = Article('f1/f2/f3/about', 'article', '')
-    f4 = Section('f1/f2/f3/f4/index', 'section', '')
+    f4 = Section('f1/f2/f3/f4/index', 'section', f4_content)
+    f4_about = Article('f1/f2/f3/f4/about', 'article', '')
 
     return {
         'index': index,
@@ -48,7 +53,8 @@ def resources():
         'f1/f2/about': f2_about,
         'f1/f2/f3/index': f3,
         'f1/f2/f3/about': f3_about,
-        'f1/f2/f3/f4/index': f4
+        'f1/f2/f3/f4/index': f4,
+        'f1/f2/f3/f4/about': f4_about,
     }
 
 
@@ -95,3 +101,8 @@ class TestResourcesFindProp:
         # Get a flag from the "all" section of acquireds
         da = resources['f1/f2/f3/index']
         assert '9933' == da.acquire(resources, 'flag')
+
+    def test_empty_all_acquireds(self, resources):
+        # Get a flag from the "all" section of acquireds
+        da = resources['f1/f2/f3/f4/about']
+        assert None is da.acquire(resources, 'bogus')
