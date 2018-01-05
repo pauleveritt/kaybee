@@ -16,3 +16,4 @@ the development of major features.
     settings
     resources
     genericpage
+    queries
