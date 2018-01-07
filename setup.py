@@ -29,6 +29,7 @@ setup(
         'dectate',
         'ruamel.yaml',
         'pydantic',
-        'importscan'
+        'importscan',
+        'pydash',
     ],
 )
