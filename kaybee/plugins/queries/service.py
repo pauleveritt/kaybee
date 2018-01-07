@@ -2,6 +2,7 @@ from operator import attrgetter
 from typing import List, Dict
 
 import pydash
+from pydash import py_
 
 
 class Query:
@@ -59,28 +60,19 @@ class Query:
         if limit is None:
             limit = len(collection.values())
 
-        # Start with (hopefully) most common, filter based on resource type
-        r1 = pydash.filter_(collection, Query._attr_lambda('rtype', rtype))
-
         # Filter those results based on arbitrary key-value pairs
+        r1 = collection
         for prop in props:
-            r1 = pydash.filter_(collection,
+            r1 = pydash.filter_(r1,
                                 Query._prop_lambda(prop['key'], prop['value']))
 
-        # Filter out only those with a parent in their lineage
-        # TODO this only works with resources
-        r1 = pydash.filter_(r1,
-                            Query._filter_parents(collection, parent_name))
+        # Start with (hopefully) most common, filter based on resource type
+        r1 = py_(r1) \
+            .filter_(Query._attr_lambda('rtype', rtype)) \
+            .filter_(Query._filter_parents(collection, parent_name)) \
+            .sort_by(Query._sort_key_lamda(sort_value),
+                     reverse=reverse
+                     ) \
+            .slice(0, limit)
 
-        # Apply the "is_published" filter, if present
-        if is_published:
-            r1 = pydash.filter_(r1, lambda x: x.is_published())
-
-        # Now sorting
-        r1 = pydash.sort_by(r1,
-                            Query._sort_key_lamda(sort_value),
-                            reverse=reverse
-                            )
-        r1 = r1[:limit]
-
-        return r1
+        return r1.value()
