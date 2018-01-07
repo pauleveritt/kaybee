@@ -21,7 +21,7 @@ class TestQueryService:
         (None, 'article', 'About'),
         ('rtype', 'article', 'About'),
         ('sort_value', 'title', 'About'),
-        ('order', -1, 'Z Last weights first'),
+        ('reverse', True, 'Z Last weights first'),
     ])
     def test_filter_resources(self, query_resources, filter_key, filter_value,
                               expected):
@@ -60,13 +60,13 @@ class TestQueryService:
         results = Query.filter_collection(query_resources, limit=2)
         assert len(results) == 2
 
-    @pytest.mark.parametrize('field, order, expected_title', [
-        ('title', 1, 'About'),
-        ('title', -1, 'Z Last weights first'),
+    @pytest.mark.parametrize('field, reverse, expected_title', [
+        ('title', False, 'About'),
+        ('title', True, 'Z Last weights first'),
     ])
-    def test_filter_resources_sort(self, query_resources, field, order,
+    def test_filter_resources_sort(self, query_resources, field, reverse,
                                    expected_title):
         results = Query.filter_collection(query_resources, sort_value=field,
-                                          order=order)
+                                          reverse=reverse)
         first_title = results[0].title
         assert expected_title == first_title

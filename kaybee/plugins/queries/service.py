@@ -1,7 +1,7 @@
 from operator import attrgetter
 from typing import List, Dict
 
-# import pydash
+import pydash
 
 
 class Query:
@@ -9,61 +9,78 @@ class Query:
         self.docname = docname
 
     @classmethod
+    def _attr_lambda(cls, key, value):
+        # For use in filter expressions. If the value is None, then
+        # don't do any filtering. If the value is not None, then we need
+        # to filter.
+        if value is None:
+            return lambda x: True
+        else:
+            return lambda x: getattr(x, key, None) == value
+
+    @classmethod
+    def _prop_lambda(cls, key, value):
+        # For use in filter expressions. If the value is None, then
+        # don't do any filtering. If the value is not None, then we need
+        # to filter.
+        if value is None:
+            return lambda x: True
+        else:
+            return lambda x: getattr(x.props, key, None) == value
+
+    @classmethod
+    def _filter_parents(cls, collection, parent_name):
+        if parent_name is None:
+            return lambda x: True
+        else:
+            return lambda x: collection[parent_name] in x.parents(collection)
+
+    @classmethod
+    def _sort_key_lamda(cls, sort_value):
+        if sort_value is None:
+            return None
+        elif sort_value == 'title':
+            return attrgetter('title')
+        else:
+            return lambda x: getattr(x.props, sort_value, 0)
+
+    @classmethod
     def filter_collection(self,
                           collection,
                           rtype: str = None,
                           sort_value: str = 'title',
-                          order: int = 1,
-                          limit: int = 5,
+                          reverse: bool = False,
+                          limit: int = None,
                           parent_name: str = None,
                           props: List[Dict[str, str]] = [],
                           is_published=False):
 
+        # Set the limit
+        if limit is None:
+            limit = len(collection.values())
+
         # Start with (hopefully) most common, filter based on resource type
-        if rtype:
-            r1 = [r for r in collection.values() if r.rtype == rtype]
-        else:
-            r1 = list(collection.values())
+        r1 = pydash.filter_(collection, Query._attr_lambda('rtype', rtype))
 
         # Filter those results based on arbitrary key-value pairs
         for prop in props:
-            r1 = [r for r in r1
-                  if getattr(r.props, prop['key'], None) == prop['value']]
+            r1 = pydash.filter_(collection,
+                                Query._prop_lambda(prop['key'], prop['value']))
 
         # Filter out only those with a parent in their lineage
         # TODO this only works with resources
-        if parent_name:
-            parent = collection[parent_name]
-            r2 = [r for r in r1 if parent in r.parents(collection)]
-        else:
-            r2 = r1
+        r1 = pydash.filter_(r1,
+                            Query._filter_parents(collection, parent_name))
 
         # Apply the "is_published" filter, if present
         if is_published:
-            r2 = [resource for resource in r2 if resource.is_published()]
+            r1 = pydash.filter_(r1, lambda x: x.is_published())
 
         # Now sorting
-        if sort_value:
-            if sort_value == 'title':
-                # Special case, everything else is in props
-                r3 = sorted(
-                    r2,
-                    key=attrgetter('title')
-                )
-            else:
-                r3 = sorted(
-                    r2,
-                    key=lambda x:  getattr(x.props, sort_value, 0)
-                )
-        else:
-            r3 = r2
+        r1 = pydash.sort_by(r1,
+                            Query._sort_key_lamda(sort_value),
+                            reverse=reverse
+                            )
+        r1 = r1[:limit]
 
-        # Reverse if needed
-        if order == -1:
-            r3.reverse()
-
-        # Return a limited number
-        if limit:
-            r3 = r3[:limit]
-
-        return r3
+        return r1
