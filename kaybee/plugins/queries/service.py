@@ -66,7 +66,6 @@ class Query:
             r1 = pydash.filter_(r1,
                                 Query._prop_lambda(prop['key'], prop['value']))
 
-        # Start with (hopefully) most common, filter based on resource type
         r1 = py_(r1) \
             .filter_(Query._attr_lambda('rtype', rtype)) \
             .filter_(Query._filter_parents(collection, parent_name)) \
