@@ -54,7 +54,7 @@ class Query:
                           limit: int = None,
                           parent_name: str = None,
                           props: List[Dict[str, str]] = [],
-                          is_published=False):
+                          ):
 
         # Set the limit
         if limit is None:
