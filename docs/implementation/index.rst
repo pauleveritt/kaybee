@@ -17,3 +17,4 @@ the development of major features.
     resources
     genericpage
     queries
+    widgets

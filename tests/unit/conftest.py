@@ -11,6 +11,7 @@ from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
 from kaybee.plugins.resources.action import ResourceAction
+from kaybee.plugins.widgets.action import WidgetAction
 
 
 @pytest.fixture()
@@ -20,6 +21,7 @@ def kb_app():
         event = dectate.directive(EventAction)
         resource = dectate.directive(ResourceAction)
         genericpage = dectate.directive(GenericpageAction)
+        widget = dectate.directive(WidgetAction)
 
     yield app
 
