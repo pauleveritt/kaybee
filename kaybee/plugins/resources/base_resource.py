@@ -1,7 +1,8 @@
-from typing import Dict, Mapping
+from typing import Mapping
 
 from pydantic import BaseModel
-from ruamel.yaml import load, Loader
+
+from kaybee.utils.models import load_model
 
 
 def parse_parent(docname):
@@ -30,17 +31,6 @@ def parse_parent(docname):
         parent = '/'.join(lineage[:-1]) + '/index'
 
     return parent
-
-
-def load_model(model, yaml_content: str) -> Dict:
-    # If yaml_content is an empty string and parses to None, return
-    # empty dic instead
-    yaml_props = (load(yaml_content, Loader=Loader) or {})
-
-    # Make the model, which validates, then do any extra validation
-    m = model(**yaml_props)
-
-    return m
 
 
 class BaseResourceModel(BaseModel):

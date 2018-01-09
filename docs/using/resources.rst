@@ -112,3 +112,4 @@ TODO
 - The current resource is available in templates as ``resource``
 - genericpage
 - You are allowed to put extra props in YAML, but they won't be accessible
+- Query.filter_collection
