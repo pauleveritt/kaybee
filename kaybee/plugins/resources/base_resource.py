@@ -124,6 +124,7 @@ class BaseResource:
             parent_docnames=parent_docnames,
             template=self.template(resources),
             rtype=self.rtype,
-            props=self.props.dict(),
+            parent=self.parent,
+            props=self.props.values(),
             repr=repr(self),
         )

@@ -18,6 +18,7 @@ class DummyWidget(BaseWidget):
 @pytest.fixture()
 def base_widget():
     content = """
+name: widget1
 template: widget1.html
 kbtype: section
     """
