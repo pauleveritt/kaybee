@@ -21,10 +21,10 @@ class TestResourceDirective:
         actual = ResourceDirective.get_resource_class(drc)
         assert dummy_resource_class == actual
 
-    def test_docname(self, mocker, dummy_directive):
+    def test_docname(self, dummy_directive):
         assert 'somedoc' == dummy_directive.docname
 
-    def test_resources(self, mocker, dummy_directive):
+    def test_resources(self, dummy_directive):
         assert dict() == dummy_directive.resources
 
     def test_run_result(self, monkeypatch,

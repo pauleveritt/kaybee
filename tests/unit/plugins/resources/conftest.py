@@ -49,10 +49,6 @@ def dummy_directive_class():
 
 @pytest.fixture()
 def dummy_directive(dummy_directive_class):
-    # monkeypatch.setattr(ResourceDirective, 'get_resource_class',
-    #                     lambda x: SampleResource)
-    # monkeypatch.setattr(ResourceDirective, 'docname', 'somedocname')
-    # monkeypatch.setattr(ResourceDirective, 'site', DummySite())
     bd = dummy_directive_class(
         dummy_directive_class.name, [], dict(), '', 0, 0, '', {}, {})
     bd.state = Dummy()
