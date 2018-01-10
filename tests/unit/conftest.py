@@ -91,6 +91,9 @@ def template_bridge():
         def __init__(self):
             self.loaders = []
 
+        def render(self, template, context):
+            pass
+
     yield TemplateBridge()
 
 

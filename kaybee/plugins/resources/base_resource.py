@@ -50,7 +50,7 @@ class BaseResource:
         self.docname = docname
         self.rtype = rtype
         self.parent = parse_parent(docname)
-        self.props = load_model(self.model, yaml_content)
+        self.props: BaseResourceModel = load_model(self.model, yaml_content)
 
     def __repr__(self):
         return self.docname
@@ -124,7 +124,6 @@ class BaseResource:
             parent_docnames=parent_docnames,
             template=self.template(resources),
             rtype=self.rtype,
-            parent=self.parent,
-            props=self.props.values(),
+            props=self.props.dict(),
             repr=repr(self),
         )
