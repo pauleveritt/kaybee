@@ -14,10 +14,10 @@ class WidgetDirective(Directive):
 
     def get_widget(self, docname):
         # Get the info from this directive and make instance
-        rtype = self.name
+        wtype = self.name
         widget_content = '\n'.join(self.content)
-        widget_class = WidgetDirective.get_widget_class(rtype)
-        return widget_class(docname, rtype, widget_content)
+        widget_class = WidgetDirective.get_widget_class(wtype)
+        return widget_class(docname, wtype, widget_content)
 
     @property
     def docname(self):

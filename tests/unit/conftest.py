@@ -100,6 +100,7 @@ def html_builder(template_bridge):
         def __init__(self):
             self.outdir = '/tmp/faker'
             self.templates = template_bridge
+            self.globalcontext = dict(flag99='flag99')
 
     builder: StandaloneHTMLBuilder = Builder()
     yield builder

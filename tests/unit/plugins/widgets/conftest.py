@@ -20,9 +20,9 @@ def dummy_props():
 def dummy_widget_class(dummy_props):
     class DummyWidget:
 
-        def __init__(self, docname, rtype, content):
+        def __init__(self, docname, wtype, content):
             self.docname = docname
-            self.rtype = rtype
+            self.wtype = wtype
             self.content = content
             self.props = dummy_props()
 
@@ -50,3 +50,10 @@ def dummy_directive(dummy_directive_class):
     bd.state.document.settings.env.app.widgets = dict()
 
     yield bd
+
+
+@pytest.fixture()
+def widgets_sphinx_app(sphinx_app):
+    sphinx_app.widgets = dict()
+
+    yield sphinx_app

@@ -33,7 +33,7 @@ class TestWidgetDirective:
         assert dummy_widget_class == actual
         widget = dummy_directive.get_widget('dummy123')
         assert 'dummy123' == widget.docname
-        assert 'dummy_directive' == widget.rtype
+        assert 'dummy_directive' == widget.wtype
 
     def test_docname(self, dummy_directive):
         assert 'somedoc' == dummy_directive.docname
