@@ -16,6 +16,7 @@ from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
 from kaybee.plugins.resources.action import ResourceAction
+from kaybee.plugins.widgets.action import WidgetAction
 
 
 class kb(dectate.App):
@@ -23,3 +24,4 @@ class kb(dectate.App):
     dumper = dectate.directive(DumperAction)
     resource = dectate.directive(ResourceAction)
     genericpage = dectate.directive(GenericpageAction)
+    widget = dectate.directive(WidgetAction)

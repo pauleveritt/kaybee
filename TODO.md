@@ -26,7 +26,12 @@
 
 - genericpage replacement
 
+- toctree handling in pbr.widgets.events.py (had to be in the core before)
+
 # Could Be Better
+
+- Instead of handlers for every doc, that traverse the doctree...one custom 
+  handler which does one traversal calls handlers (performance improvement)
 
 - Move excerpt support to article
 
