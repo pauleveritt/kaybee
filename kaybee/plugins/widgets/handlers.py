@@ -72,7 +72,7 @@ def render_widgets(kb_app: kb,
         # Render the output
         w = sphinx_app.widgets.get(node.name)
         context = builder.globalcontext.copy()
-        output = w.render(builder.templates, context)
+        output = w.render(sphinx_app, context)
 
         # Put the output into the node contents
         listing = [nodes.raw('', output, format='html')]
@@ -87,7 +87,12 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
         for (k, v) in kb_app.config.widgets.items()
     }
 
+    # Next, get the actual widgets in the app.widgets DB
+    widgets = sphinx_env.app.widgets
+    values = {k: v.__json__() for (k, v) in widgets.items()}
+
     widgets = dict(
         config=config,
+        values=values
     )
     return dict(widgets=widgets)

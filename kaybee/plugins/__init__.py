@@ -6,3 +6,5 @@ import kaybee.plugins.resources.handlers
 import kaybee.plugins.resources.resource
 import kaybee.plugins.settings.handlers
 import kaybee.plugins.sphinx_app.handlers
+import kaybee.plugins.widgets.handlers
+import kaybee.plugins.widgets.widget

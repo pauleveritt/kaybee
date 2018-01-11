@@ -1,10 +1,10 @@
 import pytest
 
-pytestmark = pytest.mark.sphinx('html', testroot='widgets1')
+pytestmark = pytest.mark.sphinx('html', testroot='widgets2')
 
 
 @pytest.mark.parametrize('page', ['index.html', ], indirect=True)
-class TestWidgets1:
+class TestWidgets2:
 
     def test_index(self, page):
         # The genericpage doesn't have an acquire for template, so just use
@@ -16,18 +16,27 @@ class TestWidgets1:
         docname = page.find(id='resource_docname').contents[0].strip()
         assert 'index' == docname
 
+        another_flag = page.find(id='another_flag').contents[0].strip()
+        assert '835' == another_flag
+        widget_greeting = page.find(id='widget_greeting').contents[0].strip()
+        assert 'widget greeting' == widget_greeting
+        resources = page.find(id='resources').contents[0].strip()
+        assert 'resource' == resources
+        resource = page.find(id='resource').contents[0].strip()
+        assert 'index' == resource
+
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
-class TestWidgets1Debug:
+class TestWidgets2Debug:
 
     def test_settings(self, json_page):
         assert 'widgets' in json_page
         widgets = json_page['widgets']
         assert 'config' in widgets
 
-        # widgets1 contains one registered handler
+        # widgets2 contains one registered handler
         config = widgets['config']
-        assert {'widget': 'kaybee.plugins.widgets.widget.Widget'} == config
+        assert 'listing' in config
 
         # one value in widgets
         values = widgets['values']
@@ -37,4 +46,4 @@ class TestWidgets1Debug:
         assert 'index' == index['docname']
         assert 'props' in index
         props = index['props']
-        assert 'widgets1_hello' == props['template']
+        assert None is props['template']

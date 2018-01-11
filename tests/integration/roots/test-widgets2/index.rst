@@ -4,6 +4,5 @@
 Hello World
 ===========
 
-.. widget::
+.. listing::
     name: widgets1hello
-    template: widgets1_hello

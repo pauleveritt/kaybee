@@ -16,6 +16,17 @@ template: dummy_listing
     """
     yield ListingWidget('somepage', 'listing', yaml_content)
 
+@pytest.fixture()
+def no_template_widget():
+    class ListingWidget(BaseWidget):
+        def make_context(self, context, sphinx_app):
+            return dict(class_flag=912)
+
+    yaml_content = """
+name: this_id
+    """
+    yield ListingWidget('somepage', 'listing', yaml_content)
+
 
 class TestBaseWidget:
     def test_import(self):
@@ -26,6 +37,14 @@ class TestBaseWidget:
         assert 'listing' == listing_widget.wtype
         assert 'this_id' == listing_widget.props.name
         assert 'dummy_listing' == listing_widget.props.template
+        assert 'dummy_listing' == listing_widget.template
+
+    def test_no_template_instance(self, no_template_widget: BaseWidget):
+        assert 'somepage' == no_template_widget.docname
+        assert 'listing' == no_template_widget.wtype
+        assert 'this_id' == no_template_widget.props.name
+        assert None is no_template_widget.props.template
+        assert 'listingwidget' == no_template_widget.template
 
     def test_broken_instance(self, listing_widget: BaseWidget):
         # Class doesn't implement make_context
