@@ -18,3 +18,4 @@ the development of major features.
     genericpage
     queries
     widgets
+    references
