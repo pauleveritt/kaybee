@@ -48,7 +48,16 @@ def dummy_directive_class():
 
 
 @pytest.fixture()
-def dummy_directive(dummy_directive_class):
+def dummy_references():
+    class References(dict):
+        def add_reference(self, *args):
+            pass
+
+    yield References()
+
+
+@pytest.fixture()
+def dummy_directive(dummy_directive_class, dummy_references):
     bd = dummy_directive_class(
         dummy_directive_class.name, [], dict(), '', 0, 0, '', {}, {})
     bd.state = Dummy()
@@ -58,5 +67,16 @@ def dummy_directive(dummy_directive_class):
     bd.state.document.settings.env.docname = 'somedoc'
     bd.state.document.settings.env.app = Dummy()
     bd.state.document.settings.env.app.resources = dict()
+    bd.state.document.settings.env.app.references = dummy_references
 
     yield bd
+
+
+@pytest.fixture()
+def dummy_reference():
+    class DummyReference:
+        def __init__(self):
+            self.props = Dummy()
+            self.props.label = 'category1'
+
+    yield DummyReference()

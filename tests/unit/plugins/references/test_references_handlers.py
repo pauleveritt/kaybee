@@ -7,6 +7,7 @@ from kaybee.plugins.references.handlers import (
     register_references,
     validate_references,
     missing_reference,
+    dump_settings,
 )
 
 
@@ -93,3 +94,14 @@ class TestMissingReference:
             node['refdoc'], article1.docname
         )
         assert 'first' == newnode[0][0]
+
+
+class TestReferencesDumpSettings:
+    def test_import(self):
+        assert 'dump_settings' == dump_settings.__name__
+
+    def test_result(self, kb_app, sphinx_env):
+        kb_app.config.references = dict()
+        sphinx_env.app.references = dict()
+        result = dump_settings(kb_app, sphinx_env)
+        assert 'references' in result

@@ -100,3 +100,22 @@ def missing_reference(kb_app: kb,
     newnode.append(emp)
     emp.append(nodes.Text(dispname))
     return newnode
+
+
+@kb.dumper('references')
+def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
+    # First get the kb app configuration for references
+    config = {
+        k: v.__module__ + '.' + v.__name__
+        for (k, v) in kb_app.config.references.items()
+    }
+
+    # Next, get the actual references in the app.references DB
+    references = sphinx_env.app.references
+    values = {k: v.__json__() for (k, v) in references.items()}
+
+    refrences = dict(
+        config=config,
+        values=values
+    )
+    return dict(references=references)
