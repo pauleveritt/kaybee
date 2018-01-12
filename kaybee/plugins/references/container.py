@@ -21,9 +21,10 @@ class ReferencesContainer(UserDict):
 
         return self.data[rtype][label]
 
-    def add_reference(self, rtype: str, label: str, target):
+    def add_reference(self, reftype: str, label: str, target):
         """ Add reference object in references under rtype/label=target """
 
-        # if rtype not in self.data:
-        #     self.data[rtype] = dict()
-        self.data[rtype][label] = target
+        # The self.data[reftype] dict springs into being during the
+        # register_references event handler at startup, which looks in the
+        # kb registry for all registered reference names.
+        self.data[reftype][label] = target

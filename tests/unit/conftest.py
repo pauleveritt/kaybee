@@ -10,6 +10,7 @@ from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
+from kaybee.plugins.references.action import ReferenceAction
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.widgets.action import WidgetAction
 
@@ -22,6 +23,7 @@ def kb_app():
         resource = dectate.directive(ResourceAction)
         genericpage = dectate.directive(GenericpageAction)
         widget = dectate.directive(WidgetAction)
+        reference = dectate.directive(ReferenceAction)
 
     yield app
 

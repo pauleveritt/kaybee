@@ -65,6 +65,7 @@ class TestAddNode:
             widget
         )
 
+
 class TestWidgetsInitializeContainer:
     def test_import(self):
         assert 'initialize_widgets_container' == \
