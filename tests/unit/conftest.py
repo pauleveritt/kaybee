@@ -110,5 +110,8 @@ def html_builder(template_bridge):
             self.templates = template_bridge
             self.globalcontext = dict(flag99='flag99')
 
+        def get_relative_uri(self):
+            pass
+
     builder: StandaloneHTMLBuilder = Builder()
     yield builder
