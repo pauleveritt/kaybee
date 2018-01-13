@@ -2,13 +2,13 @@ import dectate
 import pytest
 
 from kaybee.plugins.genericpage.action import GenericpageAction
+from kaybee.plugins.genericpage.genericpage import Genericpage
 from kaybee.plugins.genericpage.handlers import (
     initialize_genericpages_container,
     add_genericpage,
     genericpage_into_html_context,
     dump_settings,
 )
-from kaybee.plugins.genericpage.genericpage import Genericpage
 
 
 @pytest.fixture()
@@ -261,6 +261,22 @@ class TestGenericpageIntoHtml:
         )
         assert 'genericpage' in context
         assert 'page.html' == result['templatename']
+
+    def test_not_has_gp(self, mocker, kb_app, sphinx_app, sphinx_env,
+                        sample_resources):
+        index = sample_resources['index']
+        sphinx_app.resources = {index.docname: index}
+        about = Genericpage('r1/r2/about')
+        sphinx_app.genericpages = {}
+        pagename = about.docname
+        templatename = ''
+        context = dict()
+        doctree = dict()
+        result = genericpage_into_html_context(
+            kb_app, sphinx_app, pagename, templatename, context, doctree
+        )
+        assert 'genericpage' not in context
+        assert None is result
 
 
 class TestPluginGenerateDebugEvent:

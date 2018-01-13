@@ -11,6 +11,10 @@ class TestQueryService:
     def test_import(self):
         assert 'Query' == Query.__name__
 
+    def test_construction(self):
+        q = Query('doc1')
+        assert 'doc1' == q.docname
+
     def test_failed_filter_props(self):
         # Certain cases, e.g. asking for excerpt when there is none
         # ('sort_value', 'excerpt', 'Q Not Last No Weight'),
@@ -55,6 +59,15 @@ class TestQueryService:
         assert 1 == len(results)
         assert 'About' == results[0].title
 
+    def test_filter_resources_empty_props(self, query_resources):
+        props = [
+            dict(key='auto_excerpt', value=None),
+        ]
+        kw = dict(props=props)
+        results = Query.filter_collection(query_resources, **kw)
+        assert 6 == len(results)
+        assert 'About' == results[0].title
+
     def test_filter_resources_limit(self, query_resources):
         # No filter applied
         results = Query.filter_collection(query_resources, limit=2)
@@ -70,3 +83,24 @@ class TestQueryService:
                                           reverse=reverse)
         first_title = results[0].title
         assert expected_title == first_title
+
+    def test_filter_resources_sort_value_none(self, query_resources):
+        results = Query.filter_collection(query_resources, sort_value=None)
+        first_title = results[0].title
+        assert 'Second should sort ahead of first' == first_title
+
+    def test_filter_resources_sort_value_not_title(self, query_resources):
+        results = Query.filter_collection(query_resources,
+                                          sort_value='excerpt',
+                                          reverse=True)
+        # Remember, we reversed based on excerpt
+        last_excerpt = results[0].props.excerpt
+        assert 'I am c3' == last_excerpt
+
+    def test_filter_resources_sort_title_reverse(self, query_resources):
+        results = Query.filter_collection(query_resources,
+                                          sort_value='title',
+                                          reverse=True)
+        first_title = results[0].title
+        assert 'Z Last weights first' == first_title
+

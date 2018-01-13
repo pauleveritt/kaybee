@@ -2,6 +2,7 @@
 New types that can be used in pydantic models.
 
 """
+from typing import List
 
 
 class ReferencesType(str):

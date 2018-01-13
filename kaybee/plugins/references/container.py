@@ -19,6 +19,9 @@ class ReferencesContainer(UserDict):
          ref:category:cat1 instead of folder1/folder2/cat1.
          """
 
+        # We are doing this instead of dictionary access in case we change
+        # the storage later to a multidict thingy for optimization.
+
         return self.data[rtype][label]
 
     def add_reference(self, reftype: str, label: str, target):

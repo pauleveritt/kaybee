@@ -1,6 +1,6 @@
-from docutils import nodes
 from typing import List
 
+from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
@@ -8,6 +8,25 @@ from sphinx.environment import BuildEnvironment
 from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.references.container import ReferencesContainer
+from kaybee.plugins.references.model_types import ReferencesType
+
+
+def reference_fieldnames(resource):
+    """ Look in model and return each fieldname that is a reference """
+
+    p = resource.props.fields
+    return [
+        field.name
+        for field in resource.props.fields.values()
+        if field.type_ == ReferencesType
+    ]
+
+
+def get_reference_classes(resource_classes):
+    """ Given resource classes from config, filter is_reference """
+
+    return [rc for rc in resource_classes
+            if getattr(rc, 'is_reference', False)]
 
 
 @kb.event(SphinxEvent.EBRD, scope='references', system_order=40)
@@ -19,7 +38,7 @@ def initialize_references_container(kb_app: kb,
     sphinx_app.references = ReferencesContainer()
 
 
-@kb.event(SphinxEvent.EBRD, 'references', system_order=50)
+@kb.event(SphinxEvent.EBRD, scope='references', system_order=50)
 def register_references(kb_app: kb,
                         sphinx_app: Sphinx,
                         sphinx_env: BuildEnvironment,
@@ -28,14 +47,14 @@ def register_references(kb_app: kb,
 
     references: ReferencesContainer = sphinx_app.references
 
-    for name, klass in kb_app.config.references.items():
+    for name, klass in kb_app.config.resources.items():
         # Name is the value in the decorator and directive, e.g.
         # @kb.reference('category') means name=category
         if getattr(klass, 'is_reference', False):
             references[name] = dict()
 
 
-@kb.event(SphinxEvent.ECC, 'references')
+@kb.event(SphinxEvent.ECC, scope='references')
 def validate_references(kb_app: kb,
                         sphinx_builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
@@ -51,7 +70,7 @@ def validate_references(kb_app: kb,
     for resource in resources.values():
         # This line looks at the props model to see which props are marked
         # as reference-able
-        for field_name in resource.reference_fieldnames:
+        for field_name in reference_fieldnames(resource):
             # And this looks at this resource's props for that field, and
             # each of the values in the sequence.
             for target_label in getattr(resource.props, field_name):
@@ -73,7 +92,7 @@ def validate_references(kb_app: kb,
                     raise KeyError(msg)
 
 
-@kb.event(SphinxEvent.MR, 'references')
+@kb.event(SphinxEvent.MR, scope='references')
 def missing_reference(kb_app: kb,
                       sphinx_app: Sphinx,
                       sphinx_env: BuildEnvironment,
@@ -107,14 +126,20 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
     # First get the kb app configuration for references
     config = {
         k: v.__module__ + '.' + v.__name__
-        for (k, v) in kb_app.config.references.items()
+        for (k, v) in kb_app.config.resources.items()
+        if getattr(v, 'is_reference', False)
     }
 
     # Next, get the actual references in the app.references DB
     references = sphinx_env.app.references
-    values = {k: v.__json__() for (k, v) in references.items()}
+    resources = sphinx_env.app.resources
+    values = dict()
+    for k, v in references.items():
+        values[k] = dict()
+        for label, resource in v.items():
+            values[k][label] = resource.__json__(resources)
 
-    refrences = dict(
+    references = dict(
         config=config,
         values=values
     )

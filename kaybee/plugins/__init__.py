@@ -4,6 +4,8 @@ import kaybee.plugins.localtemplates.handlers
 import kaybee.plugins.queries.handlers
 import kaybee.plugins.resources.handlers
 import kaybee.plugins.resources.resource
+import kaybee.plugins.references.handlers
+import kaybee.plugins.references.reference
 import kaybee.plugins.settings.handlers
 import kaybee.plugins.sphinx_app.handlers
 import kaybee.plugins.widgets.handlers

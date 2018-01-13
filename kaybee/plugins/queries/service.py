@@ -1,5 +1,5 @@
 from operator import attrgetter
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import pydash
 from pydash import py_
@@ -39,17 +39,26 @@ class Query:
     @classmethod
     def _sort_key_lamda(cls, sort_value):
         if sort_value is None:
-            return None
+            # The dummy user explicity said to sort on nothing. What to
+            # sort on then, when they don't want the default sort_value of
+            # 'title' ? For now, docname
+            return attrgetter('docname')
         elif sort_value == 'title':
             return attrgetter('title')
         else:
-            return lambda x: getattr(x.props, sort_value, 0)
+            def get_prop(resource):
+                prop = getattr(resource.props, sort_value, None)
+                if prop is None:
+                    return ''
+                else:
+                    return prop
+            return get_prop
 
     @classmethod
     def filter_collection(self,
                           collection,
                           rtype: str = None,
-                          sort_value: str = 'title',
+                          sort_value: Optional[str] = 'title',
                           reverse: bool = False,
                           limit: int = None,
                           parent_name: str = None,

@@ -3,3 +3,7 @@
 ===========
 Hello World
 ===========
+
+.. toctree::
+
+    category1
