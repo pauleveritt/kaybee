@@ -3,6 +3,7 @@ import pytest
 from pydantic import BaseModel
 
 from kaybee.plugins.references.base_reference import BaseReference
+from kaybee.plugins.references.container import ReferencesContainer
 from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import BaseResource
 
@@ -19,10 +20,8 @@ class DummyCategory(BaseReference):
     pass
 
 
-class DummyReferences(dict):
-    def get_reference(self):
-        pass
-
+class DummyReferences(ReferencesContainer):
+    pass
 
 @pytest.fixture()
 def dummy_article():

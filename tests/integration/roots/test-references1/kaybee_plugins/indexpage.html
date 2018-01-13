@@ -1,0 +1,6 @@
+<h1>Indexpage</h1>
+<ul>
+    {% for category in sphinx_app.references.resource_references(resource)['category'] %}
+    <li>{{ category.docname }}</li>
+    {% endfor %}
+</ul>

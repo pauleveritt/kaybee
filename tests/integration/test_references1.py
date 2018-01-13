@@ -7,8 +7,10 @@ pytestmark = pytest.mark.sphinx('html', testroot='references1')
 class TestReferences1:
 
     def test_index(self, page):
-        content = page.find('h1').contents[0].strip()
-        assert 'Hello World' == content
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Indexpage' == h1
+        li = page.find('li').contents[0].strip()
+        assert 'category1' == li
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
@@ -21,15 +23,17 @@ class TestReferences1Debug:
 
         # references1 contains one registered handler
         config = references['config']
-        assert {'reference': 'kaybee.plugins.widgets.widget.Widget'} == config
-        return
+        v = config['category']
+        assert 'kaybee.plugins.references.reference.Category' == v
 
-        # one value in widgets
-        values = widgets['values']
+        # one value in references
+        values = references['values']
         assert 1 == len(values)
-        assert 'index' in values
-        index = values['index']
-        assert 'index' == index['docname']
-        assert 'props' in index
-        props = index['props']
-        assert 'widgets1_hello' == props['template']
+        assert 'category' in values
+        category = values['category']
+        assert 'category1' in category
+        assert 'category1' == category['category1']['docname']
+
+        # Let's see on the other side with the source of the reference
+        resource = json_page['resources']['values']['index']
+        assert 'category1' == resource['props']['category'][0]

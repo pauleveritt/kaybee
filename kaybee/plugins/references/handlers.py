@@ -14,7 +14,6 @@ from kaybee.plugins.references.model_types import ReferencesType
 def reference_fieldnames(resource):
     """ Look in model and return each fieldname that is a reference """
 
-    p = resource.props.fields
     return [
         field.name
         for field in resource.props.fields.values()

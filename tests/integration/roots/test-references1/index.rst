@@ -1,4 +1,6 @@
-.. resource::
+.. indexpage::
+    category:
+        - category1
 
 ===========
 Hello World

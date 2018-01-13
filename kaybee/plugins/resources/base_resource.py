@@ -125,6 +125,6 @@ class BaseResource:
             template=self.template(resources),
             rtype=self.rtype,
             parent=self.parent,
-            props=self.props.values(),
+            props=self.props.dict(),
             repr=repr(self),
         )

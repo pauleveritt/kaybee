@@ -7,6 +7,9 @@ Store/retrieve each as sphinx_app.references[rtype][label]
 """
 
 from collections import UserDict
+from typing import List, Mapping, Any
+
+from kaybee.plugins.references.model_types import ReferencesType
 
 
 class ReferencesContainer(UserDict):
@@ -31,3 +34,36 @@ class ReferencesContainer(UserDict):
         # register_references event handler at startup, which looks in the
         # kb registry for all registered reference names.
         self.data[reftype][label] = target
+
+    def resource_references(self, resource) -> Mapping[str, List[Any]]:
+        """ Resolve and return references
+
+         Fields in resource.props can flag that they are references by
+         using the references type. This method scans the model,
+         finds any fields that are references, and returns the
+         resources pointed to by those references.
+
+         Note that we shouldn't get to the point of dangling references.
+         Our custom Sphinx event should raise a references error
+         during the build process (though maybe it is just a warning?)
+
+         """
+
+        references = dict()
+        reference_fieldnames = [
+            field.name
+            for field in resource.props.fields.values()
+            if field.type_ == ReferencesType
+        ]
+
+        for field_name in reference_fieldnames:
+            references[field_name] = []
+
+            # Iterate over each value on this field, e.g.
+            # tags: tag1, tag2, tag3
+            for target_label in getattr(resource.props, field_name):
+                # Ask the site to get the object
+                target = self.get_reference(field_name, target_label)
+                references[field_name].append(target)
+
+        return references
