@@ -12,6 +12,14 @@ class TestReferences1:
         li = page.find('li').contents[0].strip()
         assert 'category1' == li
 
+        # Let's look at the two types of generated reference links
+        refs = page.find_all("a", class_="internal")
+        assert 3 == len(refs)  # Includes toctree on
+        derived_title = refs[0].find('em').contents[0].strip()
+        assert 'Category 1' == derived_title
+        explicit_title = refs[1].find('em').contents[0].strip()
+        assert 'Category 1-ish' == explicit_title
+
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestReferences1Debug:

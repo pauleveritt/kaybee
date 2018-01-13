@@ -168,7 +168,7 @@ class EventAction(dectate.Action):
 
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.MR):
-            callback(kb_app, sphinx_app, sphinx_env, node, contnode)
+             return callback(kb_app, sphinx_app, sphinx_env, node, contnode)
 
     @classmethod
     def call_html_page_context(cls, kb_app, sphinx_app: Sphinx,

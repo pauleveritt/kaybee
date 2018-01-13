@@ -37,7 +37,9 @@ def dummy_category():
     yaml_content = '''\
 label: category1
     '''
-    yield DummyCategory('category1', 'category', yaml_content)
+    dc = DummyCategory('category1', 'category', yaml_content)
+    dc.title = 'Dummy Category 1'
+    yield dc
 
 
 @pytest.fixture()
