@@ -1,2 +1,4 @@
+.. resource::
+
 Hello World
 ===========

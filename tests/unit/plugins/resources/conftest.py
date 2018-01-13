@@ -1,6 +1,10 @@
 import pytest
 
 from kaybee.plugins.resources.directive import ResourceDirective
+from kaybee.utils.rst import (
+    rst_document,
+    get_rst_title,
+)
 
 
 class DummySite:
@@ -37,6 +41,11 @@ def dummy_resource_class(dummy_props):
             self.props = dummy_props()
 
     yield DummyResource
+
+
+@pytest.fixture()
+def dummy_article(dummy_resource_class):
+    yield dummy_resource_class('article1', 'article', '')
 
 
 @pytest.fixture()
@@ -80,3 +89,15 @@ def dummy_reference():
             self.props.label = 'category1'
 
     yield DummyReference()
+
+
+@pytest.fixture()
+def dummy_doctree():
+    source = """\
+=============
+Test *Simple*
+=============
+
+Body.
+        """
+    yield rst_document(source)

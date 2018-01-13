@@ -7,6 +7,7 @@ from kaybee.plugins.resources.handlers import (
     initialize_resources_container,
     register_template_directory,
     add_directives,
+    stamp_title,
     resource_into_html_context,
     dump_settings,
 )
@@ -66,6 +67,21 @@ class TestResourcesAddDirectives:
                        [])
         sphinx_app.add_directive.assert_called_once_with('article',
                                                          ResourceDirective)
+
+
+class TestStampTitle:
+    def test_import(self):
+        assert 'stamp_title' == stamp_title.__name__
+
+    def test_run(self, kb_app, sphinx_app, dummy_doctree, dummy_article):
+        sphinx_app.confdir = '/tmp'
+        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert None is getattr(dummy_article, 'title', None)
+        stamp_title(kb_app, sphinx_app, dummy_doctree)
+        assert 'Test Simple' == dummy_article.title
 
 
 class TestResourcesResourceIntoHtml:

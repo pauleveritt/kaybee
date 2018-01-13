@@ -121,6 +121,7 @@ class BaseResource:
                                self.parents(resources)]
         return dict(
             docname=self.docname,
+            title=self.title,
             parent_docnames=parent_docnames,
             template=self.template(resources),
             rtype=self.rtype,

@@ -11,3 +11,12 @@ class TestResourceDebug:
         settings = json_page['resources']
         assert 'config' in settings
         assert 'values' in settings
+
+        # Inspect some details from a value
+        index = settings['values']['index']
+        assert 'index' == index['docname']
+        assert 'Hello World' == index['title']
+        assert 'page' == index['template']
+        assert 'resource' == index['rtype']
+        assert None is index['parent']
+        assert 'index' == index['repr']

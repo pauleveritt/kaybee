@@ -1,5 +1,6 @@
 import inspect
 import os
+from pathlib import PurePath
 from typing import List, Dict
 
 from docutils.readers import doctree
@@ -12,6 +13,7 @@ from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.resources.container import ResourcesContainer
 from kaybee.plugins.resources.directive import ResourceDirective
+from kaybee.utils.rst import get_rst_title
 
 
 @kb.event(SphinxEvent.BI, scope='resources')
@@ -57,6 +59,28 @@ def add_directives(kb_app: kb,
         sphinx_app.add_directive(k, ResourceDirective)
 
 
+@kb.event(SphinxEvent.DREAD, scope='resource')
+def stamp_title(kb_app: kb,
+                sphinx_app: Sphinx,
+                doctree: doctree):
+    """ Walk the tree and extra RST title into resource.title """
+
+    # First, find out which resource this is. Won't be easy.
+    resources = sphinx_app.resources
+    confdir = sphinx_app.confdir
+    source = PurePath(doctree.attributes['source'])
+
+    # Get the relative path inside the docs dir, without .rst, then
+    # get the resource
+    docname = str(source.relative_to(confdir)).split('.rst')[0]
+    resource = resources.get(docname)
+
+    if resource:
+        # Step 1: Stamp the title on the resource
+        title = get_rst_title(doctree)
+        resource.title = title
+
+
 @kb.event(SphinxEvent.HPC, scope='resource')
 def resource_into_html_context(
         kb_app: kb,
@@ -65,7 +89,6 @@ def resource_into_html_context(
         templatename: str,
         context,
         doctree: doctree) -> Dict[str, str]:
-
     # Get the resource for this pagename. If no match, then this pagename
     # must be a genericpage
     resources = sphinx_app.resources
