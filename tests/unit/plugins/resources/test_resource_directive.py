@@ -38,29 +38,3 @@ class TestResourceDirective:
 
         assert [] == dummy_directive.run()
         assert 'somedoc' in dummy_directive.resources
-
-    def test_run_reference(self, monkeypatch, mocker,
-                           dummy_directive_class,
-                           dummy_resource_class,
-                           dummy_directive,
-                           dummy_reference,
-                           dummy_references,
-                           kb_app):
-        # Setup fake registry
-        monkeypatch.setattr(app, 'kb', kb_app)
-        drc = dummy_directive_class.name
-        kb_app.config.resources = {drc: dummy_resource_class}
-
-        # Make this resource class into a reference
-        dummy_resource_class.is_reference = True
-        kb_app.config.references = dict(
-            category=dict(
-                category1=dummy_reference
-            )
-        )
-        mocker.patch.object(dummy_references, 'add_reference')
-        dummy_directive.run()
-        somedoc = dummy_directive.resources['somedoc']
-        dummy_references.add_reference.assert_called_once_with(
-            'dummy_directive', 'somelabel', somedoc
-        )

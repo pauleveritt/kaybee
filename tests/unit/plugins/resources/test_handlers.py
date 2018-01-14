@@ -73,7 +73,8 @@ class TestStampTitle:
     def test_import(self):
         assert 'stamp_title' == stamp_title.__name__
 
-    def test_run(self, kb_app, sphinx_app, dummy_doctree, dummy_article):
+    def test_run_with_resource(self, kb_app, sphinx_app, dummy_doctree,
+                               dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
         sphinx_app.resources = dict(
@@ -82,6 +83,15 @@ class TestStampTitle:
         assert None is getattr(dummy_article, 'title', None)
         stamp_title(kb_app, sphinx_app, dummy_doctree)
         assert 'Test Simple' == dummy_article.title
+
+    def test_run_without_resource(self, kb_app, sphinx_app, dummy_doctree,
+                                  dummy_article):
+        sphinx_app.confdir = '/tmp'
+        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict()
+        assert None is getattr(dummy_article, 'title', None)
+        stamp_title(kb_app, sphinx_app, dummy_doctree)
+        assert False is getattr(dummy_article, 'title', False)
 
 
 class TestResourcesResourceIntoHtml:

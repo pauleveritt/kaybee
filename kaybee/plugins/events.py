@@ -29,6 +29,7 @@ class SphinxEvent(Enum):
     DRES = 'doctree-resolved'
     MR = 'missing-reference'
     HCP = 'html-collect-pages'
+    EU = 'env-updated'
     ECC = 'env-check-consistency'
     HPC = 'html-page-context'
 
@@ -140,6 +141,15 @@ class EventAction(dectate.Action):
             callback(kb_app, sphinx_app, doctree, fromdocname)
 
     @classmethod
+    def call_env_updated(cls, kb_app,
+                         sphinx_app: Sphinx,
+                         sphinx_env: BuildEnvironment):
+
+        """ On the env-updated event, do callbacks """
+        for callback in EventAction.get_callbacks(kb_app, SphinxEvent.EU):
+            callback(kb_app, sphinx_app, sphinx_env)
+
+    @classmethod
     def call_html_collect_pages(cls, kb_app, sphinx_app: Sphinx):
         """ On html-collect-pages, do callbacks"""
 
@@ -168,7 +178,7 @@ class EventAction(dectate.Action):
 
         for callback in EventAction.get_callbacks(kb_app,
                                                   SphinxEvent.MR):
-             return callback(kb_app, sphinx_app, sphinx_env, node, contnode)
+            return callback(kb_app, sphinx_app, sphinx_env, node, contnode)
 
     @classmethod
     def call_html_page_context(cls, kb_app, sphinx_app: Sphinx,

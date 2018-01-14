@@ -48,12 +48,28 @@ def register_references(kb_app: kb,
 
     for name, klass in kb_app.config.resources.items():
         # Name is the value in the decorator and directive, e.g.
-        # @kb.reference('category') means name=category
+        # @kb.resource('category') means name=category
         if getattr(klass, 'is_reference', False):
             references[name] = dict()
 
 
-@kb.event(SphinxEvent.ECC, scope='references')
+@kb.event(SphinxEvent.ECC, scope='references', system_order=50)
+def add_document_reference(kb_app: kb,
+                           sphinx_builder: StandaloneHTMLBuilder,
+                           sphinx_env: BuildEnvironment):
+    # Moved from the resource directive .run(), this looks at each
+    # resource.is_reference. If so, get the reference resource's label
+    # and register it in sphinx_app.references
+    sphinx_app: Sphinx = sphinx_env.app
+    resources = sphinx_app.resources
+    references = sphinx_app.references
+    for resource in resources.values():
+        if getattr(resource, 'is_reference', False):
+            label = resource.props.label
+            references.add_reference(resource.rtype, label, resource)
+
+
+@kb.event(SphinxEvent.ECC, scope='references', system_order=60)
 def validate_references(kb_app: kb,
                         sphinx_builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):

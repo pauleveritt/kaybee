@@ -3,6 +3,7 @@ from sphinx.application import Sphinx
 
 from kaybee.plugins.references.container import ReferencesContainer
 from kaybee.plugins.references.handlers import (
+    add_document_reference,
     initialize_references_container,
     register_references,
     validate_references,
@@ -30,8 +31,8 @@ class TestRegisterReferences:
         assert 'register_references' == register_references.__name__
 
     def test_is_reference(self, kb_app, references_sphinx_app: Sphinx,
-                 sphinx_env,
-                 valid_registration):
+                          sphinx_env,
+                          valid_registration):
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it gets added, so let's remove
         # it first.
@@ -44,8 +45,8 @@ class TestRegisterReferences:
         assert 'category' in references_sphinx_app.references
 
     def test_not_is_reference(self, kb_app, references_sphinx_app: Sphinx,
-                 sphinx_env,
-                 valid_registration
+                              sphinx_env,
+                              valid_registration
                               ):
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it doesn't get added, so let's
@@ -60,6 +61,18 @@ class TestRegisterReferences:
                             []
                             )
         assert 'category' not in references_sphinx_app.references
+
+
+class TestAddDocumentReferences:
+    def test_import(self):
+        assert 'add_document_reference' == add_document_reference.__name__
+
+    def test_run(self, kb_app, sphinx_app, references_sphinx_env,
+                 dummy_category):
+        sphinx_app.resources['category1'] = dummy_category
+        add_document_reference(kb_app, sphinx_app, references_sphinx_env)
+        category1 = sphinx_app.references['category']['category1']
+        assert 'category1' == category1.docname
 
 
 class TestValidateReferences:
@@ -120,10 +133,10 @@ class TestMissingReference:
         assert 'first' == newnode[0][0]
 
     def test_not_explicit(self, kb_app,
-                      sphinx_app,
-                      html_builder, references_sphinx_env,
-                      dummy_contnode,
-                      mocker):
+                          sphinx_app,
+                          html_builder, references_sphinx_env,
+                          dummy_contnode,
+                          mocker):
         resources = references_sphinx_env.app.resources
         references = references_sphinx_env.app.references
         article1 = resources['article1']

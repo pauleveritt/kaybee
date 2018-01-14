@@ -19,10 +19,6 @@ class ResourceDirective(Directive):
     def resources(self):
         return self.state.document.settings.env.app.resources
 
-    @property
-    def references(self):
-        return self.state.document.settings.env.app.references
-
     def run(self):
         """ Run at parse time.
 
@@ -41,14 +37,6 @@ class ResourceDirective(Directive):
 
         # Add this resource to the site
         self.resources[this_resource.docname] = this_resource
-
-        # If this is a reference, add it to site references
-        # TODO Find a way to move this to kaybee.plugins.references.handlers
-        # Probably did this originally because I didn't have a mechanism
-        # for sorting handlers.
-        if getattr(resource_class, 'is_reference', False):
-            label = this_resource.props.label
-            self.references.add_reference(rtype, label, this_resource)
 
         # Don't need to return a resource "node", the document is the node
         return []

@@ -17,7 +17,7 @@ class DummyArticle(BaseResource):
 
 
 class DummyCategory(BaseReference):
-    pass
+    is_reference = True
 
 
 class DummyReferences(ReferencesContainer):

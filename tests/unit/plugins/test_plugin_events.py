@@ -190,6 +190,16 @@ def missing_reference_event(kb_app):
 
 
 @pytest.fixture()
+def env_updated_event(kb_app):
+    @kb_app.event(SphinxEvent.EU)
+    def handle_envupdated(*args):
+        sphinx_app = args[1]
+        sphinx_app.flag = 215
+
+    yield handle_envupdated
+
+
+@pytest.fixture()
 def html_page_context_event(kb_app):
     @kb_app.event(SphinxEvent.HPC)
     def handle_pagecontext(*args):
@@ -382,6 +392,15 @@ class TestPluginEvents:
                                               SphinxEvent.DRES)
         assert doctree_resolved_event in callbacks
         assert 543 == sphinx_app.flag
+
+    def test_env_updated(self, kb_app, sphinx_app, sphinx_env,
+                         env_updated_event):
+        dectate.commit(kb_app)
+        EventAction.call_env_updated(kb_app, sphinx_app, sphinx_env)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.EU)
+        assert env_updated_event in callbacks
+        assert 215 == sphinx_app.flag
 
     def test_html_collect_pages(self, kb_app, sphinx_app,
                                 html_collect_pages_event):
