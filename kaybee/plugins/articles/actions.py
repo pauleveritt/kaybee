@@ -3,7 +3,6 @@
 Actions for the kb registry app.
 
 """
-from operator import attrgetter
 from typing import Optional
 
 import dectate
@@ -25,7 +24,8 @@ class ToctreeAction(dectate.Action):
 
     # noinspection PyMethodOverriding
     def perform(self, obj, toctrees):
-        toctrees[self.context] = obj
+        name = f'{self.context}-{self.system_order}'
+        toctrees[name] = obj
 
     @classmethod
     def get_callbacks(cls, registry):

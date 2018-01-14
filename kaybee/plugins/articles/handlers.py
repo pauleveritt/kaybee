@@ -43,16 +43,10 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
         for (k, v) in kb_app.config.toctrees.items()
     }
 
-    # # Next, get the actual widgets in the app.widgets DB
-    # widgets = sphinx_env.app.widgets
-    # values = {k: v.__json__() for (k, v) in widgets.items()}
-
     toctrees = dict(
         config=config,
-        # values=values
     )
     return dict(toctrees=toctrees)
-
 
 #
 # @kb.event('env-before-read-docs', 'coretoctree')

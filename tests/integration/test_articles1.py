@@ -4,7 +4,7 @@ pytestmark = pytest.mark.sphinx('html', testroot='articles1')
 
 
 @pytest.mark.parametrize('page', ['article1.html', ], indirect=True)
-class TestArticles11:
+class TestArticles1:
 
     def test_article1(self, page):
         h1 = page.find('h1').contents[0].strip()
@@ -12,7 +12,7 @@ class TestArticles11:
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
-class TestArticles11Debug:
+class TestArticles1Debug:
 
     def test_settings(self, json_page):
         resources = json_page['resources']
@@ -23,11 +23,6 @@ class TestArticles11Debug:
         assert 'article' in resources_config
         assert 'homepage' in resources_config
         assert 'section' in resources_config
-
-        # toctrees are registered (built-in and one custom)
-        toctrees = json_page['toctrees']
-        toctrees_config = toctrees['config']
-        assert 'Toctree' in toctrees_config['null']
 
         # Test some values
         resource_values = resources['values']
