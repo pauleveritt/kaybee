@@ -30,4 +30,4 @@ class TestBaseSection:
     def test_to_json(self, article_resources):
         f1 = article_resources['f1/index']
         result = f1.__json__(article_resources)['get_featured_resource']
-        assert 'f1/f2/about' == result.docname
+        assert 'f1/f2/about' == result

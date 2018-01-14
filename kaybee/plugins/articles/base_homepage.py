@@ -1,15 +1,15 @@
-from kaybee.plugins.resources.base_resource import (
-    BaseResource,
-    BaseResourceModel
+from kaybee.plugins.articles.base_article import (
+    BaseArticle,
+    BaseArticleModel
 )
 
 
-class BaseHomepageModel(BaseResourceModel):
+class BaseHomepageModel(BaseArticleModel):
     logo: str = None
     heading: str = None
     subheading: str = None
     hero_image: str = None
 
 
-class BaseHomepage(BaseResource):
+class BaseHomepage(BaseArticle):
     model = BaseHomepageModel
