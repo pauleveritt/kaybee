@@ -1,6 +1,8 @@
 """
 Miscellaneous functions used in Kaybee.
 """
+from typing import Optional, Any
+
 from docutils import nodes
 from docutils.core import publish_parts
 from docutils.frontend import OptionParser
@@ -31,11 +33,13 @@ def rst_to_html(input_string: str) -> str:
     return parts['html_body']
 
 
-def get_rst_title(rst_doc: Node) -> str:
+def get_rst_title(rst_doc: Node) -> Optional[Any]:
     """ Given some RST, extract what docutils thinks is the title """
 
     for title in rst_doc.traverse(nodes.title):
         return title.astext()
+
+    return None
 
 
 def get_rst_excerpt(rst_doc: document, paragraphs: int = 1) -> str:
