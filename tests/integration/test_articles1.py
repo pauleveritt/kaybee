@@ -24,6 +24,11 @@ class TestArticles11Debug:
         assert 'homepage' in resources_config
         assert 'section' in resources_config
 
+        # toctrees are registered
+        toctrees = json_page['toctrees']
+        toctrees_config = toctrees['config']
+        assert 9 == toctrees_config
+
         # Test some values
         resource_values = resources['values']
 

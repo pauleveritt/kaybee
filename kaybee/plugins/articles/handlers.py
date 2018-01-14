@@ -34,6 +34,26 @@ def register_template_directory(kb_app: kb,
         f = os.path.dirname(inspect.getfile(action))
         template_bridge.loaders.append(SphinxFileSystemLoader(f))
 
+
+@kb.dumper('toctrees')
+def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
+    # First get the kb app configuration for widgets
+    config = {
+        k: v.__module__ + '.' + v.__name__
+        for (k, v) in kb_app.config.toctrees.items()
+    }
+
+    # # Next, get the actual widgets in the app.widgets DB
+    # widgets = sphinx_env.app.widgets
+    # values = {k: v.__json__() for (k, v) in widgets.items()}
+
+    toctrees = dict(
+        config=config,
+        # values=values
+    )
+    return dict(toctrees=toctrees)
+
+
 #
 # @kb.event('env-before-read-docs', 'coretoctree')
 # def register_templates(kb, app, env, docnames):

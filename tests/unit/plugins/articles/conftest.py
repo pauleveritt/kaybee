@@ -26,7 +26,8 @@ def article_resources():
     index = BaseHomepage('index', 'homepage', 'logo: somelogo.png')
     about = BaseArticle('about', 'article', '')
     f1 = BaseSection('f1/index', 'section', f1_content)
-    f1_about = BaseArticle('f1/about', 'article', '')
+    f1_about = BaseArticle('f1/about', 'article',
+                           'published: 2015-04-25 12:01')
     f2 = BaseSection('f1/f2/index', 'section', '')
     f2.title = 'F2 Index'
     f2_about = BaseArticle('f1/f2/about', 'article', '')
