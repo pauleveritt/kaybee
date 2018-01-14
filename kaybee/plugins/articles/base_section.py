@@ -5,9 +5,21 @@ from kaybee.plugins.articles.base_article import (
 
 
 class BaseSectionModel(BaseArticleModel):
-    pass
+    featured_resource: str = None  # docname for this section's feature
 
 
 class BaseSection(BaseArticle):
     model = BaseSectionModel
-    toctree = []
+
+    def get_featured_resource(self, resources):
+        fr = self.props.featured_resource
+        if not fr:
+            return None
+        else:
+            return resources[fr]
+
+    def __json__(self, resources):
+        d = super().__json__(resources)
+        d['get_featured_resource'] = self.get_featured_resource(resources)
+
+        return d

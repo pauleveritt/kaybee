@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import (
@@ -22,7 +23,7 @@ class BaseArticleModel(BaseResourceModel):
 class BaseArticle(BaseResource):
     model = BaseArticleModel
     excerpt: str = None  # Stamped on later by the handler
-    toctree: str = None  # Stamped on later by the handler
+    toctree: List[str] = []  # Stamped on later by the handler
 
     def section(self, resources):
         """ Which section is this in, if any """

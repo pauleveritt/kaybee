@@ -50,7 +50,7 @@ class TestBaseArticle:
         assert 1 == result['props']['auto_excerpt']
         assert None is result['excerpt']
         assert 'f1/f2/f3/f4/index' == result['section']
-        assert None is result['toctree']
+        assert [] is result['toctree']
         assert [] == result['series']
 
 

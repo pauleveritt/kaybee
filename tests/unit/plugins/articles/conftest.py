@@ -9,6 +9,7 @@ from kaybee.plugins.articles.base_section import BaseSection
 def article_resources():
     f1_content = """
     template: f1_section_template
+    featured_resource: f1/f2/about
     acquireds:
         article:
             template: acquired_article
