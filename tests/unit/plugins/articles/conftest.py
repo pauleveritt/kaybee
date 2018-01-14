@@ -23,7 +23,7 @@ def article_resources():
     acquireds:
         all:
     """
-    index = BaseHomepage('index', 'homepage', '')
+    index = BaseHomepage('index', 'homepage', 'logo: somelogo.png')
     about = BaseArticle('about', 'article', '')
     f1 = BaseSection('f1/index', 'section', f1_content)
     f1_about = BaseArticle('f1/about', 'article', '')

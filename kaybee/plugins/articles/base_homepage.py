@@ -5,7 +5,10 @@ from kaybee.plugins.resources.base_resource import (
 
 
 class BaseHomepageModel(BaseResourceModel):
-    pass
+    logo: str = None
+    heading: str = None
+    subheading: str = None
+    hero_image: str = None
 
 
 class BaseHomepage(BaseResource):
