@@ -8,6 +8,7 @@
 
 - toctree handling in pbr.widgets.events.py (had to be in the core before)
 
+
 # Could Be Better
 
 - Purge resources events (but document that it probably won't be used)

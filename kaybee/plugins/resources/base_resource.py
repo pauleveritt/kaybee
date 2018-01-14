@@ -45,6 +45,7 @@ class BaseResourceModel(BaseModel):
 class BaseResource:
     model = BaseResourceModel
     json_attrs = ('docname', 'rtype', 'parent')
+    title: str = None  # Stamped on later by the handler
 
     def __init__(self, docname: str, rtype: str, yaml_content: str):
         self.docname = docname

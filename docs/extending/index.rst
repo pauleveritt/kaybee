@@ -15,3 +15,4 @@ This section covers aspects of extending Kaybee.
     :maxdepth: 2
 
     resources
+    articles
