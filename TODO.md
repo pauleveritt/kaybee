@@ -30,6 +30,8 @@
 
 # Could Be Better
 
+- The OOTB references directive requires template: page
+
 - Instead of handlers for every doc, that traverse the doctree...one custom 
   handler which does one traversal calls handlers (performance improvement)
 
