@@ -1,41 +1,28 @@
 # Now
 
-- Write integration test for resource returning test.html
-
-- Figure out integration test for Sphinx raising exceptions
-
-- Write tests for what was just added
-
-- Get html context event to return the template name
-
-- Get rid of resources.resource and just mark BaseResource
-
-- Integration bumpcoverage
+- Move excerpt support to article
 
 # Next
 
 - Get kaybee_settings into the html context as ``settings``
 
-- Purge resources events (but document that it probably won't be used)
-
-- extract_title plugin
-
-    - Docs
-    
-    - Put into html context
-
-- genericpage replacement
-
 - toctree handling in pbr.widgets.events.py (had to be in the core before)
 
 # Could Be Better
+
+- Purge resources events (but document that it probably won't be used)
+
+- Write integration test for resource returning test.html
+
+- Figure out integration test for Sphinx raising exceptions (which will 
+  allow big increase in integration test coverage)
 
 - The OOTB references directive requires template: page
 
 - Instead of handlers for every doc, that traverse the doctree...one custom 
   handler which does one traversal calls handlers (performance improvement)
 
-- Move excerpt support to article
+- Integration bumpcoverage
 
 - Update documentation
 
