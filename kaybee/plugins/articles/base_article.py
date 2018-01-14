@@ -9,6 +9,7 @@ from kaybee.plugins.resources.base_resource import (
 
 class BaseArticleModel(BaseResourceModel):
     style: str = None
+    css_class: str = None
     in_nav: bool = False
     weight: int = 0
     published: datetime = None
@@ -31,7 +32,7 @@ class BaseArticle(BaseResource):
             return section[0]
         return None
 
-    def is_active_section(self, resources, nav_href):
+    def in_navitem(self, resources, nav_href):
         """ Given  href of nav item, determine if resource is in it """
 
         # The navhref might end with '/index' so remove it if so

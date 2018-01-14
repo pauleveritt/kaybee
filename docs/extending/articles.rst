@@ -5,13 +5,21 @@ Articles
 Notes
 =====
 
-- Base article/section/queries/homepage
+- Base article/section/homepage/widget
+
+- How to override templates from a:
+
+    - doc project
+
+    - theme/layout (_templates/article.html)
 
 - Excerpt
 
 - Published
 
 - is_active
+
+- in_nav
 
 - In section
 

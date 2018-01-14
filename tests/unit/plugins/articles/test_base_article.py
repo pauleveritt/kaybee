@@ -28,9 +28,9 @@ class TestBaseArticle:
         ('f1/f2/index', 'f1/index', True),
         ('f1/f2/about', 'f2/index', False),
     ])
-    def test_is_active(self, article_resources, docname, nav_href, expected):
+    def test_in_navitem(self, article_resources, docname, nav_href, expected):
         a = BaseArticle(docname, 'article', '')
-        assert a.is_active_section(article_resources, nav_href) == expected
+        assert a.in_navitem(article_resources, nav_href) == expected
 
     @pytest.mark.parametrize('content, expected', [
         ('', False),

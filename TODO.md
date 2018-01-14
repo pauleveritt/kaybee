@@ -11,6 +11,9 @@
 
 # Could Be Better
 
+- "Layout" concept the unify theme with computation and settings, with 
+  switchable templates (context, settings, etc.)
+
 - Purge resources events (but document that it probably won't be used)
 
 - Write integration test for resource returning test.html
