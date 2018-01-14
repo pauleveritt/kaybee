@@ -44,7 +44,7 @@ class TestBaseWidget:
         assert 'listing' == no_template_widget.wtype
         assert 'this_id' == no_template_widget.props.name
         assert None is no_template_widget.props.template
-        assert 'listingwidget' == no_template_widget.template
+        assert 'listing' == no_template_widget.template
 
     def test_broken_instance(self, listing_widget: BaseWidget):
         # Class doesn't implement make_context

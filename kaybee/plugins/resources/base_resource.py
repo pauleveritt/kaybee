@@ -110,7 +110,7 @@ class BaseResource:
             if self.rtype == 'resource':
                 return 'page'
             else:
-                return self.__class__.__name__.lower()
+                return self.rtype
 
     def __json__(self, resources):
         # The root has different rules about parents

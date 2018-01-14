@@ -15,5 +15,6 @@ Kaybee is based on Sphinx, Python's static site generator for documentation.
     templates
     settings
     resources
+    widgets
     genericpage
     references

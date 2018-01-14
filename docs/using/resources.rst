@@ -113,3 +113,4 @@ TODO
 - genericpage
 - You are allowed to put extra props in YAML, but they won't be accessible
 - Query.filter_collection
+- Uses the rtype as the base name (without ``.html``) for the template

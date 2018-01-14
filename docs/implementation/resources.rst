@@ -27,6 +27,11 @@ This ``Resources`` object is a Python dictionary (``UserDict``) which
 overrides some of the built-in methods. For example, adding a resource does
 several things behind the scenes:
 
+Notes
+=====
+
+- Uses the rtype as the base name (without ``.html``) for the template
+
 - Adding resource container to sphinx_app
 
 - Adding sphinx app to html context

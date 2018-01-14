@@ -33,9 +33,9 @@ class BaseWidget:
         if self.props.template:
             return self.props.template
         else:
-            # Return the name of the class, and we'll presume that,
+            # Return the wtype of the widget, and we'll presume that,
             # like resources, there's a .html file in that directory
-            return self.__class__.__name__.lower()
+            return self.wtype
 
     def make_context(self, context: Mapping, sphinx_app: Sphinx):
         raise NotImplementedError

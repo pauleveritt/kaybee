@@ -12,3 +12,4 @@ Notes
   that get injected into the doctree. The various directives result in
   a single node which has the name of the directive as an attribute.
 
+- Uses the wtype as the base name (without ``.html``) for the template
