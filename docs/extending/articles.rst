@@ -29,4 +29,10 @@ Notes
 
 - toctree
 
+    - Builtin
+
+    - Registering multiple
+
+    - Choosing a toctree
+
 - References

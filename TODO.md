@@ -1,5 +1,7 @@
 # Now
 
+- toctree, series
+
 - Move excerpt support to article
 
 # Next
@@ -38,7 +40,4 @@
   
 - Resources: kbtype -> rtype
 
-# Done
-
-- Integration test coverage
-
+- Overridable toctree

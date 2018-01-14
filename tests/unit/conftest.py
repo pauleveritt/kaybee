@@ -6,6 +6,7 @@ from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
+from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
@@ -22,6 +23,7 @@ def kb_app():
         resource = dectate.directive(ResourceAction)
         genericpage = dectate.directive(GenericpageAction)
         widget = dectate.directive(WidgetAction)
+        toctree = dectate.directive(ToctreeAction)
 
     yield app
 
