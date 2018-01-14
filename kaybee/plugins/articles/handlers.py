@@ -5,18 +5,34 @@ TODO
 -
 """
 
-
 import inspect
 import os
+from typing import List
 
+from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 from sphinx.jinja2glue import SphinxFileSystemLoader
 
 from kaybee.app import kb
+from kaybee.plugins.events import SphinxEvent
+from kaybee.plugins.articles.actions import ToctreeAction
 
-# - Make a dumper that pumps out registered template dirs
-# - Detect built-in toctree
-# - Detect a custom toctree
 
+@kb.event(SphinxEvent.EBRD, scope='toctrees')
+def register_template_directory(kb_app: kb,
+                                sphinx_app: Sphinx,
+                                sphinx_env: BuildEnvironment,
+                                docnames=List[str],
+                                ):
+    """ Add this widget's templates dir to template paths """
+
+    template_bridge = sphinx_app.builder.templates
+
+    actions = ToctreeAction.get_callbacks(kb_app)
+
+    for action in actions:
+        f = os.path.dirname(inspect.getfile(action))
+        template_bridge.loaders.append(SphinxFileSystemLoader(f))
 
 #
 # @kb.event('env-before-read-docs', 'coretoctree')

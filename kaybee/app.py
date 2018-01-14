@@ -12,6 +12,7 @@ the app.
 """
 import dectate
 
+from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
@@ -25,3 +26,4 @@ class kb(dectate.App):
     resource = dectate.directive(ResourceAction)
     genericpage = dectate.directive(GenericpageAction)
     widget = dectate.directive(WidgetAction)
+    toctree = dectate.directive(ToctreeAction)
