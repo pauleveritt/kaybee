@@ -3,6 +3,7 @@ import pytest
 from kaybee.plugins.articles.base_article import BaseArticle
 from kaybee.plugins.articles.base_homepage import BaseHomepage
 from kaybee.plugins.articles.base_section import BaseSection
+from kaybee.plugins.articles.base_toctree import BaseToctree
 
 
 @pytest.fixture()
@@ -64,3 +65,65 @@ def dummy_section(article_resources):
 @pytest.fixture()
 def dummy_homepage(article_resources):
     yield article_resources['index']
+
+
+@pytest.fixture()
+def dummy_nodes(dummy_entries):
+    class Node:
+        def __init__(self):
+            self.attributes = dict(
+                hidden=False,
+                entries=dummy_entries,
+            )
+
+        def replace_self(self, value):
+            pass
+
+    yield (Node(),)
+
+
+@pytest.fixture()
+def dummy_doctree(dummy_nodes):
+    class Doctree:
+        def __init__(self):
+            self.dummy_nodes = dummy_nodes
+
+        def traverse(self, *args):
+            return self.dummy_nodes
+
+    yield Doctree()
+
+
+@pytest.fixture()
+def dummy_toctree():
+    yield BaseToctree()
+
+
+@pytest.fixture()
+def dummy_entries():
+    r = [
+        ('x', 'f1/about')
+    ]
+
+    yield r
+
+
+@pytest.fixture()
+def dummy_titles():
+    class Title:
+        def __init__(self, first_child):
+            self.children = [first_child]
+
+    yield {
+        'about': Title('About'),
+        'f1/about': Title('F1 About')
+    }
+
+
+@pytest.fixture()
+def article_env(dummy_titles):
+    class Env:
+        def __init__(self):
+            self.titles = dummy_titles
+
+    yield Env()

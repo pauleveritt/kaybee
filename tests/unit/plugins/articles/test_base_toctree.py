@@ -1,32 +1,4 @@
-import pytest
-
 from kaybee.plugins.articles.base_toctree import BaseToctree
-
-
-@pytest.fixture()
-def dummy_entries():
-    r = [
-        ('x', 'f1/about')
-    ]
-
-    yield r
-
-
-@pytest.fixture()
-def dummy_toctree():
-    yield BaseToctree()
-
-
-@pytest.fixture()
-def dummy_titles():
-    class Title:
-        def __init__(self, first_child):
-            self.children = [first_child]
-
-    yield {
-        'about': Title('About'),
-        'f1/about': Title('F1 About')
-    }
 
 
 class TestBaseToctree:
