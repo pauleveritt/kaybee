@@ -1,4 +1,4 @@
-.. homepage::
+.. aqhomepage::
 
 Hello World
 ===========

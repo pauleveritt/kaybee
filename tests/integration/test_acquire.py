@@ -22,8 +22,8 @@ class TestAcquire:
 class TestAcquireDebug:
 
     @pytest.mark.parametrize('docname, template', [
-        ('index', 'homepage'),
-        ('about', 'article'),
+        ('index', 'aqhomepage'),
+        ('about', 'aqarticle'),
         ('folder1/index', 'folder1_section'),
         ('folder1/about', 'root_article'),
         ('folder1/subfolder2/index', 'subfolder2_section'),

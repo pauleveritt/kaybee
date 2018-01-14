@@ -1,10 +1,10 @@
-.. section::
+.. aqsection::
     template: folder1_section
     acquireds:
-        article:
+        aqarticle:
             template: root_article
             flag: 99
-        section:
+        aqsection:
             template: root_section
 
 ==============
