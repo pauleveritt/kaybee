@@ -31,6 +31,8 @@ Notes
 
     - Builtin
 
+    - Overriding built-in with lower system_order
+
     - Registering multiple
 
     - Choosing a toctree

@@ -3,6 +3,7 @@
 Actions for the kb registry app.
 
 """
+from operator import attrgetter
 from typing import Optional
 
 import dectate
@@ -13,12 +14,14 @@ class ToctreeAction(dectate.Action):
         'toctrees': dict
     }
 
-    def __init__(self, context: Optional[str] = None):
+    def __init__(self, context: Optional[str] = None,
+                 system_order: Optional[int] = 80):
         super().__init__()
         self.context = context
+        self.system_order = system_order
 
     def identifier(self, toctrees):
-        return self.context
+        return f'{self.context}-{self.system_order}'
 
     # noinspection PyMethodOverriding
     def perform(self, obj, toctrees):
@@ -34,6 +37,11 @@ class ToctreeAction(dectate.Action):
     @classmethod
     def get_for_context(cls, registry, context=None):
         q = dectate.Query('toctree')
-        qr = list(q.filter(context=context)(registry))
+        # Get the registrations for this context, sorted by
+        # system_order
+        qr = sorted(
+            q.filter(context=context)(registry),
+            key=lambda t: t[0].system_order
+        )
         # Return the first match's decorated object
         return qr[0][1]
