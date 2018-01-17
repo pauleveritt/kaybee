@@ -1,7 +1,5 @@
 # Now
 
-- toctree, series
-
 - Move excerpt support to article
 
 # Next

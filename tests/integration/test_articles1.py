@@ -52,5 +52,5 @@ class TestArticles1Debug:
         assert None == section1['excerpt']
         assert '' == section1['section']
         assert ['section1/article2'] == section1['toctree']
-        assert 0 == len(section1['series'])
+        assert 'article1' == section1['series'][0]['docname']
         assert 'section1/article2' == section1['get_featured_resource']
