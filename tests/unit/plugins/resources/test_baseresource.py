@@ -36,7 +36,6 @@ class TestBaseResource:
         assert 'somepage' == br.docname
         assert 'resource' == br.rtype
         assert 'index' == br.parent
-        assert 1 == br.props.auto_excerpt
 
     def test_repr(self):
         # The repr is primarily useful in pytest listing
@@ -68,7 +67,6 @@ class TestBaseResource:
         assert 'r1/r2/r3/r4/about' == actual['docname']
         assert 'resource' == actual['rtype']
         assert 'r1/r2/r3/r4/index' == actual['parent']
-        assert 1 == actual['props']['auto_excerpt']
 
     def test_to_index_json(self, sample_resources):
         index = 'index'

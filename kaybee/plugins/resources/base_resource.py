@@ -38,8 +38,6 @@ class BaseResourceModel(BaseModel):
 
     template: str = None
     acquireds: Mapping[str, Mapping[str, str]] = None
-    excerpt: str = None
-    auto_excerpt: int = 1
 
 
 class BaseResource:

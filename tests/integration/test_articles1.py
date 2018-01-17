@@ -31,7 +31,6 @@ class TestArticles1Debug:
         homepage = resource_values['index']
         assert 'index' == homepage['docname']
         assert 'Hello World' == homepage['title']
-        assert None == homepage['excerpt']
         assert '' == homepage['section']
         assert ['article1', 'section1/index'] == homepage['toctree']
         assert None is homepage['series']
@@ -40,7 +39,6 @@ class TestArticles1Debug:
         article1 = resource_values['article1']
         assert 'article1' == article1['docname']
         assert 'Article 1' == article1['title']
-        assert None == article1['excerpt']
         assert '' == article1['section']
         assert [] == article1['toctree']
         assert 2 == len(article1['series'])
@@ -49,7 +47,6 @@ class TestArticles1Debug:
         section1 = resource_values['section1/index']
         assert 'section1/index' == section1['docname']
         assert 'Section 1' == section1['title']
-        assert None == section1['excerpt']
         assert '' == section1['section']
         assert ['section1/article2'] == section1['toctree']
         assert 'article1' == section1['series'][0]['docname']

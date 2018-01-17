@@ -15,12 +15,6 @@ class TestQueryService:
         q = Query('doc1')
         assert 'doc1' == q.docname
 
-    def test_failed_filter_props(self):
-        # Certain cases, e.g. asking for excerpt when there is none
-        # ('sort_value', 'excerpt', 'Q Not Last No Weight'),
-
-        pass
-
     @pytest.mark.parametrize('filter_key, filter_value, expected', [
         (None, 'article', 'About'),
         ('rtype', 'article', 'About'),
@@ -52,7 +46,7 @@ class TestQueryService:
 
     def test_filter_resources_props(self, query_resources):
         props = [
-            dict(key='auto_excerpt', value=10),
+            dict(key='template', value='I am c1'),
         ]
         kw = dict(props=props)
         results = Query.filter_collection(query_resources, **kw)
@@ -61,7 +55,7 @@ class TestQueryService:
 
     def test_filter_resources_empty_props(self, query_resources):
         props = [
-            dict(key='auto_excerpt', value=None),
+            dict(key='template', value=None),
         ]
         kw = dict(props=props)
         results = Query.filter_collection(query_resources, **kw)
@@ -91,11 +85,11 @@ class TestQueryService:
 
     def test_filter_resources_sort_value_not_title(self, query_resources):
         results = Query.filter_collection(query_resources,
-                                          sort_value='excerpt',
+                                          sort_value='template',
                                           reverse=True)
-        # Remember, we reversed based on excerpt
-        last_excerpt = results[0].props.excerpt
-        assert 'I am c3' == last_excerpt
+        # Remember, we reversed based on template
+        last_template = results[0].props.template
+        assert 'I am c2' == last_template
 
     def test_filter_resources_sort_title_reverse(self, query_resources):
         results = Query.filter_collection(query_resources,

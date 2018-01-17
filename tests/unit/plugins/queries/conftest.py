@@ -17,18 +17,14 @@ class Section(BaseResource):
 
 @pytest.fixture()
 def query_resources():
-    c0 = "excerpt: I am c0"
+    c0 = "template: I am c0"
     c1 = """
-excerpt: I am c1
-auto_excerpt: 10
+template: I am c1
     """
     c2 = """
-excerpt: I am c2
-auto_excerpt: 20
+template: I am c2
     """
     c3 = """
-excerpt: I am c3
-auto_excerpt: 30
     """
 
     s1 = Section('8783', 'section', c0)

@@ -10,7 +10,7 @@ class TestBaseSection:
         assert 'BaseSectionModel' == BaseSectionModel.__name__
 
     def test_section_f1(self, article_resources):
-        a = BaseSection('f1/f2/f3/another', 'kbtype', '')
+        a = BaseSection('f1/f2/f3/another', 'rtype', '')
         result = a.section(article_resources)
         assert 'f1/f2/f3/index' == result.docname
 
