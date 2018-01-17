@@ -34,11 +34,13 @@ class TestBaseToctree:
 
     def test_render(self, mocker,
                     dummy_toctree, html_builder, sphinx_app):
+        # Turn on toctree support
+        sphinx_app.config.kaybee_settings.articles.use_toctree = True
         mocker.patch.object(html_builder.templates, 'render')
         context = dict()
         dummy_toctree.render(html_builder, context, sphinx_app)
         html_builder.templates.render.assert_called_once_with(
-            'toctree', context
+            'toctree.html', context
         )
         assert sphinx_app == context['sphinx_app']
         assert dummy_toctree == context['toctree']

@@ -20,6 +20,7 @@ from sphinx.jinja2glue import SphinxFileSystemLoader
 from kaybee.app import kb
 from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.events import SphinxEvent
+from kaybee.plugins.settings.model import KaybeeSettings
 
 
 @kb.event(SphinxEvent.EBRD, scope='toctrees')
@@ -44,8 +45,13 @@ def render_toctrees(kb_app: kb, sphinx_app: Sphinx, doctree: doctree,
                     fromdocname: str):
     """ Look in doctrees for toctree and replace with custom render """
 
-    # Setup a template and context
+    # Only do any of this if toctree support is turned on in KaybeeSettings.
+    # By default, this is off.
+    settings: KaybeeSettings = sphinx_app.config.kaybee_settings
+    if not settings.articles.use_toctree:
+        return
 
+    # Setup a template and context
     builder: StandaloneHTMLBuilder = sphinx_app.builder
     env: BuildEnvironment = sphinx_app.env
 

@@ -1,5 +1,14 @@
 # Now
 
+- Toctree
+
+    - Get the default toctree.html to render the same result as builtin
+    
+    - This means getting nesting information into to the toctree
+    
+    - Why isn't the "sphinx" task which build kaybee docs debug stopping 
+      on all toctrees?
+
 - toctree, series
 
 - Move excerpt support to article
@@ -40,4 +49,4 @@
   
 - Resources: kbtype -> rtype
 
-- Overridable toctree
+- Overridable toctree with a configuration knob to turn it on
