@@ -1,7 +1,10 @@
-<ul>
-    {% for entry in toctree.entries %}
-    <li class="toctree-l1">
-        <a class="reference internal" href="whysphinx.html">Why
-            Sphinx</a></li>
-    {% endfor %}
-</ul>
+<div class="toctree-wrapper compound">
+    <ul>
+        {% for entry in toctree.entries %}
+        <li class="toctree-l1">
+            <a class="reference internal"
+               href="{{entry.href + '.html'}} ">{{entry.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

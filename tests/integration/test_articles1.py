@@ -33,7 +33,7 @@ class TestArticles1Debug:
         assert 'Hello World' == homepage['title']
         assert None == homepage['excerpt']
         assert '' == homepage['section']
-        assert [] == homepage['toctree']
+        assert ['article1', 'section1/index'] == homepage['toctree']
         assert None is homepage['series']
 
         # article1
@@ -43,7 +43,7 @@ class TestArticles1Debug:
         assert None == article1['excerpt']
         assert '' == article1['section']
         assert [] == article1['toctree']
-        assert 0 == len(article1['series'])
+        assert 2 == len(article1['series'])
 
         # section1
         section1 = resource_values['section1/index']
@@ -51,6 +51,6 @@ class TestArticles1Debug:
         assert 'Section 1' == section1['title']
         assert None == section1['excerpt']
         assert '' == section1['section']
-        assert [] == section1['toctree']
+        assert ['section1/article2'] == section1['toctree']
         assert 0 == len(section1['series'])
         assert 'section1/article2' == section1['get_featured_resource']

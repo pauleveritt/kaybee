@@ -7,6 +7,7 @@ TODO
 
 import inspect
 import os
+from pathlib import PurePath
 from typing import List
 
 from docutils import nodes
@@ -64,16 +65,45 @@ def render_toctrees(kb_app: kb, sphinx_app: Sphinx, doctree: doctree,
         context = builder.globalcontext.copy()
         context['sphinx_app'] = sphinx_app
 
+        # Get the toctree entries. We only handle one level of depth for
+        # now. To go further, we need to recurse like sphinx's
+        # adapters.toctree._toctree_add_classes function
+        entries = node.attributes['entries']
+
         # The challenge here is that some items in a toctree
         # might not be resources in our "database". So we have
         # to ask Sphinx to get us the titles.
-        custom_toctree.set_entries(node.attributes['entries'], env.titles,
-                                   sphinx_app.resources)
+        custom_toctree.set_entries(entries, env.titles, sphinx_app.resources)
         output = custom_toctree.render(builder, context, sphinx_app)
 
         # Put the output into the node contents
         listing = [nodes.raw('', output, format='html')]
         node.replace_self(listing)
+
+
+@kb.event(SphinxEvent.DREAD, scope='toctrees')
+def resource_toctrees(kb_app: kb,
+                      sphinx_app: Sphinx,
+                      doctree: doctree):
+    # Find any toctrees in doc (at most one, hopefully) and record
+    # onto the resource state
+
+    # First, find out which resource this is. Won't be easy.
+    resources = sphinx_app.resources
+    confdir = sphinx_app.confdir
+    source = PurePath(doctree.attributes['source'])
+
+    # Get the relative path inside the docs dir, without .rst, then
+    # get the resource
+    docname = str(source.relative_to(confdir)).split('.rst')[0]
+    resource = resources.get(docname)
+
+    if resource:
+        for node in doctree.traverse(toctree):
+            resource.toctree = [
+                target for (flag, target) in node.attributes['entries']
+            ]
+            pass
 
 
 @kb.dumper('toctrees')
@@ -88,12 +118,3 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
         config=config,
     )
     return dict(toctrees=toctrees)
-
-#
-# ## Resource 'doctree-read' event, gets just the data into the resource state
-#         # Step 3: Find any toctrees (at most one, hopefully) and record
-#         for node in doctree.traverse(toctree):
-#             resource.toctree = [
-#                 target for (flag, target) in node.attributes['entries']
-#             ]
-#             pass

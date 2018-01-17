@@ -3,6 +3,7 @@ import pytest
 
 from kaybee.plugins.articles.handlers import (
     render_toctrees,
+    resource_toctrees,
     dump_settings,
 )
 from kaybee.plugins.articles.base_toctree import BaseToctree
@@ -81,6 +82,31 @@ class TestRenderToctrees:
         render_toctrees(kb_app, sphinx_app, dummy_doctree,
                         fromdocname)
         valid_registration[0].set_entries.assert_not_called()
+
+
+class TestResourceToctrees:
+    def test_import(self):
+        assert 'resource_toctrees' == resource_toctrees.__name__
+
+    def test_run_with_resource(self, kb_app, sphinx_app, dummy_doctree,
+                               dummy_article):
+        sphinx_app.confdir = '/tmp'
+        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert [] == dummy_article.toctree
+        resource_toctrees(kb_app, sphinx_app, dummy_doctree)
+        assert ['f1/about'] == dummy_article.toctree
+
+    def test_run_without_resource(self, kb_app, sphinx_app, dummy_doctree,
+                                  dummy_article):
+        sphinx_app.confdir = '/tmp'
+        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict()
+        assert [] == dummy_article.toctree
+        resource_toctrees(kb_app, sphinx_app, dummy_doctree)
+        assert [] == dummy_article.toctree
 
 
 class TestToctreeDumpSettings:

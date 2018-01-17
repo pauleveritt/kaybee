@@ -76,7 +76,7 @@ def stamp_title(kb_app: kb,
     resource = resources.get(docname)
 
     if resource:
-        # Step 1: Stamp the title on the resource
+        # Stamp the title on the resource
         title = get_rst_title(doctree)
         resource.title = title
 

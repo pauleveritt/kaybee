@@ -3,12 +3,27 @@ import pytest
 pytestmark = pytest.mark.sphinx('html', testroot='toctrees1')
 
 
-@pytest.mark.parametrize('page', ['article1.html', ], indirect=True)
+@pytest.mark.parametrize('page', ['index.html', ], indirect=True)
 class TestToctrees1:
 
-    def test_article1(self, page):
+    def test_index(self, page):
         h1 = page.find('h1').contents[0].strip()
-        assert 'Custom Article' == h1
+        assert 'Custom Homepage' == h1
+
+        entries = page.find_all("a", class_="reference")
+        assert 2 == len(entries)
+        assert 'article1.html' == entries[0].attrs['href'].strip()
+        assert 'section1/index.html' == entries[1].attrs['href'].strip()
+
+
+@pytest.mark.parametrize('page', ['section1/index.html', ], indirect=True)
+class TestToctrees1:
+
+    def test_section1(self, page):
+        div = page.find(id='first_toctree_title').contents[0].strip()
+        # The resource only knows about the docname in the toctree. The
+        # article.series is what converts to resources.
+        assert 'section1/article2' == div
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
