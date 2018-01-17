@@ -46,5 +46,5 @@ class BaseToctree:
         context['sphinx_app'] = sphinx_app
         context['toctree'] = self
 
-        html = builder.templates.render(self.template, context)
+        html = builder.templates.render(self.template + '.html', context)
         return html
