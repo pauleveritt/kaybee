@@ -1,10 +1,3 @@
-"""
-
-TODO
-- excerpt and auto-excerpt (and remove other)
--
-"""
-
 import inspect
 import os
 from pathlib import PurePath
