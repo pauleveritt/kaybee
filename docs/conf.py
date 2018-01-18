@@ -9,7 +9,7 @@ exclude_patterns = ['_build']
 extensions = ['sphinx.ext.intersphinx', 'alabaster', 'kaybee']
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
-    'sphinx': ('http://www.sphinx-doc.org', None),
+    'sphinx': ('http://sphinx.pocoo.org', None),
     'dectate': ('http://dectate.readthedocs.io/en/latest', None),
 }
 

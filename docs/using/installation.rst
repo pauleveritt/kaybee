@@ -2,6 +2,9 @@
 Installation
 ============
 
+For now, Kaybee expects you to generate a Sphinx project, then edit the
+*doc project* and its ``conf.py`` file.
+
 Steps
 =====
 
@@ -21,7 +24,9 @@ Kaybee is added to your Sphinx project like any other Sphinx extension:
    string value. As a more reliable way, put Python's import facility to
    work to generate the string, to avoid typos:
 
-   .. literalinclude:: sample_conf.py
+Here's an example from a simple Kaybee integration test:
+
+.. literalinclude:: ../../tests/integration/roots/test-setup/conf.py
 
 Running
 =======
@@ -44,3 +49,13 @@ have docs automatically build with browser reload on changes.
     Kaybee can't use Sphinx's incremental rebuild nor parallel read
     options. Make sure to run Sphinx with ``-E`` to rebuild on each run.
 
+Sphinx Customization
+====================
+
+At this point you can customize Sphinx without writing Python. You can
+make a ``_templates`` dire
+
+Other Choices
+=============
+
+ablog, sphinxcontrib_needs, certain themes.

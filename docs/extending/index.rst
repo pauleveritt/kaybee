@@ -11,8 +11,13 @@ project or as Python packages that get installed.
 
 This section covers aspects of extending Kaybee.
 
+TODO
+- Document using livereload, PyCharm and avoiding the sphinx run config
+
+
 .. toctree::
     :maxdepth: 2
 
     resources
     articles
+    loading_directives

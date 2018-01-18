@@ -117,23 +117,31 @@ def missing_reference(kb_app: kb,
     # callback such as this, which picks apart the scheme and expands it.
     references = sphinx_env.app.references
     refdoc = node['refdoc']
-    target_rtype, target_label = node['reftarget'].split('-')
+    try:
+        target_rtype, target_label = node['reftarget'].split('-')
+    except ValueError:
+        # The scheme might be "python" or "sphinx" or something without
+        # a dash. If so, just bail out here.
+        return
     target = references.get_reference(target_rtype, target_label)
 
-    if node['refexplicit']:
-        # The ref has a title e.g. :ref:`Some Title <category-python>`
-        dispname = contnode.children[0]
-    else:
-        # Use the title from the target
-        dispname = target.title
+    if target:
+        # Looks like this reference is using one of the Kaybee registered
+        # reference types.
+        if node['refexplicit']:
+            # The ref has a title e.g. :ref:`Some Title <category-python>`
+            dispname = contnode.children[0]
+        else:
+            # Use the title from the target
+            dispname = target.title
 
-    uri = sphinx_app.builder.get_relative_uri(refdoc, target.docname)
-    newnode = nodes.reference('', '', internal=True, refuri=uri,
-                              reftitle=dispname)
-    emp = nodes.emphasis()
-    newnode.append(emp)
-    emp.append(nodes.Text(dispname))
-    return newnode
+        uri = sphinx_app.builder.get_relative_uri(refdoc, target.docname)
+        newnode = nodes.reference('', '', internal=True, refuri=uri,
+                                  reftitle=dispname)
+        emp = nodes.emphasis()
+        newnode.append(emp)
+        emp.append(nodes.Text(dispname))
+        return newnode
 
 
 @kb.dumper('references')

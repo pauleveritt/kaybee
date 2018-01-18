@@ -25,7 +25,13 @@ class ReferencesContainer(UserDict):
         # We are doing this instead of dictionary access in case we change
         # the storage later to a multidict thingy for optimization.
 
-        return self.data[rtype][label]
+        reftype = self.data.get(rtype)
+        if reftype:
+            # The reftype might be "python" or "sphinx" or something else
+            # from an Intersphinx registry, not something internal to
+            # Kaybee.
+            return reftype[label]
+
 
     def add_reference(self, reftype: str, label: str, target):
         """ Add reference object in references under rtype/label=target """
