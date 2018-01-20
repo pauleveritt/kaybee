@@ -28,6 +28,10 @@ Here's an example from a simple Kaybee integration test:
 
 .. literalinclude:: ../../tests/integration/roots/test-setup/conf.py
 
+As a note, each of the
+`integration test "roots" <https://github.com/pauleveritt/kaybee/tree/master/tests/integration/roots>`_
+are fully-runnable examples.
+
 Running
 =======
 
@@ -53,9 +57,19 @@ Sphinx Customization
 ====================
 
 At this point you can customize Sphinx without writing Python. You can
-make a ``_templates`` dire
+make a ``_templates`` directory in your docs project (alongside the
+``conf.py`` directory) and "override" the layout template, the page
+template, etc. You can do something similar for static assets such as
+CSS. You can also install 3rd-party Sphinx extensions.
 
 Other Choices
 =============
 
-ablog, sphinxcontrib_needs, certain themes.
+If you like Sphinx and Kaybee doesn't match your wishes,
+`ablog <http://ablog.readthedocs.io>`_ is your best bet. It's the Sphinx
+extension that inspired Kaybee. Aimed primarily at blogs.
+
+For rich interlinked content,
+`sphinxcontrib-needs <http://sphinxcontrib-needs.readthedocs.io/en/latest/>`_
+is an interesting and technically impressive project. Also served as an
+introduction to using Sphinx unit testing fixtures.

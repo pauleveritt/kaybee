@@ -14,10 +14,9 @@ Kaybee. It's exciting. Let's show some of Kaybee in action.
     :maxdepth: 2
 
     installation
-    events
+    resources
     templates
     settings
-    resources
     widgets
     genericpage
     references

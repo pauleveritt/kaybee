@@ -1,5 +1,8 @@
 # Now
 
+- Make a full-featured integration test for articles, then link to that 
+  on the docs/index.rst (instead of inlining some possibly-broken stuff)
+  
 # Next
 
 - Get kaybee_settings into the html context as ``settings``

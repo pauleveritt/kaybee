@@ -21,3 +21,4 @@ TODO
     resources
     articles
     loading_directives
+    events
