@@ -20,3 +20,4 @@ the development of major features.
     queries
     widgets
     references
+    layouts
