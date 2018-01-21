@@ -14,8 +14,8 @@ class TestGenericpagesContainer:
         assert 'initialize_genericpages_container' == \
                initialize_genericpages_container.__name__
 
-    def test_result(self, genericpage_kb_app, sphinx_app, sphinx_env):
-        initialize_genericpages_container(genericpage_kb_app, sphinx_app,
+    def test_result(self, genericpages_kb_app, sphinx_app, sphinx_env):
+        initialize_genericpages_container(genericpages_kb_app, sphinx_app,
                                           sphinx_env,
                                           [])
         assert hasattr(sphinx_app, 'genericpages')
@@ -26,24 +26,24 @@ class TestGenericpagesAdd:
         assert 'add_genericpage' == \
                add_genericpage.__name__
 
-    def test_noadd_genericpage(self, genericpage_kb_app, sphinx_app,
+    def test_noadd_genericpage(self, genericpages_kb_app, sphinx_app,
                                foo_doctree):
         # We have a resource for this docname, don't make add genericpage
         sphinx_app.resources = dict(
             foo=dict()
         )
-        result = add_genericpage(genericpage_kb_app, sphinx_app, foo_doctree)
+        result = add_genericpage(genericpages_kb_app, sphinx_app, foo_doctree)
         assert None is result
 
-    def test_add_genericpage(self, genericpage_kb_app, sphinx_app,
+    def test_add_genericpage(self, genericpages_kb_app, sphinx_app,
                              foo_doctree,
                              valid_gp):
         sphinx_app.resources = dict(
             no_foo=dict()
         )
         sphinx_app.genericpages = dict()
-        dectate.commit(genericpage_kb_app)
-        result = add_genericpage(genericpage_kb_app, sphinx_app, foo_doctree)
+        dectate.commit(genericpages_kb_app)
+        result = add_genericpage(genericpages_kb_app, sphinx_app, foo_doctree)
         assert valid_gp == result.__class__
         assert 'foo' == result.docname
         assert 'foo' in sphinx_app.genericpages
@@ -54,7 +54,7 @@ class TestGenericpageIntoHtml:
         assert 'genericpage_into_html_context' == \
                genericpage_into_html_context.__name__
 
-    def test_has_resource(self, genericpage_kb_app, sphinx_app,
+    def test_has_resource(self, genericpages_kb_app, sphinx_app,
                           sample_resources):
         index = sample_resources['index']
         sphinx_app.resources = {index.docname: index}
@@ -63,12 +63,12 @@ class TestGenericpageIntoHtml:
         context = dict()
         doctree = dict()
         result = genericpage_into_html_context(
-            genericpage_kb_app, sphinx_app, pagename, templatename, context,
+            genericpages_kb_app, sphinx_app, pagename, templatename, context,
             doctree
         )
         assert {} == context
 
-    def test_has_gp(self, genericpage_kb_app, sphinx_app, sample_resources):
+    def test_has_gp(self, genericpages_kb_app, sphinx_app, sample_resources):
         index = sample_resources['index']
         sphinx_app.resources = {index.docname: index}
         about = Genericpage('r1/r2/about')
@@ -78,13 +78,13 @@ class TestGenericpageIntoHtml:
         context = dict()
         doctree = dict()
         result = genericpage_into_html_context(
-            genericpage_kb_app, sphinx_app, pagename, templatename, context,
+            genericpages_kb_app, sphinx_app, pagename, templatename, context,
             doctree
         )
         assert 'genericpage' in context
         assert 'page.html' == result['templatename']
 
-    def test_not_has_gp(self, genericpage_kb_app, sphinx_app,
+    def test_not_has_gp(self, genericpages_kb_app, sphinx_app,
                         sample_resources):
         index = sample_resources['index']
         sphinx_app.resources = {index.docname: index}
@@ -95,7 +95,7 @@ class TestGenericpageIntoHtml:
         context = dict()
         doctree = dict()
         result = genericpage_into_html_context(
-            genericpage_kb_app, sphinx_app, pagename, templatename, context,
+            genericpages_kb_app, sphinx_app, pagename, templatename, context,
             doctree
         )
         assert 'genericpage' not in context
@@ -106,14 +106,14 @@ class TestPluginGenerateDebugEvent:
     def test_import(self):
         assert 'dump_settings' == dump_settings.__name__
 
-    def test_debug(self, genericpage_kb_app, sphinx_env, valid_gps):
+    def test_debug(self, genericpages_kb_app, sphinx_env, valid_gps):
         sphinx_env.app.resources = dict(
             foo=dict()
         )
         sphinx_env.app.genericpages = dict(
             foo=Genericpage('foo')
         )
-        genericpages = dump_settings(genericpage_kb_app, sphinx_env)
+        genericpages = dump_settings(genericpages_kb_app, sphinx_env)
         assert 'genericpages' in genericpages
         config = genericpages['genericpages']['config']
         assert 10 in config

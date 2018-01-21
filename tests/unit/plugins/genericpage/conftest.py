@@ -6,20 +6,20 @@ from kaybee.plugins.genericpage.action import GenericpageAction
 
 
 @pytest.fixture()
-def genericpage_kb_app(kb_app):
-    class genericpage_kb_app(kb_app):
+def genericpages_kb_app(kb_app):
+    class genericpages_kb_app(kb_app):
         genericpage = dectate.directive(GenericpageAction)
 
-    yield genericpage_kb_app
+    yield genericpages_kb_app
 
 
 @pytest.fixture()
-def conflicting_gps(genericpage_kb_app):
-    @genericpage_kb_app.genericpage()
+def conflicting_gps(genericpages_kb_app):
+    @genericpages_kb_app.genericpage()
     class Genericpage1(Genericpage):
         pass
 
-    @genericpage_kb_app.genericpage()
+    @genericpages_kb_app.genericpage()
     class Genericpage2(Genericpage):
         pass
 
@@ -27,27 +27,27 @@ def conflicting_gps(genericpage_kb_app):
 
 
 @pytest.fixture()
-def valid_gp(genericpage_kb_app):
-    @genericpage_kb_app.genericpage()
+def valid_gp(genericpages_kb_app):
+    @genericpages_kb_app.genericpage()
     class Genericpage1(Genericpage):
         pass
 
-    dectate.commit(genericpage_kb_app)
+    dectate.commit(genericpages_kb_app)
     yield Genericpage1
 
 
 @pytest.fixture()
-def valid_gps(genericpage_kb_app):
-    @genericpage_kb_app.genericpage()
+def valid_gps(genericpages_kb_app):
+    @genericpages_kb_app.genericpage()
     class Genericpage1(Genericpage):
         pass
 
     # This one should "override" the first one
-    @genericpage_kb_app.genericpage(order=10)
+    @genericpages_kb_app.genericpage(order=10)
     class Genericpage2(Genericpage):
         pass
 
-    dectate.commit(genericpage_kb_app)
+    dectate.commit(genericpages_kb_app)
     yield (Genericpage1, Genericpage2)
 
 
