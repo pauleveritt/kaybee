@@ -438,6 +438,19 @@ class TestPluginEvents:
         assert missing_reference_event in callbacks
         assert 210 == sphinx_app.flag
 
+    def test_no_registered_missing_reference(self, kb_app, sphinx_app,
+                                             sphinx_env,
+                                             # missing_reference_event
+                                             ):
+        dectate.commit(kb_app)
+        node = object()
+        contnode = object()
+        EventAction.call_missing_reference(kb_app, sphinx_app,
+                                           sphinx_env, node, contnode)
+        callbacks = EventAction.get_callbacks(kb_app,
+                                              SphinxEvent.MR)
+        assert [] == callbacks
+
     def test_html_page_context(self, kb_app, sphinx_app,
                                sphinx_doctree,
                                html_page_context_event):

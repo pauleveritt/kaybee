@@ -132,6 +132,34 @@ class TestMissingReference:
         )
         assert 'first' == newnode[0][0]
 
+    def test_value_error(self, kb_app,
+                         sphinx_app,
+                         references_sphinx_env,
+                         dummy_contnode,
+                         ):
+        node = dict(
+            refdoc=None,
+            reftarget='xxx',
+        )
+        result = missing_reference(kb_app, sphinx_app,
+                                   references_sphinx_env, node,
+                                   dummy_contnode)
+        assert None is result
+
+    def test_no_target(self, kb_app,
+                         sphinx_app,
+                         references_sphinx_env,
+                         dummy_contnode,
+                         ):
+        node = dict(
+            refdoc=None,
+            reftarget='xxx-yyy',
+        )
+        result = missing_reference(kb_app, sphinx_app,
+                                   references_sphinx_env, node,
+                                   dummy_contnode)
+        assert None is result
+
     def test_not_explicit(self, kb_app,
                           sphinx_app,
                           html_builder, references_sphinx_env,

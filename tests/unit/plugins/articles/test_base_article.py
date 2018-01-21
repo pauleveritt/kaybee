@@ -32,6 +32,11 @@ class TestBaseArticle:
         a = BaseArticle(docname, 'article', '')
         assert a.in_navitem(article_resources, nav_href) == expected
 
+    def test_not_in_navitem(self, article_resources):
+        a = BaseArticle('f1/f2/about', 'article', '')
+        nav_href = 'f1/f3/about'
+        assert not a.in_navitem(article_resources, nav_href)
+
     @pytest.mark.parametrize('content, expected', [
         ('', False),
         ('published: 2020-12-01 01:23', False),
@@ -39,7 +44,7 @@ class TestBaseArticle:
     ])
     def test_is_published(self, content, expected):
         article = BaseArticle('d1/a1', 'article', content)
-        assert expected is article.is_published()
+        assert expected is article.is_published
 
     def test_to_json(self, article_resources):
         f4about = article_resources['f1/f2/f3/f4/about']
@@ -52,6 +57,14 @@ class TestBaseArticle:
         assert 'f1/f2/f3/f4/index' == result['section']
         assert 0 == len(result['toctree'])
         assert 0 == len(result['series'])
+
+    def test_index(self, article_resources):
+        index = article_resources['index']
+        result = index.__json__(article_resources)
+        assert 'index' == result['docname']
+        assert None is result['parent']
+        assert 0 == len(result['toctree'])
+        assert None is result['series']
 
 
 class TestSeries:
@@ -75,3 +88,22 @@ class TestSeries:
         resource = article_resources['f1/f2/about']
         series = resource.series(article_resources)
         assert [] == series
+
+    def test_series_no_parent(self, article_resources):
+        # The resource is the root, doesn't have a parent
+        resource: BaseArticle = article_resources['index']
+        series = resource.series(article_resources)
+        assert None is series
+
+    def test_nonresource_in_toctree(self, article_resources):
+        # The resource is the root, doesn't have a parent
+        resource: BaseArticle = article_resources['f1/f2/about']
+        parent: BaseArticle = article_resources['f1/f2/index']
+        parent.toctree = [
+            'f1/f2/index',
+            'f1/f2/about',
+            'xyzpdq'
+        ]
+        series = resource.series(article_resources)
+        expected = len(parent.toctree) - 1
+        assert expected == len(series)

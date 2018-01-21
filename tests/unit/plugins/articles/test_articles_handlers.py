@@ -2,6 +2,7 @@ import dectate
 import pytest
 
 from kaybee.plugins.articles.handlers import (
+    register_template_directory,
     render_toctrees,
     resource_toctrees,
     dump_settings,
@@ -17,6 +18,19 @@ def valid_registration(kb_app):
 
     dectate.commit(kb_app)
     yield (Toctree,)
+
+
+class TestArticlesTemplateDir:
+    def test_import(self):
+        assert 'register_template_directory' == \
+               register_template_directory.__name__
+
+    def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
+        register_template_directory(kb_app, sphinx_app, sphinx_env,
+                                    [])
+        loaders = sphinx_app.builder.templates.loaders
+        search_path = loaders[0].searchpath[0]
+        assert 'tests/unit/plugins/articles' in search_path
 
 
 class TestRenderToctrees:

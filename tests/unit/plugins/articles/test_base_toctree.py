@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from kaybee.plugins.articles.base_toctree import BaseToctree
 
 
@@ -31,6 +33,15 @@ class TestBaseToctree:
         assert 'F1 About' == first['title']
         assert 'f1/about' == first['resource'].docname
         assert 'article' is first['resource'].rtype
+
+    def test_set_entries_no_is_published(self, dummy_toctree,
+                                         dummy_entries, dummy_titles,
+                                         article_resources):
+        f1about = article_resources['f1/about']
+        f1about.props.published = datetime(2030, 1, 1)
+        dummy_toctree.set_entries(dummy_entries, dummy_titles,
+                                  article_resources)
+        assert [] == dummy_toctree.entries
 
     def test_render(self, mocker,
                     dummy_toctree, html_builder, sphinx_app):

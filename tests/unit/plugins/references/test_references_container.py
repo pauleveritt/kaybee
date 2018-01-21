@@ -35,6 +35,12 @@ class TestReferencesContainer:
         result = sample_container.get_reference('category', 'category1')
         assert 999 == result
 
+    def test_get_no_reference(self, sample_container: ReferencesContainer):
+        sample_container['category'] = dict()
+        sample_container.add_reference('category', 'category1', 999)
+        result = sample_container.get_reference('xxx', 'yyy')
+        assert None is result
+
     def test_resource_references(self, references_sphinx_app,
                                  dummy_article, dummy_category):
         references = references_sphinx_app.references

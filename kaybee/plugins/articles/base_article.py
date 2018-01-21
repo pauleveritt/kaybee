@@ -42,6 +42,7 @@ class BaseArticle(BaseResource):
 
         return self.docname.startswith(nav_href)
 
+    @property
     def is_published(self):
         """ Return true if this resource has published date in the past """
 
@@ -77,9 +78,6 @@ class BaseArticle(BaseResource):
         d['excerpt'] = self.excerpt
         d['section'] = getattr(self.section(resources), 'docname', '')
         d['toctree'] = self.toctree
-        try:
-            d['series'] = self.series(resources)
-        except AttributeError:
-            d['series'] = []
+        d['series'] = self.series(resources)
 
         return d
