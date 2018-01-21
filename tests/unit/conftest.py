@@ -7,18 +7,14 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
 from kaybee.plugins.articles.settings import ArticlesModel
-from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
-from kaybee.plugins.resources.action import ResourceAction
 
 
 @pytest.fixture()
 def kb_app():
     class app(dectate.App):
-        dumper = dectate.directive(DumperAction)
         event = dectate.directive(EventAction)
-        resource = dectate.directive(ResourceAction)
 
     yield app
 

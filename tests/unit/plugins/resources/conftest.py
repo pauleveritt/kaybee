@@ -1,9 +1,10 @@
+import dectate
 import pytest
 
+from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.resources.directive import ResourceDirective
 from kaybee.utils.rst import (
     rst_document,
-    get_rst_title,
 )
 
 
@@ -19,6 +20,14 @@ class DummySite:
 
 class Dummy:
     pass
+
+
+@pytest.fixture()
+def resources_kb_app():
+    class app(dectate.App):
+        resource = dectate.directive(ResourceAction)
+
+    yield app
 
 
 @pytest.fixture()
@@ -101,3 +110,4 @@ Test *Simple*
 Body.
         """
     yield rst_document(source)
+
