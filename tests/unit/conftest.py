@@ -11,8 +11,6 @@ from kaybee.plugins.articles.settings import ArticlesModel
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
 from kaybee.plugins.events import EventAction
-from kaybee.plugins.genericpage.action import GenericpageAction
-from kaybee.plugins.layouts.action import LayoutAction
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.widgets.action import WidgetAction
 
@@ -25,7 +23,6 @@ def kb_app():
         resource = dectate.directive(ResourceAction)
         widget = dectate.directive(WidgetAction)
         toctree = dectate.directive(ToctreeAction)
-        layout = dectate.directive(LayoutAction)
 
     yield app
 
