@@ -38,23 +38,17 @@ Layout Class
 
     .. code-block:: python
 
-            from kaybee.plugins.layouts.base_layout import (
-                BaseLayout,
-                BaseLayoutModel,
-            )
+            from kaybee.plugins.layouts.base_layout import BaseLayout
 
             class Logo(BaseModel):
                 img_url: str = None
                 img_file: str = None
                 alt: str = None
 
-            class MyLayoutModel(BaseLayoutModel):
-                copyright = 'All Rights Reserved'
-                logo: Logo = None
-
             @kb.layout('mylayout')
             class MyLayout(BaseLayout):
-                model = MyLayoutModel
+                copyright = 'All Rights Reserved'
+                logo: Logo = None
 
 - The package has a ``templates`` subdirectory and a ``static`` subdirectory,
   just like Sphinx themes

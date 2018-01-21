@@ -26,12 +26,12 @@ class GenericpageAction(dectate.Action):
         genericpages[self.order] = obj
 
     @classmethod
-    def get_genericpage(cls, registry):
+    def get_genericpage(cls, kb_app):
         """ Return the one class if configured, otherwise default """
 
         # Presumes the registry has been committed
         q = dectate.Query('genericpage')
-        klasses = sorted(q(registry), key=lambda args: args[0].order)
+        klasses = sorted(q(kb_app), key=lambda args: args[0].order)
         if not klasses:
             # The site doesn't configure a genericpage,
             return Genericpage
