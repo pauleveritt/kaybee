@@ -45,12 +45,12 @@ def dummy_widget():
 
 
 @pytest.fixture()
-def valid_registration(kb_app):
-    @kb_app.widget('listing')
+def valid_registration(widgets_kb_app):
+    @widgets_kb_app.widget('listing')
     def listing1(*args):
         return
 
-    dectate.commit(kb_app)
+    dectate.commit(widgets_kb_app)
     yield listing1
 
 
@@ -58,9 +58,9 @@ class TestAddNode:
     def test_import(self):
         assert 'add_widget_node' == add_widget_node.__name__
 
-    def test_call(self, mocker, kb_app, widgets_sphinx_app):
+    def test_call(self, mocker, widgets_kb_app, widgets_sphinx_app):
         mocker.patch.object(widgets_sphinx_app, 'add_node')
-        add_widget_node(kb_app, widgets_sphinx_app)
+        add_widget_node(widgets_kb_app, widgets_sphinx_app)
         widgets_sphinx_app.add_node.assert_called_once_with(
             widget
         )
@@ -71,8 +71,8 @@ class TestWidgetsInitializeContainer:
         assert 'initialize_widgets_container' == \
                initialize_widgets_container.__name__
 
-    def test_result(self, kb_app, sphinx_app, sphinx_env):
-        initialize_widgets_container(kb_app, sphinx_app, sphinx_env,
+    def test_result(self, widgets_kb_app, sphinx_app, sphinx_env):
+        initialize_widgets_container(widgets_kb_app, sphinx_app, sphinx_env,
                                      [])
         assert hasattr(sphinx_app, 'widgets')
 
@@ -81,7 +81,7 @@ class TestWidgetsRenderWidgets:
     def test_import(self):
         assert 'render_widgets' == render_widgets.__name__
 
-    def test_render(self, mocker, kb_app, dummy_doctree, widgets_sphinx_app,
+    def test_render(self, mocker, widgets_kb_app, dummy_doctree, widgets_sphinx_app,
                     dummy_node, dummy_widget):
         widgets_sphinx_app.widgets['listing'] = dummy_widget
         mocker.patch.object(dummy_doctree, 'traverse',
@@ -89,7 +89,7 @@ class TestWidgetsRenderWidgets:
         mocker.patch.object(nodes, 'raw', return_value=987)
         mocker.patch.object(dummy_node, 'replace_self')
         fromdocname = 'fromsomedoc'
-        render_widgets(kb_app, widgets_sphinx_app, dummy_doctree,
+        render_widgets(widgets_kb_app, widgets_sphinx_app, dummy_doctree,
                        fromdocname)
         dummy_doctree.traverse.assert_called_once_with(widget)
         nodes.raw.assert_called_once_with(
@@ -103,8 +103,8 @@ class TestWidgetsTemplateDir:
         assert 'register_template_directory' == \
                register_template_directory.__name__
 
-    def test_result(self, kb_app, sphinx_app, sphinx_env, valid_registration):
-        register_template_directory(kb_app, sphinx_app, sphinx_env,
+    def test_result(self, widgets_kb_app, sphinx_app, sphinx_env, valid_registration):
+        register_template_directory(widgets_kb_app, sphinx_app, sphinx_env,
                                     [])
         loaders = sphinx_app.builder.templates.loaders
         search_path = loaders[0].searchpath[0]
@@ -116,10 +116,10 @@ class TestRegisterDirective:
         assert 'register_widget_directive' == \
                register_widget_directive.__name__
 
-    def test_register(self, mocker, kb_app, widgets_sphinx_app, sphinx_env,
+    def test_register(self, mocker, widgets_kb_app, widgets_sphinx_app, sphinx_env,
                       valid_registration):
         mocker.patch.object(widgets_sphinx_app, 'add_directive')
-        register_widget_directive(kb_app, widgets_sphinx_app, sphinx_env, [])
+        register_widget_directive(widgets_kb_app, widgets_sphinx_app, sphinx_env, [])
         widgets_sphinx_app.add_directive.assert_called_once_with(
             'listing', WidgetDirective
         )
@@ -129,8 +129,8 @@ class TestWidgetsDumpSettings:
     def test_import(self):
         assert 'dump_settings' == dump_settings.__name__
 
-    def test_result(self, kb_app, sphinx_env):
-        kb_app.config.widgets = dict()
+    def test_result(self, widgets_kb_app, sphinx_env):
+        widgets_kb_app.config.widgets = dict()
         sphinx_env.app.widgets = dict()
-        result = dump_settings(kb_app, sphinx_env)
+        result = dump_settings(widgets_kb_app, sphinx_env)
         assert 'widgets' in result

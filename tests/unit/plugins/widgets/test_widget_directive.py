@@ -12,11 +12,11 @@ class TestWidgetDirective:
     def test_get_widget_class(self, monkeypatch,
                               dummy_directive_class,
                               dummy_widget_class,
-                              kb_app):
+                              widgets_kb_app):
         # Setup fake registry
-        monkeypatch.setattr(app, 'kb', kb_app)
+        monkeypatch.setattr(app, 'kb', widgets_kb_app)
         dwc = dummy_directive_class.name
-        kb_app.config.widgets = {dwc: dummy_widget_class}
+        widgets_kb_app.config.widgets = {dwc: dummy_widget_class}
 
         actual = WidgetDirective.get_widget_class(dwc)
         assert dummy_widget_class == actual
@@ -24,10 +24,10 @@ class TestWidgetDirective:
     def test_get_widget(self, monkeypatch, dummy_directive,
                         dummy_directive_class,
                         dummy_widget_class,
-                        kb_app):
-        monkeypatch.setattr(app, 'kb', kb_app)
+                        widgets_kb_app):
+        monkeypatch.setattr(app, 'kb', widgets_kb_app)
         dwc = dummy_directive_class.name
-        kb_app.config.widgets = {dwc: dummy_widget_class}
+        widgets_kb_app.config.widgets = {dwc: dummy_widget_class}
 
         actual = WidgetDirective.get_widget_class(dwc)
         assert dummy_widget_class == actual
@@ -44,11 +44,11 @@ class TestWidgetDirective:
     def test_run_result(self, monkeypatch,
                         dummy_directive_class,
                         dummy_widget_class,
-                        dummy_directive, kb_app):
+                        dummy_directive, widgets_kb_app):
         # Setup fake registry
-        monkeypatch.setattr(app, 'kb', kb_app)
+        monkeypatch.setattr(app, 'kb', widgets_kb_app)
         drc = dummy_directive_class.name
-        kb_app.config.widgets = {drc: dummy_widget_class}
+        widgets_kb_app.config.widgets = {drc: dummy_widget_class}
 
         result = dummy_directive.run()
         assert 'widget' == result[0].__class__.__name__

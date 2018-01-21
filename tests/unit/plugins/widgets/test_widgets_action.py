@@ -5,13 +5,13 @@ from kaybee.plugins.widgets.action import WidgetAction
 
 
 @pytest.fixture()
-def conflicting_registrations(kb_app):
+def conflicting_registrations(widgets_kb_app):
     # Omit the "order" to disambiguate
-    @kb_app.widget('listing')
+    @widgets_kb_app.widget('listing')
     def listing1(*args):
         return
 
-    @kb_app.widget('listing')
+    @widgets_kb_app.widget('listing')
     def listing2(*args):
         return
 
@@ -19,12 +19,12 @@ def conflicting_registrations(kb_app):
 
 
 @pytest.fixture()
-def valid_registration(kb_app):
-    @kb_app.widget('listing')
+def valid_registration(widgets_kb_app):
+    @widgets_kb_app.widget('listing')
     def listing1(*args):
         return
 
-    dectate.commit(kb_app)
+    dectate.commit(widgets_kb_app)
     yield listing1
 
 
@@ -32,18 +32,18 @@ class TestPluginWidgetsAction:
     def test_import(self):
         assert 'WidgetAction' == WidgetAction.__name__
 
-    def test_construction(self, kb_app):
-        dectate.commit(kb_app)
+    def test_construction(self, widgets_kb_app):
+        dectate.commit(widgets_kb_app)
         assert True
 
     def test_identifier_default(self):
         da = WidgetAction('listing')
         assert 'listing' == da.identifier([])
 
-    def test_identifiers_conflict(self, kb_app, conflicting_registrations):
+    def test_identifiers_conflict(self, widgets_kb_app, conflicting_registrations):
         with pytest.raises(dectate.error.ConflictError):
-            dectate.commit(kb_app)
+            dectate.commit(widgets_kb_app)
 
-    def test_get_callbacks(self, kb_app, valid_registration):
-        callbacks = WidgetAction.get_callbacks(kb_app)
+    def test_get_callbacks(self, widgets_kb_app, valid_registration):
+        callbacks = WidgetAction.get_callbacks(widgets_kb_app)
         assert valid_registration == callbacks[0]

@@ -1,9 +1,19 @@
+import dectate
 import pytest
 
 from kaybee.plugins.articles.base_article import BaseArticle
 from kaybee.plugins.articles.base_homepage import BaseHomepage
 from kaybee.plugins.articles.base_section import BaseSection
 from kaybee.plugins.articles.base_toctree import BaseToctree
+from kaybee.plugins.articles.actions import ToctreeAction
+
+
+@pytest.fixture()
+def articles_kb_app(kb_app):
+    class articles_kb_app(dectate.App):
+        toctree = dectate.directive(ToctreeAction)
+
+    yield articles_kb_app
 
 
 @pytest.fixture()

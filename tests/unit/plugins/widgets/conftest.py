@@ -1,10 +1,20 @@
+import dectate
 import pytest
 
 from kaybee.plugins.widgets.directive import WidgetDirective
+from kaybee.plugins.widgets.action import WidgetAction
 
 
 class Dummy:
     pass
+
+
+@pytest.fixture()
+def widgets_kb_app():
+    class widgets_kb_app(dectate.App):
+        widget = dectate.directive(WidgetAction)
+
+    yield widgets_kb_app
 
 
 @pytest.fixture()
