@@ -12,5 +12,5 @@ class BaseLayout:
     model = BaseLayoutModel
 
     def __init__(self, **kwargs):
-        self.props = self.model(**kwargs)
+        self.settings = self.model(**kwargs)
         self.sphinx_app: Optional[Sphinx] = None

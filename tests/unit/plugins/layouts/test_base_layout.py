@@ -7,5 +7,5 @@ class TestBaseLayout:
 
     def test_construction(self):
         bl = BaseLayout(**dict(flag=99))
-        assert 'flag' not in bl.props
+        assert 'flag' not in bl.settings
         assert None is bl.sphinx_app

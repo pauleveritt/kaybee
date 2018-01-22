@@ -21,7 +21,7 @@ def initialize_layout(kb_app: kb,
     layout_instance = sphinx_app.config.html_theme
 
     # Is this a Kaybee Layout, or just a regular Sphinx theme?
-    if hasattr(layout_instance, 'props'):
+    if hasattr(layout_instance, 'settings'):
         layout_instance.sphinx_app = sphinx_app
         sphinx_app.layout = layout_instance
 
