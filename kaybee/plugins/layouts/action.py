@@ -25,13 +25,18 @@ class LayoutAction(dectate.Action):
         layouts[self.name] = obj
 
     @classmethod
-    def get_layout(cls, kb_app, theme_name):
-        """ Return  layout class pointed to by sphinx_app's html_theme """
+    def get_callbacks(cls, registry):
+        q = dectate.Query('layout')
+        return [args[1] for args in q(registry)]
+
+    @classmethod
+    def get_layout(cls, kb_app, layout_name):
+        """ Return  layout class pointed to by the name """
 
         q = dectate.Query('layout')
-        klasses = list(q.filter(name=theme_name)(kb_app))
+        klasses = list(q.filter(name=layout_name)(kb_app))
         if klasses:
             return klasses[0][1]
         else:
-            msg = f'No registered layout named {theme_name}'
+            msg = f'No registered layout named {layout_name}'
             raise KeyError(msg)

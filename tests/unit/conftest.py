@@ -34,6 +34,7 @@ def sphinx_config(kaybee_settings):
     class SphinxConfig:
         def __init__(self):
             self.kaybee_settings = kaybee_settings
+            self.html_theme = 'alabaster'
 
     yield SphinxConfig()
 

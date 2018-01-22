@@ -34,3 +34,7 @@ class TestLayoutsAction:
     def test_invalid_get_layout(self, layouts_kb_app, valid_layouts):
         with pytest.raises(KeyError):
             LayoutAction.get_layout(layouts_kb_app, 'xyzpdq')
+
+    def test_get_callbacks(self, layouts_kb_app, valid_layouts):
+        callbacks = LayoutAction.get_callbacks(layouts_kb_app)
+        assert valid_layouts[0] == callbacks[0]
