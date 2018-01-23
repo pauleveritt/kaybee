@@ -14,6 +14,6 @@ from kaybee.app import kb
 from kaybee.plugins.references.base_reference import BaseReference
 
 
-@kb.resource('category')
-class Category(BaseReference):
+@kb.resource('reference')
+class Reference(BaseReference):
     pass

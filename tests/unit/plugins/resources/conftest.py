@@ -95,7 +95,7 @@ def dummy_reference():
     class DummyReference:
         def __init__(self):
             self.props = Dummy()
-            self.props.label = 'category1'
+            self.props.label = 'reference1'
 
     yield DummyReference()
 

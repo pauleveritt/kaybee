@@ -32,7 +32,6 @@ class ReferencesContainer(UserDict):
             # Kaybee.
             return reftype[label]
 
-
     def add_reference(self, reftype: str, label: str, target):
         """ Add reference object in references under rtype/label=target """
 

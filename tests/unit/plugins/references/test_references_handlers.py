@@ -36,13 +36,13 @@ class TestRegisterReferences:
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it gets added, so let's remove
         # it first.
-        del references_sphinx_app.references['category']
+        del references_sphinx_app.references['reference']
         register_references(references_kb_app,
                             references_sphinx_app,
                             sphinx_env,
                             []
                             )
-        assert 'category' in references_sphinx_app.references
+        assert 'reference' in references_sphinx_app.references
 
     def test_not_is_reference(self, references_kb_app, references_sphinx_app: Sphinx,
                               sphinx_env,
@@ -51,16 +51,16 @@ class TestRegisterReferences:
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it doesn't get added, so let's
         # remove it first.
-        del references_sphinx_app.references['category']
+        del references_sphinx_app.references['reference']
 
         # Make Category into a non-reference
-        references_kb_app.config.resources['category'].is_reference = False
+        references_kb_app.config.resources['reference'].is_reference = False
         register_references(references_kb_app,
                             references_sphinx_app,
                             sphinx_env,
                             []
                             )
-        assert 'category' not in references_sphinx_app.references
+        assert 'reference' not in references_sphinx_app.references
 
 
 class TestAddDocumentReferences:
@@ -68,11 +68,11 @@ class TestAddDocumentReferences:
         assert 'add_document_reference' == add_document_reference.__name__
 
     def test_run(self, references_kb_app, sphinx_app, references_sphinx_env,
-                 dummy_category):
-        sphinx_app.resources['category1'] = dummy_category
+                 dummy_reference):
+        sphinx_app.resources['reference1'] = dummy_reference
         add_document_reference(references_kb_app, sphinx_app, references_sphinx_env)
-        category1 = sphinx_app.references['category']['category1']
-        assert 'category1' == category1.docname
+        reference1 = sphinx_app.references['reference']['reference1']
+        assert 'reference1' == reference1.docname
 
 
 class TestValidateReferences:
@@ -81,7 +81,7 @@ class TestValidateReferences:
 
     def test_missing_reference_type(self, references_kb_app, html_builder,
                                     references_sphinx_env):
-        # Resource points at a reference type (e.g. 'category') that
+        # Resource points at a reference type (e.g. 'reference') that
         # isn't registered
         references_sphinx_env.app.references = dict()
         with pytest.raises(KeyError):
@@ -89,9 +89,9 @@ class TestValidateReferences:
 
     def test_missing_reference_value(self, references_kb_app, html_builder,
                                      references_sphinx_env):
-        # Resource points at a reference type (e.g. 'category') that
-        # *is* registered, but then at a category lable that isn't
-        references_sphinx_env.app.references['category'] = dict()
+        # Resource points at a reference type (e.g. 'reference') that
+        # *is* registered, but then at a reference lable that isn't
+        references_sphinx_env.app.references['reference'] = dict()
 
         with pytest.raises(KeyError):
             validate_references(references_kb_app, html_builder, references_sphinx_env)
@@ -118,14 +118,14 @@ class TestMissingReference:
                             return_value=9)
         node = dict(
             refdoc=article1,
-            reftarget='category-category1',
+            reftarget='reference-reference1',
             refexplicit=True
         )
         newnode = missing_reference(references_kb_app, sphinx_app,
                                     references_sphinx_env, node,
                                     dummy_contnode)
         references.get_reference.assert_called_once_with(
-            'category', 'category1'
+            'reference', 'reference1'
         )
         sphinx_app.builder.get_relative_uri.assert_called_once_with(
             node['refdoc'], article1.docname
@@ -175,14 +175,14 @@ class TestMissingReference:
                             return_value=9)
         node = dict(
             refdoc=article1,
-            reftarget='category-category1',
+            reftarget='reference-reference1',
             refexplicit=False
         )
         newnode = missing_reference(references_kb_app, sphinx_app,
                                     references_sphinx_env, node,
                                     dummy_contnode)
         references.get_reference.assert_called_once_with(
-            'category', 'category1'
+            'reference', 'reference1'
         )
         sphinx_app.builder.get_relative_uri.assert_called_once_with(
             node['refdoc'], article1.docname
@@ -195,18 +195,18 @@ class TestReferencesDumpSettings:
         assert 'dump_settings' == dump_settings.__name__
 
     def test_result(self, references_kb_app, sphinx_env,
-                    dummy_category):
+                    dummy_reference):
         references_kb_app.config.resources = dict()
         sphinx_env.app.resources = dict()
         sphinx_env.app.references = dict(
-            category=dict(
-                category1=dummy_category
+            reference=dict(
+                reference1=dummy_reference
             )
         )
         result = dump_settings(references_kb_app, sphinx_env)
         assert 'references' in result
-        category = result['references']['values']['category']
-        assert 'category1' == category['category1']['docname']
+        reference = result['references']['values']['reference']
+        assert 'reference1' == reference['reference1']['docname']
 
 
 class TestUtilityFunctions:
@@ -216,12 +216,12 @@ class TestUtilityFunctions:
 
     def test_reference_fieldnames(self, dummy_article):
         results = reference_fieldnames(dummy_article)
-        assert 'category' in results
+        assert 'reference' in results
 
-    def test_get_reference_classes(self, dummy_category, dummy_article):
+    def test_get_reference_classes(self, dummy_reference, dummy_article):
         resource_classes = [
-            dummy_category.__class__,
+            dummy_reference.__class__,
             dummy_article.__class__
         ]
         results = get_reference_classes(resource_classes)
-        assert dummy_category.__class__ == results[0]
+        assert dummy_reference.__class__ == results[0]

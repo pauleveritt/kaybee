@@ -24,25 +24,25 @@ class TestReferencesContainer:
         sample_container['article']['flask'] = dict(flag=9)
 
     def test_add_reference(self, sample_container: ReferencesContainer):
-        sample_container['category'] = dict()
-        sample_container.add_reference('category', 'category1', 999)
-        result = sample_container['category']['category1']
+        sample_container['reference'] = dict()
+        sample_container.add_reference('reference', 'reference1', 999)
+        result = sample_container['reference']['reference1']
         assert 999 == result
 
     def test_get_reference(self, sample_container: ReferencesContainer):
-        sample_container['category'] = dict()
-        sample_container.add_reference('category', 'category1', 999)
-        result = sample_container.get_reference('category', 'category1')
+        sample_container['reference'] = dict()
+        sample_container.add_reference('reference', 'reference1', 999)
+        result = sample_container.get_reference('reference', 'reference1')
         assert 999 == result
 
     def test_get_no_reference(self, sample_container: ReferencesContainer):
-        sample_container['category'] = dict()
-        sample_container.add_reference('category', 'category1', 999)
+        sample_container['reference'] = dict()
+        sample_container.add_reference('reference', 'reference1', 999)
         result = sample_container.get_reference('xxx', 'yyy')
         assert None is result
 
     def test_resource_references(self, references_sphinx_app,
-                                 dummy_article, dummy_category):
+                                 dummy_article, dummy_reference):
         references = references_sphinx_app.references
         results = references.resource_references(dummy_article)
-        assert dummy_category == results['category'][0]
+        assert dummy_reference == results['reference'][0]

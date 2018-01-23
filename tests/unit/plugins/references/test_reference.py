@@ -1,12 +1,12 @@
-from kaybee.plugins.references.reference import Category
+from kaybee.plugins.references.reference import Reference
 
 
-class TestCategory:
+class Testreference:
     def test_import(self):
-        assert 'Category' == Category.__name__
+        assert 'Reference' == Reference.__name__
 
     def test_construction(self):
-        c = Category('category1', 'category', 'label: category1')
-        assert True is c.is_reference
-        assert 'category1' == c.docname
-        assert 'category1' == c.props.label
+        r1 = Reference('reference1', 'reference', 'label: reference1')
+        assert True is r1.is_reference
+        assert 'reference1' == r1.docname
+        assert 'reference1' == r1.props.label

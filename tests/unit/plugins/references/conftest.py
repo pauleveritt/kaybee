@@ -10,14 +10,14 @@ from kaybee.plugins.resources.base_resource import BaseResource
 
 
 class DummyArticleModel(BaseModel):
-    category: ReferencesType = []
+    reference: ReferencesType = []
 
 
 class DummyArticle(BaseResource):
     model = DummyArticleModel
 
 
-class DummyCategory(BaseReference):
+class DummyReference(BaseReference):
     is_reference = True
 
 
@@ -36,27 +36,27 @@ def references_kb_app():
 @pytest.fixture()
 def dummy_article():
     yaml_content = '''\
-category:
-    - category1
+reference:
+    - reference1
     '''
     yield DummyArticle('article1', 'article', yaml_content)
 
 
 @pytest.fixture()
-def dummy_category():
+def dummy_reference():
     yaml_content = '''\
-label: category1
+label: reference1
     '''
-    dc = DummyCategory('category1', 'category', yaml_content)
-    dc.title = 'Dummy Category 1'
+    dc = DummyReference('reference1', 'reference', yaml_content)
+    dc.title = 'Dummy Reference 1'
     yield dc
 
 
 @pytest.fixture()
-def references_sphinx_app(sphinx_app, dummy_article, dummy_category):
+def references_sphinx_app(sphinx_app, dummy_article, dummy_reference):
     sphinx_app.references = DummyReferences()
-    sphinx_app.references['category'] = dict(
-        category1=dummy_category
+    sphinx_app.references['reference'] = dict(
+        reference1=dummy_reference
     )
     sphinx_app.resources = dict(
         article1=dummy_article
@@ -84,22 +84,22 @@ def dummy_contnode():
 @pytest.fixture()
 def conflicting_registrations(references_kb_app):
     # Omit the "order" to disambiguate
-    @references_kb_app.resource('category')
-    class Category1(BaseReference):
+    @references_kb_app.resource('reference')
+    class Reference11(BaseReference):
         pass
 
-    @references_kb_app.resource('category')
-    class Category2(BaseReference):
+    @references_kb_app.resource('reference')
+    class Reference2(BaseReference):
         pass
 
-    yield (Category1, Category2)
+    yield (Reference11, Reference2)
 
 
 @pytest.fixture()
 def valid_registration(references_kb_app):
-    @references_kb_app.resource('category')
-    class Category1(BaseReference):
+    @references_kb_app.resource('reference')
+    class Reference1(BaseReference):
         pass
 
     dectate.commit(references_kb_app)
-    yield Category1
+    yield Reference1
