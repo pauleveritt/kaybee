@@ -1,14 +1,14 @@
 .. indexpage::
-    category:
-        - category1
+    reference:
+        - reference1
 
 ===========
 Hello World
 ===========
 
-An inline reference using :ref:`category-category1` or with the
-title using :ref:`Category 1-ish <category-category1>`.
+An inline reference using :ref:`reference-reference1` or with the
+title using :ref:`Reference 1-ish <reference-reference1>`.
 
 .. toctree::
 
-    category1
+    reference1

@@ -1,7 +1,7 @@
 <h1>Indexpage</h1>
 <ul>
-    {% for category in sphinx_app.references.resource_references(resource)['category'] %}
-    <li>{{ category.docname }}</li>
+    {% for reference in sphinx_app.references.resource_references(resource)['reference'] %}
+    <li>{{ reference.docname }}</li>
     {% endfor %}
 </ul>
 <div id="body">{{ body }}</div>

@@ -8,7 +8,7 @@ from kaybee.plugins.references.model_types import ReferencesType
 
 
 class IndexpageModel(BaseResourceModel):
-    category: ReferencesType = []
+    reference: ReferencesType = []
 
 
 @kb.resource('indexpage')
