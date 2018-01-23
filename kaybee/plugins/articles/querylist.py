@@ -10,7 +10,10 @@ from pydantic import BaseModel
 
 from kaybee.app import kb
 from kaybee.plugins.queries.props_model import BaseQueryModel
-from kaybee.plugins.widgets.base_widget import BaseWidget
+from kaybee.plugins.widgets.base_widget import (
+    BaseWidget,
+    BaseWidgetModel,
+)
 from kaybee.plugins.queries.service import Query
 
 
@@ -20,8 +23,7 @@ class QuerySectionModel(BaseModel):
     query: BaseQueryModel
 
 
-class QuerylistModel(BaseModel):
-    template: str
+class QuerylistModel(BaseWidgetModel):
     queries: List[QuerySectionModel]
 
 

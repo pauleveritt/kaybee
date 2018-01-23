@@ -25,6 +25,21 @@ class TestCategories2:
         assert 'Article 1' == li[0].contents[0].strip()
 
 
+@pytest.mark.parametrize('page', ['article2.html', ],
+                         indirect=True)
+class TestQuerylist:
+
+    def test_querylist(self, page):
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Custom Article' == h1
+
+        div1 = page.find(id='querylist-querylist1')
+        first_result = div1.find_all('div', class_='result_set')
+        assert 2 == len(first_result)
+        assert 'Recent Blog Posts' == div1.find('h2').contents[0].strip()
+        assert 'section1/index' == div1.find('li').contents[0].strip()
+
+
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestArticles1Debug:
 
@@ -55,7 +70,7 @@ class TestArticles1Debug:
         assert 'Article 1' == article1['title']
         assert '' == article1['section']
         assert [] == article1['toctree']
-        assert 2 == len(article1['series'])
+        assert 4 == len(article1['series'])
 
         # section1
         section1 = resource_values['section1/index']
