@@ -25,9 +25,9 @@ class TestWidgets1Debug:
         widgets = json_page['widgets']
         assert 'config' in widgets
 
-        # widgets1 contains one registered handler
+        # widgets1 contains one registered handler, skip any registered
         config = widgets['config']
-        assert {'widget': 'kaybee.plugins.widgets.widget.Widget'} == config
+        assert 'videoplayer' in config
 
         # one value in widgets
         values = widgets['values']

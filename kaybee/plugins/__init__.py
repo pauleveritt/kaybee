@@ -3,6 +3,7 @@ import kaybee.plugins.articles.homepage
 import kaybee.plugins.articles.section
 import kaybee.plugins.articles.toctree
 import kaybee.plugins.articles.handlers
+import kaybee.plugins.articles.videoplayer
 import kaybee.plugins.debugdumper.handlers
 import kaybee.plugins.genericpage.handlers
 import kaybee.plugins.localtemplates.handlers
