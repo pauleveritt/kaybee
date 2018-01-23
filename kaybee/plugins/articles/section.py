@@ -16,4 +16,10 @@ from kaybee.plugins.articles.base_section import BaseSection
 
 @kb.resource('section')
 class Section(BaseSection):
-    pass
+
+    def featured_resource(self, resources):
+        fd = self.props.featured_resource
+        if not fd:
+            return None
+        else:
+            return resources[fd]

@@ -13,4 +13,5 @@ def initialize_query_service(kb_app: kb,
                              sphinx_env: BuildEnvironment,
                              docnames=List[str],
                              ):
+    # TODO Doesn't look like this is needed
     sphinx_app.query = dict()
