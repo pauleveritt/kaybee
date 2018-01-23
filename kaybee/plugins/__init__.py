@@ -5,7 +5,6 @@ import kaybee.plugins.articles.toctree
 import kaybee.plugins.articles.handlers
 import kaybee.plugins.debugdumper.handlers
 import kaybee.plugins.genericpage.handlers
-import kaybee.plugins.layouts.handlers
 import kaybee.plugins.localtemplates.handlers
 import kaybee.plugins.queries.handlers
 import kaybee.plugins.resources.handlers
