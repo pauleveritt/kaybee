@@ -1,10 +1,10 @@
 .. article::
     category:
+        - category1
         - category2
-        - category3
 
 =========
-Article 1
+Article 3
 =========
 
 Some body.

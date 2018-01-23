@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Custom Category</h1>
+{{ body }}
+
+<h2>Resources</h2>
+<ul id="reference-listing">
+{% for resource in resource.get_targets(sphinx_app.resources) %}
+    <li>{{ resource.title }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

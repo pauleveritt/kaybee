@@ -11,6 +11,20 @@ class TestArticles1:
         assert 'Custom Article' == h1
 
 
+@pytest.mark.parametrize('page', ['categories/category2.html', ],
+                         indirect=True)
+class TestCategories2:
+
+    def test_article2(self, page):
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Custom Category' == h1
+
+        ul = page.find(id='reference-listing')
+        li = ul.find_all('li')
+        assert 2 == len(li)
+        assert 'Article 1' == li[0].contents[0].strip()
+
+
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestArticles1Debug:
 
@@ -32,7 +46,7 @@ class TestArticles1Debug:
         assert 'index' == homepage['docname']
         assert 'Hello World' == homepage['title']
         assert '' == homepage['section']
-        assert ['article1', 'section1/index'] == homepage['toctree']
+        assert 'article1' in homepage['toctree']
         assert None is homepage['series']
 
         # article1

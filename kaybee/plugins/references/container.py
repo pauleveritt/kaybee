@@ -41,12 +41,12 @@ class ReferencesContainer(UserDict):
         self.data[reftype][label] = target
 
     def resource_references(self, resource) -> Mapping[str, List[Any]]:
-        """ Resolve and return references
+        """ Resolve and return reference resources pointed to by object
 
          Fields in resource.props can flag that they are references by
          using the references type. This method scans the model,
          finds any fields that are references, and returns the
-         resources pointed to by those references.
+         reference resources pointed to by those references.
 
          Note that we shouldn't get to the point of dangling references.
          Our custom Sphinx event should raise a references error

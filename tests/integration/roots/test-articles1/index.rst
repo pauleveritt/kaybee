@@ -7,3 +7,4 @@ Hello World
 
     article1
     section1/index
+    categories/index
