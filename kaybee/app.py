@@ -16,6 +16,7 @@ from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
+from kaybee.plugins.layouts.action import LayoutAction
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.widgets.action import WidgetAction
 
@@ -27,3 +28,4 @@ class kb(dectate.App):
     genericpage = dectate.directive(GenericpageAction)
     widget = dectate.directive(WidgetAction)
     toctree = dectate.directive(ToctreeAction)
+    layout = dectate.directive(LayoutAction)

@@ -39,7 +39,7 @@ def register_template_directory(kb_app: kb,
     for action in actions:
         fa = inspect.getfile(action)
         f = os.path.dirname(fa)
-        template_bridge.loaders.append(SphinxFileSystemLoader(f))
+        template_bridge.loaders.insert(0, SphinxFileSystemLoader(f))
 
 
 @kb.event(SphinxEvent.HPC, scope='layouts')
