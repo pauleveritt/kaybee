@@ -3,9 +3,12 @@
     {{ body }}
 
     <h2>Categories</h2>
-    <ul id="category-listing">
+    <ul id="kb-category-listing">
         {% for category in sphinx_app.references.resource_references(resource)['category'] %}
-            <li><a href="{{ pathto(category.docname, 1) + '.html'}}">{{ category.title }}</a></li>
+            <li><a
+                    class="kb-category-item"
+                    href="{{ pathto(category.docname, 1) + '.html' }}">{{ category.title }}</a>
+            </li>
         {% endfor %}
     </ul>
 
