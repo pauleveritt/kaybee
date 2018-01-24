@@ -31,3 +31,9 @@ class TestBaseSection:
         f1 = article_resources['f1/index']
         result = f1.__json__(article_resources)['get_featured_resource']
         assert 'f1/f2/about' == result
+
+    def test_to_json_no_featured(self, article_resources):
+        f1 = article_resources['f1/index']
+        f1.props.featured_resource = None
+        json = f1.__json__(article_resources)
+        assert 'get_featured_resource' not in json

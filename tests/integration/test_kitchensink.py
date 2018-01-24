@@ -1,3 +1,12 @@
+"""
+
+TODO
+- toctree
+- Custom: resource, widget, reference, genericpage, localtemplates
+- Custom: article, article_reference, homepage, section, toctree
+
+"""
+
 import pytest
 
 pytestmark = pytest.mark.sphinx('html', testroot='kitchensink')

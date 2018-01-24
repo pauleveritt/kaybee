@@ -2,6 +2,7 @@ import dectate
 import pytest
 
 from kaybee.plugins.articles.handlers import (
+    articles_into_html_context,
     register_template_directory,
     render_toctrees,
     resource_toctrees,
@@ -25,7 +26,8 @@ class TestArticlesTemplateDir:
         assert 'register_template_directory' == \
                register_template_directory.__name__
 
-    def test_result(self, articles_kb_app, sphinx_app, sphinx_env, valid_registration):
+    def test_result(self, articles_kb_app, sphinx_app, sphinx_env,
+                    valid_registration):
         register_template_directory(articles_kb_app, sphinx_app, sphinx_env,
                                     [])
         loaders = sphinx_app.builder.templates.loaders
@@ -33,11 +35,30 @@ class TestArticlesTemplateDir:
         assert 'tests/unit/plugins/articles' in search_path
 
 
+class TestArticlesIntoHtml:
+    def test_import(self):
+        assert 'articles_into_html_context' == \
+               articles_into_html_context.__name__
+
+    def test_navmenu(self, articles_kb_app, sphinx_app,
+                                   article_resources):
+        f1 = article_resources['f1/index']
+        f1.props.in_nav = True
+        sphinx_app.resources = article_resources
+        context = dict()
+        articles_into_html_context(articles_kb_app, sphinx_app,
+                                   '', '', context, dict()
+                                   )
+        assert 'navmenu' in context
+        assert f1 in context['navmenu']
+
+
 class TestRenderToctrees:
     def test_import(self):
         assert 'render_toctrees' == render_toctrees.__name__
 
-    def test_not_use_toctree(self, articles_kb_app, sphinx_app, valid_registration,
+    def test_not_use_toctree(self, articles_kb_app, sphinx_app,
+                             valid_registration,
                              dummy_doctree, article_env, article_resources,
                              mocker,
                              ):
@@ -102,7 +123,8 @@ class TestResourceToctrees:
     def test_import(self):
         assert 'resource_toctrees' == resource_toctrees.__name__
 
-    def test_run_with_resource(self, articles_kb_app, sphinx_app, dummy_doctree,
+    def test_run_with_resource(self, articles_kb_app, sphinx_app,
+                               dummy_doctree,
                                dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
@@ -113,7 +135,8 @@ class TestResourceToctrees:
         resource_toctrees(articles_kb_app, sphinx_app, dummy_doctree)
         assert ['f1/about'] == dummy_article.toctree
 
-    def test_run_without_resource(self, articles_kb_app, sphinx_app, dummy_doctree,
+    def test_run_without_resource(self, articles_kb_app, sphinx_app,
+                                  dummy_doctree,
                                   dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')

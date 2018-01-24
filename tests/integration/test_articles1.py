@@ -8,7 +8,7 @@ class TestArticles1:
 
     def test_article1(self, page):
         h1 = page.find('h1').contents[0].strip()
-        assert 'Custom Article' == h1
+        assert 'Article 1' == h1
 
 
 @pytest.mark.parametrize('page', ['categories/category2.html', ],
@@ -17,12 +17,14 @@ class TestCategories2:
 
     def test_article2(self, page):
         h1 = page.find('h1').contents[0].strip()
-        assert 'Custom Category' == h1
+        assert 'Category 2' == h1
 
-        ul = page.find(id='reference-listing')
+        ul = page.find(id='kb-reference-listing')
         li = ul.find_all('li')
-        assert 2 == len(li)
-        assert 'Article 1' == li[0].contents[0].strip()
+        items = [i.contents[0].strip()
+                 for i in page.find_all(class_='kb-reference-item')]
+        assert 2 == len(items)
+        assert 'Article 1' in items
 
 
 @pytest.mark.parametrize('page', ['article2.html', ],
@@ -31,13 +33,18 @@ class TestQuerylist:
 
     def test_querylist(self, page):
         h1 = page.find('h1').contents[0].strip()
-        assert 'Custom Article' == h1
+        assert 'Article 2' == h1
 
-        div1 = page.find(id='querylist-querylist1')
-        first_result = div1.find_all('div', class_='result_set')
-        assert 2 == len(first_result)
-        assert 'Recent Blog Posts' == div1.find('h2').contents[0].strip()
-        assert 'section1/index' == div1.find('li').contents[0].strip()
+        labels = [
+            result.contents[0].strip()
+            for result in page.find_all(class_='kb-querylist-label')]
+        items = [
+            result.contents[0].strip()
+            for result in page.find_all(class_='kb-querylist-item')]
+        assert 2 == len(labels)
+        assert 'Recent Blog Posts' in labels
+        assert 5 == len(items)
+        assert 'Section 1' in items
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)

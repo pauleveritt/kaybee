@@ -6,6 +6,7 @@ from kaybee.plugins.articles.videoplayer import VideoPlayer
 @pytest.fixture()
 def dummy_videoplayer():
     yaml = """
+name: vp1
 src: http://fool.com
 width: 99
     """
