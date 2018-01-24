@@ -1,10 +1,11 @@
 <div id="querylist-{{ widget.props.name }}">
     {% for result_set in result_sets %}
         <div class="result_set">
-            <h2>{{ result_set.label }}</h2>
+            <h4>{{ result_set.label }}</h4>
             <ul>
                 {% for result in result_set.results %}
-                    <li>{{ result.docname }}</li>
+                    <li>
+                        <a href="{{ '/' + result.docname + '.html' }}">{{ result.title }}</a></li>
                 {% endfor %}
             </ul>
         </div>

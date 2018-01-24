@@ -21,6 +21,7 @@ class BaseSection(BaseArticle):
     def __json__(self, resources):
         d = super().__json__(resources)
         r = self.get_featured_resource(resources)
-        d['get_featured_resource'] = r.docname
+        if r:
+            d['get_featured_resource'] = r.docname
 
         return d

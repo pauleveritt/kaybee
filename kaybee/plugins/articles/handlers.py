@@ -1,7 +1,8 @@
 import inspect
 import os
+from operator import attrgetter
 from pathlib import PurePath
-from typing import List
+from typing import List, Dict
 
 from docutils import nodes
 from docutils.readers import doctree
@@ -97,6 +98,26 @@ def resource_toctrees(kb_app: kb,
                 target for (flag, target) in node.attributes['entries']
             ]
             pass
+
+
+@kb.event(SphinxEvent.HPC, scope='articles')
+def articles_into_html_context(
+        kb_app: kb,
+        sphinx_app: Sphinx,
+        pagename,
+        templatename: str,
+        context,
+        doctree: doctree) -> Dict[str, str]:
+    resources = sphinx_app.resources
+    navitems = [
+        resource
+        for resource in resources.values()
+        if getattr(resource.props, 'in_nav', False)
+    ]
+    context['navmenu'] = sorted(navitems,
+                                key=lambda x: (
+                                    x.props.weight, attrgetter('title')(x))
+                                )
 
 
 @kb.dumper('toctrees')

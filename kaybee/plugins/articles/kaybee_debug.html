@@ -1,0 +1,18 @@
+{% if sphinx_app.config.kaybee_settings.debugdumper.use_debug %}
+    <div id="kb-body" style="font-style: italic">
+        <h2>Kaybee</h2>
+        <div>Nav</div>
+        <ul>
+            {% for nav in navmenu %}
+                <li>
+                    <a href="{{ pathto(nav.docname, 1) + '.html' }}">{{ nav.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div>rtype: <span id="kb-rtype">{{ resource.rtype }}</span></div>
+        <div>docname: <span id="kb-docname">{{ resource.docname }}</span>
+        </div>
+        <div>title: <span id="kb-docname">{{ resource.title }}</span>
+        </div>
+    </div>
+{% endif %}

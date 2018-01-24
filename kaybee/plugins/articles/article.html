@@ -1,5 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<h1>Custom Article</h1>
-{{ body }}
+    {{ body }}
+
+    <h2>Categories</h2>
+    <ul id="category-listing">
+        {% for category in sphinx_app.references.resource_references(resource)['category'] %}
+            <li><a href="{{ pathto(category.docname, 1) + '.html'}}">{{ category.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+    {% include 'kaybee_debug.html' %}
 {% endblock %}

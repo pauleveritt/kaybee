@@ -1,11 +1,12 @@
-from pydantic import BaseModel
-
 from kaybee.app import kb
 
-from kaybee.plugins.widgets.base_widget import BaseWidget
+from kaybee.plugins.widgets.base_widget import (
+    BaseWidget,
+    BaseWidgetModel,
+)
 
 
-class VideoPlayerModel(BaseModel):
+class VideoPlayerModel(BaseWidgetModel):
     width: int = 640
     height: int = 360
     src: str
@@ -16,7 +17,7 @@ class VideoPlayerModel(BaseModel):
 @kb.widget('videoplayer')
 class VideoPlayer(BaseWidget):
     model = VideoPlayerModel
-    template = 'videoplayer'
+    # template = 'videoplayer'
 
     def make_context(self, context, sphinx_app):
         pass
