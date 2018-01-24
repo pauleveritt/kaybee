@@ -1,11 +1,12 @@
 import dectate
 import pytest
 
+from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.articles.base_article import BaseArticle
+from kaybee.plugins.articles.base_article_reference import BaseArticleReference
 from kaybee.plugins.articles.base_homepage import BaseHomepage
 from kaybee.plugins.articles.base_section import BaseSection
 from kaybee.plugins.articles.base_toctree import BaseToctree
-from kaybee.plugins.articles.actions import ToctreeAction
 
 
 @pytest.fixture()
@@ -35,18 +36,28 @@ def article_resources():
         all:
     """
     index = BaseHomepage('index', 'homepage', 'logo: somelogo.png')
+    index.title = 'Index'
     about = BaseArticle('about', 'article', '')
+    about.title = 'About'
     f1 = BaseSection('f1/index', 'section', f1_content)
+    f1.title = 'F1'
     f1_about = BaseArticle('f1/about', 'article',
                            'published: 2015-04-25 12:01')
+    f1_about.title = 'F1 About'
     f2 = BaseSection('f1/f2/index', 'section', '')
     f2.title = 'F2 Index'
     f2_about = BaseArticle('f1/f2/about', 'article', '')
     f2_about.title = 'F2 About'
     f3 = BaseSection('f1/f2/f3/index', 'section', 'template: f3template')
+    f3.title = 'F3'
     f3_about = BaseArticle('f1/f2/f3/about', 'article', '')
+    f3_about.title = 'F3 About'
     f4 = BaseSection('f1/f2/f3/f4/index', 'section', f4_content)
+    f4.title = 'F4'
     f4_about = BaseArticle('f1/f2/f3/f4/about', 'article', '')
+    f4.title = 'F4 About'
+    c1 = BaseArticleReference('categories/c1', 'category', 'label: c1')
+    c1.title = 'C1'
 
     yield {
         'index': index,
@@ -59,6 +70,7 @@ def article_resources():
         'f1/f2/f3/about': f3_about,
         'f1/f2/f3/f4/index': f4,
         'f1/f2/f3/f4/about': f4_about,
+        'categories/c1': c1
     }
 
 

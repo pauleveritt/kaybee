@@ -27,7 +27,7 @@ class BaseReference(BaseResource):
         label = self.props.label  # E.g. category1
         result = [
             resource
-            for resource in resources
+            for resource in resources.values()
             if is_reference_target(resource, rtype, label)
         ]
         return result
