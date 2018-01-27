@@ -55,7 +55,7 @@ def render_toctrees(kb_app: kb, sphinx_app: Sphinx, doctree: doctree,
     for node in doctree.traverse(toctree):
         if node.attributes['hidden']:
             continue
-        custom_toctree = registered_toctree()
+        custom_toctree = registered_toctree(fromdocname)
         context = builder.globalcontext.copy()
         context['sphinx_app'] = sphinx_app
 

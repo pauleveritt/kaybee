@@ -45,7 +45,6 @@ def test_homepage(page):
     assert 'Category Listing' == anchors[1][1]
 
 
-
 @pytest.mark.parametrize('page', ['2018/intro_django.html', ], indirect=True)
 def test_article(page):
     h1 = page.find('h1').contents[0].strip()

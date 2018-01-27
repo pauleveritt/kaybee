@@ -3,6 +3,7 @@ from typing import Mapping
 from pydantic import BaseModel
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
+from sphinx.util.osutil import relative_uri
 
 from kaybee.utils.models import load_model
 
@@ -24,6 +25,21 @@ class BaseWidget:
 
     def __repr__(self):
         return f'{self.docname}-{self.props.name}'
+
+    def pathto_docname(self, target_docname):
+        """ Mimic the sphinx.builders.html.pathto inline closure.
+
+        We need a way to resolve relative URLs so hrefs work when a Sphinx
+        site is served in a subdirectory. Sphinx has an odd inline function
+        called pathto that has some local variables. This function serves the
+        purpose for paths to docs as well as static resourcees. Let's split
+        that and have our own, for widgets which aren't using the Sphinx
+        Jinja2 renderer.
+
+        """
+
+        uri = relative_uri(self.docname, target_docname)
+        return uri
 
     @property
     def template(self):
@@ -60,6 +76,7 @@ class BaseWidget:
         template = self.template + '.html'
         html = builder.templates.render(template, context)
         return html
+
 
     def __json__(self):
         # The root has different rules about parents

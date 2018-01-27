@@ -1,3 +1,4 @@
+import pytest
 from datetime import datetime
 
 from kaybee.plugins.articles.base_toctree import BaseToctree
@@ -42,6 +43,17 @@ class TestBaseToctree:
         dummy_toctree.set_entries(dummy_entries, dummy_titles,
                                   article_resources)
         assert [] == dummy_toctree.entries
+
+    @pytest.mark.parametrize('current_docname, target_docname, expected', [
+        ('2018/index', '2018/about', 'about'),
+        ('2018/about', '2018/contact', 'contact'),
+        ('2018/01/01/about', '2018/01/01/contact', 'contact'),
+        ('2018/01/01/about', '2001/12/12/about', '../../../2001/12/12/about'),
+    ])
+    def test_pathto(self, dummy_toctree,
+                    current_docname, target_docname, expected):
+        dummy_toctree.docname = current_docname
+        assert expected == dummy_toctree.pathto_docname(target_docname)
 
     def test_render(self, mocker,
                     dummy_toctree, html_builder, sphinx_app):

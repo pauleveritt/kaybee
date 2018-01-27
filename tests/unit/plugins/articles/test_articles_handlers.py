@@ -82,7 +82,7 @@ class TestRenderToctrees:
         sphinx_app.resources = article_resources
         node = dummy_doctree.traverse()[0]
         mocker.patch.object(node, 'replace_self')
-        fromdocname = ''
+        fromdocname = 'some/path/index'
         render_toctrees(articles_kb_app, sphinx_app, dummy_doctree,
                         fromdocname)
         node.replace_self.assert_called()
@@ -98,7 +98,7 @@ class TestRenderToctrees:
         node = dummy_doctree.traverse()[0]
         node.attributes['hidden'] = True
         mocker.patch.object(node, 'replace_self')
-        fromdocname = ''
+        fromdocname = 'some/path/index'
         render_toctrees(articles_kb_app, sphinx_app, dummy_doctree,
                         fromdocname)
         node.replace_self.assert_not_called()
