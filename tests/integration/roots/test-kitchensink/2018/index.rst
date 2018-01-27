@@ -32,4 +32,5 @@ Contents
 
     intro_django
     just_a_resource
+    ksresource1
     ksarticle1

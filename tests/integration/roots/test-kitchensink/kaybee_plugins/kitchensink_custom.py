@@ -6,11 +6,46 @@ Make some custom stuff for testing/demo purposes:
 - Custom: article, article_reference, homepage, section, toctree
 
 """
+from pydantic import BaseModel
+from sphinx.application import Sphinx
 
 from kaybee.app import kb
-
 from kaybee.plugins.articles.base_article import BaseArticle
 from kaybee.plugins.articles.base_article import BaseArticleModel
+from kaybee.plugins.resources.base_resource import BaseResource
+from kaybee.plugins.widgets.base_widget import (
+    BaseWidget,
+    BaseWidgetModel,
+)
+
+
+class KsResourceModel(BaseModel):
+    ksresource_flag: int
+
+
+@kb.resource('ksresource')
+class KsResource(BaseResource):
+    model = KsResourceModel
+
+    @property
+    def increment(self):
+        return self.props.ksresource_flag + 1
+
+
+class KsWidgetModel(BaseWidgetModel):
+    kswidget_flag: int
+
+
+@kb.widget('kswidget')
+class KsWidget(BaseWidget):
+    model = KsWidgetModel
+
+    def make_context(self, context, sphinx_app: Sphinx):
+        context['another_flag'] = 835
+
+    @property
+    def increment(self):
+        return self.props.kswidget_flag + 1
 
 
 class KsArticleModel(BaseArticleModel):

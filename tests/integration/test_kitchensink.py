@@ -111,6 +111,37 @@ def test_section(page):
     assert '2018 Articles' == kb_body.find(id='kb-title').contents[0].strip()
 
 
+@pytest.mark.parametrize('page', ['2018/ksresource1.html', ], indirect=True)
+def test_ksresource(page):
+    h1 = page.find('h1').contents[0].strip()
+    assert 'KSResource 1' == h1
+
+    flag = page.find(id='kb-ksresource-flag').contents[0].strip()
+    assert '9' == flag
+    increment = page.find(id='kb-ksresource-increment').contents[0].strip()
+    assert '10' == increment
+
+    # kb-body stuff
+    kb_body = page.find(id='kb-body')
+    assert 'ksresource' == kb_body.find(id='kb-rtype').contents[0].strip()
+    assert '2018/ksresource1' == kb_body.find(id='kb-docname').contents[
+        0].strip()
+    assert 'KSResource 1' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['2018/ksresource1.html', ], indirect=True)
+def test_kswidget(page):
+    h1 = page.find('h1').contents[0].strip()
+    assert 'KSResource 1' == h1
+
+    flag = page.find(id='kb-kswidget-flag').contents[0].strip()
+    assert '9' == flag
+    increment = page.find(id='kb-kswidget-increment').contents[0].strip()
+    assert '10' == increment
+    another_flag = page.find(id='kb-kswidget-anotherflag').contents[0].strip()
+    assert '835' == another_flag
+
+
 @pytest.mark.parametrize('page', ['2018/ksarticle1.html', ], indirect=True)
 def test_ksarticle(page):
     h1 = page.find('h1').contents[0].strip()
