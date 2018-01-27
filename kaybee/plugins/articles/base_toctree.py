@@ -29,7 +29,9 @@ class BaseToctree:
         for flag, pagename in entries:
             title = titles[pagename].children[0]
             resource = resources.get(pagename, None)
-            if resource and not resource.is_published:
+            if resource and hasattr(resource,
+                                    'is_published') and not \
+                    resource.is_published:
                 continue
             # Even if there is no resource for this tocentry, we can
             # use the toctree info

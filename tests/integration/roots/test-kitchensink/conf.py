@@ -21,5 +21,8 @@ html_sidebars = {
 kaybee_settings = kaybee.KaybeeSettings(
     debugdumper=dict(
         use_debug=True
+    ),
+    articles=dict(
+        use_toctree=True
     )
 )

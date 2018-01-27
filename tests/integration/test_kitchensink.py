@@ -1,7 +1,6 @@
 """
 
 TODO
-- toctree
 - Custom: resource, widget, reference, genericpage, localtemplates
 - Custom: article, article_reference, homepage, section, toctree
 
@@ -31,6 +30,20 @@ def test_homepage(page):
     assert 'About Us' in navitems
     assert 'Intro to Django' in navitems
     assert 'Hidden' not in navitems
+
+    # Toctree
+    toctree = page.find_all(class_='kb-toctree')
+    assert 1 == len(toctree)
+    anchors = [
+        (a.attrs['href'], a.contents[0].strip())
+        for a in toctree[0].find_all(class_='reference internal')
+    ]
+    assert 2 == len(anchors)
+    assert 'hidden.html' in anchors[0][0]
+    assert 'Hidden' == anchors[0][1]
+    assert 'categories/index.html' in anchors[1][0]
+    assert 'Category Listing' == anchors[1][1]
+
 
 
 @pytest.mark.parametrize('page', ['2018/intro_django.html', ], indirect=True)
