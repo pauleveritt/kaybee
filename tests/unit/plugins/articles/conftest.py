@@ -118,7 +118,7 @@ def dummy_doctree(dummy_nodes):
 
 @pytest.fixture()
 def dummy_toctree():
-    yield BaseToctree()
+    yield BaseToctree('some/path/to/about')
 
 
 @pytest.fixture()

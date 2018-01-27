@@ -1,10 +1,10 @@
 <div class="toctree-wrapper compound">
     <ul class="kb-toctree">
         {% for entry in toctree.entries %}
-        <li class="toctree-l1">
-            <a class="reference internal"
-               href="{{entry.href + '.html'}} ">{{entry.title}}</a>
-        </li>
+            <li class="toctree-l1">
+                <a class="reference internal"
+                   href="{{ toctree.pathto_docname(entry.href) + '.html' }} ">{{ entry.title }}</a>
+            </li>
         {% endfor %}
     </ul>
 </div>

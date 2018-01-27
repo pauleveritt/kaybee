@@ -9,12 +9,13 @@ def listing_widget():
     class ListingWidget(BaseWidget):
         def make_context(self, context, sphinx_app):
             return dict(class_flag=912)
-            
+
     yaml_content = """
 name: this_id
 template: dummy_listing
     """
     yield ListingWidget('somepage', 'listing', yaml_content)
+
 
 @pytest.fixture()
 def no_template_widget():
@@ -65,6 +66,18 @@ class TestBaseWidget:
         bw = BaseWidget('somepage', 'listing', yaml_content)
         with pytest.raises(NotImplementedError):
             bw.make_context(dict(), dict())
+
+    @pytest.mark.parametrize('current_docname, target_docname, expected', [
+        ('2018/index', '2018/about', 'about'),
+        ('2018/about', '2018/contact', 'contact'),
+        ('2018/01/01/about', '2018/01/01/contact', 'contact'),
+        ('2018/01/01/about', '2001/12/12/about', '../../../2001/12/12/about'),
+    ])
+    def test_pathto(self, listing_widget: BaseWidget,
+                    current_docname, target_docname, expected):
+        listing_widget.docname = current_docname
+        assert expected == listing_widget.pathto_docname(target_docname)
+
 
     def test_render(self, mocker,
                     sphinx_app: Sphinx, listing_widget: BaseWidget):

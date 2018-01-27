@@ -1,4 +1,4 @@
-'''
+"""
 
 Intercept and re-render Sphinx built-in toctrees.
 
@@ -9,11 +9,12 @@ toctrees and re-render them with our HTML.
 Why not make our own directive? toctrees are complex. Working with the
 rendering of the existing version is easier.
 
-'''
+"""
 
 from typing import List, Tuple
 
 from sphinx.application import Sphinx
+from sphinx.util.osutil import relative_uri
 
 
 class BaseToctree:
@@ -21,6 +22,9 @@ class BaseToctree:
     entries: List = []
     result_count = 0
     template = 'toctree'
+
+    def __init__(self, docname: str):
+        self.docname = docname
 
     def set_entries(self, entries: List[Tuple[str, str]], titles, resources):
         """ Provide the template the data for the toc entries """
@@ -40,6 +44,21 @@ class BaseToctree:
             ))
 
         self.result_count = len(self.entries)
+
+    def pathto_docname(self, target_docname):
+        """ Mimic the sphinx.builders.html.pathto inline closure.
+
+        We need a way to resolve relative URLs so hrefs work when a Sphinx
+        site is served in a subdirectory. Sphinx has an odd inline function
+        called pathto that has some local variables. This function serves the
+        purpose for paths to docs as well as static resourcees. Let's split
+        that and have our own, for widgets which aren't using the Sphinx
+        Jinja2 renderer.
+
+        """
+
+        uri = relative_uri(self.docname, target_docname)
+        return uri
 
     def render(self, builder, context, sphinx_app: Sphinx):
         """ Given a Sphinx builder and context with site in it,
