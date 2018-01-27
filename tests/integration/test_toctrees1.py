@@ -43,5 +43,5 @@ class TestToctrees1Debug:
         toctrees = json_page['toctrees']
         toctrees_config = toctrees['config']
         assert 'None-80' in toctrees_config
-        assert 'None-40' in toctrees_config
-        assert 'Toctree' in toctrees_config['None-80']
+        assert 'None-70' in toctrees_config
+        assert 'Toctree' in toctrees_config['None-70']

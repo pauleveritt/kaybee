@@ -45,7 +45,6 @@ def test_homepage(page):
     assert 'Category Listing' == anchors[1][1]
 
 
-
 @pytest.mark.parametrize('page', ['2018/intro_django.html', ], indirect=True)
 def test_article(page):
     h1 = page.find('h1').contents[0].strip()
@@ -110,6 +109,24 @@ def test_section(page):
     assert '2018/index' == kb_body.find(id='kb-docname').contents[
         0].strip()
     assert '2018 Articles' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['2018/ksarticle1.html', ], indirect=True)
+def test_ksarticle(page):
+    h1 = page.find('h1').contents[0].strip()
+    assert 'KSArticle 1' == h1
+
+    flag = page.find(id='kb-ksarticle-flag').contents[0].strip()
+    assert '9' == flag
+    increment = page.find(id='kb-ksarticle-increment').contents[0].strip()
+    assert '10' == increment
+
+    # kb-body stuff
+    kb_body = page.find(id='kb-body')
+    assert 'ksarticle' == kb_body.find(id='kb-rtype').contents[0].strip()
+    assert '2018/ksarticle1' == kb_body.find(id='kb-docname').contents[
+        0].strip()
+    assert 'KSArticle 1' == kb_body.find(id='kb-title').contents[0].strip()
 
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)

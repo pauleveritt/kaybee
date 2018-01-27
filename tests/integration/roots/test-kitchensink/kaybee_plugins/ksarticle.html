@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+    <p>Custom resource <code>ksarticle</code> has a flag of
+        <code id="kb-ksarticle-flag">{{ resource.props.ksarticle_flag }}</code>
+        with an increment of
+        <code id="kb-ksarticle-increment">{{ resource.increment }}</code>.</p>
+    {{ body }}
+
+
+    {% include 'kaybee_debug.html' %}
+{% endblock %}
