@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block body %}
+    <p>Custom reference resource has a label of
+        <code id="kb-reference-flag">{{ resource.props.label }}</code>.</p>
+    {{ body }}
+
+    {% include 'kaybee_debug.html' %}
+{% endblock %}
