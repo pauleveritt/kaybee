@@ -5,6 +5,8 @@
   
 # Next
 
+- GitHub deployment with doctr
+
 - Get kaybee_settings into the html context as ``settings``
 
 - Postrender (which skips widget rendering)
