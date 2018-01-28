@@ -1,5 +1,11 @@
 # Now
 
+- Excerpt support with tests
+
+- Section query
+
+- Integration tests for: querylist, sectionquery, featured_resource,
+
 # Next
 
 - GitHub deployment with doctr
