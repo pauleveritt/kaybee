@@ -60,6 +60,13 @@ def test_article(page):
     assert 'Django' in categories
     assert 'PostgreSQL' in categories
 
+    # Inline references
+    refs = page.find_all("a", class_="internal")
+    derived_title = refs[0].find('em').contents[0].strip()
+    assert 'Django' == derived_title
+    explicit_title = refs[1].find('em').contents[0].strip()
+    assert 'Django 2.0' == explicit_title
+
     # kb-body stuff
     kb_body = page.find(id='kb-body')
     assert 'article' == kb_body.find(id='kb-rtype').contents[0].strip()
