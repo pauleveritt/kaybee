@@ -1,8 +1,7 @@
 """
 
 TODO
-- Custom: genericpage, localtemplates
-- Custom: article, article_reference, homepage, section, toctree
+- Custom: article_reference, homepage, section, toctree
 
 """
 
@@ -140,6 +139,20 @@ def test_section(page):
     assert '2018/index' == kb_body.find(id='kb-docname').contents[
         0].strip()
     assert '2018 Articles' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['builtin_references/index.html', ],
+                         indirect=True)
+def test_genericpage(page):
+    # These are controlled from an acquireds setting on
+    # index.rst
+    h1 = page.find('h1').contents[0].strip()
+    assert 'Builtin References' == h1
+
+    assert 'builtin_references/index' == \
+           page.find(id='kb-genericpage-docname').contents[0].strip()
+    assert 'kitchensink_genericpage' == \
+           page.find(id='kb-genericpage-template').contents[0].strip()
 
 
 @pytest.mark.parametrize('page', ['2018/ksresource1.html', ], indirect=True)

@@ -59,6 +59,7 @@ def genericpage_into_html_context(
         gp = genericpages.get(pagename)
         if gp:
             context['genericpage'] = gp
+            context['resources'] = resources
             template = gp.template(resources)
             templatename = template + '.html'
             return dict(templatename=templatename)

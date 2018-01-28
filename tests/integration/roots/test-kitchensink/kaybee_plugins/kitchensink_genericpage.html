@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+    <p>Custom genericpage has a docname of
+        <code id="kb-genericpage-docname">{{ genericpage.docname }}</code>
+        and a template of
+        <code id="kb-genericpage-template">{{ genericpage.template(resources) }}</code>.
+    </p>
+    {{ body }}
+{% endblock %}

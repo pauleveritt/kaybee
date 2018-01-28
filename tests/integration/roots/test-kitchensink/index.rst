@@ -1,4 +1,7 @@
 .. homepage::
+    acquireds:
+        genericpage:
+            template: kitchensink_genericpage
 
 ============
 Kitchen Sink
