@@ -13,4 +13,4 @@ Below are categories defined in this site as resources.
     django
     flask
     pyramid
-    database
+    postgresql

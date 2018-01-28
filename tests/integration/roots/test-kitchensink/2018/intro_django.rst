@@ -3,13 +3,13 @@
     weight: 20
     category:
         - django
-        - database
+        - postgresql
 
 ===============
 Intro to Django
 ===============
 
-This article is about Django *and* databases.
+This article is about Django *and* PostgreSQL.
 
 A Video
 =======

@@ -58,7 +58,7 @@ def test_article(page):
     categories = [i.contents[0].strip()
                   for i in page.find_all(class_='kb-category-item')]
     assert 'Django' in categories
-    assert 'Database' in categories
+    assert 'PostgreSQL' in categories
 
     # kb-body stuff
     kb_body = page.find(id='kb-body')
