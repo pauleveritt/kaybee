@@ -2,8 +2,7 @@
 
 Make some custom stuff for testing/demo purposes:
 
-- Custom: resource, widget, reference, genericpage, localtemplates
-- Custom: article, article_reference, homepage, section, toctree
+- Custom: article_reference, homepage, section
 
 """
 from pydantic import BaseModel
@@ -49,7 +48,7 @@ class KsWidget(BaseWidget):
         return self.props.kswidget_flag + 1
 
 
-@kb.genericpage()
+@kb.genericpage(order=30)
 class KsGenericpage(Genericpage):
     @property
     def increment(self):
