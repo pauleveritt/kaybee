@@ -12,6 +12,7 @@ from sphinx.application import Sphinx
 from kaybee.app import kb
 from kaybee.plugins.articles.base_article import BaseArticle
 from kaybee.plugins.articles.base_article import BaseArticleModel
+from kaybee.plugins.genericpage.genericpage import Genericpage
 from kaybee.plugins.resources.base_resource import BaseResource
 from kaybee.plugins.widgets.base_widget import (
     BaseWidget,
@@ -46,6 +47,13 @@ class KsWidget(BaseWidget):
     @property
     def increment(self):
         return self.props.kswidget_flag + 1
+
+
+@kb.genericpage()
+class KsGenericpage(Genericpage):
+    @property
+    def increment(self):
+        return 9
 
 
 class KsArticleModel(BaseArticleModel):

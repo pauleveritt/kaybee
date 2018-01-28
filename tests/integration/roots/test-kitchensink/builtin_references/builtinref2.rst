@@ -1,6 +1,6 @@
 .. reference::
     label: builtinref2
-    template: page
+    template: kitchensink_builtinref2
 
 =============
 Builtin Ref 2

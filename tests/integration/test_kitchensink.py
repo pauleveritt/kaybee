@@ -1,7 +1,7 @@
 """
 
 TODO
-- Custom: resource, widget, reference, genericpage, localtemplates
+- Custom: genericpage, localtemplates
 - Custom: article, article_reference, homepage, section, toctree
 
 """
@@ -67,6 +67,37 @@ def test_article(page):
     assert '2018/intro_django' == kb_body.find(id='kb-docname').contents[
         0].strip()
     assert 'Intro to Django' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['builtin_references/builtinref1.html', ],
+                         indirect=True)
+def test_builtinreference1(page):
+    # Using the built-in reference type
+    h1 = page.find('h1').contents[0].strip()
+    assert 'Builtin Ref 1' == h1
+
+    # kb-body stuff...doesn't exist, this is page.html
+    kb_body = page.find(id='kb-body')
+    assert None is kb_body
+
+
+@pytest.mark.parametrize('page', ['builtin_references/builtinref2.html', ],
+                         indirect=True)
+def test_builtinreference2(page):
+    # Using the built-in reference type
+    h1 = page.find('h1').contents[0].strip()
+    assert 'Builtin Ref 2' == h1
+
+    label = page.find(id='kb-reference-label').contents[0].strip()
+    assert 'builtinref2' == label
+
+    # kb-body stuff
+    kb_body = page.find(id='kb-body')
+    assert 'reference' == kb_body.find(id='kb-rtype').contents[0].strip()
+    assert 'builtin_references/builtinref2' == \
+           kb_body.find(id='kb-docname').contents[
+               0].strip()
+    assert 'Builtin Ref 2' == kb_body.find(id='kb-title').contents[0].strip()
 
 
 @pytest.mark.parametrize('page', ['categories/django.html', ], indirect=True)
