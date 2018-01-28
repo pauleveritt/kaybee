@@ -1,3 +1,7 @@
+.. ksfeature::
+    label: debugging
+    ksfeature_flag: 9
+
 =========
 Debugging
 =========

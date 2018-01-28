@@ -1,10 +1,3 @@
-"""
-
-TODO
-- Custom: article_reference, homepage, section, toctree
-
-"""
-
 import pytest
 
 pytestmark = pytest.mark.sphinx('html', testroot='kitchensink')
@@ -122,6 +115,25 @@ def test_category(page):
     assert 'categories/django' == kb_body.find(id='kb-docname').contents[
         0].strip()
     assert 'Django' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['customcategories/databases.html', ],
+                         indirect=True)
+def test_custom_category(page):
+    h1 = page.find('h1').contents[0].strip()
+    assert 'Databases' == h1
+
+    # Target references listing
+    references = [i.contents[0].strip()
+                  for i in page.find_all(class_='kb-reference-item')]
+    assert 'KSArticle 1' in references
+
+    # kb-body stuff
+    kb_body = page.find(id='kb-body')
+    assert 'ksfeature' == kb_body.find(id='kb-rtype').contents[0].strip()
+    assert 'customcategories/databases' == kb_body.find(id='kb-docname').contents[
+        0].strip()
+    assert 'Databases' == kb_body.find(id='kb-title').contents[0].strip()
 
 
 @pytest.mark.parametrize('page', ['2018/index.html', ], indirect=True)

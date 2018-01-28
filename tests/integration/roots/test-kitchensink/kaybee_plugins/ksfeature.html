@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+    <p>Custom article reference <code>ksfeature</code> has a flag of
+        <code id="kb-ksfeature-flag">{{ resource.props.ksfeature_flag }}</code>
+        with an increment of
+        <code id="kb-ksfeature-increment">{{ resource.increment }}</code>.</p>
+    {{ body }}
+
+    <h2>Kitchen Sink Resources</h2>
+    <ul id="kb-reference-listing">
+        {% for resource in resource.get_targets(sphinx_app.resources) %}
+            <li><a
+                    class="kb-reference-item"
+                    href="{{ pathto(resource.docname, 1) + '.html' }}">{{ resource.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include 'kaybee_debug.html' %}
+{% endblock %}

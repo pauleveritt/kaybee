@@ -36,7 +36,7 @@ class TestReferences1Debug:
 
         # one value in references
         values = references['values']
-        assert 2 == len(values)
+        assert 3 == len(values)
         assert 'reference' in values
         reference = values['reference']
         assert 'reference1' in reference

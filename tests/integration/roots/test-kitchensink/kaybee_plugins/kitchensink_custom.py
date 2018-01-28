@@ -18,6 +18,7 @@ from kaybee.plugins.articles.base_article_reference import (
     BaseArticleReferenceModel,
 )
 from kaybee.plugins.genericpage.genericpage import Genericpage
+from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import BaseResource
 from kaybee.plugins.widgets.base_widget import (
     BaseWidget,
@@ -63,6 +64,7 @@ class KsGenericpage(Genericpage):
 
 class KsArticleModel(BaseArticleModel):
     ksarticle_flag: int
+    ksfeature: ReferencesType = []
 
 
 @kb.resource('ksarticle')
@@ -74,10 +76,14 @@ class KsArticle(BaseArticle):
         return self.props.ksarticle_flag + 1
 
 
-class FeatureModel(BaseArticleReferenceModel):
-    feature_flag: int
+class KsFeatureModel(BaseArticleReferenceModel):
+    ksfeature_flag: int
 
 
-@kb.resource('feature')
-class Feature(BaseArticleReference):
-    model = FeatureModel
+@kb.resource('ksfeature')
+class KsFeature(BaseArticleReference):
+    model = KsFeatureModel
+
+    @property
+    def increment(self):
+        return self.props.ksfeature_flag + 1
