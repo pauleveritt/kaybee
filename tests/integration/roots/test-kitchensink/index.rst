@@ -21,3 +21,4 @@ Contents
     categories/index
     2018/index
     builtin_references/index
+    customcategories/index

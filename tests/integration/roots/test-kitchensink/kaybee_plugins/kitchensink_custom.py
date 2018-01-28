@@ -9,8 +9,14 @@ from pydantic import BaseModel
 from sphinx.application import Sphinx
 
 from kaybee.app import kb
-from kaybee.plugins.articles.base_article import BaseArticle
-from kaybee.plugins.articles.base_article import BaseArticleModel
+from kaybee.plugins.articles.base_article import (
+    BaseArticle,
+    BaseArticleModel,
+)
+from kaybee.plugins.articles.base_article_reference import (
+    BaseArticleReference,
+    BaseArticleReferenceModel,
+)
 from kaybee.plugins.genericpage.genericpage import Genericpage
 from kaybee.plugins.resources.base_resource import BaseResource
 from kaybee.plugins.widgets.base_widget import (
@@ -66,3 +72,12 @@ class KsArticle(BaseArticle):
     @property
     def increment(self):
         return self.props.ksarticle_flag + 1
+
+
+class FeatureModel(BaseArticleReferenceModel):
+    feature_flag: int
+
+
+@kb.resource('feature')
+class Feature(BaseArticleReference):
+    model = FeatureModel

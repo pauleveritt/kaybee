@@ -37,7 +37,7 @@ def test_homepage(page):
         (a.attrs['href'], a.contents[0].strip())
         for a in toctree[0].find_all(class_='reference internal')
     ]
-    assert 3 == len(anchors)
+    assert 4 == len(anchors)
     assert 'hidden.html' in anchors[0][0]
     assert 'Hidden' == anchors[0][1]
     assert 'categories/index.html' in anchors[1][0]
