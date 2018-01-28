@@ -206,7 +206,7 @@ per-type mappings of properties or a mapping to apply to all types.
 Here's an example of a parent which takes control of different kinds of
 children:
 
-.. literalinclude:: ../../tests/integration/roots/test-acquired/folder1/index.rst
+.. literalinclude:: ../../tests/integration/roots/test-acquire/folder1/index.rst
 
 This document says that anything anywhere under ``folder`` can look up
 certain prop values based on resource type (or ``all``, for props that
