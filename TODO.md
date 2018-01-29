@@ -1,8 +1,5 @@
 # Now
 
-- load_model which supports typed props, perhaps by omitting the model 
-  attribute and using props: ResourceModel instead
-  
 - Better error reporting when validating YAML
 
 - Strict enforcement of YAML fields from pydantic

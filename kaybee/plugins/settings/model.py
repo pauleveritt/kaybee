@@ -8,3 +8,6 @@ class KaybeeSettings(BaseModel):
     plugins_dir: str = 'kaybee_plugins'
     articles: ArticlesModel = ArticlesModel()
     debugdumper: DebugdumperModel = DebugdumperModel()
+
+    class Config:
+        ignore_extra = False

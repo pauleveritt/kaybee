@@ -12,6 +12,8 @@ class BaseWidgetModel(BaseModel):
     name: str  # Must be unique on each page
     template: str = None  # Can come from class name
 
+    class Config:
+        ignore_extra = False
 
 class BaseWidget:
     docname: str  # Widget instances get registered from a doc

@@ -26,6 +26,8 @@ class QuerySectionModel(BaseModel):
 class QuerylistModel(BaseWidgetModel):
     queries: List[QuerySectionModel]
 
+    class Config:
+        ignore_extra = False
 
 @kb.widget('querylist')
 class QuerylistWidget(BaseWidget):

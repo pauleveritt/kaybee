@@ -18,6 +18,8 @@ from kaybee.plugins.widgets.base_widget import (
 class SectionqueryModel(BaseWidgetModel):
     query: BaseQueryModel
 
+    class Config:
+        ignore_extra = False
 
 @kb.widget('sectionquery')
 class SectionqueryWidget(BaseWidget):

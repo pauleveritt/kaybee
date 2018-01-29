@@ -39,9 +39,11 @@ class BaseResourceModel(BaseModel):
     template: str = None
     acquireds: Mapping[str, Mapping[str, str]] = None
 
+    class Config:
+        ignore_extra = False
+
 
 class BaseResource:
-    # model = BaseResourceModel
     json_attrs = ('docname', 'rtype', 'parent')
     title: str = None  # Stamped on later by the handler
     props: BaseResourceModel
