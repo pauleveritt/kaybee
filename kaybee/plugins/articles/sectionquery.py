@@ -21,7 +21,7 @@ class SectionqueryModel(BaseWidgetModel):
 
 @kb.widget('sectionquery')
 class SectionqueryWidget(BaseWidget):
-    model = SectionqueryModel
+    props: SectionqueryModel
 
     def make_context(self, context: Dict, sphinx_app):
         """ Put information into the context for rendering """

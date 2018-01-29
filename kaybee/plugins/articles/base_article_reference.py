@@ -16,7 +16,7 @@ class BaseArticleReferenceModel(BaseArticleModel):
 
 
 class BaseArticleReference(BaseArticle):
-    model = BaseArticleReferenceModel
+    props: BaseArticleReferenceModel
     is_reference = True
 
     def get_targets(self, resources):

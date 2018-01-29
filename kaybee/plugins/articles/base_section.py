@@ -9,7 +9,7 @@ class BaseSectionModel(BaseArticleModel):
 
 
 class BaseSection(BaseArticle):
-    model = BaseSectionModel
+    props: BaseSectionModel
 
     def get_featured_resource(self, resources):
         fr = self.props.featured_resource

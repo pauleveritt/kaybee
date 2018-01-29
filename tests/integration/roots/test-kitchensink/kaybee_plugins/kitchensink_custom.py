@@ -32,7 +32,7 @@ class KsResourceModel(BaseModel):
 
 @kb.resource('ksresource')
 class KsResource(BaseResource):
-    model = KsResourceModel
+    props: KsResourceModel
 
     @property
     def increment(self):
@@ -45,7 +45,7 @@ class KsWidgetModel(BaseWidgetModel):
 
 @kb.widget('kswidget')
 class KsWidget(BaseWidget):
-    model = KsWidgetModel
+    props: KsWidgetModel
 
     def make_context(self, context, sphinx_app: Sphinx):
         context['another_flag'] = 835
@@ -69,7 +69,7 @@ class KsArticleModel(BaseArticleModel):
 
 @kb.resource('ksarticle')
 class KsArticle(BaseArticle):
-    model = KsArticleModel
+    props: KsArticleModel
 
     @property
     def increment(self):
@@ -82,7 +82,7 @@ class KsFeatureModel(BaseArticleReferenceModel):
 
 @kb.resource('ksfeature')
 class KsFeature(BaseArticleReference):
-    model = KsFeatureModel
+    props: KsFeatureModel
 
     @property
     def increment(self):

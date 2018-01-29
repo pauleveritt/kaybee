@@ -13,4 +13,4 @@ class IndexpageModel(BaseResourceModel):
 
 @kb.resource('indexpage')
 class Indexpage(BaseResource):
-    model = IndexpageModel
+    props: IndexpageModel

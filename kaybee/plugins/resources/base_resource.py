@@ -41,15 +41,18 @@ class BaseResourceModel(BaseModel):
 
 
 class BaseResource:
-    model = BaseResourceModel
+    # model = BaseResourceModel
     json_attrs = ('docname', 'rtype', 'parent')
     title: str = None  # Stamped on later by the handler
+    props: BaseResourceModel
 
     def __init__(self, docname: str, rtype: str, yaml_content: str):
         self.docname = docname
         self.rtype = rtype
         self.parent = parse_parent(docname)
-        self.props: BaseResourceModel = load_model(self.model, yaml_content)
+
+        model = self.__annotations__['props']
+        self.props = load_model(model, yaml_content)
 
     def __repr__(self):
         return self.docname

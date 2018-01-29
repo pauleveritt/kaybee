@@ -12,4 +12,4 @@ class BaseHomepageModel(BaseArticleModel):
 
 
 class BaseHomepage(BaseArticle):
-    model = BaseHomepageModel
+    props: BaseHomepageModel

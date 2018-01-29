@@ -29,7 +29,7 @@ class QuerylistModel(BaseWidgetModel):
 
 @kb.widget('querylist')
 class QuerylistWidget(BaseWidget):
-    model = QuerylistModel
+    props: QuerylistModel
 
     def make_context(self, context, sphinx_app):
         result_sets = []

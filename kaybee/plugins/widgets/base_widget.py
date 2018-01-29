@@ -16,12 +16,13 @@ class BaseWidgetModel(BaseModel):
 class BaseWidget:
     docname: str  # Widget instances get registered from a doc
     wtype: str  # This is the directive name, e.g. listing
-    model = BaseWidgetModel
+    props: BaseWidgetModel
 
     def __init__(self, docname: str, wtype: str, yaml_content: str):
         self.docname = docname
         self.wtype = wtype
-        self.props: BaseWidgetModel = load_model(self.model, yaml_content)
+        model = self.__annotations__['props']
+        self.props: BaseWidgetModel = load_model(model, yaml_content)
 
     def __repr__(self):
         return f'{self.docname}-{self.props.name}'

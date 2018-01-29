@@ -21,7 +21,7 @@ class BaseArticleModel(BaseResourceModel):
 
 
 class BaseArticle(BaseResource):
-    model = BaseArticleModel
+    props: BaseArticleModel
     excerpt: str = None  # Stamped on later by the handler
     toctree: List[str] = []  # Stamped on later by the handler
 

@@ -14,7 +14,7 @@ class DummyArticleModel(BaseModel):
 
 
 class DummyArticle(BaseResource):
-    model = DummyArticleModel
+    props: DummyArticleModel
 
 
 class DummyReference(BaseReference):

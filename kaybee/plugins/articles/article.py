@@ -11,9 +11,9 @@ This can be used in RST with something like::
 
 from kaybee.app import kb
 
-from kaybee.plugins.articles.base_article import BaseArticle
+from kaybee.plugins.articles.base_article import BaseArticle, BaseArticleModel
 
 
 @kb.resource('article')
 class Article(BaseArticle):
-    pass
+    props: BaseArticleModel

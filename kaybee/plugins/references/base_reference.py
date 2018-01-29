@@ -17,7 +17,7 @@ class BaseReferenceModel(BaseResourceModel):
 
 
 class BaseReference(BaseResource):
-    model = BaseReferenceModel
+    props: BaseReferenceModel
     is_reference = True
 
     def get_targets(self, resources):
