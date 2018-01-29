@@ -44,7 +44,7 @@ class TestStampExcerpt:
                                   dummy_article, excerpt):
         sphinx_app.confdir = '/tmp'
         excerpt.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict()
+        sphinx_app.env.resources = dict()
         assert None is getattr(dummy_article, 'excerpt', None)
         stamp_excerpt(kb_app, sphinx_app, excerpt)
         assert None is getattr(dummy_article, 'excerpt')
@@ -53,7 +53,7 @@ class TestStampExcerpt:
                               dummy_article, excerpt):
         sphinx_app.confdir = '/tmp'
         excerpt.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert None is getattr(dummy_article, 'excerpt', None)
@@ -66,7 +66,7 @@ class TestStampExcerpt:
         excerpt.attributes = dict(source='/tmp/article1.rst')
         dummy_article.props.excerpt = None
         dummy_article.props.auto_excerpt = 0
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert None is getattr(dummy_article, 'excerpt', None)
@@ -78,7 +78,7 @@ class TestStampExcerpt:
         sphinx_app.confdir = '/tmp'
         excerpt.attributes = dict(source='/tmp/article1.rst')
         dummy_article.props.excerpt = 'Manual Excerpt.'
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert None is getattr(dummy_article, 'excerpt', None)
@@ -90,7 +90,7 @@ class TestStampExcerpt:
         sphinx_app.confdir = '/tmp'
         excerpt.attributes = dict(source='/tmp/article1.rst')
         dummy_article.props.auto_excerpt = 2
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert None is getattr(dummy_article, 'excerpt', None)
@@ -107,7 +107,7 @@ class TestArticlesIntoHtml:
                      article_resources):
         f1 = article_resources['f1/index']
         f1.props.in_nav = True
-        sphinx_app.resources = article_resources
+        sphinx_app.env.resources = article_resources
         context = dict()
         articles_into_html_context(articles_kb_app, sphinx_app,
                                    '', '', context, dict()
@@ -191,7 +191,7 @@ class TestResourceToctrees:
                                dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert [] == dummy_article.toctree
@@ -203,7 +203,7 @@ class TestResourceToctrees:
                                   dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict()
+        sphinx_app.env.resources = dict()
         assert [] == dummy_article.toctree
         resource_toctrees(articles_kb_app, sphinx_app, dummy_doctree)
         assert [] == dummy_article.toctree

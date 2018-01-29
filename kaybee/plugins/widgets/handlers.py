@@ -27,7 +27,8 @@ def initialize_widgets_container(kb_app: kb,
                                  sphinx_env: BuildEnvironment,
                                  docnames=List[str],
                                  ):
-    sphinx_app.widgets = dict()
+    if not hasattr(sphinx_app.env, 'widgets'):
+        sphinx_app.env.widgets = dict()
 
 
 @kb.event(SphinxEvent.EBRD, scope='widgets', system_order=50)
@@ -70,7 +71,7 @@ def render_widgets(kb_app: kb,
 
     for node in doctree.traverse(widget):
         # Render the output
-        w = sphinx_app.widgets.get(node.name)
+        w = sphinx_app.env.widgets.get(node.name)
         context = builder.globalcontext.copy()
 
         # Add in certain globals
@@ -92,7 +93,7 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
     }
 
     # Next, get the actual widgets in the app.widgets DB
-    widgets = sphinx_env.app.widgets
+    widgets = sphinx_env.widgets
     values = {k: v.__json__() for (k, v) in widgets.items()}
 
     widgets = dict(

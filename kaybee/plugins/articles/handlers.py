@@ -68,7 +68,7 @@ def render_toctrees(kb_app: kb, sphinx_app: Sphinx, doctree: doctree,
         # The challenge here is that some items in a toctree
         # might not be resources in our "database". So we have
         # to ask Sphinx to get us the titles.
-        custom_toctree.set_entries(entries, env.titles, sphinx_app.resources)
+        custom_toctree.set_entries(entries, env.titles, sphinx_app.env.resources)
         output = custom_toctree.render(builder, context, sphinx_app)
 
         # Put the output into the node contents
@@ -84,7 +84,7 @@ def resource_toctrees(kb_app: kb,
     # onto the resource state
 
     # First, find out which resource this is. Won't be easy.
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
     confdir = sphinx_app.confdir
     source = PurePath(doctree.attributes['source'])
 
@@ -108,7 +108,7 @@ def stamp_excerpt(kb_app: kb,
     """ Walk the tree and extract excert into resource.excerpt """
 
     # First, find out which resource this is. Won't be easy.
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
     confdir = sphinx_app.confdir
     source = PurePath(doctree.attributes['source'])
 
@@ -139,7 +139,7 @@ def articles_into_html_context(
         templatename: str,
         context,
         doctree: doctree) -> Dict[str, str]:
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
     navitems = [
         resource
         for resource in resources.values()

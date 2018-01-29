@@ -63,7 +63,7 @@ class BaseWidget:
         # Called from kaybee.plugins.widgets.handlers.render_widgets
 
         builder: StandaloneHTMLBuilder = sphinx_app.builder
-        resource = sphinx_app.resources[self.docname]
+        resource = sphinx_app.env.resources[self.docname]
         context['sphinx_app'] = sphinx_app
         context['widget'] = self
         context['resource'] = resource

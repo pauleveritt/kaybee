@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     {{ body }}
-    {% set feature = resource.featured_resource(sphinx_app.resources) %}
+    {% set feature = resource.featured_resource(resources) %}
     {% if feature %}
         <div class="kb-section-feature">
             <h2>Featured Article: {{ feature.docname }}</h2>

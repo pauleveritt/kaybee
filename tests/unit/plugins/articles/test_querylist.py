@@ -24,7 +24,7 @@ class TestQueryList:
         assert 'w23' == dummy_querylist.props.name
 
     def test_make_context(self, dummy_querylist, article_resources, sphinx_app):
-        sphinx_app.resources = article_resources
+        sphinx_app.env.resources = article_resources
         context = dict()
         result = dummy_querylist.make_context(context, sphinx_app)
         assert None is result

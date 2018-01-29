@@ -25,7 +25,7 @@ class WidgetDirective(Directive):
 
     @property
     def widgets(self):
-        return self.state.document.settings.env.app.widgets
+        return self.state.document.settings.env.widgets
 
     def run(self):
         """ Run at parse time.

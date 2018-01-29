@@ -56,15 +56,14 @@ def dummy_directive(dummy_directive_class):
     bd.state.document.settings = Dummy()
     bd.state.document.settings.env = Dummy()
     bd.state.document.settings.env.docname = 'somedoc'
-    bd.state.document.settings.env.app = Dummy()
-    bd.state.document.settings.env.app.widgets = dict()
+    bd.state.document.settings.env.widgets = dict()
 
     yield bd
 
 
 @pytest.fixture()
 def widgets_sphinx_app(sphinx_app):
-    sphinx_app.widgets = dict()
+    sphinx_app.env.widgets = dict()
     sphinx_app.env.resources = dict()
     sphinx_app.env.references = dict()
 

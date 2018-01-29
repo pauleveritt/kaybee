@@ -11,7 +11,7 @@ from kaybee.utils.rst import rst_document
 
 
 @pytest.fixture()
-def articles_kb_app(kb_app):
+def articles_kb_app():
     class articles_kb_app(dectate.App):
         toctree = dectate.directive(ToctreeAction)
 
@@ -148,6 +148,7 @@ def article_env(dummy_titles):
     class Env:
         def __init__(self):
             self.titles = dummy_titles
+            self.resources = dict()
 
     yield Env()
 

@@ -38,7 +38,7 @@ class TestResourcesDumpSettings:
 
     def test_result(self, resources_kb_app, sphinx_env):
         resources_kb_app.config.resources = dict()
-        sphinx_env.app.resources = dict()
+        sphinx_env.resources = dict()
         result = dump_settings(resources_kb_app, sphinx_env)
         assert 'resources' in result
 

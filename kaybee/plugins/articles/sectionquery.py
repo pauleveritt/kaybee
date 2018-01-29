@@ -28,7 +28,7 @@ class SectionqueryWidget(BaseWidget):
 
         query = self.props.query
         results = Query.filter_collection(
-            sphinx_app.resources,
+            sphinx_app.env.resources,
             rtype=query.rtype,
             parent_name=query.parent_name,
             sort_value=query.sort_value,

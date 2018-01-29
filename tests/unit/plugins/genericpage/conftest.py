@@ -69,3 +69,9 @@ def foo_doctree():
         attributes = dict(source='foo.rst')
 
     yield Doctree()
+
+@pytest.fixture()
+def genericpages_sphinx_app(sphinx_app):
+    sphinx_app.env.genericpages = dict()
+
+    yield sphinx_app

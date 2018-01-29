@@ -22,7 +22,7 @@ class TestQueryList:
         assert 'w23' == dummy_sectionquery.props.name
 
     def test_make_context(self, dummy_sectionquery, article_resources, sphinx_app):
-        sphinx_app.resources = article_resources
+        sphinx_app.env.resources = article_resources
         context = dict()
         result = dummy_sectionquery.make_context(context, sphinx_app)
         assert None is result

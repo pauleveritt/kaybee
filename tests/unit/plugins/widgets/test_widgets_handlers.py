@@ -71,10 +71,12 @@ class TestWidgetsInitializeContainer:
         assert 'initialize_widgets_container' == \
                initialize_widgets_container.__name__
 
-    def test_result(self, widgets_kb_app, sphinx_app, sphinx_env):
-        initialize_widgets_container(widgets_kb_app, sphinx_app, sphinx_env,
+    def test_result(self, widgets_kb_app, widgets_sphinx_app, sphinx_env):
+        del widgets_sphinx_app.env.widgets
+        assert not hasattr(widgets_sphinx_app.env, 'widgets')
+        initialize_widgets_container(widgets_kb_app, widgets_sphinx_app, sphinx_env,
                                      [])
-        assert hasattr(sphinx_app, 'widgets')
+        assert hasattr(widgets_sphinx_app.env, 'widgets')
 
 
 class TestWidgetsRenderWidgets:
@@ -83,7 +85,7 @@ class TestWidgetsRenderWidgets:
 
     def test_render(self, mocker, widgets_kb_app, dummy_doctree, widgets_sphinx_app,
                     dummy_node, dummy_widget):
-        widgets_sphinx_app.widgets['listing'] = dummy_widget
+        widgets_sphinx_app.env.widgets['listing'] = dummy_widget
         mocker.patch.object(dummy_doctree, 'traverse',
                             return_value=[dummy_node])
         mocker.patch.object(nodes, 'raw', return_value=987)
@@ -131,6 +133,6 @@ class TestWidgetsDumpSettings:
 
     def test_result(self, widgets_kb_app, sphinx_env):
         widgets_kb_app.config.widgets = dict()
-        sphinx_env.app.widgets = dict()
+        sphinx_env.widgets = dict()
         result = dump_settings(widgets_kb_app, sphinx_env)
         assert 'widgets' in result

@@ -78,12 +78,11 @@ class TestBaseWidget:
         listing_widget.docname = current_docname
         assert expected == listing_widget.pathto_docname(target_docname)
 
-
     def test_render(self, mocker,
                     sphinx_app: Sphinx, listing_widget: BaseWidget):
         mocker.patch.object(sphinx_app.builder.templates, 'render',
                             return_value='<p>Hello 9293</p>')
-        sphinx_app.resources = {listing_widget.docname: dict(flag=912)}
+        sphinx_app.env.resources = {listing_widget.docname: dict(flag=912)}
         context = dict(previous=1)
         result = listing_widget.render(sphinx_app, context)
         assert 'somepage' == listing_widget.docname

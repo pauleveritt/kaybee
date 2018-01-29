@@ -16,13 +16,14 @@ def initialize_genericpages_container(kb_app: kb,
                                       sphinx_env: BuildEnvironment,
                                       docnames=List[str],
                                       ):
-    sphinx_app.genericpages = dict()
+    if not hasattr(sphinx_app.env, 'genericpages'):
+        sphinx_app.env.genericpages = dict()
 
 
 @kb.event(SphinxEvent.DREAD, scope='genericpage')
 def add_genericpage(kb_app: kb, sphinx_app: Sphinx,
                     doctree: doctree):
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
 
     confdir = sphinx_app.confdir
     source = PurePath(doctree.attributes['source'])
@@ -37,14 +38,14 @@ def add_genericpage(kb_app: kb, sphinx_app: Sphinx,
         # a genericpage
         gp_class = GenericpageAction.get_genericpage(kb_app)
         gp = gp_class(docname)
-        sphinx_app.genericpages[docname] = gp
+        sphinx_app.env.genericpages[docname] = gp
         return gp
 
 
 @kb.event(SphinxEvent.HPC, scope='genericpage')
 def genericpage_into_html_context(
         kb_app: kb,
-        sphinx_app: Sphinx,
+        genericpages_sphinx_app: Sphinx,
         pagename,
         templatename: str,
         context,
@@ -52,10 +53,10 @@ def genericpage_into_html_context(
 
     # Get the resource for this pagename. If no match, then this pagename
     # must be a genericpage
-    resources = sphinx_app.resources
+    resources = genericpages_sphinx_app.env.resources
     resource = resources.get(pagename)
     if not resource:
-        genericpages = sphinx_app.genericpages
+        genericpages = genericpages_sphinx_app.env.genericpages
         gp = genericpages.get(pagename)
         if gp:
             context['genericpage'] = gp
@@ -74,8 +75,8 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
 
     # Get the Genericpage values in the app
     values = {}
-    resources = sphinx_env.app.resources
-    gps = sphinx_env.app.genericpages
+    resources = sphinx_env.resources
+    gps = sphinx_env.genericpages
     values = {k: v.__json__(resources) for (k, v) in gps.items()}
 
     genericpages = dict(

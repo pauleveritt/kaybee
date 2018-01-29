@@ -221,8 +221,8 @@ class TestReferencesDumpSettings:
     def test_result(self, references_kb_app, sphinx_env,
                     dummy_reference):
         references_kb_app.config.resources = dict()
-        sphinx_env.app.resources = dict()
-        sphinx_env.app.references = dict(
+        sphinx_env.resources = dict()
+        sphinx_env.references = dict(
             reference=dict(
                 reference1=dummy_reference
             )

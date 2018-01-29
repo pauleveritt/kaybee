@@ -73,9 +73,8 @@ def dummy_directive(dummy_directive_class, dummy_references):
     bd.state.document.settings = Dummy()
     bd.state.document.settings.env = Dummy()
     bd.state.document.settings.env.docname = 'somedoc'
-    bd.state.document.settings.env.app = Dummy()
-    bd.state.document.settings.env.app.resources = dict()
-    bd.state.document.settings.env.app.references = dummy_references
+    bd.state.document.settings.env.resources = dict()
+    bd.state.document.settings.env.references = dummy_references
 
     yield bd
 

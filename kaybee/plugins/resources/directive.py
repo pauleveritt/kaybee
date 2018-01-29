@@ -17,7 +17,7 @@ class ResourceDirective(Directive):
 
     @property
     def resources(self):
-        return self.state.document.settings.env.app.resources
+        return self.state.document.settings.env.resources
 
     def run(self):
         """ Run at parse time.

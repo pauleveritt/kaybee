@@ -168,8 +168,8 @@ def dump_settings(kb_app: kb, sphinx_env: BuildEnvironment):
     }
 
     # Next, get the actual references in the app.references DB
-    references = sphinx_env.app.references
-    resources = sphinx_env.app.resources
+    references = sphinx_env.references
+    resources = sphinx_env.resources
     values = dict()
     for k, v in references.items():
         values[k] = dict()
