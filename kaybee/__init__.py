@@ -11,6 +11,12 @@ __version__ = '0.0.7'
 __title__ = "kaybee"
 
 
+def flush_everything(sphinx_app, sphinx_env):
+    e = sphinx_app.env
+    values = list(e.resources.values()) + list(e.genericpages.values())
+    return [value.docname for value in values]
+
+
 def setup(app: Sphinx):
     """ Initialize Kaybee as a Sphinx extension """
 
@@ -20,6 +26,7 @@ def setup(app: Sphinx):
 
     app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
 
+    app.connect('env-updated', flush_everything)
     app.connect(SphinxEvent.BI.value,
                 # pragma nocover
                 lambda sphinx_app: EventAction.call_builder_init(
