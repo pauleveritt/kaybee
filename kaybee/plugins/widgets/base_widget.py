@@ -24,7 +24,7 @@ class BaseWidget:
         self.docname = docname
         self.wtype = wtype
         model = self.__annotations__['props']
-        self.props: BaseWidgetModel = load_model(model, yaml_content)
+        self.props: BaseWidgetModel = load_model(docname, model, yaml_content)
 
     def __repr__(self):
         return f'{self.docname}-{self.props.name}'

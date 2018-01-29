@@ -54,7 +54,7 @@ class BaseResource:
         self.parent = parse_parent(docname)
 
         model = self.__annotations__['props']
-        self.props = load_model(model, yaml_content)
+        self.props = load_model(docname, model, yaml_content)
 
     def __repr__(self):
         return self.docname

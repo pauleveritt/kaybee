@@ -32,7 +32,7 @@ class TestQueryService:
         assert expected == results[0].title
 
     def test_filter_resources_parent(self, query_resources):
-        published = 'published: 2015-01-01 01:23'
+        published = ''
         parent = Section('section2/index', 'section', published)
         parent.title = 'Parent'
         child = Article('section2/article2', 'article', published)

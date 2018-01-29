@@ -1,19 +1,15 @@
 # Now
 
-- Better error reporting when validating YAML
-
-- Strict enforcement of YAML fields from pydantic
-
 - Overhaul acquire and template to have shared code which also eliminates 
   duplicating style in a section
   
-- Try to eliminate -E
-
 - Make kitchensink into SPCA site
 
 # Next
 
 - GitHub deployment with doctr
+
+- Try to eliminate -E
 
 - Get kaybee_settings into the html context as ``settings``
 
