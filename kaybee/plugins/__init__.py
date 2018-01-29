@@ -4,6 +4,7 @@ import kaybee.plugins.articles.homepage
 import kaybee.plugins.articles.querylist
 import kaybee.plugins.articles.category
 import kaybee.plugins.articles.section
+import kaybee.plugins.articles.sectionquery
 import kaybee.plugins.articles.toctree
 import kaybee.plugins.articles.videoplayer
 import kaybee.plugins.debugdumper.handlers

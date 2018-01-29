@@ -8,8 +8,10 @@
 First, a video.
 
 
-Section Query
-=============
+Query List
+==========
+
+Multiple queries at once.
 
 .. querylist::
     name: querylist1

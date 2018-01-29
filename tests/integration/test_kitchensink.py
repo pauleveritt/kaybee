@@ -131,8 +131,9 @@ def test_custom_category(page):
     # kb-body stuff
     kb_body = page.find(id='kb-body')
     assert 'ksfeature' == kb_body.find(id='kb-rtype').contents[0].strip()
-    assert 'customcategories/databases' == kb_body.find(id='kb-docname').contents[
-        0].strip()
+    assert 'customcategories/databases' == \
+           kb_body.find(id='kb-docname').contents[
+               0].strip()
     assert 'Databases' == kb_body.find(id='kb-title').contents[0].strip()
 
 
@@ -158,6 +159,24 @@ def test_section(page):
     assert '2018/index' == kb_body.find(id='kb-docname').contents[
         0].strip()
     assert '2018 Articles' == kb_body.find(id='kb-title').contents[0].strip()
+
+
+@pytest.mark.parametrize('page', ['2017/index.html', ], indirect=True)
+def test_sectionquery(page):
+    h1 = page.find('h1').contents[0].strip()
+    assert '2017 Articles' == h1
+
+    # Sectionquery widget
+    results = [i.contents[0].strip()
+               for i in page.find_all(class_='kb-sectionquery-item')]
+    assert ['KSArticle 1', 'KSArticle 2'] == results
+
+    # kb-body stuff
+    kb_body = page.find(id='kb-body')
+    assert 'section' == kb_body.find(id='kb-rtype').contents[0].strip()
+    assert '2017/index' == kb_body.find(id='kb-docname').contents[
+        0].strip()
+    assert '2017 Articles' == kb_body.find(id='kb-title').contents[0].strip()
 
 
 @pytest.mark.parametrize('page', ['builtin_references/index.html', ],

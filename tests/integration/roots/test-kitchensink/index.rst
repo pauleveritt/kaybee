@@ -19,6 +19,7 @@ Contents
     contact_us
     hidden
     categories/index
+    2017/index
     2018/index
     builtin_references/index
     customcategories/index

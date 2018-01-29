@@ -3,7 +3,7 @@
             id="kb-sectionquery-resultcount">{{ result_count }}</span> results.
     </p>
     <ul>
-        {% for result in widget.results %}
+        {% for result in results %}
             <li>
                 <a class="kb-sectionquery-item"
                    href="{{ '/' + result.docname + '.html' }}">{{ result.title }}</a>
