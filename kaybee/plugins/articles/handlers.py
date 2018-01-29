@@ -16,6 +16,7 @@ from kaybee.app import kb
 from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.settings.model import KaybeeSettings
+from kaybee.utils.rst import get_rst_excerpt
 
 
 @kb.event(SphinxEvent.EBRD, scope='toctrees')
@@ -98,6 +99,36 @@ def resource_toctrees(kb_app: kb,
                 target for (flag, target) in node.attributes['entries']
             ]
             pass
+
+
+@kb.event(SphinxEvent.DREAD, scope='articles')
+def stamp_excerpt(kb_app: kb,
+                  sphinx_app: Sphinx,
+                  doctree: doctree):
+    """ Walk the tree and extract excert into resource.excerpt """
+
+    # First, find out which resource this is. Won't be easy.
+    resources = sphinx_app.resources
+    confdir = sphinx_app.confdir
+    source = PurePath(doctree.attributes['source'])
+
+    # Get the relative path inside the docs dir, without .rst, then
+    # get the resource
+    docname = str(source.relative_to(confdir)).split('.rst')[0]
+    resource = resources.get(docname)
+
+    if resource:
+        # Stamp the excerpt on the resource
+        excerpt = getattr(resource.props, 'excerpt', False)
+        auto_excerpt = getattr(resource.props, 'auto_excerpt', False)
+        if excerpt:
+            resource.excerpt = excerpt
+        elif not auto_excerpt:
+            resource.excerpt = None
+        else:
+            # Extract the excerpt based on the number of paragraphs
+            # in auto_excerpt
+            resource.excerpt = get_rst_excerpt(doctree, auto_excerpt)
 
 
 @kb.event(SphinxEvent.HPC, scope='articles')

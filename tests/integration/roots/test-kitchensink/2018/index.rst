@@ -1,4 +1,5 @@
 .. section::
+    featured_resource: 2018/ksarticle1
 
 =============
 2018 Articles

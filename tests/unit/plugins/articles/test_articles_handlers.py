@@ -6,6 +6,7 @@ from kaybee.plugins.articles.handlers import (
     register_template_directory,
     render_toctrees,
     resource_toctrees,
+    stamp_excerpt,
     dump_settings,
 )
 from kaybee.plugins.articles.base_toctree import BaseToctree
@@ -35,13 +36,75 @@ class TestArticlesTemplateDir:
         assert 'tests/unit/plugins/articles' in search_path
 
 
+class TestStampExcerpt:
+    def test_import(self):
+        assert 'stamp_excerpt' == stamp_excerpt.__name__
+
+    def test_run_without_resource(self, kb_app, sphinx_app,
+                                  dummy_article, excerpt):
+        sphinx_app.confdir = '/tmp'
+        excerpt.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict()
+        assert None is getattr(dummy_article, 'excerpt', None)
+        stamp_excerpt(kb_app, sphinx_app, excerpt)
+        assert None is getattr(dummy_article, 'excerpt')
+
+    def test_run_auto_excerpt(self, kb_app, sphinx_app,
+                              dummy_article, excerpt):
+        sphinx_app.confdir = '/tmp'
+        excerpt.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert None is getattr(dummy_article, 'excerpt', None)
+        stamp_excerpt(kb_app, sphinx_app, excerpt)
+        assert 'First paragraph.' == dummy_article.excerpt
+
+    def test_run_no_auto_excerpt(self, kb_app, sphinx_app,
+                                 dummy_article, excerpt):
+        sphinx_app.confdir = '/tmp'
+        excerpt.attributes = dict(source='/tmp/article1.rst')
+        dummy_article.props.excerpt = None
+        dummy_article.props.auto_excerpt = 0
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert None is getattr(dummy_article, 'excerpt', None)
+        stamp_excerpt(kb_app, sphinx_app, excerpt)
+        assert None is dummy_article.excerpt
+
+    def test_run_manual_excerpt(self, kb_app, sphinx_app,
+                                dummy_article, excerpt):
+        sphinx_app.confdir = '/tmp'
+        excerpt.attributes = dict(source='/tmp/article1.rst')
+        dummy_article.props.excerpt = 'Manual Excerpt.'
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert None is getattr(dummy_article, 'excerpt', None)
+        stamp_excerpt(kb_app, sphinx_app, excerpt)
+        assert 'Manual Excerpt.' == dummy_article.excerpt
+
+    def test_run_two_paragraphs(self, kb_app, sphinx_app,
+                                dummy_article, excerpt):
+        sphinx_app.confdir = '/tmp'
+        excerpt.attributes = dict(source='/tmp/article1.rst')
+        dummy_article.props.auto_excerpt = 2
+        sphinx_app.resources = dict(
+            article1=dummy_article
+        )
+        assert None is getattr(dummy_article, 'excerpt', None)
+        stamp_excerpt(kb_app, sphinx_app, excerpt)
+        assert 'First paragraph. Second paragraph.' == dummy_article.excerpt
+
+
 class TestArticlesIntoHtml:
     def test_import(self):
         assert 'articles_into_html_context' == \
                articles_into_html_context.__name__
 
     def test_navmenu(self, articles_kb_app, sphinx_app,
-                                   article_resources):
+                     article_resources):
         f1 = article_resources['f1/index']
         f1.props.in_nav = True
         sphinx_app.resources = article_resources

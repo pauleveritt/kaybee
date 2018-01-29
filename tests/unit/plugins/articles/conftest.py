@@ -7,6 +7,7 @@ from kaybee.plugins.articles.base_article_reference import BaseArticleReference
 from kaybee.plugins.articles.base_homepage import BaseHomepage
 from kaybee.plugins.articles.base_section import BaseSection
 from kaybee.plugins.articles.base_toctree import BaseToctree
+from kaybee.utils.rst import rst_document
 
 
 @pytest.fixture()
@@ -149,3 +150,25 @@ def article_env(dummy_titles):
             self.titles = dummy_titles
 
     yield Env()
+
+
+@pytest.fixture()
+def excerpt():
+    source = """
+Test
+====
+
+First *paragraph*.
+
+Second *paragraph*.        
+            """
+    yield rst_document(source)
+
+
+@pytest.fixture()
+def noexcerpt():
+    source = """
+Test
+====
+            """
+    yield rst_document(source)

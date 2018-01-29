@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
     {{ body }}
+    {% set feature = resource.featured_resource(sphinx_app.resources) %}
+    {% if feature %}
+        <div class="kb-section-feature">
+            <h2>Featured Article: {{ feature.docname }}</h2>
+            <p><em>{{ feature.excerpt }}</em></p>
+            <p><a href="{{ pathto(resource.docname) + '.html' }}"></a></p>
+        </div>
+    {% endif %}
     {% include 'kaybee_debug.html' %}
 {% endblock %}
