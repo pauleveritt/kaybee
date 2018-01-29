@@ -1,6 +1,7 @@
-from typing import List
+from typing import List, Dict
 
 from docutils import nodes
+from docutils.readers import doctree
 from sphinx.application import Sphinx
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
@@ -142,6 +143,18 @@ def missing_reference(kb_app: kb,
         newnode.append(emp)
         emp.append(nodes.Text(dispname))
         return newnode
+
+
+@kb.event(SphinxEvent.HPC, scope='references')
+def references_into_html_context(
+        kb_app: kb,
+        sphinx_app: Sphinx,
+        pagename,
+        templatename: str,
+        context,
+        doctree: doctree) -> Dict[str, str]:
+    # Always put the references db into Jinja2 context
+    context['references'] = sphinx_app.references
 
 
 @kb.dumper('references')

@@ -5,6 +5,7 @@ from kaybee.plugins.references.container import ReferencesContainer
 from kaybee.plugins.references.handlers import (
     add_document_reference,
     initialize_references_container,
+    references_into_html_context,
     register_references,
     validate_references,
     missing_reference,
@@ -30,7 +31,8 @@ class TestRegisterReferences:
     def test_import(self):
         assert 'register_references' == register_references.__name__
 
-    def test_is_reference(self, references_kb_app, references_sphinx_app: Sphinx,
+    def test_is_reference(self, references_kb_app,
+                          references_sphinx_app: Sphinx,
                           sphinx_env,
                           valid_registration):
         # It's there by default, which is dumb testing fixturing. For
@@ -44,7 +46,8 @@ class TestRegisterReferences:
                             )
         assert 'reference' in references_sphinx_app.references
 
-    def test_not_is_reference(self, references_kb_app, references_sphinx_app: Sphinx,
+    def test_not_is_reference(self, references_kb_app,
+                              references_sphinx_app: Sphinx,
                               sphinx_env,
                               valid_registration
                               ):
@@ -70,7 +73,8 @@ class TestAddDocumentReferences:
     def test_run(self, references_kb_app, sphinx_app, references_sphinx_env,
                  dummy_reference):
         sphinx_app.resources['reference1'] = dummy_reference
-        add_document_reference(references_kb_app, sphinx_app, references_sphinx_env)
+        add_document_reference(references_kb_app, sphinx_app,
+                               references_sphinx_env)
         reference1 = sphinx_app.references['reference']['reference1']
         assert 'reference1' == reference1.docname
 
@@ -85,7 +89,8 @@ class TestValidateReferences:
         # isn't registered
         references_sphinx_env.app.references = dict()
         with pytest.raises(KeyError):
-            validate_references(references_kb_app, html_builder, references_sphinx_env)
+            validate_references(references_kb_app, html_builder,
+                                references_sphinx_env)
 
     def test_missing_reference_value(self, references_kb_app, html_builder,
                                      references_sphinx_env):
@@ -94,10 +99,13 @@ class TestValidateReferences:
         references_sphinx_env.app.references['reference'] = dict()
 
         with pytest.raises(KeyError):
-            validate_references(references_kb_app, html_builder, references_sphinx_env)
+            validate_references(references_kb_app, html_builder,
+                                references_sphinx_env)
 
-    def test_runs(self, references_kb_app, html_builder, references_sphinx_env):
-        validate_references(references_kb_app, html_builder, references_sphinx_env)
+    def test_runs(self, references_kb_app, html_builder,
+                  references_sphinx_env):
+        validate_references(references_kb_app, html_builder,
+                            references_sphinx_env)
 
 
 class TestMissingReference:
@@ -147,10 +155,10 @@ class TestMissingReference:
         assert None is result
 
     def test_no_target(self, references_kb_app,
-                         sphinx_app,
-                         references_sphinx_env,
-                         dummy_contnode,
-                         ):
+                       sphinx_app,
+                       references_sphinx_env,
+                       dummy_contnode,
+                       ):
         node = dict(
             refdoc=None,
             reftarget='xxx-yyy',
@@ -188,6 +196,19 @@ class TestMissingReference:
             node['refdoc'], article1.docname
         )
         assert 'not explicit title' == newnode[0][0]
+
+
+class TestReferencesIntoHtml:
+    def test_import(self):
+        assert 'references_into_html_context' == \
+               references_into_html_context.__name__
+
+    def test_run(self, references_kb_app, sphinx_app,
+                 references_sphinx_env):
+        context = dict()
+        references_into_html_context(references_kb_app, sphinx_app,
+                                     '', '', context, dict())
+        assert 'references' in context
 
 
 class TestReferencesDumpSettings:

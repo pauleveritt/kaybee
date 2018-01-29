@@ -89,9 +89,12 @@ def resource_into_html_context(
         templatename: str,
         context,
         doctree: doctree) -> Dict[str, str]:
+    # Always put the resources db into Jinja2 context
+    resources = sphinx_app.resources
+    context['resources'] = resources
+
     # Get the resource for this pagename. If no match, then this pagename
     # must be a genericpage
-    resources = sphinx_app.resources
     resource = resources.get(pagename)
     if resource:
         context['resource'] = resource

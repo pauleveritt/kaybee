@@ -1,6 +1,6 @@
 <h1>Indexpage</h1>
 <ul>
-    {% for reference in sphinx_app.references.resource_references(resource)['reference'] %}
+    {% for reference in references.resource_references(resource)['reference'] %}
     <li>{{ reference.docname }}</li>
     {% endfor %}
 </ul>

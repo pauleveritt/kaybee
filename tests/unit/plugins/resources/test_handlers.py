@@ -112,6 +112,7 @@ class TestResourcesResourceIntoHtml:
                                             doctree
                                             )
         assert 'resource' in context
+        assert 'resources' in context
         assert 'page.html' == result['templatename']
 
     def test_no_resource(self, mocker, resources_kb_app, sphinx_app, sphinx_env,
