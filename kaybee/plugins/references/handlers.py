@@ -35,7 +35,8 @@ def initialize_references_container(kb_app: kb,
                                     sphinx_env: BuildEnvironment,
                                     docnames=List[str],
                                     ):
-    sphinx_app.references = ReferencesContainer()
+    if not hasattr(sphinx_app.env, 'references'):
+        sphinx_app.env.references = ReferencesContainer()
 
 
 @kb.event(SphinxEvent.EBRD, scope='references', system_order=50)
@@ -45,7 +46,7 @@ def register_references(kb_app: kb,
                         docnames: List[str]):
     """ Walk the registry and add sphinx directives """
 
-    references: ReferencesContainer = sphinx_app.references
+    references: ReferencesContainer = sphinx_app.env.references
 
     for name, klass in kb_app.config.resources.items():
         # Name is the value in the decorator and directive, e.g.
@@ -60,10 +61,10 @@ def add_document_reference(kb_app: kb,
                            sphinx_env: BuildEnvironment):
     # Moved from the resource directive .run(), this looks at each
     # resource.is_reference. If so, get the reference resource's label
-    # and register it in sphinx_app.references
+    # and register it in sphinx_app.env.references
     sphinx_app: Sphinx = sphinx_env.app
-    resources = sphinx_app.resources
-    references = sphinx_app.references
+    resources = sphinx_app.env.resources
+    references = sphinx_app.env.references
     for resource in resources.values():
         if getattr(resource, 'is_reference', False):
             label = resource.props.label
@@ -80,8 +81,8 @@ def validate_references(kb_app: kb,
     # category: cat1, cat2
     # ...where either 'category' isn't registered as a reference type or
     # 'cat1' isn't registered as a reference value for 'category'.
-    resources = sphinx_env.app.resources
-    references = sphinx_env.app.references
+    resources = sphinx_env.resources
+    references = sphinx_env.references
 
     for resource in resources.values():
         # This line looks at the props model to see which props are marked
@@ -116,7 +117,7 @@ def missing_reference(kb_app: kb,
                       contnode):
     # The RST might have ref:somescheme values. Sphinx punts to a
     # callback such as this, which picks apart the scheme and expands it.
-    references = sphinx_env.app.references
+    references = sphinx_app.env.references
     refdoc = node['refdoc']
     try:
         target_rtype, target_label = node['reftarget'].split('-')
@@ -154,7 +155,7 @@ def references_into_html_context(
         context,
         doctree: doctree) -> Dict[str, str]:
     # Always put the references db into Jinja2 context
-    context['references'] = sphinx_app.references
+    context['references'] = sphinx_app.env.references
 
 
 @kb.dumper('references')

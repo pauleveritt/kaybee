@@ -24,7 +24,7 @@ class TestInitializeContainer:
         initialize_references_container(
             references_kb_app, sphinx_app, sphinx_env, []
         )
-        assert ReferencesContainer == sphinx_app.references.__class__
+        assert ReferencesContainer == sphinx_app.env.references.__class__
 
 
 class TestRegisterReferences:
@@ -38,13 +38,13 @@ class TestRegisterReferences:
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it gets added, so let's remove
         # it first.
-        del references_sphinx_app.references['reference']
+        del references_sphinx_app.env.references['reference']
         register_references(references_kb_app,
                             references_sphinx_app,
                             sphinx_env,
                             []
                             )
-        assert 'reference' in references_sphinx_app.references
+        assert 'reference' in references_sphinx_app.env.references
 
     def test_not_is_reference(self, references_kb_app,
                               references_sphinx_app: Sphinx,
@@ -54,7 +54,7 @@ class TestRegisterReferences:
         # It's there by default, which is dumb testing fixturing. For
         # this test, we want to make sure it doesn't get added, so let's
         # remove it first.
-        del references_sphinx_app.references['reference']
+        del references_sphinx_app.env.references['reference']
 
         # Make Category into a non-reference
         references_kb_app.config.resources['reference'].is_reference = False
@@ -63,19 +63,22 @@ class TestRegisterReferences:
                             sphinx_env,
                             []
                             )
-        assert 'reference' not in references_sphinx_app.references
+        assert 'reference' not in references_sphinx_app.env.references
 
 
 class TestAddDocumentReferences:
     def test_import(self):
         assert 'add_document_reference' == add_document_reference.__name__
 
-    def test_run(self, references_kb_app, sphinx_app, references_sphinx_env,
+    def test_run(self, references_kb_app, references_sphinx_app,
+                 references_sphinx_env,
                  dummy_reference):
-        sphinx_app.resources['reference1'] = dummy_reference
-        add_document_reference(references_kb_app, sphinx_app,
+        references_sphinx_app.env.resources = dict(reference1=dummy_reference)
+        references_sphinx_app.env.resources['reference1'] = dummy_reference
+        add_document_reference(references_kb_app, references_sphinx_app,
                                references_sphinx_env)
-        reference1 = sphinx_app.references['reference']['reference1']
+        reference1 = references_sphinx_app.env.references['reference'][
+            'reference1']
         assert 'reference1' == reference1.docname
 
 
@@ -87,7 +90,7 @@ class TestValidateReferences:
                                     references_sphinx_env):
         # Resource points at a reference type (e.g. 'reference') that
         # isn't registered
-        references_sphinx_env.app.references = dict()
+        references_sphinx_env.references = dict()
         with pytest.raises(KeyError):
             validate_references(references_kb_app, html_builder,
                                 references_sphinx_env)
@@ -96,7 +99,7 @@ class TestValidateReferences:
                                      references_sphinx_env):
         # Resource points at a reference type (e.g. 'reference') that
         # *is* registered, but then at a reference lable that isn't
-        references_sphinx_env.app.references['reference'] = dict()
+        references_sphinx_env.references['reference'] = dict()
 
         with pytest.raises(KeyError):
             validate_references(references_kb_app, html_builder,
@@ -113,35 +116,35 @@ class TestMissingReference:
         assert 'missing_reference' == missing_reference.__name__
 
     def test_explicit(self, references_kb_app,
-                      sphinx_app,
+                      references_sphinx_app,
                       html_builder, references_sphinx_env,
                       dummy_contnode,
                       mocker):
-        resources = references_sphinx_env.app.resources
-        references = references_sphinx_env.app.references
+        resources = references_sphinx_env.resources
+        references = references_sphinx_env.references
         article1 = resources['article1']
         mocker.patch.object(references, 'get_reference',
                             return_value=article1)
-        mocker.patch.object(sphinx_app.builder, 'get_relative_uri',
+        mocker.patch.object(references_sphinx_app.builder, 'get_relative_uri',
                             return_value=9)
         node = dict(
             refdoc=article1,
             reftarget='reference-reference1',
             refexplicit=True
         )
-        newnode = missing_reference(references_kb_app, sphinx_app,
+        newnode = missing_reference(references_kb_app, references_sphinx_app,
                                     references_sphinx_env, node,
                                     dummy_contnode)
         references.get_reference.assert_called_once_with(
             'reference', 'reference1'
         )
-        sphinx_app.builder.get_relative_uri.assert_called_once_with(
+        references_sphinx_app.builder.get_relative_uri.assert_called_once_with(
             node['refdoc'], article1.docname
         )
         assert 'first' == newnode[0][0]
 
     def test_value_error(self, references_kb_app,
-                         sphinx_app,
+                         references_sphinx_app,
                          references_sphinx_env,
                          dummy_contnode,
                          ):
@@ -149,13 +152,13 @@ class TestMissingReference:
             refdoc=None,
             reftarget='xxx',
         )
-        result = missing_reference(references_kb_app, sphinx_app,
+        result = missing_reference(references_kb_app, references_sphinx_app,
                                    references_sphinx_env, node,
                                    dummy_contnode)
         assert None is result
 
     def test_no_target(self, references_kb_app,
-                       sphinx_app,
+                       references_sphinx_app,
                        references_sphinx_env,
                        dummy_contnode,
                        ):
@@ -163,36 +166,36 @@ class TestMissingReference:
             refdoc=None,
             reftarget='xxx-yyy',
         )
-        result = missing_reference(references_kb_app, sphinx_app,
+        result = missing_reference(references_kb_app, references_sphinx_app,
                                    references_sphinx_env, node,
                                    dummy_contnode)
         assert None is result
 
     def test_not_explicit(self, references_kb_app,
-                          sphinx_app,
+                          references_sphinx_app,
                           html_builder, references_sphinx_env,
                           dummy_contnode,
                           mocker):
-        resources = references_sphinx_env.app.resources
-        references = references_sphinx_env.app.references
+        resources = references_sphinx_env.resources
+        references = references_sphinx_env.references
         article1 = resources['article1']
         article1.title = 'not explicit title'
         mocker.patch.object(references, 'get_reference',
                             return_value=article1)
-        mocker.patch.object(sphinx_app.builder, 'get_relative_uri',
+        mocker.patch.object(references_sphinx_app.builder, 'get_relative_uri',
                             return_value=9)
         node = dict(
             refdoc=article1,
             reftarget='reference-reference1',
             refexplicit=False
         )
-        newnode = missing_reference(references_kb_app, sphinx_app,
+        newnode = missing_reference(references_kb_app, references_sphinx_app,
                                     references_sphinx_env, node,
                                     dummy_contnode)
         references.get_reference.assert_called_once_with(
             'reference', 'reference1'
         )
-        sphinx_app.builder.get_relative_uri.assert_called_once_with(
+        references_sphinx_app.builder.get_relative_uri.assert_called_once_with(
             node['refdoc'], article1.docname
         )
         assert 'not explicit title' == newnode[0][0]
@@ -203,10 +206,10 @@ class TestReferencesIntoHtml:
         assert 'references_into_html_context' == \
                references_into_html_context.__name__
 
-    def test_run(self, references_kb_app, sphinx_app,
+    def test_run(self, references_kb_app, references_sphinx_app,
                  references_sphinx_env):
         context = dict()
-        references_into_html_context(references_kb_app, sphinx_app,
+        references_into_html_context(references_kb_app, references_sphinx_app,
                                      '', '', context, dict())
         assert 'references' in context
 

@@ -8,16 +8,6 @@ from kaybee.utils.rst import (
 )
 
 
-class DummySite:
-    added_label = None
-
-    def __init__(self):
-        self.resources = dict()
-
-    def add_reference(self, rtype, label, this_resource):
-        self.added_label = label
-
-
 class Dummy:
     pass
 
@@ -110,4 +100,3 @@ Test *Simple*
 Body.
         """
     yield rst_document(source)
-

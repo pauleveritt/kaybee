@@ -53,22 +53,21 @@ label: reference1
 
 
 @pytest.fixture()
-def references_sphinx_app(sphinx_app, dummy_article, dummy_reference):
-    sphinx_app.references = DummyReferences()
-    sphinx_app.references['reference'] = dict(
-        reference1=dummy_reference
-    )
-    sphinx_app.resources = dict(
-        article1=dummy_article
-    )
+def references_sphinx_app(sphinx_app, references_sphinx_env):
+    sphinx_app.env = references_sphinx_env
 
     yield sphinx_app
 
 
 @pytest.fixture()
-def references_sphinx_env(sphinx_env, references_sphinx_app):
-    sphinx_env.app = references_sphinx_app
-
+def references_sphinx_env(sphinx_env, dummy_article, dummy_reference):
+    sphinx_env.references = DummyReferences()
+    sphinx_env.references['reference'] = dict(
+        reference1=dummy_reference
+    )
+    sphinx_env.resources = dict(
+        article1=dummy_article
+    )
     yield sphinx_env
 
 

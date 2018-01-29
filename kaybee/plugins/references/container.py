@@ -2,7 +2,7 @@
 
 Managing the setting/retrieving of references via a UserDict.
 
-Store/retrieve each as sphinx_app.references[rtype][label]
+Store/retrieve each as sphinx_app.env.references[rtype][label]
 
 """
 

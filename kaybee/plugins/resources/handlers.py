@@ -27,7 +27,8 @@ def initialize_resources_container(kb_app: kb,
                                    sphinx_env: BuildEnvironment,
                                    docnames=List[str],
                                    ):
-    sphinx_app.resources = ResourcesContainer()
+    if not hasattr(sphinx_app.env, 'resources'):
+        sphinx_app.env.resources = ResourcesContainer()
 
 
 @kb.event(SphinxEvent.EBRD, scope='resource', system_order=50)
@@ -66,7 +67,7 @@ def stamp_title(kb_app: kb,
     """ Walk the tree and extra RST title into resource.title """
 
     # First, find out which resource this is. Won't be easy.
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
     confdir = sphinx_app.confdir
     source = PurePath(doctree.attributes['source'])
 
@@ -90,7 +91,7 @@ def resource_into_html_context(
         context,
         doctree: doctree) -> Dict[str, str]:
     # Always put the resources db into Jinja2 context
-    resources = sphinx_app.resources
+    resources = sphinx_app.env.resources
     context['resources'] = resources
 
     # Get the resource for this pagename. If no match, then this pagename

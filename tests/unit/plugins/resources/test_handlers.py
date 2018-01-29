@@ -48,7 +48,8 @@ class TestResourcesTemplateDir:
         assert 'register_template_directory' == \
                register_template_directory.__name__
 
-    def test_result(self, resources_kb_app, sphinx_app, sphinx_env, valid_registration):
+    def test_result(self, resources_kb_app, sphinx_app, sphinx_env,
+                    valid_registration):
         register_template_directory(resources_kb_app, sphinx_app, sphinx_env,
                                     [])
         loaders = sphinx_app.builder.templates.loaders
@@ -73,22 +74,24 @@ class TestStampTitle:
     def test_import(self):
         assert 'stamp_title' == stamp_title.__name__
 
-    def test_run_with_resource(self, resources_kb_app, sphinx_app, dummy_doctree,
+    def test_run_with_resource(self, resources_kb_app, sphinx_app,
+                               dummy_doctree,
                                dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict(
+        sphinx_app.env.resources = dict(
             article1=dummy_article
         )
         assert None is getattr(dummy_article, 'title', None)
         stamp_title(resources_kb_app, sphinx_app, dummy_doctree)
         assert 'Test Simple' == dummy_article.title
 
-    def test_run_without_resource(self, resources_kb_app, sphinx_app, dummy_doctree,
+    def test_run_without_resource(self, resources_kb_app, sphinx_app,
+                                  dummy_doctree,
                                   dummy_article):
         sphinx_app.confdir = '/tmp'
         dummy_doctree.attributes = dict(source='/tmp/article1.rst')
-        sphinx_app.resources = dict()
+        sphinx_app.env.resources = dict()
         assert None is getattr(dummy_article, 'title', None)
         stamp_title(resources_kb_app, sphinx_app, dummy_doctree)
         assert False is getattr(dummy_article, 'title', False)
@@ -99,10 +102,10 @@ class TestResourcesResourceIntoHtml:
         assert 'resource_into_html_context' == \
                resource_into_html_context.__name__
 
-    def test_with_resource(self, mocker, resources_kb_app, sphinx_app, sphinx_env,
+    def test_with_resource(self, resources_kb_app, sphinx_app,
                            sample_resources):
         r3 = sample_resources['r1/r2/r3/index']
-        sphinx_app.resources = {r3.docname: r3}
+        sphinx_app.env.resources = {r3.docname: r3}
         pagename = r3.docname
         templatename = ''
         context = dict()
@@ -115,10 +118,10 @@ class TestResourcesResourceIntoHtml:
         assert 'resources' in context
         assert 'page.html' == result['templatename']
 
-    def test_no_resource(self, mocker, resources_kb_app, sphinx_app, sphinx_env,
+    def test_no_resource(self, resources_kb_app, sphinx_app,
                          sample_resources):
         r3 = sample_resources['r1/r2/r3/index']
-        sphinx_app.resources = {}
+        sphinx_app.env.resources = {}
         pagename = r3.docname
         templatename = ''
         context = dict()
@@ -136,7 +139,9 @@ class TestResourcesInitializeContainer:
         assert 'initialize_resources_container' == \
                initialize_resources_container.__name__
 
-    def test_result(self, resources_kb_app, sphinx_app, sphinx_env):
-        initialize_resources_container(resources_kb_app, sphinx_app, sphinx_env,
+    def test_initialize(self, resources_kb_app, sphinx_app, sphinx_env):
+        assert not hasattr(sphinx_app.env, 'resources')
+        initialize_resources_container(resources_kb_app, sphinx_app,
+                                       sphinx_env,
                                        [])
-        assert hasattr(sphinx_app, 'resources')
+        assert hasattr(sphinx_app.env, 'resources')

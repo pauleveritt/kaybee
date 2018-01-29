@@ -74,8 +74,8 @@ def render_widgets(kb_app: kb,
         context = builder.globalcontext.copy()
 
         # Add in certain globals
-        context['resources'] = sphinx_app.resources
-        context['references'] = sphinx_app.references
+        context['resources'] = sphinx_app.env.resources
+        context['references'] = sphinx_app.env.references
         output = w.render(sphinx_app, context)
 
         # Put the output into the node contents

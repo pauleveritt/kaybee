@@ -65,7 +65,7 @@ def dummy_directive(dummy_directive_class):
 @pytest.fixture()
 def widgets_sphinx_app(sphinx_app):
     sphinx_app.widgets = dict()
-    sphinx_app.resources = dict()
-    sphinx_app.references = dict()
+    sphinx_app.env.resources = dict()
+    sphinx_app.env.references = dict()
 
     yield sphinx_app

@@ -43,6 +43,6 @@ class TestReferencesContainer:
 
     def test_resource_references(self, references_sphinx_app,
                                  dummy_article, dummy_reference):
-        references = references_sphinx_app.references
+        references = references_sphinx_app.env.references
         results = references.resource_references(dummy_article)
         assert dummy_reference == results['reference'][0]
