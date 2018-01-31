@@ -6,6 +6,7 @@ from kaybee.plugins.articles.base_article import (
 
 class BaseSectionModel(BaseArticleModel):
     featured_resource: str = None  # docname for this section's feature
+    subheading: str = None
 
 
 class BaseSection(BaseArticle):
