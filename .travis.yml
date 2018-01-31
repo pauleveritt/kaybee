@@ -4,11 +4,12 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - pytest
   - set -e
-  - # Command to build your docs
   - pip install doctr
-  - doctr deploy --built-docs path/to/built/html/ <target-directory>
+  - cd docs
+  - make html
+  - cd ..
+  - doctr deploy . --built-docs docs/_build/html
 deploy:
   provider: pypi
   user: pauleveritt

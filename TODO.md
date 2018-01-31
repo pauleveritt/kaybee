@@ -1,5 +1,10 @@
 # Now
 
+- Give everything in articles the hero treatment
+
+- Make get_targets/sources into jargon that makes sense and is technically 
+  correct
+  
 - Overhaul acquire and template to have shared code which also eliminates 
   duplicating style in a section
   
