@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Debugging &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing" href="testing.html" />
+    <link rel="prev" title="Development Setup" href="setup.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h1>
+<p>Most of your Kaybee development will involve making mistakes.
+Which means most of your time is spent debugging.</p>
+<div class="section" id="debugdump">
+<span id="debugdump-dev"></span><h2>Debugdump<a class="headerlink" href="#debugdump" title="Permalink to this headline">¶</a></h2>
+<p>It can be hard to find out what’s going on with your Kaybee configuration and
+state. What is the <code class="docutils literal"><span class="pre">published</span></code> value on a certain resource? Unit testing
+isn’t always the right fit, running Sphinx and guessing at the output is
+frustrating, and making an integration test helps but you have to look at
+the HTML rendering.</p>
+<p>Or do you? The <code class="docutils literal"><span class="pre">debugdump</span></code> plugin serializes a JSON representation of your
+entire system, into a single file. When combined with JSON-oriented
+integration tests, this is a key tool during development.</p>
+<p>To use it, write some code like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kb_app.dumper</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handle_event</span><span class="p">(</span><span class="n">kb_app</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">resource</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">published</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The dict you return will be merged with the dicts from all the other
+callbacks and written to <code class="docutils literal"><span class="pre">debug_dump.json</span></code> in the output directory. You
+can then write integration test fixtures which load this file, letting you
+easily make assertions about the state of the system.</p>
+<p>For more information, read about the
+<a class="reference internal" href="../implementation/debugdump.html#debugdump-implementation"><span class="std std-ref">implementation of debugdump</span></a>.</p>
+</div>
+<div class="section" id="use-the-debugger">
+<h2>Use the Debugger<a class="headerlink" href="#use-the-debugger" title="Permalink to this headline">¶</a></h2>
+<p>PyCharm’s debugger is very fast, especially for Python 3.6+ projects (and
+Kaybee requires Python 3.6+). Most of the time I just run under the debugger.
+I can then set a breakpoint and look at stuff without the context switch of
+changing “modes”.</p>
+<p>As a note, when running tests under the debugger, the nice graphical test
+window is under the “Console” tab. You can get to the console prompt, but due
+to a bug, it doesn’t show output. You’re better off using PyCharm’s graphical
+<code class="docutils literal"><span class="pre">Evaluate</span> <span class="pre">Expression</span></code> tool.</p>
+<p>When you’re at a breakpoint in PyCharm, remember that you can quickly spot
+variable values with the psuedo-comments PyCharm inserts in your code.</p>
+<p>When running your integration tests, remember to use the debugger there as
+well, as it is a very productive mode to figure out what’s going on.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kaybee Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Development Setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Kaybee Development</a><ul>
+      <li>Previous: <a href="setup.html" title="previous chapter">Development Setup</a></li>
+      <li>Next: <a href="testing.html" title="next chapter">Testing</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/development/debugging.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

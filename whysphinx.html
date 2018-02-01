@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Why Sphinx &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Kaybee" href="using/index.html" />
+    <link rel="prev" title="kaybee Static Sites for Knowledge Bases" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="why-sphinx">
+<h1>Why Sphinx<a class="headerlink" href="#why-sphinx" title="Permalink to this headline">¶</a></h1>
+<p>If you’re not in the world of Python, or if you don’t use the wonderful
+<a class="reference external" href="http://www.sphinx-doc.org/en/stable/">ReadTheDocs</a> site, then you might not
+be familiar with Sphinx. Why is it a good basis for a KB system?</p>
+<p>The Sphinx website and countless articles over the years cover this better
+than we ever could. For the purposes of Kaybee, though, let’s list a few
+things.</p>
+<div class="section" id="uh-not-markdown">
+<h2>Uh, Not Markdown?<a class="headerlink" href="#uh-not-markdown" title="Permalink to this headline">¶</a></h2>
+<p>This is a deal-breaker for some. People hate learning another thing, and they
+learned Markdown, and so they want Jekyll or Hugo or another system that
+lets them write in <code class="docutils literal"><span class="pre">.md</span></code> files.</p>
+<p>Sphinx uses a <em>very</em> similar system for encoding structure into plaintext
+called <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. It’s
+been around a long time. In fact, despite it being <code class="docutils literal"><span class="pre">re</span></code> of the original
+“structured text”, RST is older than Markdown by a good margin.</p>
+<p>More importantly for Kaybee, RST is extensible. You can register new
+directives, for example, which is critical for what Kaybee wants to do.</p>
+<p>Either way, doesn’t matter…Sphinx is what matters, Sphinx uses RST, so
+there you go.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Yes, there are attempts to bring Markdown into Sphinx. But the story
+is iffy: loses much of the extensibility and isn’t actively maintained
+relative to Sphinx.</p>
+</div>
+</div>
+<div class="section" id="structural">
+<h2>Structural<a class="headerlink" href="#structural" title="Permalink to this headline">¶</a></h2>
+<p>The first biggest thing that Sphinx provides vs. Jekyll and friends: it is
+structural. It imagines your entire document set as an interlinked corpus,
+from a heading to another file <em>in another remote project</em>. The linking is
+rich, mature, useful, and validated…if you move something and break a
+link, Sphinx tells you.</p>
+<p>Since that happens a lot, Sphinx lets you link not to documents but targets
+inside a document – either auto-generated or a label that you put in.</p>
+</div>
+<div class="section" id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>When writing tech stuff, including source code is pretty useful. Sphinx was
+first written for documentation, so it has gobs of facilities for this.
+Not just the basics, but lots of stuff.</p>
+</div>
+<div class="section" id="extensibility">
+<h2>Extensibility<a class="headerlink" href="#extensibility" title="Permalink to this headline">¶</a></h2>
+<p>Sphinx is old, which means mature, which means full-featured. It has adapted
+to fulfill lots of needs.</p>
+<p>One thing this translates to: lots of plug points. Want a custom “directive”?
+Yep, you can do that. (The one thing that Markdown makes really difficult.)
+Want a new kind of interlinking “reference” scheme? Yep. Need to run some
+custom code on different events in the publishing pipeline? Yep. On and one.</p>
+</div>
+<div class="section" id="not-sphinx">
+<h2>Not Sphinx<a class="headerlink" href="#not-sphinx" title="Permalink to this headline">¶</a></h2>
+<p>Kaybee aims to make it easier to work with Sphinx to build modern,
+content-driven information sites. As such, some things change from what a
+Sphinx person would expect.</p>
+<p>Foremost, and this sucks…you can’t do incremental builds. Pages are driven
+by widgets and queries, not source-target nodes, so we can’t tell Sphinx which
+pages are dirty. At the moment, you can’t even do the parallel-read thing.</p>
+<p>At some point this will be rethought. Kaybee will try to pick the point
+in the pipeline and retain some of the Sphinx environment state and pickle
+information.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Why Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#uh-not-markdown">Uh, Not Markdown?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structural">Structural</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-code">Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extensibility">Extensibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#not-sphinx">Not Sphinx</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">kaybee Static Sites for Knowledge Bases</a></li>
+      <li>Next: <a href="using/index.html" title="next chapter">Using Kaybee</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/whysphinx.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

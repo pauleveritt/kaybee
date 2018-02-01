@@ -1,0 +1,154 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Loading Directives &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Registering Event Callbacks" href="events.html" />
+    <link rel="prev" title="Articles" href="articles.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="loading-directives">
+<h1>Loading Directives<a class="headerlink" href="#loading-directives" title="Permalink to this headline">¶</a></h1>
+<p>Kaybee is an extensible system. Your docs project, blog, website, intranet,
+etc. can be written in terms of <em>your</em> kinds of things.</p>
+<p>How do you extend Kaybee? With Python. Specifically, with directives, which
+interact with some kind of <a class="reference internal" href="../implementation/registry.html#registry-action"><span class="std std-ref">registry action</span></a>. For
+example, your site might use <code class="docutils literal"><span class="pre">kaybee_resources</span></code> to define schema-validated
+kinds of things. How do you define a “kind of thing”? With a Python directive
+such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kb.resource</span><span class="p">(</span><span class="s1">&#39;invoice&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">InvoiceResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>That’s great, but how does that line make something happen? There are several
+ways to tell Kaybee to add directives to its configuration.</p>
+<div class="section" id="directly-in-conf-py">
+<h2>Directly in <code class="docutils literal"><span class="pre">conf.py</span></code><a class="headerlink" href="#directly-in-conf-py" title="Permalink to this headline">¶</a></h2>
+<p>This is by far the simplest. Adding this in your conf file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kb.event</span><span class="p">(</span><span class="n">SphinxEvent</span><span class="o">.</span><span class="n">HPC</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_context</span><span class="p">(</span><span class="n">kb_app</span><span class="p">,</span> <span class="n">sphinx_app</span><span class="p">,</span> <span class="n">pagename</span><span class="p">,</span> <span class="n">templatename</span><span class="p">,</span>
+                <span class="n">context</span><span class="p">,</span> <span class="n">doctree</span><span class="p">):</span>
+    <span class="n">context</span><span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+</pre></div>
+</div>
+<p>…results in the variable <code class="docutils literal"><span class="pre">hello</span></code> being added to the context in all Jinja2
+templates.</p>
+</div>
+<div class="section" id="import-time">
+<h2>Import Time<a class="headerlink" href="#import-time" title="Permalink to this headline">¶</a></h2>
+<p>Directives only need to be imported to get registered. Your <code class="docutils literal"><span class="pre">conf.py</span></code> can
+import some of your code, some code in a package, etc. and Dectate (the
+configuration framework used by Kaybee) will take the directive and process
+its contents into configuration actions that are evaluated later.</p>
+<p>If you have some code in your docs project (i.e. where your <code class="docutils literal"><span class="pre">conf.py</span></code> lies,
+and your docs project isn’t a proper Python package, then you’ll have to
+do a <code class="docutils literal"><span class="pre">sys.path.insert</span></code> dance to make your modules importable.</p>
+</div>
+<div class="section" id="local-plugins-dir">
+<h2>Local Plugins Dir<a class="headerlink" href="#local-plugins-dir" title="Permalink to this headline">¶</a></h2>
+<p>Ah ha, Kaybee has anticipated this. If your docs project has a directory
+called <code class="docutils literal"><span class="pre">kaybee_plugins</span></code>, you can just put your modules in there and
+Kaybee will import those files. Even better, it will do this import “later
+on”, which is code for “avoiding circular imports”.</p>
+<p>What if you have want a different name for the directory than
+<code class="docutils literal"><span class="pre">kaybee_plugins</span></code>? There’s a Kaybee setting for changing that directory
+name.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Extending Kaybee</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="articles.html">Articles</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Loading Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Registering Event Callbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Extending Kaybee</a><ul>
+      <li>Previous: <a href="articles.html" title="previous chapter">Articles</a></li>
+      <li>Next: <a href="events.html" title="next chapter">Registering Event Callbacks</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/extending/loading_directives.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

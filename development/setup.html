@@ -1,0 +1,155 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Development Setup &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Debugging" href="debugging.html" />
+    <link rel="prev" title="Kaybee Development" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="development-setup">
+<h1>Development Setup<a class="headerlink" href="#development-setup" title="Permalink to this headline">¶</a></h1>
+<p>Want to hack on Kaybee? This page gives instructions for getting an
+environment setup, as well as making releases.</p>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<p>You’ll want a
+<a class="reference external" href="https://docs.python.org/3/tutorial/venv.html#tut-venv" title="(in Python v3.6)"><span class="xref std std-ref">virtual environment</span></a>
+with an “editable” project.</p>
+<ol class="arabic simple">
+<li>Make a virtualenv e.g. <code class="docutils literal"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env36</span></code></li>
+<li>Update pip stuff with <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">pip</span> <span class="pre">setuptools</span> <span class="pre">wheel</span></code></li>
+<li><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> to get dev requirements plus the
+editable package.</li>
+</ol>
+</div>
+<div class="section" id="live-reload">
+<span id="livereload-script"></span><h2>Live Reload<a class="headerlink" href="#live-reload" title="Permalink to this headline">¶</a></h2>
+<p>It’s a chore to fire up a web server, make a change to your docs/code, re-run
+Sphinx, possibly re-run Webpack, and then reload your browser. With help
+from <a class="reference external" href="https://pypi.python.org/pypi/livereload">livereload</a> this can be made
+easier. It watches for changes, runs some commands, and tells the browser
+to reload.</p>
+<p>You can run this with defaults with the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m kaybee.utils.livereload
+</pre></div>
+</div>
+<p>This will watch for any changes in the <code class="docutils literal"><span class="pre">kaybee</span></code> or <code class="docutils literal"><span class="pre">docs</span></code> directory,
+minus any changes in <code class="docutils literal"><span class="pre">_build</span></code>, and re-run Sphinx. You can subclass
+<code class="docutils literal"><span class="pre">Livereload</span></code> to change some options.</p>
+</div>
+<div class="section" id="release">
+<h2>Release<a class="headerlink" href="#release" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Bump the version using <code class="docutils literal"><span class="pre">bumpversion</span></code>:<ul>
+<li><a class="reference external" href="https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/">https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/</a></li>
+<li><a class="reference external" href="https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156">https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156</a></li>
+</ul>
+</li>
+<li>Tag the release.</li>
+<li>Run <code class="docutils literal"><span class="pre">gitchangelog</span></code> to generate the history that goes into the package.</li>
+<li>Generate the package using <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></li>
+<li>Upload to PyPI using <code class="docutils literal"><span class="pre">twine</span></code></li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kaybee Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Development Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Kaybee Development</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Kaybee Development</a></li>
+      <li>Next: <a href="debugging.html" title="next chapter">Debugging</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/development/setup.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

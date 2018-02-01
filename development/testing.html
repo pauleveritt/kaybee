@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Testing &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Debugging" href="debugging.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>Kaybee aims to be developed using TDD. This isn’t always easy with Sphinx. As
+such, the test strategies for unit testing and integration testing vary.</p>
+<p>Both types of tests use <code class="docutils literal"><span class="pre">pytest</span></code> as the foundation, with top-level
+<code class="docutils literal"><span class="pre">conftest.py</span></code> fixtures providing variations of important common data and
+mocks.</p>
+<div class="section" id="personal-preferences">
+<h2>Personal Preferences<a class="headerlink" href="#personal-preferences" title="Permalink to this headline">¶</a></h2>
+<p>I spend most of my development time in TDD. It’s more efficient than running
+Sphinx and looking at a browser. I try to avoid taking a shortcut and running
+Sphinx directly and checking the output. It’s pretty easy to make a small
+integration test.</p>
+<p>For PyCharm, when I actually run Sphinx, I don’t use the Sphinx-flavored run
+configuration. I make a Pythonrun config that points at my
+<code class="docutils literal"><span class="pre">sphinx-quickstart</span></code>, with arguments of <code class="docutils literal"><span class="pre">-E</span> <span class="pre">-b</span> <span class="pre">html</span> <span class="pre">.</span> <span class="pre">_build</span></code>, and a
+working directory above the <code class="docutils literal"><span class="pre">docs</span></code> directory.</p>
+</div>
+<div class="section" id="unit-testing">
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<p>The unit tests under <code class="docutils literal"><span class="pre">tests/unit</span></code> attempt to provide decent coverage for
+features and aspects of the system. Sphinx makes it hard to test, as it has
+deeply-nested data passed as arguments into functions. Kaybee itself has been
+designed to isolate its feature implementations from the Sphinx environment,
+to make testing easier.</p>
+<p>To make test-running faster (especially under the debugger), and to focus on
+on the task at hand, right-click on the test/class/file/directory that you
+want to run and choose <code class="docutils literal"><span class="pre">Run</span> <span class="pre">'py.test'</span> <span class="pre">on</span> <span class="pre">...</span></code>. Or better yet, choose to
+run that test using <code class="docutils literal"><span class="pre">Debug</span> <span class="pre">'py.test'</span> <span class="pre">on</span> <span class="pre">...</span></code>. PyCharm creates a temporary
+(gray colored name) run configuration on-the-fly and sets that as the active
+run config.</p>
+<p>To go into real TDD mode, using <code class="docutils literal"><span class="pre">Run</span></code> and click <code class="docutils literal"><span class="pre">Toggle</span> <span class="pre">auto-test</span></code> then
+run. PyCharm will re-run your selected test/tests as you type your code. The
+delay is configurable.</p>
+</div>
+<div class="section" id="integration-testing">
+<h2>Integration Testing<a class="headerlink" href="#integration-testing" title="Permalink to this headline">¶</a></h2>
+<p>These tests are much slower but enable very detailed, feature-oriented
+coverage.</p>
+<p>The tests are under <code class="docutils literal"><span class="pre">tests/integration</span></code>. The <code class="docutils literal"><span class="pre">conftest.py</span></code> fixtures file
+has an important series of setup function which tap into pytest-oriented
+fixtures provided by Sphinx. These make it convenient to setup and tear down
+the isolated running of <code class="docutils literal"><span class="pre">sphinx-build</span></code> in a tmp directory.</p>
+<p>Each of the features are then in separate test files.</p>
+<p>The fixtures provide two variations of results:</p>
+<ul class="simple">
+<li>HTML pages wrapped in beautifulsoup to allow path-oriented testing of markup</li>
+<li>JSON “pages” parsed into Python dicts to reason about the results as data</li>
+</ul>
+<p>The Kaybee integration tests favor the latter. Read more about this in
+<a class="reference internal" href="debugging.html#debugdump-dev"><span class="std std-ref">Debugdump</span></a>. For example, here is a simple example of a debugdump
+test:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="n">pytestmark</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">sphinx</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">,</span> <span class="n">testroot</span><span class="o">=</span><span class="s1">&#39;debugdumper&#39;</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">&#39;json_page&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;debug_dump.json&#39;</span><span class="p">,</span> <span class="p">],</span> <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestDebugDumper</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">test_testdumper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_page</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="s1">&#39;2017&#39;</span> <span class="ow">in</span> <span class="n">json_page</span><span class="p">[</span><span class="s1">&#39;then&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The top-level <code class="docutils literal"><span class="pre">conftest.py</span></code> has the magic from <code class="docutils literal"><span class="pre">sphinx.testing.fixtures</span></code>
+that makes this work, along with a customization that does cleanup of the
+Sphinx build at the appropriate time.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kaybee Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Development Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Kaybee Development</a><ul>
+      <li>Previous: <a href="debugging.html" title="previous chapter">Debugging</a></li>
+      <li>Next: <a href="settings.html" title="next chapter">Settings</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/development/testing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

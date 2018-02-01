@@ -1,0 +1,128 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Layouts &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extending Kaybee" href="../extending/index.html" />
+    <link rel="prev" title="References" href="references.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="layouts">
+<h1>Layouts<a class="headerlink" href="#layouts" title="Permalink to this headline">¶</a></h1>
+<p>Sphinx has a concept of <a class="reference external" href="http://www.sphinx-doc.org/en/stable/theming.html" title="(in Sphinx v1.6.7+)"><span class="xref std std-doc">themes</span></a> which “controls
+HTML output” by collecting templates, stylesheets, and static files. This
+works well: you can make your own local theme or make a Python package
+which contains all the assets. Sphinx themes have a somewhat-rich system of
+theme options which can be set in the Sphinx config file.</p>
+<p>Kaybee introduces a superset of Sphinx themes called <em>layouts</em>. A Kaybee
+layout is a Sphinx theme which adds the following:</p>
+<ul class="simple">
+<li>An instance of a layout class is added to the template environment. This
+lets you put logic and configuration needed for global rendering, in one
+place.</li>
+<li>Instead of Sphinx’s system of theme options, use the pydantic system of
+PEP-484 validated models that resources uses</li>
+</ul>
+<p>This foundation paves the way to later have switchable layouts. Meaning, some
+pages use the main master template, other use a different one.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using Kaybee</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Layouts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Using Kaybee</a><ul>
+      <li>Previous: <a href="references.html" title="previous chapter">References</a></li>
+      <li>Next: <a href="../extending/index.html" title="next chapter">Extending Kaybee</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/using/layouts.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

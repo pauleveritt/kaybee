@@ -1,0 +1,149 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Resources &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generic Page" href="genericpage.html" />
+    <link rel="prev" title="Settings" href="settings.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="resources">
+<h1>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">kaybee.plugins.resources</span></code> plugin is the heart of Kaybee. It brings
+provides base models, a ready-to-go resource, a database on the Sphinx app
+object, and more.</p>
+<div class="section" id="plugin-initialization">
+<h2>Plugin Initialization<a class="headerlink" href="#plugin-initialization" title="Permalink to this headline">¶</a></h2>
+<p>The plugin is read in <code class="docutils literal"><span class="pre">kaybee.__init__.py</span></code>  when <code class="docutils literal"><span class="pre">importscan.scan</span></code>
+imports <code class="docutils literal"><span class="pre">kaybee.plugins.events.py</span></code>. This module has event handlers to:</p>
+<ul class="simple">
+<li>Initialize the Sphinx <code class="docutils literal"><span class="pre">app</span></code> to hold a <code class="docutils literal"><span class="pre">Resources</span></code> instance</li>
+<li>…and more</li>
+</ul>
+</div>
+<div class="section" id="resources-database">
+<h2>Resources Database<a class="headerlink" href="#resources-database" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">resources</span></code> has an event handler that is run on the Sphinx
+<code class="docutils literal"><span class="pre">builder-inited</span></code> event. The handler makes an instance of <code class="docutils literal"><span class="pre">Resources</span></code>
+and adds it to the <code class="docutils literal"><span class="pre">app</span></code> object.</p>
+<p>This <code class="docutils literal"><span class="pre">Resources</span></code> object is a Python dictionary (<code class="docutils literal"><span class="pre">UserDict</span></code>) which
+overrides some of the built-in methods. For example, adding a resource does
+several things behind the scenes:</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Uses the rtype as the base name (without <code class="docutils literal"><span class="pre">.html</span></code>) for the template</li>
+<li>Adding resource container to sphinx_app</li>
+<li>Adding sphinx app to html context</li>
+<li>Validation</li>
+<li>Getting the resource into the html context</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Implementation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup_function.html">Setup Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html">kb, the Default App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="registry.html">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#html-context">HTML Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugdump.html">Debugdump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Implementation</a><ul>
+      <li>Previous: <a href="settings.html" title="previous chapter">Settings</a></li>
+      <li>Next: <a href="genericpage.html" title="next chapter">Generic Page</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/implementation/resources.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,124 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Templates &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Resources" href="resources.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="templates">
+<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="local-templates">
+<h2>Local Templates<a class="headerlink" href="#local-templates" title="Permalink to this headline">¶</a></h2>
+<p>You can override templates in a docs project. Simply put a <code class="docutils literal"><span class="pre">_templates</span></code>
+directory next to your <code class="docutils literal"><span class="pre">conf.py</span></code> file. Then put your templates in there.
+This uses the normal Sphinx layered namespace approach to template location,
+but templates in this directory override any with the same name in other
+directories.</p>
+<p>For example, <code class="docutils literal"><span class="pre">_templates/layout.html</span></code> will override the layout template.
+<code class="docutils literal"><span class="pre">_templates/page.html</span></code> overrides the template used for normal Sphinx pages.
+After that, you can provide templates with filenames for your resource types,
+or names manually provided in the YAML for a resource, widget, etc.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using Kaybee</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Using Kaybee</a><ul>
+      <li>Previous: <a href="resources.html" title="previous chapter">Resources</a></li>
+      <li>Next: <a href="settings.html" title="next chapter">Settings</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/using/templates.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

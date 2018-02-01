@@ -1,0 +1,333 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Resources &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Templates" href="templates.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="resources">
+<h1>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h1>
+<p>Resources are the heart of Kaybee. They allow a Sphinx page to become a unit
+of knowledge which can be listed, queried, and referenced. You simply embed
+some YAML into a document to turn it into a resource. If you provide a bad
+value, an associated schema will tell you.</p>
+<p>You can use the built-in resource, make your own kinds of resources, or use
+Kaybee plugins such as <code class="docutils literal"><span class="pre">articles</span></code> that provide ready-to-go systems of
+resource types and related parts such as widgets.</p>
+<div class="section" id="quick-tutorial">
+<h2>Quick Tutorial<a class="headerlink" href="#quick-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Let’s say I had a Sphinx page such as the root of a docs project:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span><span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>What does it take to turn this document into a “resource”? Kaybee ships
+with a Sphinx direct <code class="docutils literal"><span class="pre">resource</span></code> which you can use:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>I have now turned this document into a “resource” of resource type “resource”.
+The page now renders in Sphinx slightly differently: it is using the Jinja2
+template associated with that resource type, instead of Sphinx’s
+<code class="docutils literal"><span class="pre">page.html</span></code>. More on both of these points to follow.</p>
+<p>Let’s say, for this particular document, I want a different template. Here
+comes the YAML:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+    template: mypage
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>Kaybee will now look for a Jinja2 template named <code class="docutils literal"><span class="pre">mypage.html</span></code> in one of
+Sphinx’s registered directories. You now create <code class="docutils literal"><span class="pre">_templates/mypage.html</span></code>
+in your Sphinx docs project, beside the <code class="docutils literal"><span class="pre">conf.py</span></code>.</p>
+<p>The indented content under <code class="docutils literal"><span class="pre">..</span> <span class="pre">resource::</span></code> (the directive “content”) is
+actually interpreted as YAML. Which is typed, so an integer is different than
+a string. Kaybee validates the YAML against a schema. Let’s see that in action
+by changing the template value to a number:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+    template: 999
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>When you run Sphinx, Kaybee throws a validation error because template is
+expected to be a string.</p>
+<p>Kaybee’s <code class="docutils literal"><span class="pre">resource</span></code> resource type is very basic. Its purpose is to provide
+a minimal building block for richer resource types, such as
+<code class="docutils literal"><span class="pre">kaybee.plugins.articles</span></code> or ones that you make. That’s the topic of the
+<a class="reference internal" href="../extending/index.html"><span class="doc">Extending Kaybee</span></a> section, but as a sneak peek, here’s where Kaybee
+declares the <code class="docutils literal"><span class="pre">resource</span></code> directive and resource type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">An out-of-the-box resource type.</span>
+
+<span class="sd">This can be used in RST with something like::</span>
+
+<span class="sd">   .. resource::</span>
+<span class="sd">      template: sometemplate.html</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">kaybee.app</span> <span class="k">import</span> <span class="n">kb</span>
+
+<span class="kn">from</span> <span class="nn">kaybee.plugins.resources.base_resource</span> <span class="k">import</span> <span class="n">BaseResource</span>
+
+
+<span class="nd">@kb</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;resource&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Let’s talk a little more about what is happening when you use this resource.</p>
+</div>
+<div class="section" id="base-resource">
+<h2>Base Resource<a class="headerlink" href="#base-resource" title="Permalink to this headline">¶</a></h2>
+<p>The base resource, available in RST with <code class="docutils literal"><span class="pre">..</span> <span class="pre">resource::</span></code> and in Python as a
+base class, represents the basic building block of a unit of information in
+Kaybee. Add a little bit of YAML to your document and things spring into
+action:</p>
+<ul class="simple">
+<li>Embedding some (schema validated) data available as <code class="docutils literal"><span class="pre">props</span></code></li>
+<li>Controlling the template used to render</li>
+<li>Assembling a hierarchy of parents</li>
+<li>Rendering information to JSON, e.g. for use in the debugdumper</li>
+<li>Adding an instance of that resource to a “database” hanging off the
+Sphinx app</li>
+<li>Making the resource instance available in the Jinja2 template</li>
+</ul>
+<p>Let’s go through the basics.</p>
+<div class="section" id="the-base-directive">
+<h3>The Base Directive<a class="headerlink" href="#the-base-directive" title="Permalink to this headline">¶</a></h3>
+<p>Sphinx (actually reStructuredText) has a concept of
+<a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html#directives" title="(in Sphinx v1.6.7+)"><span class="xref std std-ref">directives</span></a> – sort of like tags in HTML. RST and
+Sphinx have a bunch of directives built-in, but you can also register
+your own directives.</p>
+<p>That’s what Kaybee does. You define “kinds of things” called <em>resource
+types</em> and Kaybee generates directives which you can put in your document.
+As a convenience, Kaybee has a <code class="docutils literal"><span class="pre">resource</span></code> directive – a very simple,
+minimal way to get started.</p>
+<p>Sphinx directives have some information that goes inside of them. Kaybee
+directives treat that information as YAML which gets validated against a
+schema using a package called
+<a class="reference external" href="https://pydantic-docs.helpmanual.io">pydantic</a>. The result of this
+validation is stored on the resource instance’s <code class="docutils literal"><span class="pre">props</span></code> attribute.</p>
+<p>The <code class="docutils literal"><span class="pre">resource</span></code> directive only has 2 things that can go in its YAML:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">template</span></code>, an optional string which chooses a template for <em>this</em>
+document</li>
+<li><code class="docutils literal"><span class="pre">acquireds</span></code>, which we talk about below under <em>Parents</em></li>
+</ul>
+</div>
+<div class="section" id="the-resource">
+<h3>The Resource<a class="headerlink" href="#the-resource" title="Permalink to this headline">¶</a></h3>
+<p>Every Sphinx page gets turned into a basic “resource”, even if you don’t put
+the directive. Resource data is stored on the Sphinx <code class="docutils literal"><span class="pre">app</span></code> object, which
+Kaybee makes available in templates under the <code class="docutils literal"><span class="pre">sphinx_app</span></code> variable and
+passes in to Kaybee event handlers.</p>
+<p>Kaybee adds a <code class="docutils literal"><span class="pre">resources</span></code> collection to the Sphinx app, where it stores
+resources, using the document’s <code class="docutils literal"><span class="pre">docname</span></code> as the key. For example, a Jinja2
+template might grab a specific resource’s title with following:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span></span><span class="x">&lt;div&gt;</span><span class="cp">{{</span> <span class="nv">sphinx_app.resources</span><span class="o">[</span><span class="s1">&#39;folder1/subfolder2/about&#39;</span><span class="o">]</span><span class="nv">.title</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Kaybee also makes a variable <code class="docutils literal"><span class="pre">resource</span></code> available in Jinja2 templates, bound
+to the resource for the current docname.</p>
+</div>
+<div class="section" id="parents">
+<h3>Parents<a class="headerlink" href="#parents" title="Permalink to this headline">¶</a></h3>
+<p>Files on disk are organized into folders and subfolders. So are static
+websites. And so is Sphinx, which has a
+<a class="reference external" href="http://www.sphinx-doc.org/en/stable/markup/toctree.html#toctree-directive" title="(in Sphinx v1.6.7+)"><span class="xref std std-ref">sphinx:toctree directive</span></a> which lets a document
+list (in order or wildcard) its children. As such, Sphinx has a very strong
+concept of hierarchy in a document collection.</p>
+<p>As you organize your <code class="docutils literal"><span class="pre">.rst</span></code> documents into folders and subfolders, you might
+have reasons to look at your Kaybee resource’s “parents”. For example:</p>
+<ul class="simple">
+<li>Use templating to assemble breadcrumbs</li>
+<li>Divide your site into “sections” and show which section is active</li>
+<li>Do queries to find only resources in a certain section</li>
+<li>Avoid repetition by pushing some common properties or policies to parent
+folders’ YAML</li>
+</ul>
+<p>Kaybee keeps track of parents by storing the immediate-parent docname on each
+resource, with the root being the first in the sequence. Thus, for a docname
+of <code class="docutils literal"><span class="pre">folder1/subfolder2/about</span></code>, the parents would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;folder1/index&#39;</span><span class="p">,</span> <span class="s1">&#39;subfolder2/index&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The resource has a method <code class="docutils literal"><span class="pre">parents</span></code> which, when passed the resources
+collection, will return the actual resource objects for each parent. This
+can be used in templates.</p>
+</div>
+<div class="section" id="acquired-properties">
+<h3>Acquired Properties<a class="headerlink" href="#acquired-properties" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you have properties that might appear in all, or some, documents
+in part of your site. You’d prefer to define the property once, at the
+top of that part of the tree, then have child nodes “acquire” them as
+needed. Like inheritance, but for data instead of classes. And like
+inheritance, a child can provide its own value instead of “acquiring” it
+from its parentage.</p>
+<p>This is particularly useful for system-oriented properties such as template
+name. You might want all the templates for a certain part of the site to
+be customized. Or you might want a custom template only for a certain
+resource type.</p>
+<p>Kaybee supports setting an <code class="docutils literal"><span class="pre">acquired</span></code> mapping value in the YAML of a node,
+to provide property values for its ancestors. This mapping can provide
+per-type mappings of properties or a mapping to apply to all types.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Regular properties have validated schemas. You can’t just add an
+extra property. Acquired properties, though, allow anything inside
+their mappings – the acquired property doesn’t have to be in a schema.</p>
+</div>
+<p>Here’s an example of a parent which takes control of different kinds of
+children:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">aqsection</span><span class="p">::</span>
+    <span class="n">template</span><span class="p">:</span> <span class="n">folder1_section</span>
+    <span class="n">acquireds</span><span class="p">:</span>
+        <span class="n">aqarticle</span><span class="p">:</span>
+            <span class="n">template</span><span class="p">:</span> <span class="n">root_article</span>
+            <span class="n">flag</span><span class="p">:</span> <span class="mi">99</span>
+        <span class="n">aqsection</span><span class="p">:</span>
+            <span class="n">template</span><span class="p">:</span> <span class="n">root_section</span>
+
+<span class="o">==============</span>
+<span class="n">Folder</span> <span class="mi">1</span> <span class="n">Stuff</span>
+<span class="o">==============</span>
+
+<span class="n">Body</span><span class="o">.</span>
+
+<span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
+
+    <span class="n">about</span>
+    <span class="n">subfolder2</span><span class="o">/</span><span class="n">index</span>
+</pre></div>
+</div>
+<p>This document says that anything anywhere under <code class="docutils literal"><span class="pre">folder</span></code> can look up
+certain prop values based on resource type (or <code class="docutils literal"><span class="pre">all</span></code>, for props that
+any resource type can acquire.)</p>
+<p>It isn’t just <code class="docutils literal"><span class="pre">template</span></code>…any property can be “pushed up” to a parent,
+grandparent, etc. But if one of the children defines that property locally,
+it’s used instead of the parent’s property.</p>
+</div>
+</div>
+<div class="section" id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Custom resource type, both in <code class="docutils literal"><span class="pre">conf.py</span></code> and in <code class="docutils literal"><span class="pre">kaybee_plugins</span></code></li>
+<li>Putting local definitions in a docs project dir NOT named <code class="docutils literal"><span class="pre">kaybee_plugin</span></code></li>
+<li>The current resource is available in templates as <code class="docutils literal"><span class="pre">resource</span></code></li>
+<li>genericpage</li>
+<li>Query.filter_collection</li>
+<li>Uses the rtype as the base name (without <code class="docutils literal"><span class="pre">.html</span></code>) for the template</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using Kaybee</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Using Kaybee</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="templates.html" title="next chapter">Templates</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/using/resources.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

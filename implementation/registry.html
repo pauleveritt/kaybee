@@ -1,0 +1,155 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Registry &#8212; Kaybee 0.0.7 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Events" href="events.html" />
+    <link rel="prev" title="kb, the Default App" href="app.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="registry">
+<h1>Registry<a class="headerlink" href="#registry" title="Permalink to this headline">¶</a></h1>
+<p>Kaybee’s plugin system makes it easy to extend in rich and interesting ways.</p>
+<p>Kaybee provides a registry, based on
+<a class="reference external" href="http://dectate.readthedocs.io">Dectate</a>, which assembles configuration
+that is processed once Sphinx starts its initializing. The registry provides
+extensibility for docs projects, Kaybee plugins, and Kaybee itself.</p>
+<div class="section" id="actions">
+<span id="registry-action"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
+<p>Plugins can define new actions which let new kinds of things be registered
+using directives. For example, <code class="docutils literal"><span class="pre">kaybee_resources</span></code>, the most visible feature
+of Kaybee, provides a new “resource” action in the registry. Projects can
+then define new kinds of resources – articles, authors, etc. – using a
+directive:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kb.resource</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArticleResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="app">
+<h2>App<a class="headerlink" href="#app" title="Permalink to this headline">¶</a></h2>
+<p>The example above has a decorator <code class="docutils literal"><span class="pre">&#64;kb</span></code>. What’s <code class="docutils literal"><span class="pre">kb</span></code>? In Dectate terms,
+it is an app: a collection of configured actions, such as <code class="docutils literal"><span class="pre">resource</span></code>.
+Kaybee has a default app of <code class="docutils literal"><span class="pre">kb</span></code>. But documentation projects can create
+their own app with their own actions.</p>
+</div>
+<div class="section" id="discovery">
+<h2>Discovery<a class="headerlink" href="#discovery" title="Permalink to this headline">¶</a></h2>
+<p>How do directives such as <code class="docutils literal"><span class="pre">&#64;kb.resource</span></code> get located and processed? All
+you have to do is import the module. The directive is added to the
+configuration at import time. However, it isn’t processed until later.
+Specifically, during Sphinx’s “builder init” event. This delay allows all
+the bootstrapping to happen under Kaybee’s control.</p>
+<p>If you have lots of stuff to import, or for some reason don’t want to manually
+locate via import all the configuration, Kaybee ships with the
+<a class="reference external" href="http://importscan.readthedocs.io">importscan package</a> which can do
+imports via strings.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Implementation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup_function.html">Setup Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html">kb, the Default App</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#html-context">HTML Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugdump.html">Debugdump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Implementation</a><ul>
+      <li>Previous: <a href="app.html" title="previous chapter">kb, the Default App</a></li>
+      <li>Next: <a href="events.html" title="next chapter">Events</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/implementation/registry.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
