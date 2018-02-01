@@ -22,3 +22,4 @@ TODO
     articles
     loading_directives
     events
+    images

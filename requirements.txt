@@ -1,3 +1,6 @@
+sphinx
+pydantic
+docutils
 -e .
 gitchangelog
 bumpversion
