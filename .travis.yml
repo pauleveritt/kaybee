@@ -7,9 +7,9 @@ script:
   - set -e
   - pip install doctr
   - cd docs
-  - make html
+  - sphinx-build -E -b html . _build
   - cd ..
-  - doctr deploy . --built-docs docs/_build/html
+  - doctr deploy . --built-docs docs/_build
 deploy:
   provider: pypi
   user: pauleveritt
