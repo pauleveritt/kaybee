@@ -12,6 +12,15 @@
         {% endfor %}
     </ul>
 
+    {% if resource.props.images != [] %}
+        <h3 class="kb-images-heading">Attached Images</h3>
+        {% for image in resource.props.images %}
+            <div class="kb-images-data">
+                <h4>{{ image.usage }}</h4>
+                <img src="{{ image.filename }}"/>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     {% include 'kaybee_debug.html' %}
 {% endblock %}

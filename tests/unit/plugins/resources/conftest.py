@@ -6,6 +6,7 @@ from kaybee.plugins.resources.directive import ResourceDirective
 from kaybee.utils.rst import (
     rst_document,
 )
+from kaybee.plugins.articles.article import Article
 
 
 class Dummy:
@@ -45,6 +46,16 @@ def dummy_resource_class(dummy_props):
 @pytest.fixture()
 def dummy_article(dummy_resource_class):
     yield dummy_resource_class('article1', 'article', '')
+
+
+@pytest.fixture()
+def dummy_image_article():
+    yaml = """
+images:
+    - usage: feature
+      filename: img1.png    
+    """
+    yield Article('image_article1', 'article', yaml)
 
 
 @pytest.fixture()

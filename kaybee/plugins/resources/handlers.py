@@ -60,6 +60,21 @@ def add_directives(kb_app: kb,
         sphinx_app.add_directive(k, ResourceDirective)
 
 
+@kb.event(SphinxEvent.EU, scope='resource')
+def process_field_handlers(kb_app: kb,
+                           sphinx_app: Sphinx,
+                           sphinx_env: BuildEnvironment
+                           ):
+    resources = sphinx_app.env.resources
+    for resource in resources.values():
+        images = getattr(resource.props, 'images', None)
+        if images:
+            for prop in images:
+                t = resource.props.fields['images'].type_
+                if hasattr(t, 'env_doctree_read'):
+                    t.env_doctree_read(prop, sphinx_app, doctree, resource)
+
+
 @kb.event(SphinxEvent.DREAD, scope='resource')
 def stamp_title(kb_app: kb,
                 sphinx_app: Sphinx,

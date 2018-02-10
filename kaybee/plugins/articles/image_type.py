@@ -7,30 +7,46 @@ YAML, which we want to validate, post-process, and layout in our own
 HTML.
 
 """
-from os import path
+from pathlib import Path
 
 from docutils.readers import doctree
-from docutils.utils import relative_path
 from pydantic import BaseModel
 from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 from sphinx.errors import SphinxError
 
 
 class ImageModel(BaseModel):
+    usage: str  # Multiple images can be attached so define usage
     filename: str
 
-    def env_doctree_read(self, sphinx_app: Sphinx, doctree: doctree, resource):
-        """ Make images and enter them in Sphinx's output writer """
-        docname = resource.docname
-        img_filename = self.filename
-        imgpath = relative_path(
-            path.join(sphinx_app.env.srcdir, docname),
-            img_filename)
+    def source_filename(self, docname: str, srcdir: str):
+        """ Get the full filename to referenced image """
+        docpath = Path(srcdir, docname)
+        parent = docpath.parent
+        imgpath = parent.joinpath(self.filename)
 
         # Does this exist?
-        if not path.exists(imgpath):
+        if not imgpath.exists():
             msg = f'Image does not exist at "{imgpath}"'
             raise SphinxError(msg)
 
-        # Add this to the list of files to copy out
-        sphinx_app.env.images.add_file(docname, imgpath)
+        return imgpath
+
+    def env_updated(self,
+                    kb_app,
+                    sphinx_app: Sphinx,
+                    sphinx_env: BuildEnvironment,
+                    resource
+                    ):
+        """ Make images and enter them in Sphinx's output writer """
+
+        docname = resource.docname
+        srcdir = sphinx_app.env.srcdir
+        imgpath = self.source_filename(docname, srcdir)
+
+        # Copy the image to the Sphinx build directory
+        build_dir = sphinx_app.env.outdir
+        docname = resource.docname
+        target_filename = Path(build_dir, docname, self.filename)
+        return target_filename

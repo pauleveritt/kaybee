@@ -11,6 +11,7 @@ from kaybee.plugins.resources.handlers import (
     resource_into_html_context,
     dump_settings,
 )
+from plugins.resources.handlers import process_field_handlers
 
 
 @pytest.fixture()
@@ -68,6 +69,35 @@ class TestResourcesAddDirectives:
                        [])
         sphinx_app.add_directive.assert_called_once_with('article',
                                                          ResourceDirective)
+
+
+class TestProcessFieldHandlers:
+    def test_import(self):
+        assert 'process_field_handlers' == process_field_handlers.__name__
+
+    def test_article_has_image(self, dummy_image_article):
+        assert 'feature' == dummy_image_article.props.images[0].usage
+
+    def test_run_with_resource(self,
+                               mocker,
+                               resources_kb_app, sphinx_app,
+                               dummy_doctree,
+                               dummy_image_article):
+        sphinx_app.env.srcdir = ''
+        sphinx_app.env.resources = dict(
+            image_article_1=dummy_image_article
+        )
+        process_field_handlers(resources_kb_app, sphinx_app, dummy_doctree)
+
+    def test_run_without_resource(self, resources_kb_app, sphinx_app,
+                                  dummy_doctree,
+                                  dummy_article):
+        sphinx_app.confdir = '/tmp'
+        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+        sphinx_app.env.resources = dict()
+        assert None is getattr(dummy_article, 'title', None)
+        stamp_title(resources_kb_app, sphinx_app, dummy_doctree)
+        assert False is getattr(dummy_article, 'title', False)
 
 
 class TestStampTitle:
