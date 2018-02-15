@@ -69,7 +69,7 @@ class TestImageModel:
         dummy_article.docname = 'index'
         imgpath = image_model.source_filename(dummy_article.docname,
                                               image_sphinx_app.env.srcdir)
-        image_sphinx_app.env.outdir = '/tmp'
+        image_sphinx_app.outdir = '/tmp'
         result = image_model.env_updated(
             kb_app,
             image_sphinx_app,

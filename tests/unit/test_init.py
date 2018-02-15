@@ -19,4 +19,4 @@ class TestInit:
         assert kaybee.__version__ == actual['version']
         assert False is actual['parallel_read_safe']
         assert 1 == sphinx_app.add_config_value.call_count
-        assert 10 == sphinx_app.connect.call_count
+        assert 11 == sphinx_app.connect.call_count

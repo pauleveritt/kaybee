@@ -97,7 +97,7 @@ class TestProcessFieldHandlers:
                                get_module_dir):
         mocker.patch('shutil.copy')
         sphinx_app.env.srcdir = get_module_dir
-        sphinx_app.env.outdir = '/tmp'
+        sphinx_app.outdir = '/tmp'
         sphinx_app.env.resources = dict(
             image_article_1=dummy_image_article
         )
@@ -113,7 +113,7 @@ class TestProcessFieldHandlers:
                                   get_module_dir):
         mocker.patch('shutil.copy')
         sphinx_app.env.srcdir = get_module_dir
-        sphinx_app.env.outdir = '/tmp'
+        sphinx_app.outdir = '/tmp'
         sphinx_app.env.resources = dict()
         process_field_handlers(resources_kb_app, sphinx_app,
                                sphinx_app.env)

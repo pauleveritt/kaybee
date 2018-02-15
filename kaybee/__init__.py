@@ -60,6 +60,12 @@ def setup(app: Sphinx):
                     kb, sphinx_app, doctree, fromdocname)
                 )
 
+    app.connect(SphinxEvent.EU.value,
+                # pragma nocover
+                lambda sphinx_app, sphinx_env: EventAction.call_env_updated(
+                    kb, sphinx_app, sphinx_env)
+                )
+
     app.connect(SphinxEvent.HCP.value,
                 # pragma nocover
                 lambda sphinx_app: EventAction.call_html_collect_pages(

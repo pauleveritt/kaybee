@@ -47,7 +47,7 @@ class ImageModel(BaseModel):
         source_imgpath = self.source_filename(docname, srcdir)
 
         # Copy the image to the Sphinx build directory
-        build_dir = sphinx_app.env.outdir
+        build_dir = sphinx_app.outdir
         docpath = Path(docname)
         parent = docpath.parent
         target_imgpath = str(Path(build_dir, parent, self.filename))
