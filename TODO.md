@@ -1,6 +1,20 @@
 # Now
 
-- Give everything in articles the hero treatment
+- Recreate two-widget problem
+
+- GitHub deployment with doctr
+
+- Have a date format in config like ablog line 280 post.py
+
+- Update documentation
+
+    - Re-organizing "Using" to be plugin-based
+
+# Next
+
+- Search
+
+- Images
 
 - Make get_targets/sources into jargon that makes sense and is technically 
   correct
@@ -8,15 +22,9 @@
 - Overhaul acquire and template to have shared code which also eliminates 
   duplicating style in a section
   
-- Make kitchensink into SPCA site
+- The OOTB references directive requires template: page
 
-# Next
-
-- GitHub deployment with doctr
-
-- Try to eliminate -E
-
-- Get kaybee_settings into the html context as ``settings``
+# Could Be Better
 
 - Postrender (which skips widget rendering)
 
@@ -24,36 +32,25 @@
 
 - Feeds
 
-# Could Be Better
+- Get kaybee_settings into the html context as ``settings``
 
 - Setting to turn on/off "is_published"
 
+- Give everything in articles the hero treatment
+
 - "Layout" concept the unify theme with computation and settings, with 
   switchable templates (context, settings, etc.)
-
-- Update documentation
-
-    - Re-organizing "Using" to be plugin-based
-
-- Purge resources events (but document that it probably won't be used)
 
 - RST-rendered field type and excerpt
 
 - Like ablog, get title in resources.events using node['title'] or 
   _get_section_title
   
-- Make relative/absolute URLs work, e.g. /blog vs. Sphinx rendered with 
-  "pathto" available in widgets
-  
-- Have a date format in config like ablog line 280 post.py
-
 - A model with a ReferenceField doesn't fail when the value points at 
   a non-existent reference
 
 - Figure out integration test for Sphinx raising exceptions (which will 
   allow big increase in integration test coverage)
-
-- The OOTB references directive requires template: page
 
 - Instead of handlers for every doc, that traverse the doctree...one custom 
   handler which does one traversal calls handlers (performance improvement)
@@ -66,7 +63,4 @@
 
 - Redirects like ABlog
 
-- Get LiveSearch box working
-
-- Icon for LiveSearch box
 
