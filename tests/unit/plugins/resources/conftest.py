@@ -53,7 +53,7 @@ def dummy_image_article():
     yaml = """
 images:
     - usage: feature
-      filename: img1.png    
+      filename: img.png    
     """
     yield Article('image_article1', 'article', yaml)
 

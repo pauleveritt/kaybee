@@ -1,3 +1,7 @@
+import shutil
+from inspect import getfile
+from pathlib import Path
+
 import dectate
 import pytest
 
@@ -12,6 +16,13 @@ from kaybee.plugins.resources.handlers import (
     dump_settings,
 )
 from plugins.resources.handlers import process_field_handlers
+
+
+@pytest.fixture()
+def get_module_dir():
+    # Need to get path to image in this tests's directory
+    gf = getfile(get_module_dir)
+    yield Path(gf).parent
 
 
 @pytest.fixture()
@@ -80,24 +91,33 @@ class TestProcessFieldHandlers:
 
     def test_run_with_resource(self,
                                mocker,
-                               resources_kb_app, sphinx_app,
-                               dummy_doctree,
-                               dummy_image_article):
-        sphinx_app.env.srcdir = ''
+                               resources_kb_app,
+                               sphinx_app,
+                               dummy_image_article,
+                               get_module_dir):
+        mocker.patch('shutil.copy')
+        sphinx_app.env.srcdir = get_module_dir
+        sphinx_app.env.outdir = '/tmp'
         sphinx_app.env.resources = dict(
             image_article_1=dummy_image_article
         )
-        process_field_handlers(resources_kb_app, sphinx_app, dummy_doctree)
+        process_field_handlers(resources_kb_app, sphinx_app,
+                               sphinx_app.env)
+        assert 1 == shutil.copy.call_count
 
-    def test_run_without_resource(self, resources_kb_app, sphinx_app,
-                                  dummy_doctree,
-                                  dummy_article):
-        sphinx_app.confdir = '/tmp'
-        dummy_doctree.attributes = dict(source='/tmp/article1.rst')
+    def test_run_without_resource(self,
+                                  mocker,
+                                  resources_kb_app,
+                                  sphinx_app,
+                                  dummy_image_article,
+                                  get_module_dir):
+        mocker.patch('shutil.copy')
+        sphinx_app.env.srcdir = get_module_dir
+        sphinx_app.env.outdir = '/tmp'
         sphinx_app.env.resources = dict()
-        assert None is getattr(dummy_article, 'title', None)
-        stamp_title(resources_kb_app, sphinx_app, dummy_doctree)
-        assert False is getattr(dummy_article, 'title', False)
+        process_field_handlers(resources_kb_app, sphinx_app,
+                               sphinx_app.env)
+        assert 0 == shutil.copy.call_count
 
 
 class TestStampTitle:

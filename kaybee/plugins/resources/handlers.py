@@ -71,8 +71,13 @@ def process_field_handlers(kb_app: kb,
         if images:
             for prop in images:
                 t = resource.props.fields['images'].type_
-                if hasattr(t, 'env_doctree_read'):
-                    t.env_doctree_read(prop, sphinx_app, doctree, resource)
+                if hasattr(prop, 'env_updated'):
+                    prop.env_updated(
+                        kb_app,
+                        sphinx_app,
+                        sphinx_env,
+                        resource
+                    )
 
 
 @kb.event(SphinxEvent.DREAD, scope='resource')

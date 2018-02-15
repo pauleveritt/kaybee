@@ -1,3 +1,4 @@
+import shutil
 from inspect import getfile
 from pathlib import Path
 
@@ -6,9 +7,9 @@ from sphinx.application import Sphinx
 from sphinx.errors import SphinxError
 from sphinx.util import FilenameUniqDict
 
+from kaybee.plugins.articles.base_article import BaseArticle
 from kaybee.plugins.articles.image_type import ImageModel
 from kaybee.utils.models import load_model
-from kaybee.plugins.articles.base_article import BaseArticle
 
 
 @pytest.fixture()
@@ -26,7 +27,7 @@ def image_model():
 def get_module_dir():
     # Need to get path to image in this tests's directory
     gf = getfile(get_module_dir)
-    yield Path(gf)
+    yield Path(gf).parent
 
 
 @pytest.fixture()
@@ -46,7 +47,7 @@ class TestImageModel:
 
     def test_valid_source_filename(self, image_sphinx_app: Sphinx,
                                    image_model: ImageModel):
-        docname = ''
+        docname = 'index'
         imgpath = image_model.source_filename(docname,
                                               image_sphinx_app.env.srcdir)
         assert str(imgpath).endswith('unit/plugins/articles/img.png')
@@ -64,8 +65,10 @@ class TestImageModel:
                          image_sphinx_app: Sphinx,
                          dummy_article: BaseArticle,
                          image_model: ImageModel):
-        dummy_article.docname = ''
-        dummy_article.docname = 'f1/f3'
+        mocker.patch('shutil.copy')
+        dummy_article.docname = 'index'
+        imgpath = image_model.source_filename(dummy_article.docname,
+                                              image_sphinx_app.env.srcdir)
         image_sphinx_app.env.outdir = '/tmp'
         result = image_model.env_updated(
             kb_app,
@@ -73,12 +76,16 @@ class TestImageModel:
             image_sphinx_app.env,
             dummy_article
         )
-        assert 9 == result
+        shutil.copy.assert_called_once_with(
+            imgpath, '/tmp/img.png'
+        )
 
-    def test_edr_invalid_path(self, image_sphinx_app: Sphinx,
+    def test_edr_invalid_path(self,
+                              kb_app,
+                              image_sphinx_app: Sphinx,
                               dummy_article: BaseArticle,
                               image_model: ImageModel):
         image_model.filename = 'faker.png'
         with pytest.raises(SphinxError):
-            image_model.env_doctree_read(image_sphinx_app, {},
-                                         dummy_article)
+            image_model.env_updated(kb_app, image_sphinx_app, {},
+                                    dummy_article)

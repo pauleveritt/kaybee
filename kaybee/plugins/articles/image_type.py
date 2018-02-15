@@ -8,8 +8,8 @@ HTML.
 
 """
 from pathlib import Path
+import shutil
 
-from docutils.readers import doctree
 from pydantic import BaseModel
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
@@ -22,6 +22,7 @@ class ImageModel(BaseModel):
 
     def source_filename(self, docname: str, srcdir: str):
         """ Get the full filename to referenced image """
+
         docpath = Path(srcdir, docname)
         parent = docpath.parent
         imgpath = parent.joinpath(self.filename)
@@ -43,10 +44,11 @@ class ImageModel(BaseModel):
 
         docname = resource.docname
         srcdir = sphinx_app.env.srcdir
-        imgpath = self.source_filename(docname, srcdir)
+        source_imgpath = self.source_filename(docname, srcdir)
 
         # Copy the image to the Sphinx build directory
         build_dir = sphinx_app.env.outdir
-        docname = resource.docname
-        target_filename = Path(build_dir, docname, self.filename)
-        return target_filename
+        docpath = Path(docname)
+        parent = docpath.parent
+        target_imgpath = str(Path(build_dir, parent, self.filename))
+        shutil.copy(source_imgpath, target_imgpath)
