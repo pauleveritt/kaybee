@@ -41,8 +41,8 @@ class TestWidgets2Debug:
         # one value in widgets
         values = widgets['values']
         assert 1 == len(values)
-        assert 'index' in values
-        index = values['index']
+        assert 'index-widgets1hello' in values
+        index = values['index-widgets1hello']
         assert 'index' == index['docname']
         assert 'props' in index
         props = index['props']

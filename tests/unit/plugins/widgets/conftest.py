@@ -35,6 +35,7 @@ def dummy_widget_class(dummy_props):
             self.wtype = wtype
             self.content = content
             self.props = dummy_props()
+            self.name = docname + '-somename'
 
     yield DummyWidget
 

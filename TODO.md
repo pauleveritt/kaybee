@@ -1,10 +1,8 @@
 # Now
 
-- Recreate two-widget problem
+- Have a date format in config like ablog line 280 post.py
 
 - GitHub deployment with doctr
-
-- Have a date format in config like ablog line 280 post.py
 
 - Update documentation
 

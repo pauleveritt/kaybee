@@ -15,6 +15,7 @@ class BaseWidgetModel(BaseModel):
     class Config:
         ignore_extra = False
 
+
 class BaseWidget:
     docname: str  # Widget instances get registered from a doc
     wtype: str  # This is the directive name, e.g. listing
@@ -79,7 +80,6 @@ class BaseWidget:
         template = self.template + '.html'
         html = builder.templates.render(template, context)
         return html
-
 
     def __json__(self):
         # The root has different rules about parents

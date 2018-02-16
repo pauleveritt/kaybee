@@ -6,7 +6,17 @@ pytestmark = pytest.mark.sphinx('html', testroot='widgets1')
 @pytest.mark.parametrize('page', ['index.html', ], indirect=True)
 class TestWidgets1:
 
-    def test_index(self, page):
+    def test_widgets1(self, page):
+        # The genericpage doesn't have an acquire for template, so just use
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Hello World' == h1
+
+        hello = page.find(id='hello').contents[0].strip()
+        assert 'Hello Custom Widget Template' == hello
+        docname = page.find(id='resource_docname').contents[0].strip()
+        assert 'index' == docname
+
+    def test_widgets2(self, page):
         # The genericpage doesn't have an acquire for template, so just use
         h1 = page.find('h1').contents[0].strip()
         assert 'Hello World' == h1
@@ -31,9 +41,10 @@ class TestWidgets1Debug:
 
         # one value in widgets
         values = widgets['values']
-        assert 1 == len(values)
-        assert 'index' in values
-        index = values['index']
+        assert 2 == len(values)
+        assert 'index-widgets1hello' in values
+        assert 'index-widgets2hello' in values
+        index = values['index-widgets1hello']
         assert 'index' == index['docname']
         assert 'props' in index
         props = index['props']

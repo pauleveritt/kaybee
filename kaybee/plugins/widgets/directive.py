@@ -40,10 +40,12 @@ class WidgetDirective(Directive):
 
         this_widget = self.get_widget(self.docname)
 
-        self.widgets[this_widget.docname] = this_widget
+        self.widgets[repr(this_widget)] = this_widget
 
         # Now add the node to the doctree
         widget_node = widget()
-        attrs = dict(ids=[this_widget.docname], names=[self.name])
+        ids = [repr(this_widget)]
+        names = [self.name]
+        attrs = dict(ids=ids, names=names)
         widget_node.update_basic_atts(attrs)
         return [widget_node]
