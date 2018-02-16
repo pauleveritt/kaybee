@@ -22,8 +22,6 @@
 
 # Could Be Better
 
-- Postrender (which skips widget rendering)
-
 - Feeds
 
 - Get kaybee_settings into the html context as ``settings``
