@@ -24,8 +24,6 @@
 
 - Postrender (which skips widget rendering)
 
-- XSLT builder
-
 - Feeds
 
 - Get kaybee_settings into the html context as ``settings``
