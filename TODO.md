@@ -1,7 +1,5 @@
 # Now
 
-- Have a date format in config like ablog line 280 post.py
-
 - GitHub deployment with doctr
 
 - Update documentation
