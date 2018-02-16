@@ -14,9 +14,17 @@ from sphinx.jinja2glue import SphinxFileSystemLoader
 
 from kaybee.app import kb
 from kaybee.plugins.articles.actions import ToctreeAction
+from kaybee.plugins.articles.filters import DatetimeFilter
 from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.settings.model import KaybeeSettings
 from kaybee.utils.rst import get_rst_excerpt
+
+
+@kb.event(SphinxEvent.BI, scope='articles')
+def register_filters(kb_app: kb, sphinx_app: Sphinx):
+    dtf = DatetimeFilter(sphinx_app)
+    filters = sphinx_app.builder.templates.environment.filters
+    filters['datetime_fmt'] = dtf
 
 
 @kb.event(SphinxEvent.EBRD, scope='toctrees')
@@ -68,7 +76,8 @@ def render_toctrees(kb_app: kb, sphinx_app: Sphinx, doctree: doctree,
         # The challenge here is that some items in a toctree
         # might not be resources in our "database". So we have
         # to ask Sphinx to get us the titles.
-        custom_toctree.set_entries(entries, env.titles, sphinx_app.env.resources)
+        custom_toctree.set_entries(entries, env.titles,
+                                   sphinx_app.env.resources)
         output = custom_toctree.render(builder, context, sphinx_app)
 
         # Put the output into the node contents

@@ -136,6 +136,10 @@ def test_custom_category(page):
                0].strip()
     assert 'Databases' == kb_body.find(id='kb-title').contents[0].strip()
 
+    # Test the Jinja2 filter for date handling
+    dtf = page.find(id='kb-datetime_filter').contents[0].strip()
+    assert 'Oct 01' == dtf
+
 
 @pytest.mark.parametrize('page', ['2018/index.html', ], indirect=True)
 def test_section(page):

@@ -6,6 +6,10 @@
         <code id="kb-ksfeature-increment">{{ resource.increment }}</code>.</p>
     {{ body }}
 
+    <p>Published
+        <span id="kb-datetime_filter">{{ resource.props.published|datetime_fmt('short') }}</span>
+    </p>
+
     <h2>Kitchen Sink Resources</h2>
     <ul id="kb-reference-listing">
         {% for resource in resource.get_targets(resources) %}

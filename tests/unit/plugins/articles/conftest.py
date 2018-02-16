@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import dectate
 import pytest
 
@@ -173,3 +175,9 @@ Test
 ====
             """
     yield rst_document(source)
+
+
+@pytest.fixture()
+def past_datetime() -> datetime:
+    past = datetime(2012, 4, 25, 13, 26)
+    yield past

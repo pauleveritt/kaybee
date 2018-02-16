@@ -21,3 +21,4 @@ Kaybee. It's exciting. Let's show some of Kaybee in action.
     genericpage
     references
     layouts
+    articles
