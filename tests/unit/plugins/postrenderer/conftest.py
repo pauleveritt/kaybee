@@ -33,13 +33,25 @@ def conflicting_events(postrenderer_kb_app):
 @pytest.fixture()
 def register_valid_event(postrenderer_kb_app):
     @postrenderer_kb_app.postrenderer('capitalize')
-    def capitalize1(template, context):
-        return dict(
-            resource=dict(
-                published=datetime.datetime.now()
-
-            )
-        )
+    class CapitalizePostrenderer:
+        def __call__(self, html, context):
+            return html.upper()
 
     dectate.commit(postrenderer_kb_app)
-    yield capitalize1
+    yield CapitalizePostrenderer
+
+
+@pytest.fixture()
+def register_two_valid_events(postrenderer_kb_app):
+    @postrenderer_kb_app.postrenderer('lorem')
+    class LoremPostrenderer:
+        def __call__(self, html, context):
+            return '<div>lorem ipsum</div>'
+
+    @postrenderer_kb_app.postrenderer('capitalize')
+    class CapitalizePostrenderer:
+        def __call__(self, html, context):
+            return html.upper()
+
+    dectate.commit(postrenderer_kb_app)
+    yield (LoremPostrenderer, CapitalizePostrenderer)

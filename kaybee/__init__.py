@@ -25,6 +25,8 @@ def setup(app: Sphinx):
     dectate.commit(kb)
 
     app.add_config_value('kaybee_settings', KaybeeSettings(), 'html')
+    bridge = 'kaybee.plugins.postrenderer.config.KaybeeBridge'
+    app.config.template_bridge = bridge
 
     app.connect('env-updated', flush_everything)
     app.connect(SphinxEvent.BI.value,
