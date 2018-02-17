@@ -52,6 +52,8 @@ Release
 #. Tag the release.
 
 #. Run ``gitchangelog`` to generate the history that goes into the package.
+   Tip: Use the commit message prefixes from their `reference
+   <https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference>`_
 
 #. Generate the package using ``python setup.py sdist bdist_wheel``
 
