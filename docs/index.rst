@@ -3,13 +3,11 @@ kaybee Static Sites for Knowledge Bases
 
 Static websites are a nice way to publish content. Sometimes, though, the
 content is...well...content. There's data in there, and you'd like a
-static website oriented around information and structure, aka a knowledge
-base.
+static website oriented around information and structure.
 
 Kaybee is a Knowledge Base (KB, kaybee) in which you can define kinds of
 content then put the data into your documents. You can then easily embed
 query-driven listings into your content to organize your knowledge base.
-
 Kaybee is based on `Sphinx <http://www.sphinx-doc.org/en/stable/>`_, the
 well-known Python tool for richly-interlinked content.
 
