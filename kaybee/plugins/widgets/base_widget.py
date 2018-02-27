@@ -58,7 +58,7 @@ class BaseWidget:
             return self.wtype
 
     def make_context(self, context: Mapping, sphinx_app: Sphinx):
-        raise NotImplementedError
+        pass
 
     def render(self, sphinx_app: Sphinx, context):
         """ Given a Sphinx builder and context with sphinx_app in it,

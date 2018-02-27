@@ -72,15 +72,6 @@ class TestBaseWidget:
         # The repr is primarily useful in pytest listing
         assert 'somepage-this_id' == repr(listing_widget)
 
-    def test_missing_make_context(self, sphinx_app):
-        yaml_content = """
-        name: this_id
-        template: dummy_listing
-            """
-        bw = BaseWidget('somepage', 'listing', yaml_content)
-        with pytest.raises(NotImplementedError):
-            bw.make_context(dict(), sphinx_app)
-
     @pytest.mark.parametrize('current_docname, target_docname, expected', [
         ('2018/index', '2018/about', 'about'),
         ('2018/about', '2018/contact', 'contact'),
