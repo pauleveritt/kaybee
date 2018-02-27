@@ -1,15 +1,54 @@
+.. homepage::
+
+    published: 2009-10-21 12:23
+    heading: Kaybee
+    subheading: Extensible Knowledge Base for Static Sites
+    hero_image: library.jpg
+    style: dark
+
 kaybee Static Sites for Knowledge Bases
 =======================================
 
-Static websites are a nice way to publish content. Sometimes, though, the
-content is...well...content. There's data in there, and you'd like a
-static website oriented around information and structure.
+.. raw:: html
 
-Kaybee is a Knowledge Base (KB, kaybee) in which you can define kinds of
-content then put the data into your documents. You can then easily embed
-query-driven listings into your content to organize your knowledge base.
-Kaybee is based on `Sphinx <http://www.sphinx-doc.org/en/stable/>`_, the
-well-known Python tool for richly-interlinked content.
+    <section class="section">
+        <div class="container">
+          <p class="subtitle">
+            Static websites are a nice way to publish content. Sometimes,
+            though, the content is...well...content. There's data in there,
+            and you'd like a static website oriented around information and
+            structure.</p>
+
+            <p class="subtitle">Kaybee is a Knowledge Base (KB, kaybee) in which you can define
+            kinds of content then put the data into your documents. You can
+            then easily embed query-driven listings into your content to
+            organize your knowledge base. Kaybee is based on Sphinx, the
+            well-known Python tool for richly-interlinked content.
+          </p>
+        </div>
+    </section>
+    <section class="section hero is-primary">
+        <div class="container">
+          <h1 class="title">
+            Hello World
+          </h1>
+          <p class="subtitle">
+            My first website with <strong>Bulma</strong>!
+          </p>
+        </div>
+    </section>
+    <section class="section hero is-info">
+        <div class="container">
+          <h1 class="title">
+            Hello World
+          </h1>
+          <p class="subtitle">
+            My first website with <strong>Bulma</strong>!
+          </p>
+        </div>
+    </section>
+
+
 
 Not sure what this means? Here's a simple "article" resource, as a Sphinx
 ``.rst`` document:

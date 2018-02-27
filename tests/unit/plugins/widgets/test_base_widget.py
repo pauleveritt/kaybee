@@ -2,6 +2,7 @@ import pytest
 from sphinx.application import Sphinx
 
 from kaybee.plugins.widgets.base_widget import BaseWidget
+from plugins.widgets.base_widget import BaseWidgetModel
 
 
 @pytest.fixture()
@@ -29,6 +30,21 @@ name: this_id
     yield ListingWidget('somepage', 'listing', yaml_content)
 
 
+@pytest.fixture()
+def props_widget():
+    class PropsWidgetModel(BaseWidgetModel):
+        propswidget_flag: int
+
+    class PropsWidget(BaseWidget):
+        props: PropsWidgetModel
+
+    yaml_content = """
+name: this_id
+propswidget_flag: 98
+    """
+    yield PropsWidget('somepage', 'propswidget', yaml_content)
+
+
 class TestBaseWidget:
     def test_import(self):
         assert 'BaseWidget' == BaseWidget.__name__
@@ -47,25 +63,23 @@ class TestBaseWidget:
         assert None is no_template_widget.props.template
         assert 'listing' == no_template_widget.template
 
-    def test_broken_instance(self, listing_widget: BaseWidget):
-        # Class doesn't implement make_context
-        assert 'somepage' == listing_widget.docname
-        assert 'listing' == listing_widget.wtype
-        assert 'this_id' == listing_widget.props.name
-        assert 'dummy_listing' == listing_widget.props.template
+    def test_extra_props(self, props_widget: BaseWidget):
+        assert 'somepage' == props_widget.docname
+        assert 'this_id' == props_widget.props.name
+        assert 98 == props_widget.props.propswidget_flag
 
     def test_repr(self, listing_widget: BaseWidget):
         # The repr is primarily useful in pytest listing
         assert 'somepage-this_id' == repr(listing_widget)
 
-    def test_missing_make_context(self):
+    def test_missing_make_context(self, sphinx_app):
         yaml_content = """
         name: this_id
         template: dummy_listing
             """
         bw = BaseWidget('somepage', 'listing', yaml_content)
         with pytest.raises(NotImplementedError):
-            bw.make_context(dict(), dict())
+            bw.make_context(dict(), sphinx_app)
 
     @pytest.mark.parametrize('current_docname, target_docname, expected', [
         ('2018/index', '2018/about', 'about'),

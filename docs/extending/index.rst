@@ -23,3 +23,4 @@ TODO
     loading_directives
     events
     images
+    theming

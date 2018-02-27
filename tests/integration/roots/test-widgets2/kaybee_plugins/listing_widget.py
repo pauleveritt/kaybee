@@ -14,6 +14,7 @@ class ListingModel(BaseWidgetModel):
 @kb.widget('listing')
 class ListingWidget(BaseWidget):
     greeting = 'widget greeting'
+    props: ListingModel
 
     def make_context(self, context, sphinx_app: Sphinx):
         context['another_flag'] = 835

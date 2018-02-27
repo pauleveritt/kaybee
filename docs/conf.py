@@ -1,4 +1,6 @@
 import kaybee
+import kaybee_bulma
+from kaybee_bulma.siteconfig import SiteConfig
 
 # Sphinx setup
 project = 'Kaybee'
@@ -6,7 +8,11 @@ version = kaybee.__version__
 release = version
 master_doc = 'index'
 exclude_patterns = ['_build']
-extensions = ['sphinx.ext.intersphinx', 'alabaster', 'kaybee']
+extensions = [
+    'sphinx.ext.intersphinx',
+    'kaybee',
+    'kaybee_bulma',
+]
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sphinx': ('http://sphinx.pocoo.org', None),
@@ -14,7 +20,8 @@ intersphinx_mapping = {
 }
 
 # Theme setup
-html_theme = 'alabaster'
+html_theme = 'kaybee_bulma'
+html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
@@ -23,3 +30,16 @@ html_sidebars = {
         'relations.html',
     ]
 }
+
+kaybee_bulma_siteconfig = SiteConfig(
+    logo=dict(
+        img_file='kaybee_logo.png',
+        alt='Kaybee Logo Alt'
+    ),
+    copyright='2018, All Rights Reserved',
+    favicon='kaybee_logo.png',
+    social_media=dict(
+        twitter='xxx',
+        github='xxx'
+    )
+)

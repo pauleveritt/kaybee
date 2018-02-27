@@ -16,6 +16,8 @@ class TestWidgets2:
         docname = page.find(id='resource_docname').contents[0].strip()
         assert 'index' == docname
 
+        listing_flag = page.find(id='listing_flag').contents[0].strip()
+        assert '98' == listing_flag
         another_flag = page.find(id='another_flag').contents[0].strip()
         assert '835' == another_flag
         widget_greeting = page.find(id='widget_greeting').contents[0].strip()
