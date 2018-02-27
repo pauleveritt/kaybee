@@ -1,6 +1,6 @@
-import kaybee
-import kaybee_bulma
 from kaybee_bulma.siteconfig import SiteConfig
+
+import kaybee
 
 # Sphinx setup
 project = 'Kaybee'
@@ -30,6 +30,12 @@ html_sidebars = {
         'relations.html',
     ]
 }
+
+kaybee_settings = kaybee.KaybeeSettings(
+    articles=dict(
+        use_toctree=True
+    )
+)
 
 kaybee_bulma_siteconfig = SiteConfig(
     logo=dict(
