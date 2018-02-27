@@ -1,6 +1,6 @@
 .. homepage::
 
-    published: 2009-10-21 12:23
+    published: 2018-01-01 12:23
     heading: Kaybee
     subheading: Extensible Knowledge Base for Static Sites
     hero_image: library.jpg
@@ -118,7 +118,8 @@ extension model. This makes it easy to extend Kaybee:
 - Handle Sphinx events, register Sphinx directives, and more
 
 Kaybee also has some related projects. Primarily, a layout based on
-`Bulma <https://bulma.io>`_ with some interesting approaches.
+`Bulma <https://bulma.io>`_ with some interesting approaches. These docs
+use the `kaybee_bulma theme <https://github.com/pauleveritt/kaybee_bulma>`_.
 
 Additionally, Kaybee has a *lot* of unit tests (usually at or close to
 100% coverage) and integration tests (usually over 90%.)
@@ -131,6 +132,7 @@ Contents
 
     whysphinx
     using/index
+    articles/index
     extending/index
     development/index
     implementation/index

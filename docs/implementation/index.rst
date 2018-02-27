@@ -1,9 +1,12 @@
 .. section::
-
     style: danger
     in_nav: True
     weight: 50
-    published: 2009-10-21 12:23
+    published: 2018-01-01 12:23
+    acquireds:
+        all:
+            style: danger
+
 
 ==============
 Implementation
