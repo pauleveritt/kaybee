@@ -1,3 +1,10 @@
+.. section::
+
+    style: primary
+    in_nav: True
+    weight: 20
+    published: 2009-10-21 12:23
+
 ============
 Using Kaybee
 ============

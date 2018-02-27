@@ -1,3 +1,10 @@
+.. section::
+
+    style: danger
+    in_nav: True
+    weight: 50
+    published: 2009-10-21 12:23
+
 ==============
 Implementation
 ==============

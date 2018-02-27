@@ -1,3 +1,8 @@
+.. article::
+    published: 2017-10-01 00:01
+    in_nav: True
+    weight: 10
+
 ==========
 Why Sphinx
 ==========

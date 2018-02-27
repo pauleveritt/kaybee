@@ -1,3 +1,10 @@
+.. section::
+
+    style: link
+    in_nav: True
+    weight: 30
+    published: 2009-10-21 12:23
+
 ================
 Extending Kaybee
 ================
