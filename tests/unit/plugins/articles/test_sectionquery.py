@@ -26,7 +26,7 @@ class TestQueryList:
         context = dict()
         result = dummy_sectionquery.make_context(context, sphinx_app)
         assert None is result
-        assert 4 == context['result_count']
+        assert 2 == context['result_count']
         results = context['results']
         assert 'f1/index' == results[0].docname
 5

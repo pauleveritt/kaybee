@@ -20,6 +20,7 @@ class BaseArticleModel(BaseResourceModel):
     excerpt: str = None
     auto_excerpt: int = 1
     images: List[ImageModel] = []
+    is_series: bool = False
 
 
 class BaseArticle(BaseResource):
@@ -55,9 +56,16 @@ class BaseArticle(BaseResource):
         return False
 
     def series(self, resources):
+        # Make sure the parent is a registered resource
         parent = resources.get(self.parent)
         if not parent:
             return None
+
+        # The parent has to declare that it wants to have its children
+        # in a "series", which is false by default.
+        if not getattr(parent.props, 'is_series', False):
+            return None
+
         results = []
         for docname in parent.toctree:
             resource = resources.get(docname)

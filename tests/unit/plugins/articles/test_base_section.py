@@ -12,7 +12,7 @@ class TestBaseSection:
     def test_section_f1(self, article_resources):
         a = BaseSection('f1/f2/f3/another', 'rtype', '')
         result = a.section(article_resources)
-        assert 'f1/f2/f3/index' == result.docname
+        assert 'f1/f2/index' == result.docname
 
     def test_featured_resource(self, article_resources):
         f1: BaseSection = article_resources['f1/index']

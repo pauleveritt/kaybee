@@ -3,7 +3,7 @@ import pytest
 pytestmark = pytest.mark.sphinx('html', testroot='articles1')
 
 
-@pytest.mark.parametrize('page', ['article1.html', ], indirect=True)
+@pytest.mark.parametrize('page', ['articles/article1.html', ], indirect=True)
 class TestArticles1:
 
     def test_article1(self, page):
@@ -27,7 +27,7 @@ class TestCategories2:
         assert 'Article 1' in items
 
 
-@pytest.mark.parametrize('page', ['article2.html', ],
+@pytest.mark.parametrize('page', ['articles/article2.html', ],
                          indirect=True)
 class TestQuerylist:
 
@@ -43,7 +43,7 @@ class TestQuerylist:
             for result in page.find_all(class_='kb-querylist-item')]
         assert 2 == len(labels)
         assert 'Recent Blog Posts' in labels
-        assert 5 == len(items)
+        assert 6 == len(items)
         assert 'Section 1' in items
 
 
@@ -68,16 +68,23 @@ class TestArticles1Debug:
         assert 'index' == homepage['docname']
         assert 'Hello World' == homepage['title']
         assert '' == homepage['section']
-        assert 'article1' in homepage['toctree']
+        assert 'articles/index' in homepage['toctree']
         assert None is homepage['series']
 
+        # articles
+        articles = resource_values['articles/index']
+        assert 'articles/index' == articles['docname']
+        assert 'Articles' == articles['title']
+        assert '' == articles['section']
+        assert None is articles['series']
+
         # article1
-        article1 = resource_values['article1']
-        assert 'article1' == article1['docname']
+        article1 = resource_values['articles/article1']
+        assert 'articles/article1' == article1['docname']
         assert 'Article 1' == article1['title']
-        assert '' == article1['section']
+        assert 'articles/index' == article1['section']
         assert [] == article1['toctree']
-        assert 4 == len(article1['series'])
+        assert 3 == len(article1['series'])
 
         # section1
         section1 = resource_values['section1/index']
@@ -85,5 +92,4 @@ class TestArticles1Debug:
         assert 'Section 1' == section1['title']
         assert '' == section1['section']
         assert ['section1/article2'] == section1['toctree']
-        assert 'article1' == section1['series'][0]['docname']
         assert 'section1/article2' == section1['get_featured_resource']

@@ -5,8 +5,6 @@ Hello World
 
 .. toctree::
 
-    article1
-    article2
-    article3
+    articles/index
     section1/index
     categories/index

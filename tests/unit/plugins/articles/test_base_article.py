@@ -13,7 +13,7 @@ class TestBaseArticle:
     def test_section_f1(self, article_resources):
         a = BaseArticle('f1/f2/f3/another', 'rtype', '')
         result = a.section(article_resources)
-        assert 'f1/f2/f3/index' == result.docname
+        assert 'f1/f2/index' == result.docname
 
     def test_article_style_from_props(self, article_resources, dummy_article):
         style = dummy_article.acquire(article_resources, 'style')
@@ -47,14 +47,14 @@ class TestBaseArticle:
         assert expected is article.is_published
 
     def test_to_json(self, article_resources):
-        f4about = article_resources['f1/f2/f3/f4/about']
-        result = f4about.__json__(article_resources)
-        assert 'f1/f2/f3/f4/about' == result['docname']
+        f3about = article_resources['f1/f2/f3/about']
+        result = f3about.__json__(article_resources)
+        assert 'f1/f2/f3/about' == result['docname']
         assert 'article' == result['rtype']
-        assert 'f1/f2/f3/f4/index' == result['parent']
+        assert 'f1/f2/f3/index' == result['parent']
         assert 1 == result['props']['auto_excerpt']
         assert None is result['excerpt']
-        assert 'f1/f2/f3/f4/index' == result['section']
+        assert 'f1/f2/index' == result['section']
         assert 0 == len(result['toctree'])
         assert 0 == len(result['series'])
 
@@ -72,20 +72,36 @@ class TestSeries:
         resource = article_resources['f1/f2/about']
         assert 'series' == resource.series.__name__
 
+    def test_no_series(self, article_resources):
+        section = article_resources['f1/f2/index']
+        assert False is getattr(section.props, 'is_series')
+
     def test_series_values(self, article_resources):
         # Assign a toctree
-        article_resources['f1/f2/index'].toctree = [
-            'f1/f2/index',
-            'f1/f2/about'
+        article_resources['f1/f2/f3/index'].toctree = [
+            'f1/f2/f3/index',
+            'f1/f2/f3/about'
         ]
-        resource = article_resources['f1/f2/about']
+        resource = article_resources['f1/f2/f3/about']
         series = resource.series(article_resources)
-        assert 'F2 Index' == series[0]['title']
-        assert 'F2 About' == series[1]['title']
+        assert 'F3' == series[0]['title']
+        assert 'F3 About' == series[1]['title']
+
+    def test_parent_does_not_want_series(self, article_resources):
+        # Assign a toctree
+        article_resources['f1/f2/f3/index'].toctree = [
+            'f1/f2/f3/index',
+            'f1/f2/f3/about'
+        ]
+        parent: BaseArticle = article_resources['f1/f2/f3/index']
+        parent.props.is_series = False
+        resource = article_resources['f1/f2/f3/about']
+        series = resource.series(article_resources)
+        assert None is series
 
     def test_series_empty(self, article_resources):
         # Do NOT assign a toctree
-        resource = article_resources['f1/f2/about']
+        resource = article_resources['f1/f2/f3/about']
         series = resource.series(article_resources)
         assert [] == series
 
@@ -97,11 +113,11 @@ class TestSeries:
 
     def test_nonresource_in_toctree(self, article_resources):
         # The resource is the root, doesn't have a parent
-        resource: BaseArticle = article_resources['f1/f2/about']
-        parent: BaseArticle = article_resources['f1/f2/index']
+        resource: BaseArticle = article_resources['f1/f2/f3/about']
+        parent: BaseArticle = article_resources['f1/f2/f3/index']
         parent.toctree = [
-            'f1/f2/index',
-            'f1/f2/about',
+            'f1/f2/f3/index',
+            'f1/f2/f3/about',
             'xyzpdq'
         ]
         series = resource.series(article_resources)

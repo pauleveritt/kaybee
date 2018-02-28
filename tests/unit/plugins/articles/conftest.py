@@ -51,11 +51,12 @@ def article_resources():
     f2.title = 'F2 Index'
     f2_about = BaseArticle('f1/f2/about', 'article', '')
     f2_about.title = 'F2 About'
-    f3 = BaseSection('f1/f2/f3/index', 'section', 'template: f3template')
+    f3 = BaseArticle('f1/f2/f3/index', 'article', 'template: f3template')
     f3.title = 'F3'
+    f3.props.is_series = True
     f3_about = BaseArticle('f1/f2/f3/about', 'article', '')
     f3_about.title = 'F3 About'
-    f4 = BaseSection('f1/f2/f3/f4/index', 'section', f4_content)
+    f4 = BaseArticle('f1/f2/f3/f4/index', 'article', f4_content)
     f4.title = 'F4'
     f4_about = BaseArticle('f1/f2/f3/f4/about', 'article', '')
     f4.title = 'F4 About'
@@ -181,3 +182,4 @@ Test
 def past_datetime() -> datetime:
     past = datetime(2012, 4, 25, 13, 26)
     yield past
+

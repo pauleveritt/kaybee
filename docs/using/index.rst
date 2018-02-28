@@ -3,6 +3,7 @@
     in_nav: True
     weight: 20
     published: 2018-01-01 12:23
+    is_series: True
     acquireds:
         all:
             style: light
