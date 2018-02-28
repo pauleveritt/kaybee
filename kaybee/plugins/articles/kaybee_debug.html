@@ -6,7 +6,7 @@
             {% for nav in navmenu %}
                 <li>
                     <a class="kb-navmenu-item"
-                       href="{{ pathto(nav.docname, 1) + '.html' }}">{{ nav.title }}</a>
+                       href="{{ pathto(nav.docname, 1) + '.html' }}">{{ nav.props.nav_title or nav.title }}</a>
                 </li>
             {% endfor %}
         </ul>

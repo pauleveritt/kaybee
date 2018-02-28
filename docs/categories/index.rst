@@ -1,11 +1,11 @@
 .. section::
-    style: light
+    style: warning
     in_nav: True
     weight: 60
     published: 2018-01-01 12:23
     acquireds:
         all:
-            style: light
+            style: warning
 
 ==========
 Categories

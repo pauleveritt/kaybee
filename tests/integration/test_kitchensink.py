@@ -18,7 +18,7 @@ def test_homepage(page):
 
     # Nav menu
     navitems = [navitem.contents[0].strip() for navitem in nav]
-    assert 'Contact Us' in navitems
+    assert 'Contact' in navitems
     assert 'About Us' in navitems
     assert 'Intro to Django' in navitems
     assert 'Hidden' not in navitems

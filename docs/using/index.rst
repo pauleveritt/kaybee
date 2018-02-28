@@ -1,6 +1,7 @@
 .. section::
     style: light
     in_nav: True
+    nav_title: Using
     weight: 20
     published: 2018-01-01 12:23
     is_series: True

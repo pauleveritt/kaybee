@@ -1,6 +1,7 @@
 .. section::
     style: link
     in_nav: True
+    nav_title: Extending
     weight: 30
     published: 2018-01-01 12:23
     acquireds:

@@ -13,6 +13,7 @@ class BaseArticleModel(BaseResourceModel):
     style: str = None
     css_class: str = None
     in_nav: bool = False
+    nav_title: str = None
     weight: int = 0
     published: datetime = None
     category: ReferencesType = []
