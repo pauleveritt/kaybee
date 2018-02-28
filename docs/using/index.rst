@@ -22,14 +22,19 @@ over.
 The last major missing piece is now done. And I get to talk about *using*
 Kaybee. It's exciting. Let's show some of Kaybee in action.
 
+TODO
+- queries
+- settings
+
+
 .. toctree::
     :maxdepth: 2
 
     installation
+    settings
     resources
     templates
-    settings
     widgets
     genericpage
     references
-    layouts
+    queries

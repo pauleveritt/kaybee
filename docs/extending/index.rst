@@ -24,7 +24,8 @@ This section covers aspects of extending Kaybee.
 
 TODO
 - Document using livereload, PyCharm and avoiding the sphinx run config
-
+- debugdumper
+- Start with templates
 
 .. toctree::
     :maxdepth: 2

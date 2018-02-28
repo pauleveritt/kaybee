@@ -1,6 +1,7 @@
 .. section::
     style: primary
     in_nav: True
+    nav_title: Articles
     weight: 25
     published: 2018-01-01 12:00
     acquireds:
