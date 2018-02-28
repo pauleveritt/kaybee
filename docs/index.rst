@@ -136,3 +136,4 @@ Contents
     extending/index
     development/index
     implementation/index
+    categories/index
