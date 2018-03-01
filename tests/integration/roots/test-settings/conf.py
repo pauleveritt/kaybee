@@ -6,6 +6,7 @@ master_doc = 'index'
 html_title = ''
 exclude_patterns = ['_build']
 
+# Kaybee Settings
 kaybee_settings = kaybee.KaybeeSettings(
     debugdumper=dict(
         use_debug=True

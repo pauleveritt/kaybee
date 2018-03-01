@@ -30,10 +30,10 @@ def dummy_props():
 def dummy_widget_class(dummy_props):
     class DummyWidget:
 
-        def __init__(self, docname, wtype, content):
+        def __init__(self, docname, wtype, yaml_content, rst_content=None):
             self.docname = docname
             self.wtype = wtype
-            self.content = content
+            self.content = yaml_content
             self.props = dummy_props()
             self.name = docname + '-somename'
 

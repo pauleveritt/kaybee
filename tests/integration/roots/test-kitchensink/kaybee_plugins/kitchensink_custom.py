@@ -26,6 +26,7 @@ from kaybee.plugins.widgets.base_widget import (
 )
 
 
+# Start KsResource Model and Class
 class KsResourceModel(BaseModel):
     ksresource_flag: int
 
@@ -38,6 +39,8 @@ class KsResource(BaseResource):
     def increment(self):
         return self.props.ksresource_flag + 1
 
+
+# End KsResource Model and Class
 
 class KsWidgetModel(BaseWidgetModel):
     kswidget_flag: int

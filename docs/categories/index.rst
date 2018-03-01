@@ -15,4 +15,6 @@ Resources in these docs are organized into categories.
 
 .. toctree::
 
+    bulma
+    kaybee_bulma
     pydantic

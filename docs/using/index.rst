@@ -9,23 +9,13 @@
         all:
             style: light
 
-
 ============
 Using Kaybee
 ============
 
-It's January 2018. For a year, I've experimented with this idea. Wrote stuff,
-threw it out, started over. Went down wrong directions, started over. Got
-to the point where it was working ok, then...threw everything out, started
-over.
-
-The last major missing piece is now done. And I get to talk about *using*
-Kaybee. It's exciting. Let's show some of Kaybee in action.
-
-TODO
-- queries
-- settings
-
+The :doc:`../features` document gave a high-level tour of using and
+extending Kaybee. In this section we go into more depth on writing a
+website using the core features of Kaybee.
 
 .. toctree::
     :maxdepth: 2
@@ -35,6 +25,6 @@ TODO
     resources
     templates
     widgets
-    genericpage
     references
-    queries
+    genericpage
+    acquireds

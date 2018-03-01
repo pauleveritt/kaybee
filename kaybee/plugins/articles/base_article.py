@@ -1,12 +1,12 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
+from kaybee.plugins.articles.image_type import ImageModel
 from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import (
     BaseResource,
     BaseResourceModel
 )
-from kaybee.plugins.articles.image_type import ImageModel
 
 
 class BaseArticleModel(BaseResourceModel):

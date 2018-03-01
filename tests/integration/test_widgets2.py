@@ -20,6 +20,8 @@ class TestWidgets2:
         assert '98' == listing_flag
         another_flag = page.find(id='another_flag').contents[0].strip()
         assert '835' == another_flag
+        widget_content = str(page.find(id='widget_content'))
+        assert '<p>Here is some <em>more</em> text.</p>' in widget_content
         widget_greeting = page.find(id='widget_greeting').contents[0].strip()
         assert 'widget greeting' == widget_greeting
         resources = page.find(id='resources').contents[0].strip()

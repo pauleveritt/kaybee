@@ -11,8 +11,8 @@ For now, Kaybee expects you to generate a Sphinx project, then edit the
 Steps
 =====
 
-#. Use :doc:`sphinx-quickstart <sphinx:tutorial>` to generate a documentation
-   project.
+#. Use `sphinx-quickstart <http://www.sphinx-doc.org/en/stable/tutorial.html#install-sphinx>`_
+   to generate a documentation project.
 
 #. Install ``kaybee`` with ``pip install kaybee``
 
@@ -30,6 +30,7 @@ Kaybee is added to your Sphinx project like any other Sphinx extension:
 Here's an example from a simple Kaybee integration test:
 
 .. literalinclude:: ../../tests/integration/roots/test-setup/conf.py
+    :end-before: # The rest is normal Sphinx stuff
 
 As a note, each of the
 `integration test "roots" <https://github.com/pauleveritt/kaybee/tree/master/tests/integration/roots>`_

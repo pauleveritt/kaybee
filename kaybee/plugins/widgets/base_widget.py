@@ -6,6 +6,7 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.util.osutil import relative_uri
 
 from kaybee.utils.models import load_model
+from utils.rst import rst_to_html
 
 
 class BaseWidgetModel(BaseModel):
@@ -20,12 +21,18 @@ class BaseWidget:
     docname: str  # Widget instances get registered from a doc
     wtype: str  # This is the directive name, e.g. listing
     props: BaseWidgetModel
+    rst_content: str  # The body rst converted to HTML
 
-    def __init__(self, docname: str, wtype: str, yaml_content: str):
+    def __init__(self, docname: str, wtype: str,
+                 yaml_content: str,
+                 rst_content: str = None):
         self.docname = docname
         self.wtype = wtype
         model = self.__annotations__['props']
         self.props: BaseWidgetModel = load_model(docname, model, yaml_content)
+
+        if rst_content:
+            self.content = rst_to_html(rst_content)
 
     def __repr__(self):
         return f'{self.docname}-{self.props.name}'

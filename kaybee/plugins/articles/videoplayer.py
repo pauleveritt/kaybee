@@ -17,7 +17,3 @@ class VideoPlayerModel(BaseWidgetModel):
 @kb.widget('videoplayer')
 class VideoPlayer(BaseWidget):
     props: VideoPlayerModel
-    # template = 'videoplayer'
-
-    def make_context(self, context, sphinx_app):
-        pass

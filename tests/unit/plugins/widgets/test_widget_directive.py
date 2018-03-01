@@ -1,3 +1,5 @@
+import pytest
+
 from kaybee.plugins.widgets.directive import WidgetDirective
 from kaybee import app
 
@@ -20,6 +22,18 @@ class TestWidgetDirective:
 
         actual = WidgetDirective.get_widget_class(dwc)
         assert dummy_widget_class == actual
+
+    @pytest.mark.parametrize('content, yc, rc', [
+        (['yaml'], 'yaml', None),
+        (['yaml', '', 'rst'], 'yaml', 'rst'),
+        (['', '', 'yaml', '', '', 'rst', '', ''], 'yaml', '\nrst'),
+        (['yaml', '', '', 'rst1', '', '', 'rst2', '', '', 'rst3'],
+         'yaml', '\nrst1\n\n\nrst2\n\n\nrst3'),
+    ])
+    def test_split_content(self, content, yc, rc):
+        yaml_content, rst_content = WidgetDirective.split_content(content)
+        assert yc == yaml_content
+        assert rc == rst_content
 
     def test_get_widget(self, monkeypatch, dummy_directive,
                         dummy_directive_class,

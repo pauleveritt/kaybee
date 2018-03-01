@@ -9,128 +9,153 @@
 kaybee Static Sites for Knowledge Bases
 =======================================
 
-.. raw:: html
+.. sectionbox::
+    name: sbhero
+    style: splash
 
-    <section class="section">
-        <div class="container">
-          <p class="subtitle">
-            Static websites are a nice way to publish content. Sometimes,
-            though, the content is...well...content. There's data in there,
-            and you'd like a static website oriented around information and
-            structure.</p>
+    Static websites are a nice way to publish content. Sometimes,
+    though, the content is...well...content. There's data in there,
+    and you'd like a static website oriented around information and
+    structure.
 
-            <p class="subtitle">Kaybee is a Knowledge Base (KB, kaybee) in which you can define
-            kinds of content then put the data into your documents. You can
-            then easily embed query-driven listings into your content to
-            organize your knowledge base. Kaybee is based on Sphinx, the
-            well-known Python tool for richly-interlinked content.
-          </p>
-        </div>
-    </section>
-    <section class="section hero is-primary">
-        <div class="container">
-          <h1 class="title">
-            Hello World
-          </h1>
-          <p class="subtitle">
-            My first website with <strong>Bulma</strong>!
-          </p>
-        </div>
-    </section>
-    <section class="section hero is-info">
-        <div class="container">
-          <h1 class="title">
-            Hello World
-          </h1>
-          <p class="subtitle">
-            My first website with <strong>Bulma</strong>!
-          </p>
-        </div>
-    </section>
+    Kaybee is a Knowledge Base (KB, kaybee) in which you define
+    kinds of content, put the data in your docs, then do neat stuff.
+
+.. sectionbox::
+    name: sbfeatures
+    heading: Features
+    style: is-info
+
+    - Built on the powerful, mature `Sphinx <http://x.com/>`_ documentation
+      system
+
+    - Turn pages into *resources* with YAML embedded into the text
+
+    - Validate that YAML with custom *schemas*
+
+    - Associate *templates* with resources or individual pages
+
+    - Inline *widgets* to query the documents and render output
+
+    - Extensible *references* to connect resources
+
+    - Built-in *article* system, ready-to-go, out-of-the-box
+
+    See the `full list of features <features.html>`_ for more.
+
+.. sectionbox::
+    name: sbresources
+    heading: Resources
+    style: is-light
+
+    - Use a special Sphinx directive to put some YAML at the top of your
+      document
+
+    - Kaybee then records this in a Python database in your app
+
+    - Use out-of-the-box directives or write classes to make your own
+      resources using a simple decorator on a Python class
+
+    - Access the resource in your Jinja2 template
+
+    - Your Sphinx folder structure is available as a resource tree
+
+.. sectionbox::
+    name: sbschema
+    heading: Schemas
+    style: is-info
+
+    - Write schemas as PEP-484 Python classes using
+      `pydantic <https://pydantic-docs.helpmanual.io/>`_
+
+    - Associate these schemas with your resource type definitions
+
+    - Access these as resource "properties" in your Jinja2 templates or
+      widget queries
+
+    - Push some properties to parents in the resource tree, to control
+      whole sections of the site
+
+.. sectionbox::
+    name: sbtemplates
+    heading: Templates
+    style: is-white
+
+    - Write Jinja2 templates for your resources, widgets, and more
+
+    - Assign a template to a specific resource via YAML, or a section of
+      your site, or for all resources in a class
+
+    - Associate a template with a specific widget on a certain page
+
+    - Easily customize the data available in a template
+
+.. sectionbox::
+    name: sbwidgets
+    heading: Widgets
+    style: is-info
+
+    - Have a custom, data-driven box in the middle of a document
+
+    - Use existing widgets or easily register your own, with associated
+      YAML schema and template
+
+    - Express a query in YAML which collects resources from the Python
+      collection and renders in a custom template
 
 
+.. sectionbox::
+    name: sbreferences
+    heading: References
+    style: is-light
 
-Not sure what this means? Here's a simple "article" resource, as a Sphinx
-``.rst`` document:
+    - Use an existing reference system or define your own, such as tags or
+      authors
 
-.. code-block:: rst
+    - Associate documents as entries in that reference system with simple
+      YAML at the top
 
-    .. article::
-        style: research_section
-        in_nav: True
-        weight: 30
-        published: 2018-01-01 12:23
-        category:
-            - category1
-            - category2
-        auto_excerpt: 2
+    - Then tag a resource as being in that category using reference-validated
+      YAML
 
-    =========
-    Article 1
-    =========
+    - Easily interate over forward and backwards references in templates
 
-    Some text.
+    - Make inline-linking references in content using the Sphinx syntax
 
-Want to see more: Jump over to :doc:`using/index` for details.
+.. sectionbox::
+    name: sbarticles
+    heading: Articles
+    style: is-info
 
-Features
-========
+    - A ready-to-go publishing system with resources, widgets, references,
+      and more
 
-Kaybee adds a lot to Sphinx:
+    - Articles with publication date filtering
 
-- Turn pages into resources with YAML embedded into the text
+    - Widgets which query the resources in interesting ways
 
-- Resources can be defined with a schema that validates the YAML
+.. sectionbox::
+    name: sbsphinx
+    heading: Sphinx
+    style: is-light
 
-- Custom templates can be associated with resource types, individual pages,
-  or whole parts of the site
+    - Built on the mature static-site-generator used for ReadTheDocs and
+      Python
 
-- The folder structure goes into the resource data model (parents)
+    - Sphinx provides rich facilities for organizing and extending your
+      content
 
-- Properties from the YAML can be pushed up the site to parent directories,
-  making it easy to share data
+    - Kaybee is a layer atop Sphinx that provides a simpler extension model
 
-- Custom widgets can use a query service to select and render resources, in
-  the middle of a page
-
-- A reference system lets you define a vocabulary using resources, then
-  refer to that vocabulary from YAML or inline (with exceptions raised when
-  references don't exist)
-
-- An built-in article system adds a system of articles, sections, home pages,
-  content listings, publishing policies, and more
-
-Kaybee also puts a new, modern, powerful, simple layer atop Sphinx's
-extension model. This makes it easy to extend Kaybee:
-
-- Make new kinds of resources with a simple Python class (which is available
-  in the template)
-
-- Transparently associate a Jinja2 template with a resource type
-
-- Associate PEP-484 "models" with resource types for validation
-
-- Extend the site settings to give users validated knobs for settings
-
-- Define a reference system such as author, category, tag, etc. using simple
-  Python classes
-
-- Handle Sphinx events, register Sphinx directives, and more
-
-Kaybee also has some related projects. Primarily, a layout based on
-`Bulma <https://bulma.io>`_ with some interesting approaches. These docs
-use the `kaybee_bulma theme <https://github.com/pauleveritt/kaybee_bulma>`_.
-
-Additionally, Kaybee has a *lot* of unit tests (usually at or close to
-100% coverage) and integration tests (usually over 90%.)
 
 Contents
 ========
 
 .. toctree::
-    :maxdepth: 2
+    :hidden:
 
     whysphinx
+    features
     using/index
     articles/index
     extending/index

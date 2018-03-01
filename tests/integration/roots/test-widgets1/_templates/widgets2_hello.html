@@ -1,2 +1,7 @@
 <div id="hello2">Widget 2</div>
 <div id="resource_docname3">{{resource.docname}}</div>
+<ul>
+    {% for resource in sphinx_app.env.resources.values() %}
+    <li>{{ resource.title }}</li>
+    {% endfor %}
+</ul>

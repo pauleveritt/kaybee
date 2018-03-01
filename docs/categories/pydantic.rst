@@ -6,4 +6,5 @@
 pydantic
 ========
 
-pydantic is a Python library...
+`pydantic <https://pydantic-docs.helpmanual.io>`_
+is a Python library for validation.

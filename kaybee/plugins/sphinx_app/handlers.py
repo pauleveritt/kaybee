@@ -15,3 +15,4 @@ def sphinx_app_html_context(
         doctree: doctree,
 ):
     context['sphinx_app'] = sphinx_app
+    context['kaybee_settings'] = sphinx_app.config.kaybee_settings

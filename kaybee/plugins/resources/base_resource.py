@@ -30,7 +30,7 @@ def parse_parent(docname):
         # This should be blog/sub/about
         parent = '/'.join(lineage[:-1]) + '/index'
 
-    return parent
+    return parent # This is a path
 
 
 class BaseResourceModel(BaseModel):
