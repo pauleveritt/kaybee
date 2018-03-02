@@ -1,7 +1,8 @@
+-e .
+git+https://github.com/pauleveritt/kaybee_bulma#egg=kaybee_bulma
 sphinx
 pydantic
 docutils
--e .
 gitchangelog
 bumpversion
 pytest
