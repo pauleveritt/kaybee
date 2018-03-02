@@ -1,14 +1,4 @@
-import kaybee.plugins.articles.article
-import kaybee.plugins.articles.featuretiles
-import kaybee.plugins.articles.handlers
-import kaybee.plugins.articles.homepage
-import kaybee.plugins.articles.querylist
-import kaybee.plugins.articles.category
-import kaybee.plugins.articles.section
-import kaybee.plugins.articles.sectionquery
-import kaybee.plugins.articles.sectionbox
-import kaybee.plugins.articles.toctree
-import kaybee.plugins.articles.videoplayer
+import kaybee.plugins.articles
 import kaybee.plugins.debugdumper.handlers
 import kaybee.plugins.genericpage.handlers
 import kaybee.plugins.localtemplates.handlers

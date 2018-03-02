@@ -14,3 +14,4 @@ html5lib
 coverage
 doctr
 kaybee_bulma
+tox

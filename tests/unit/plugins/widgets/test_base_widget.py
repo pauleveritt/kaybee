@@ -2,7 +2,7 @@ import pytest
 from sphinx.application import Sphinx
 
 from kaybee.plugins.widgets.base_widget import BaseWidget
-from plugins.widgets.base_widget import BaseWidgetModel
+from kaybee.plugins.widgets.base_widget import BaseWidgetModel
 
 
 @pytest.fixture()

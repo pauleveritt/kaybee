@@ -15,7 +15,7 @@ from kaybee.plugins.resources.handlers import (
     resource_into_html_context,
     dump_settings,
 )
-from plugins.resources.handlers import process_field_handlers
+from kaybee.plugins.resources.handlers import process_field_handlers
 
 
 @pytest.fixture()
