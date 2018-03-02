@@ -2,6 +2,28 @@ Changelog
 =========
 
 
+0.1.2 (2018-03-02)
+------------------
+- @WIP Let's make a PyPI release. [Paul Everitt]
+- @WIP Trigger something that forces a rebuild. [Paul Everitt]
+- @WIP PyPI has a decent release of kaybee_bulma now, try to use that.
+  [Paul Everitt]
+- @WIP More RTD wire wiggling. [Paul Everitt]
+- @WIP Hmm, couldn't find the requirements.txt. [Paul Everitt]
+- @WIP Maybe RTD now supports Python 3.6? [Paul Everitt]
+- @WIP Improve the notes about release (and trigger Travis docs build.)
+  [Paul Everitt]
+- @WIP Don't speed up travis build with caching (looks like it broke.)
+  [Paul Everitt]
+- @WIP Speed up travis build with caching. [Paul Everitt]
+
+
+0.1.1 (2018-03-02)
+------------------
+- @WIP Release 0.1.1. [Paul Everitt]
+- @WIP Let's make a release. [Paul Everitt]
+
+
 0.1.0 (2018-03-02)
 ------------------
 
