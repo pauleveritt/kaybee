@@ -46,20 +46,31 @@ minus any changes in ``_build``, and re-run Sphinx. You can subclass
 Release
 -------
 
-#. Bump the version using ``bumpversion``:
+Releases are driven by Travis. When a push is done with a tag, the Travis
+build notices the tag and triggers the PyPI update. (Non-tagged pushes don't
+trigger the PyPI part of ``.travis.yml``.)
 
-   - https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/
+#. Commit everything.
 
-   - https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156
+#. Bump the version using
+   `bumpversion commands <https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156>`_:
 
-#. Tag the release.
+   - `bumpversion patch: 0.1.0 -> 0.1.1.dev0`
+
+   - `bumpversion release: 0.1.1.dev0 -> 0.1.1`
+
+   - `bumpversion minor: 0.1.1 -> 0.2.0.dev0`
+
+   - `bumpversion dev: 0.2.0.dev0 -> 0.2.0.dev1`
+
+   - `bumpversion release: 0.2.0.dev1 -> 0.2.0#. Tag the release.`
+
+#. Commit, tag, push.
+
+#. Run bumpversion to go back to dev
 
 #. Run ``gitchangelog > CHANGES.md`` to generate the history that goes into
    the package. Tip: Use the commit message prefixes from their `reference
    <https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference>`_
 
-#. Generate the package using ``python setup.py sdist bdist_wheel``
-
-#. Upload to PyPI using ``twine``
-
-#. Run bumpversion to go back to dev
+#. Commit, push (so people can see the history.)

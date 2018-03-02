@@ -141,18 +141,25 @@ minus any changes in <code class="docutils literal notranslate"><span class="pre
 </div>
 <div class="section" id="release">
 <h2>Release<a class="headerlink" href="#release" title="Permalink to this headline">¶</a></h2>
+<p>Releases are driven by Travis. When a push is done with a tag, the Travis
+build notices the tag and triggers the PyPI update. (Non-tagged pushes don’t
+trigger the PyPI part of <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code>.)</p>
 <ol class="arabic simple">
-<li>Bump the version using <code class="docutils literal notranslate"><span class="pre">bumpversion</span></code>:<ul>
-<li><a class="reference external" href="https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/">https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/</a></li>
-<li><a class="reference external" href="https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156">https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156</a></li>
+<li>Commit everything.</li>
+<li>Bump the version using
+<a class="reference external" href="https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156">bumpversion commands</a>:<ul>
+<li><cite>bumpversion patch: 0.1.0 -&gt; 0.1.1.dev0</cite></li>
+<li><cite>bumpversion release: 0.1.1.dev0 -&gt; 0.1.1</cite></li>
+<li><cite>bumpversion minor: 0.1.1 -&gt; 0.2.0.dev0</cite></li>
+<li><cite>bumpversion dev: 0.2.0.dev0 -&gt; 0.2.0.dev1</cite></li>
+<li><cite>bumpversion release: 0.2.0.dev1 -&gt; 0.2.0#. Tag the release.</cite></li>
 </ul>
 </li>
-<li>Tag the release.</li>
+<li>Commit, tag, push.</li>
+<li>Run bumpversion to go back to dev</li>
 <li>Run <code class="docutils literal notranslate"><span class="pre">gitchangelog</span> <span class="pre">&gt;</span> <span class="pre">CHANGES.md</span></code> to generate the history that goes into
 the package. Tip: Use the commit message prefixes from their <a class="reference external" href="https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference">reference</a></li>
-<li>Generate the package using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></li>
-<li>Upload to PyPI using <code class="docutils literal notranslate"><span class="pre">twine</span></code></li>
-<li>Run bumpversion to go back to dev</li>
+<li>Commit, push (so people can see the history.)</li>
 </ol>
 </div>
 </div>
@@ -252,7 +259,7 @@ the package. Tip: Use the commit message prefixes from their <a class="reference
 <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
         URL_ROOT: '',
-        VERSION: '0.1.1',
+        VERSION: '0.1.2.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
