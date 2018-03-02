@@ -1,46 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>kb, the Default App</title>
+    
+        <link rel="icon"
+              href="../_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="../_static/kaybee_bulma.bundle.js"></script>
+    <script src="../_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kb, the Default App &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Registry" href="registry.html" />
-    <link rel="prev" title="Setup Function" href="setup_function.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<section>
+    <nav id="kbb-navbar" class="navbar is-danger"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="../index.html">
             
-  <div class="section" id="kb-the-default-app">
+            <img src="../_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="../features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="../using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="../articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="../extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item"
+                   href="../development/index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item is-active"
+                   href="index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="../categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon has-text-info">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero is-danger"
+        style="">
+    <div class="hero-head">
+    </div>
+    
+</section>
+
+<section class="section content article"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column sb_body">
+                <div class="title is-1">kb, the Default App</div>
+                <div id="kbb-sphinx-body"><div class="section" id="kb-the-default-app">
 <h1>kb, the Default App<a class="headerlink" href="#kb-the-default-app" title="Permalink to this headline">¶</a></h1>
 <p>Kaybee has a registry. The registry lets you add configuration statements
 that form a plugin system.</p>
@@ -48,33 +116,33 @@ that form a plugin system.</p>
 <div class="section" id="dectate-and-apps">
 <h2>Dectate and “apps”<a class="headerlink" href="#dectate-and-apps" title="Permalink to this headline">¶</a></h2>
 <p>When you use a Kaybee directive such as
-<code class="docutils literal"><span class="pre">&#64;kb.resource('article')</span></code>, you are adding a configuration statement: “I
-am adding a new kind of resource called <code class="docutils literal"><span class="pre">article</span></code> to the registry.”</p>
+<code class="docutils literal notranslate"><span class="pre">&#64;kb.resource('article')</span></code>, you are adding a configuration statement: “I
+am adding a new kind of resource called <code class="docutils literal notranslate"><span class="pre">article</span></code> to the registry.”</p>
 <p>Dectate, the underlying configuration framework used by Kaybee, then springs
-into action. <code class="docutils literal"><span class="pre">resource</span></code> is an “action” in Dectate terms. Something has
+into action. <code class="docutils literal notranslate"><span class="pre">resource</span></code> is an “action” in Dectate terms. Something has
 defined “resource” as a part of the registry that can accept configuration
 statements conforming to some rules it defines.</p>
-<p>But what is <code class="docutils literal"><span class="pre">kb</span></code>? The various actions are grouped together into what Dectate
+<p>But what is <code class="docutils literal notranslate"><span class="pre">kb</span></code>? The various actions are grouped together into what Dectate
 calls an “app class”, or app. The app is the registry. Each action is a
 class attribute. Every time you use the decorator, you add stuff to the
 configuration via the action.</p>
-<p>This app class – such as <code class="docutils literal"><span class="pre">kb</span></code> – isn’t something you make an instance of.
+<p>This app class – such as <code class="docutils literal notranslate"><span class="pre">kb</span></code> – isn’t something you make an instance of.
 Behind the scenes, weird stuff is happening with state being stored on the
 class itself. This lets you simply import the app and do things, rather than
 pass around a variable.</p>
 </div>
 <div class="section" id="the-kb-app">
-<h2>The <code class="docutils literal"><span class="pre">kb</span></code> App<a class="headerlink" href="#the-kb-app" title="Permalink to this headline">¶</a></h2>
-<p>By default, Kaybee has one of these app classes called <code class="docutils literal"><span class="pre">kb</span></code>. You can import
+<h2>The <code class="docutils literal notranslate"><span class="pre">kb</span></code> App<a class="headerlink" href="#the-kb-app" title="Permalink to this headline">¶</a></h2>
+<p>By default, Kaybee has one of these app classes called <code class="docutils literal notranslate"><span class="pre">kb</span></code>. You can import
 it in your documentation project and get going. It has some actions configured
-alread: <code class="docutils literal"><span class="pre">kb.event</span></code>, <code class="docutils literal"><span class="pre">kb.resource</span></code>, <code class="docutils literal"><span class="pre">kb.widget</span></code>, etc.</p>
+alread: <code class="docutils literal notranslate"><span class="pre">kb.event</span></code>, <code class="docutils literal notranslate"><span class="pre">kb.resource</span></code>, <code class="docutils literal notranslate"><span class="pre">kb.widget</span></code>, etc.</p>
 <p>That’s not your only choice, though.</p>
 </div>
 <div class="section" id="adding-new-actions">
 <h2>Adding New Actions<a class="headerlink" href="#adding-new-actions" title="Permalink to this headline">¶</a></h2>
 <p>Kaybee is plugin-oriented. You might find some other plugin that does
 something interesting. It needs to be added to your app class. Simply
-subclass <code class="docutils literal"><span class="pre">kb</span></code> and add the actions you’re interested in.</p>
+subclass <code class="docutils literal notranslate"><span class="pre">kb</span></code> and add the actions you’re interested in.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This section is fishy. Sure would be nice to figure out a way to
@@ -93,76 +161,109 @@ a “site”. At the moment, Kaybee doesn’t plan to go that far.</p>
 </ul>
 </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Kaybee Development</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Implementation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="setup_function.html">Setup Function</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">kb, the Default App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="registry.html">Registry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="templates.html">Templates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="templates.html#html-context">HTML Context</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debugdump.html">Debugdump</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="genericpage.html">Generic Page</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="widgets.html">Widgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="references.html">References</a></li>
-<li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Implementation</a><ul>
-      <li>Previous: <a href="setup_function.html" title="previous chapter">Setup Function</a></li>
-      <li>Next: <a href="registry.html" title="next chapter">Registry</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
 </div>
+
+                
+                
+            </div>
+
+            <div class="column is-3">
+                <aside id="sidebarCollapseTarget" class="menu kbb-sidenav">
+
+    <div id="kb-sidenav-published-heading">
+        
+            <p class="menu-label">
+                Published
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#">
+                        Published on
+                        2018-01-02
+                        at
+                        12:01.
+                    </a>
+                </li>
+            </ul>
+        
+    </div>
+
+    
+    
+    <p class="menu-label">
+        Breadcrumbs
+    </p>
+    <ul class="menu-list">
+            <li>
+                <a href="index.html">
+                    
+                        <span class="kb-breadcrumb-separator">></span>
+                    
+                    Implementation
+                </a>
+            </li>
+
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Previous
+    </p>
+    <ul class="menu-list">
+        <a href="setup_function.html"
+           title="previous chapter">Setup Function</a>
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Next
+    </p>
+    <ul class="menu-list">
+        <a href="registry.html"
+           title="next chapter">Registry</a>
+    </ul>
+    
+
+    
+    
+
+    
+</aside>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/implementation/app.rst.txt"
-          rel="nofollow">Page source</a>
     </div>
 
-    
+</section>
 
-    
-  </body>
+<footer class="footer is-danger">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
 </html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Features</title>
+    
+        <link rel="icon"
+              href="_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="_static/kaybee_bulma.bundle.js"></script>
+    <script src="_static/app.bundle.js"></script>
+</head>
+<body>
+
+<section>
+    <nav id="kbb-navbar" class="navbar"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="index.html">
+            
+            <img src="_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item is-active"
+                   href="features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item"
+                   href="development/index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon has-text-info">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero "
+        style="">
+    <div class="hero-head">
+    </div>
+    
+</section>
+
+<section class="section content article"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column sb_body">
+                <div class="title is-1">Features</div>
+                <div id="kbb-sphinx-body"><div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<p>Kaybee is a <em>static site generator</em> for knowledge bases. Like other static
+site generators, it makes it easy to author content which then
+generate HTML files. No database, no application server, easy-peasy.</p>
+<p>Kaybee is based on <a class="reference external" href="http://www.sphinx-doc.org/en/master/intro.html" title="(in Sphinx v1.8.0+)"><span class="xref std std-doc">Sphinx</span></a>, the system behind
+<a class="reference external" href="https://readthedocs.org">ReadTheDocs</a>. Sphinx is a very powerful, mature,
+Python system for richly interlinked documentation and content.</p>
+<p>Kaybee adds a lot to Sphinx. This document covers the main features.</p>
+<div class="section" id="resources">
+<span id="features-resources"></span><h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<p>Sphinx has documents. Meaning. <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files in a folder on disk which
+are included into a <a class="reference external" href="http://www.sphinx-doc.org/en/master/markup/toctree.html#toctree-directive" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">table of contents</span></a> in
+some parent document.</p>
+<p>Kaybee turns these documents into <em>resources</em>. By sprinkling some metadata
+at the top, you create a resource stored in a Python object that can be
+then queried like a database.</p>
+<ul class="simple">
+<li>Custom <code class="docutils literal notranslate"><span class="pre">resource</span></code> Sphinx <a class="reference external" href="http://www.sphinx-doc.org/en/master/rest.html#directives" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">directive</span></a></li>
+<li>The body of the directive is YAML</li>
+<li>The YAML (and other properties) get stored on the Sphinx app object
+under <code class="docutils literal notranslate"><span class="pre">resources</span></code></li>
+<li>The YAML can name a custom Jinja2 template for this document</li>
+<li>Use Kaybee’s <a class="reference internal" href="using/acquireds.html"><span class="doc">acquired properties</span></a> to centralize
+properties in rich ways</li>
+</ul>
+<p>Let’s say I had a Sphinx page such as the root of a docs project:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>What does it take to turn this document into a “resource”? Kaybee ships
+with a Sphinx directive <code class="docutils literal notranslate"><span class="pre">resource</span></code> which you can use:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>I have now turned this document into a “resource” of resource type “resource”.</p>
+<p>Let’s say, for this particular document, I want a different template. Here
+is the YAML:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+    template: mypage
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>Kaybee will now look for a Jinja2 template named <code class="docutils literal notranslate"><span class="pre">mypage.html</span></code> in one of
+Sphinx’s registered directories.</p>
+<p>Let’s give a sneak peek at writing your own “kinds of things”. This Python
+makes a <code class="docutils literal notranslate"><span class="pre">ksresource</span></code> resource:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">KsResourceModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">ksresource_flag</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@kb</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;ksresource&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">KsResource</span><span class="p">(</span><span class="n">BaseResource</span><span class="p">):</span>
+    <span class="n">props</span><span class="p">:</span> <span class="n">KsResourceModel</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">ksresource_flag</span> <span class="o">+</span> <span class="mi">1</span>
+
+
+</pre></div>
+</div>
+<p>Your docs can now have a <code class="docutils literal notranslate"><span class="pre">ksresource</span></code> directive, which has validated YAML
+that can use a <code class="docutils literal notranslate"><span class="pre">ksresource_flag</span></code> integer, with a <code class="docutils literal notranslate"><span class="pre">ksresource.html</span></code>
+template. That template can refer to <code class="docutils literal notranslate"><span class="pre">resource</span></code> as a variable, which is an
+instance of this class, and thus <code class="docutils literal notranslate"><span class="pre">resource.increment</span></code> is available in the
+template (along with a <code class="docutils literal notranslate"><span class="pre">resource.props.ksresource_flag</span></code> property.)</p>
+</div>
+<div class="section" id="schemas">
+<h2>Schemas<a class="headerlink" href="#schemas" title="Permalink to this headline">¶</a></h2>
+<p>Resources are a directive that encodes properties in YAML. That YAML is
+validated against a schema. Kaybee has a rich schema system:</p>
+<ul class="simple">
+<li>Uses <a class="reference internal" href="categories/pydantic.html" title="pydantic"><em>pydantic</em></a> for validation</li>
+<li>Schemas are written as Python PEP-484 type annotated classes</li>
+<li>YAML data is validated against that schema into a Python data structure
+as properties</li>
+<li>Properties are stored on the resource and available for querying by
+widgets or use in templates</li>
+</ul>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">resource</span></code> expects an optional <code class="docutils literal notranslate"><span class="pre">template</span></code> string. Let’s say
+a document has this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+    template: 999
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>When you run Sphinx, Kaybee throws a validation error because template is
+expected to be a string.</p>
+</div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>Sphinx uses Jinja2 as its template engine and provides a layered approach
+to where templates can be found. Kaybee extends this by making it easy
+to associate templates to documents in powerful ways.</p>
+<ul class="simple">
+<li>Uses the popular Jinja2 template engine</li>
+<li>Assign a template for a single resource, a classs or resources, or
+sections of the site (using acquired properties)</li>
+<li>Kaybee includes more variables in the template scope (e.g. the current
+resource or widget)</li>
+<li>Works either with “normal” Sphinx themes or approaches like
+<code class="docutils literal notranslate"><span class="pre">kaybee_bulma</span></code> which uses a new set of Jinja2 templates</li>
+</ul>
+<p>For example, in the code block above:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+    template: mypage
+
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+</pre></div>
+</div>
+<p>An author could then create a Jinja2 file at <code class="docutils literal notranslate"><span class="pre">_templates/mypage.html</span></code>.
+This template could reference variables on the resource such as
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">resource.title</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">resource.excerpt</span> <span class="pre">}}</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">resource.props.template.title</span> <span class="pre">}}</span></code>.</p>
+</div>
+<div class="section" id="widgets">
+<h2>Widgets<a class="headerlink" href="#widgets" title="Permalink to this headline">¶</a></h2>
+<p>Widgets make it easy to create configurable directives that appear in the
+middle of the page and render HTML. The widgets can provide a template,
+a schema, and a class.</p>
+<p>For example, we collect resources with metadata into a Python object at
+<code class="docutils literal notranslate"><span class="pre">sphinx_app.env.resources</span></code>. What can we do with it? We can use the built-in
+<code class="docutils literal notranslate"><span class="pre">widget</span></code> directive:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">resource</span><span class="p">::</span>
+
+<span class="gh">===========</span>
+<span class="gh">Hello World</span>
+<span class="gh">===========</span>
+
+<span class="p">..</span> <span class="ow">widget</span><span class="p">::</span>
+    name: widgets1hello
+    template: widgets1_hello
+
+<span class="p">..</span> <span class="ow">widget</span><span class="p">::</span>
+    name: widgets2hello
+    template: widgets2_hello
+</pre></div>
+</div>
+<p>We can then define a template at <code class="docutils literal notranslate"><span class="pre">_templates/widgets2_hello</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">sphinx_app</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">resource</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Kaybee provides directive support for “querying” the resources from the
+widget’s YAML:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">sectionquery</span><span class="p">::</span>
+    name: sectionquery1
+    template: sectionquery
+    query:
+        parent_name: 2017/index
+</pre></div>
+</div>
+<p>The query can specify different kinds of property filtering, sorting,
+limiting, and more.</p>
+<p>For more power, you can write a custom widget as a Python class with a
+custom YAML schema and associated template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sphinx.application</span> <span class="k">import</span> <span class="n">Sphinx</span>
+
+<span class="kn">from</span> <span class="nn">kaybee.app</span> <span class="k">import</span> <span class="n">kb</span>
+<span class="kn">from</span> <span class="nn">kaybee.plugins.widgets.base_widget</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">BaseWidget</span><span class="p">,</span>
+    <span class="n">BaseWidgetModel</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ListingModel</span><span class="p">(</span><span class="n">BaseWidgetModel</span><span class="p">):</span>
+    <span class="n">listing_flag</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@kb</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="s1">&#39;listing&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ListingWidget</span><span class="p">(</span><span class="n">BaseWidget</span><span class="p">):</span>
+    <span class="n">greeting</span> <span class="o">=</span> <span class="s1">&#39;widget greeting&#39;</span>
+    <span class="n">props</span><span class="p">:</span> <span class="n">ListingModel</span>
+
+    <span class="k">def</span> <span class="nf">make_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">sphinx_app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;another_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">835</span>
+</pre></div>
+</div>
+<p>When this module is imported, your docs can use a <code class="docutils literal notranslate"><span class="pre">listing</span></code> widget which
+adds <code class="docutils literal notranslate"><span class="pre">another_flag</span></code> to the Jinja2 execution context.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Sphinx provides a number of useful, powerful ways to link content. With
+resources, what can Kaybee do?</p>
+<p>First, Kaybee’s <a class="reference internal" href="articles/index.html"><span class="doc">The Article System</span></a> ships with a “category” reference
+system. You can make a resource – a Sphinx document – that also acts as a
+category value, for example for a <code class="docutils literal notranslate"><span class="pre">django</span></code>:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">category</span><span class="p">::</span>
+    label: django
+
+<span class="gh">======</span>
+<span class="gh">Django</span>
+<span class="gh">======</span>
+
+Bunches of stuff about Django...which needs a lot of stuff.
+</pre></div>
+</div>
+<p>Other documents can now reference that category:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">article</span><span class="p">::</span>
+    in_nav: True
+    weight: 20
+    category:
+        <span class="m">-</span> django
+        <span class="m">-</span> postgresql
+
+<span class="gh">===============</span>
+<span class="gh">Intro to Django</span>
+<span class="gh">===============</span>
+
+This article is about Django <span class="ge">*and*</span> PostgreSQL.
+
+Let&#39;s make a named and unnamed inline reference, first to
+<span class="na">:ref:</span><span class="nv">`category-django`</span> and
+<span class="na">:ref:</span><span class="nv">`Django 2.0 &lt;category-django&gt;`</span>.
+</pre></div>
+</div>
+<p>As this document shows, you can also make an inline reference using Sphinx’s
+<code class="docutils literal notranslate"><span class="pre">ref</span></code> directive.</p>
+<p>If these <code class="docutils literal notranslate"><span class="pre">category</span></code> references point to an invalid value, Kaybee raises
+an exception during execution.  Also, Kaybee keeps track of references,
+allowing templates to list the references a document makes but also which
+documents point to a reference.</p>
+<p>The best part: defining your own vocabulary. Don’t want <code class="docutils literal notranslate"><span class="pre">category</span></code>? Make a
+new scheme, such as <code class="docutils literal notranslate"><span class="pre">author</span></code>.</p>
+</div>
+<div class="section" id="articles">
+<h2>Articles<a class="headerlink" href="#articles" title="Permalink to this headline">¶</a></h2>
+<p>The Kaybee core includes resources, widgets, references, Sphinx event
+handlers, and more. It is useful for making a custom site or for writing a
+basic site.</p>
+<p>For most needs, you’ll want a ready-to-go system that has made some decisions
+for you. Kaybee’s article plugins provide that:</p>
+<ul class="simple">
+<li>An <code class="docutils literal notranslate"><span class="pre">article</span></code> resource with richer metadata (appear in nav, published,
+etc.)</li>
+<li>A way to divide sites into “sections”</li>
+<li>A custom <code class="docutils literal notranslate"><span class="pre">homepage</span></code> resource</li>
+<li>Widgets that do certain kinds of listings, including overriding Sphinx’s
+<code class="docutils literal notranslate"><span class="pre">toctree</span></code></li>
+<li>A <code class="docutils literal notranslate"><span class="pre">category</span></code> reference system</li>
+</ul>
+<p>The article system also has a modern <a class="reference internal" href="categories/kaybee_bulma.html" title="kaybee_bulma"><em>kaybee_bulma</em></a> theme,
+based on the <a class="reference internal" href="categories/bulma.html" title="Bulma"><em>Bulma</em></a> CSS framework, designed for use with it.
+These docs use that theme.</p>
+</div>
+<div class="section" id="extensibility">
+<h2>Extensibility<a class="headerlink" href="#extensibility" title="Permalink to this headline">¶</a></h2>
+<p>Kaybee also puts a new, modern, powerful, simple layer atop Sphinx’s
+extension model. This makes it easy to extend Kaybee:</p>
+<ul class="simple">
+<li>Make new kinds of resources with a simple Python class (which is available
+in the template)</li>
+<li>Transparently associate a Jinja2 template with a resource type</li>
+<li>Associate PEP-484 “models” with resource types for validation</li>
+<li>Extend the site settings to give users validated knobs for settings</li>
+<li>Define a reference system such as author, category, tag, etc. using simple
+Python classes</li>
+<li>Handle Sphinx events, register Sphinx directives, and more</li>
+</ul>
+<p>Kaybee also has some related projects. Primarily, a layout based on
+<a class="reference internal" href="categories/bulma.html" title="Bulma"><em>Bulma</em></a> with some interesting approaches. These docs
+use the <a class="reference internal" href="categories/kaybee_bulma.html" title="kaybee_bulma"><em>kaybee_bulma</em></a>.</p>
+<p>Additionally, Kaybee has a <em>lot</em> of unit tests (usually at or close to
+100% coverage) and integration tests (usually over 90%.)</p>
+</div>
+</div>
+</div>
+
+                
+                
+            </div>
+
+            <div class="column is-3">
+                <aside id="sidebarCollapseTarget" class="menu kbb-sidenav">
+
+    <div id="kb-sidenav-published-heading">
+        
+            <p class="menu-label">
+                Published
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#">
+                        Published on
+                        2018-01-02
+                        at
+                        12:01.
+                    </a>
+                </li>
+            </ul>
+        
+    </div>
+
+    
+    
+    <p class="menu-label">
+        Breadcrumbs
+    </p>
+    <ul class="menu-list">
+
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Previous
+    </p>
+    <ul class="menu-list">
+        <a href="whysphinx.html"
+           title="previous chapter">Why Sphinx</a>
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Next
+    </p>
+    <ul class="menu-list">
+        <a href="using/index.html"
+           title="next chapter">Using Kaybee</a>
+    </ul>
+    
+
+    
+    
+
+    
+</aside>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
+</html>

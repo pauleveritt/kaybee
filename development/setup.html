@@ -1,46 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Development Setup</title>
+    
+        <link rel="icon"
+              href="../_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="../_static/kaybee_bulma.bundle.js"></script>
+    <script src="../_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Development Setup &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Debugging" href="debugging.html" />
-    <link rel="prev" title="Kaybee Development" href="index.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<section>
+    <nav id="kbb-navbar" class="navbar is-info"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="../index.html">
             
-  <div class="section" id="development-setup">
+            <img src="../_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="../features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="../using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="../articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="../extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item is-active"
+                   href="index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="../implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="../categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon danger">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero is-info"
+        style="">
+    <div class="hero-head">
+    </div>
+    
+</section>
+
+<section class="section content article"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column sb_body">
+                <div class="title is-1">Development Setup</div>
+                <div id="kbb-sphinx-body"><div class="section" id="development-setup">
 <h1>Development Setup<a class="headerlink" href="#development-setup" title="Permalink to this headline">¶</a></h1>
 <p>Want to hack on Kaybee? This page gives instructions for getting an
 environment setup, as well as making releases.</p>
@@ -50,9 +118,9 @@ environment setup, as well as making releases.</p>
 <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html#tut-venv" title="(in Python v3.6)"><span class="xref std std-ref">virtual environment</span></a>
 with an “editable” project.</p>
 <ol class="arabic simple">
-<li>Make a virtualenv e.g. <code class="docutils literal"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env36</span></code></li>
-<li>Update pip stuff with <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">pip</span> <span class="pre">setuptools</span> <span class="pre">wheel</span></code></li>
-<li><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> to get dev requirements plus the
+<li>Make a virtualenv e.g. <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env36</span></code></li>
+<li>Update pip stuff with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">pip</span> <span class="pre">setuptools</span> <span class="pre">wheel</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> to get dev requirements plus the
 editable package.</li>
 </ol>
 </div>
@@ -64,92 +132,133 @@ from <a class="reference external" href="https://pypi.python.org/pypi/livereload
 easier. It watches for changes, runs some commands, and tells the browser
 to reload.</p>
 <p>You can run this with defaults with the following:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m kaybee.utils.livereload
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m kaybee.utils.livereload
 </pre></div>
 </div>
-<p>This will watch for any changes in the <code class="docutils literal"><span class="pre">kaybee</span></code> or <code class="docutils literal"><span class="pre">docs</span></code> directory,
-minus any changes in <code class="docutils literal"><span class="pre">_build</span></code>, and re-run Sphinx. You can subclass
-<code class="docutils literal"><span class="pre">Livereload</span></code> to change some options.</p>
+<p>This will watch for any changes in the <code class="docutils literal notranslate"><span class="pre">kaybee</span></code> or <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory,
+minus any changes in <code class="docutils literal notranslate"><span class="pre">_build</span></code>, and re-run Sphinx. You can subclass
+<code class="docutils literal notranslate"><span class="pre">Livereload</span></code> to change some options.</p>
 </div>
 <div class="section" id="release">
 <h2>Release<a class="headerlink" href="#release" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Bump the version using <code class="docutils literal"><span class="pre">bumpversion</span></code>:<ul>
+<li>Bump the version using <code class="docutils literal notranslate"><span class="pre">bumpversion</span></code>:<ul>
 <li><a class="reference external" href="https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/">https://legacy-developer.atlassian.com/blog/2016/02/bumpversion-is-automation-for-semantic-versioning/</a></li>
 <li><a class="reference external" href="https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156">https://github.com/peritus/bumpversion/issues/77#issuecomment-130696156</a></li>
 </ul>
 </li>
 <li>Tag the release.</li>
-<li>Run <code class="docutils literal"><span class="pre">gitchangelog</span></code> to generate the history that goes into the package.</li>
-<li>Generate the package using <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></li>
-<li>Upload to PyPI using <code class="docutils literal"><span class="pre">twine</span></code></li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">gitchangelog</span> <span class="pre">&gt;</span> <span class="pre">CHANGES.md</span></code> to generate the history that goes into
+the package. Tip: Use the commit message prefixes from their <a class="reference external" href="https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference">reference</a></li>
+<li>Generate the package using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></li>
+<li>Upload to PyPI using <code class="docutils literal notranslate"><span class="pre">twine</span></code></li>
+<li>Run bumpversion to go back to dev</li>
 </ol>
 </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kaybee Development</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Development Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Kaybee Development</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Kaybee Development</a></li>
-      <li>Next: <a href="debugging.html" title="next chapter">Debugging</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
 </div>
+
+                
+                
+            </div>
+
+            <div class="column is-3">
+                <aside id="sidebarCollapseTarget" class="menu kbb-sidenav">
+
+    <div id="kb-sidenav-published-heading">
+        
+            <p class="menu-label">
+                Published
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#">
+                        Published on
+                        2018-01-02
+                        at
+                        12:01.
+                    </a>
+                </li>
+            </ul>
+        
+    </div>
+
+    
+    
+    <p class="menu-label">
+        Breadcrumbs
+    </p>
+    <ul class="menu-list">
+            <li>
+                <a href="index.html">
+                    
+                        <span class="kb-breadcrumb-separator">></span>
+                    
+                    Kaybee Development
+                </a>
+            </li>
+
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Previous
+    </p>
+    <ul class="menu-list">
+        <a href="index.html"
+           title="previous chapter">Kaybee Development</a>
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Next
+    </p>
+    <ul class="menu-list">
+        <a href="debugging.html"
+           title="next chapter">Debugging</a>
+    </ul>
+    
+
+    
+    
+
+    
+</aside>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/development/setup.rst.txt"
-          rel="nofollow">Page source</a>
     </div>
 
-    
+</section>
 
-    
-  </body>
+<footer class="footer is-info">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
 </html>

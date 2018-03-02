@@ -1,3 +1,13 @@
+.. section::
+    style: danger
+    in_nav: True
+    weight: 50
+    published: 2018-01-01 12:23
+    acquireds:
+        all:
+            style: danger
+
+
 ==============
 Implementation
 ==============
@@ -20,4 +30,3 @@ the development of major features.
     queries
     widgets
     references
-    layouts

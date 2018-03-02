@@ -1,3 +1,8 @@
+.. article::
+    published: 2018-01-02 12:01
+    category:
+        - pydantic
+
 =========
 Resources
 =========
@@ -11,71 +16,8 @@ You can use the built-in resource, make your own kinds of resources, or use
 Kaybee plugins such as ``articles`` that provide ready-to-go systems of
 resource types and related parts such as widgets.
 
-Quick Tutorial
-==============
-
-Let's say I had a Sphinx page such as the root of a docs project:
-
-.. code-block:: rst
-
-    Hello World
-    ===========
-
-What does it take to turn this document into a "resource"? Kaybee ships
-with a Sphinx direct ``resource`` which you can use:
-
-.. code-block:: rst
-
-    .. resource::
-
-    Hello World
-    ===========
-
-I have now turned this document into a "resource" of resource type "resource".
-The page now renders in Sphinx slightly differently: it is using the Jinja2
-template associated with that resource type, instead of Sphinx's
-``page.html``. More on both of these points to follow.
-
-Let's say, for this particular document, I want a different template. Here
-comes the YAML:
-
-.. code-block:: rst
-
-    .. resource::
-        template: mypage
-
-    Hello World
-    ===========
-
-Kaybee will now look for a Jinja2 template named ``mypage.html`` in one of
-Sphinx's registered directories. You now create ``_templates/mypage.html``
-in your Sphinx docs project, beside the ``conf.py``.
-
-The indented content under ``.. resource::`` (the directive "content") is
-actually interpreted as YAML. Which is typed, so an integer is different than
-a string. Kaybee validates the YAML against a schema. Let's see that in action
-by changing the template value to a number:
-
-.. code-block:: rst
-
-    .. resource::
-        template: 999
-
-    Hello World
-    ===========
-
-When you run Sphinx, Kaybee throws a validation error because template is
-expected to be a string.
-
-Kaybee's ``resource`` resource type is very basic. Its purpose is to provide
-a minimal building block for richer resource types, such as
-``kaybee.plugins.articles`` or ones that you make. That's the topic of the
-:doc:`../extending/index` section, but as a sneak peek, here's where Kaybee
-declares the ``resource`` directive and resource type:
-
-.. literalinclude:: ../../kaybee/plugins/resources/resource.py
-
-Let's talk a little more about what is happening when you use this resource.
+We saw in the :ref:`resources tutorial <features-resources>` the
+basics of using resources. Let's cover them a bit more in depth.
 
 Base Resource
 =============
@@ -115,8 +57,7 @@ minimal way to get started.
 
 Sphinx directives have some information that goes inside of them. Kaybee
 directives treat that information as YAML which gets validated against a
-schema using a package called
-`pydantic <https://pydantic-docs.helpmanual.io>`_. The result of this
+schema using a package called. The result of this
 validation is stored on the resource instance's ``props`` attribute.
 
 The ``resource`` directive only has 2 things that can go in its YAML:

@@ -1,3 +1,6 @@
+.. article::
+    published: 2018-01-02 12:01
+
 ========
 Settings
 ========
@@ -12,9 +15,11 @@ model that includes your plugins -- and give it some values.
 
 Kaybee has a registered Sphinx configuration value of ``kaybee_settings``
 that you use in the conf file. The object you provide here is available on
-Sphinx's ``app`` object at ``sphinx.config``. Kaybee adds the Sphinx
-``app`` object to the template environment, letting you insert a value in
-your templates.
+Sphinx's
+:doc:`app object <sphinx:extdev/appapi>`
+at ``sphinx.config``. Also, Kaybee adds the ``kaybee_settings`` object to
+the template environment, letting you insert a configuration value in your
+templates.
 
 Using Settings
 ==============
@@ -23,8 +28,15 @@ Using Settings
 
 #. Assign an instance of this to the ``kaybee_settings`` config value.
 
-#. Use the config value in an event handler. For example:
-
-Here is an example of a ``conf.py`` file with basic settings.
+#. Use the config value in an event handler. Here is an example of a
+   ``conf.py`` file with basic settings.
 
    .. literalinclude:: ../../tests/integration/roots/test-settings/conf.py
+      :start-after: # Kaybee Settings
+
+#. You can then use your settings in code or a template. For example, this
+   Jinja2 line injects a setting into a template:
+
+   .. literalinclude:: ../../tests/integration/roots/test-settings/_templates/settings_index.html
+      :language: jinja
+

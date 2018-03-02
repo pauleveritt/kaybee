@@ -1,46 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Why Sphinx</title>
+    
+        <link rel="icon"
+              href="_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="_static/kaybee_bulma.bundle.js"></script>
+    <script src="_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Why Sphinx &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Using Kaybee" href="using/index.html" />
-    <link rel="prev" title="kaybee Static Sites for Knowledge Bases" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<section>
+    <nav id="kbb-navbar" class="navbar"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="index.html">
             
-  <div class="section" id="why-sphinx">
+            <img src="_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item"
+                   href="development/index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon has-text-info">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero "
+        style="">
+    <div class="hero-head">
+    </div>
+    
+</section>
+
+<section class="section content article"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column sb_body">
+                <div class="title is-1">Why Sphinx</div>
+                <div id="kbb-sphinx-body"><div class="section" id="why-sphinx">
 <h1>Why Sphinx<a class="headerlink" href="#why-sphinx" title="Permalink to this headline">¶</a></h1>
 <p>If you’re not in the world of Python, or if you don’t use the wonderful
 <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">ReadTheDocs</a> site, then you might not
@@ -52,10 +120,10 @@ things.</p>
 <h2>Uh, Not Markdown?<a class="headerlink" href="#uh-not-markdown" title="Permalink to this headline">¶</a></h2>
 <p>This is a deal-breaker for some. People hate learning another thing, and they
 learned Markdown, and so they want Jekyll or Hugo or another system that
-lets them write in <code class="docutils literal"><span class="pre">.md</span></code> files.</p>
+lets them write in <code class="docutils literal notranslate"><span class="pre">.md</span></code> files.</p>
 <p>Sphinx uses a <em>very</em> similar system for encoding structure into plaintext
 called <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>. It’s
-been around a long time. In fact, despite it being <code class="docutils literal"><span class="pre">re</span></code> of the original
+been around a long time. In fact, despite it being <code class="docutils literal notranslate"><span class="pre">re</span></code> of the original
 “structured text”, RST is older than Markdown by a good margin.</p>
 <p>More importantly for Kaybee, RST is extensible. You can register new
 directives, for example, which is critical for what Kaybee wants to do.</p>
@@ -106,65 +174,99 @@ in the pipeline and retain some of the Sphinx environment state and pickle
 information.</p>
 </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Why Sphinx</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#uh-not-markdown">Uh, Not Markdown?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#structural">Structural</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#extensibility">Extensibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#not-sphinx">Not Sphinx</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="development/index.html">Kaybee Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation/index.html">Implementation</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">kaybee Static Sites for Knowledge Bases</a></li>
-      <li>Next: <a href="using/index.html" title="next chapter">Using Kaybee</a></li>
-  </ul></li>
-</ul>
 </div>
+
+                
+                
+            </div>
+
+            <div class="column is-3">
+                <aside id="sidebarCollapseTarget" class="menu kbb-sidenav">
+
+    <div id="kb-sidenav-published-heading">
+        
+            <p class="menu-label">
+                Draft
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#">
+                        This article does not have a
+                        current published date.
+                    </a>
+                </li>
+            </ul>
+        
+    </div>
+
+    
+    
+    <p class="menu-label">
+        Breadcrumbs
+    </p>
+    <ul class="menu-list">
+
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Previous
+    </p>
+    <ul class="menu-list">
+        <a href="index.html"
+           title="previous chapter">kaybee Static Sites for Knowledge Bases</a>
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Next
+    </p>
+    <ul class="menu-list">
+        <a href="features.html"
+           title="next chapter">Features</a>
+    </ul>
+    
+
+    
+    
+
+    
+</aside>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/whysphinx.rst.txt"
-          rel="nofollow">Page source</a>
     </div>
 
-    
+</section>
 
-    
-  </body>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
 </html>

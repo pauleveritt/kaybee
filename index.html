@@ -1,224 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>kaybee Static Sites for Knowledge Bases</title>
+    
+        <link rel="icon"
+              href="_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="_static/kaybee_bulma.bundle.js"></script>
+    <script src="_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<section>
+    <nav id="kbb-navbar" class="navbar is-dark"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+            
+            <img src="_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item"
+                   href="development/index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="categories/index.html">
+                    Categories
+                </a>
+            
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kaybee Static Sites for Knowledge Bases &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.7',
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon has-text-info">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero is-dark"
+        style="
+    
+        background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0,
+        0.4)),
+        url('/_static/library.jpg');
+    
+">
+    <div class="hero-head">
+    </div>
+    
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <p class="title">
+                        Kaybee
+                    </p>
+                    <p class="subtitle">
+                        Extensible Knowledge Base for Static Sites
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section content homepage"
+         id="kbb-sphinx-body">
+    
+    <div class="section" id="kaybee-static-sites-for-knowledge-bases">
+<h1>kaybee Static Sites for Knowledge Bases<a class="headerlink" href="#kaybee-static-sites-for-knowledge-bases" title="Permalink to this headline">¶</a></h1>
+<section class="section hero splash">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-11 is-offset-1">
+
+                
+                
+                
+
+                
+
+                
+
+                
+                    <div class="kbb-sectionbox-content"><div class="document">
+<p>Static websites are a nice way to publish content. Sometimes,
+though, the content is...well...content. There's data in there,
+and you'd like a static website oriented around information and
+structure.</p>
+<p>Kaybee is a Knowledge Base (KB, kaybee) in which you define
+kinds of content, put the data in your docs, then do neat stuff.</p>
+</div>
+</div>
+                
+            </div>
+        </div>
+    </div>
+</section><section class="section">
+    <div class="container">
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical">
+                
+                    <div class="tile">
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-primary">
+                                    <p class="title">Key Features</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Built on the powerful, mature Sphinx documentation system</li>
+                                            
+                                                <li>Turn pages into resources with YAML embedded into the text</li>
+                                            
+                                                <li>Validate that YAML with custom schemas</li>
+                                            
+                                                <li>Associate templates with resources or individual pages</li>
+                                            
+                                                <li>Inline widgets to query the documents and render output</li>
+                                            
+                                                <li>Extensible references to connect resources</li>
+                                            
+                                                <li>Built-in article system, ready-to-go, out-of-the-box</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="features.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-info">
+                                    <p class="title">Resources</p>
+                                    
+                                        <p class="subtitle">Embed YAML in pages to make resources.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Use a special Sphinx directive to put some YAML at the top of your document</li>
+                                            
+                                                <li>Kaybee then records this in a Python database in your app</li>
+                                            
+                                                <li>Use out-of-the-box directives or write classes to make your own resources using a simple decorator on a Python class</li>
+                                            
+                                                <li>Access the resource in your Jinja2 template</li>
+                                            
+                                                <li>Your Sphinx folder structure is available as a resource tree</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/resources.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-warning">
+                                    <p class="title">Schemas</p>
+                                    
+                                        <p class="subtitle">Some third feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>YAML is validated against schemas</li>
+                                            
+                                                <li>Write schemas as PEP-484 Python classes using pydantic</li>
+                                            
+                                                <li>Associate these schemas with your resource type definitions</li>
+                                            
+                                                <li>Access these as resource "properties" in your Jinja2 templates or widget queries</li>
+                                            
+                                                <li>Push some properties to parents in the resource tree, to control whole sections of the site</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/schemas.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                    </div>
+                
+                    <div class="tile">
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-primary">
+                                    <p class="title">Templates</p>
+                                    
+                                        <p class="subtitle">Some fourth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Write Jinja2 templates for your resources, widgets, and more</li>
+                                            
+                                                <li>Assign a template to a specific resource via YAML, or a section of your site, or for all resources in a class</li>
+                                            
+                                                <li>Associate a template with a specific widget on a certain page</li>
+                                            
+                                                <li>Easily customize the data available in a template</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/templates.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-info">
+                                    <p class="title">Widgets</p>
+                                    
+                                        <p class="subtitle">Some fifth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Have a custom, data-driven box in the middle of a document</li>
+                                            
+                                                <li>Use existing widgets or easily register your own, with associated YAML schema and template</li>
+                                            
+                                                <li>Express a query in YAML which collects resources from the Python collection and renders in a custom template</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/widgets.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-warning">
+                                    <p class="title">References</p>
+                                    
+                                        <p class="subtitle">Some sixth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Use an existing reference system or define your own, such as tags or authors</li>
+                                            
+                                                <li>Associate documents as entries in that reference system with simple YAML at the top</li>
+                                            
+                                                <li>Then tag a resource as being in that category using reference-validated YAML</li>
+                                            
+                                                <li>Easily interate over forward and backwards references in templates</li>
+                                            
+                                                <li>Make inline-linking references in content using the Sphinx syntax</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/references.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                    </div>
+                
+                    <div class="tile">
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-primary">
+                                    <p class="title">Articles</p>
+                                    
+                                        <p class="subtitle">Some fourth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>A ready-to-go publishing system with resources, widgets, references, and more</li>
+                                            
+                                                <li>Articles with publication date filtering</li>
+                                            
+                                                <li>Widgets which query the resources in interesting ways</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="using/articles.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-info">
+                                    <p class="title">Extensibility</p>
+                                    
+                                        <p class="subtitle">Some fifth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>some points</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                        <div style="position:absolute; bottom:1rem">
+                                            <a href="extending/index.html">More</a>
+                                        </div>
+                                    
+                                </article>
+                            </div>
+                        
+                            <div class="tile is-parent is-vertical">
+                                <article
+                                        class="tile is-child notification is-warning">
+                                    <p class="title">Sphinx</p>
+                                    
+                                        <p class="subtitle">Some sixth feature text.</p>
+                                    
+                                    
+                                        <ul style="padding-bottom: 1rem">
+                                            
+                                                <li>Built on the mature static-site-generator used for ReadTheDocs and Python</li>
+                                            
+                                                <li>Sphinx provides rich facilities for organizing and extending your content</li>
+                                            
+                                                <li>Kaybee is a layer atop Sphinx that provides a simpler extension model</li>
+                                            
+                                        </ul>
+                                    
+                                    
+                                </article>
+                            </div>
+                        
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</section></div>
+<div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+</section>
+
+<footer class="footer is-dark">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
         SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Why Sphinx" href="whysphinx.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    };
+</script>
 
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="kaybee-static-sites-for-knowledge-bases">
-<h1>kaybee Static Sites for Knowledge Bases<a class="headerlink" href="#kaybee-static-sites-for-knowledge-bases" title="Permalink to this headline">¶</a></h1>
-<p>Static websites are a nice way to publish content. Sometimes, though, the
-content is…well…content. There’s data in there, and you’d like a
-static website oriented around information and structure, aka a knowledge
-base.</p>
-<p>Kaybee is a Knowledge Base (KB, kaybee) in which you can define kinds of
-content then put the data into your documents. You can then easily embed
-query-driven listings into your content to organize your knowledge base.</p>
-<p>Kaybee is based on <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>, the
-well-known Python tool for richly-interlinked content.</p>
-<p>Not sure what this means? Here’s a simple “article” resource, as a Sphinx
-<code class="docutils literal"><span class="pre">.rst</span></code> document:</p>
-<div class="highlight-rst"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">article</span><span class="p">::</span>
-    style: research_section
-    in_nav: True
-    weight: 30
-    published: 2018-01-01 12:23
-    category:
-        <span class="m">-</span> category1
-        <span class="m">-</span> category2
-    auto_excerpt: 2
-
-<span class="gh">=========</span>
-<span class="gh">Article 1</span>
-<span class="gh">=========</span>
-
-Some text.
-</pre></div>
-</div>
-<p>Want to see more: Jump over to <a class="reference internal" href="using/index.html"><span class="doc">Using Kaybee</span></a> for details.</p>
-</div>
-<div class="section" id="features">
-<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
-<p>Kaybee adds a lot to Sphinx:</p>
-<ul class="simple">
-<li>Turn pages into resources with YAML embedded into the text</li>
-<li>Resources can be defined with a schema that validates the YAML</li>
-<li>Custom templates can be associated with resource types, individual pages,
-or whole parts of the site</li>
-<li>The folder structure goes into the resource data model (parents)</li>
-<li>Properties from the YAML can be pushed up the site to parent directories,
-making it easy to share data</li>
-<li>Custom widgets can use a query service to select and render resources, in
-the middle of a page</li>
-<li>A reference system lets you define a vocabulary using resources, then
-refer to that vocabulary from YAML or inline (with exceptions raised when
-references don’t exist)</li>
-<li>An built-in article system adds a system of articles, sections, home pages,
-content listings, publishing policies, and more</li>
-</ul>
-<p>Kaybee also puts a new, modern, powerful, simple layer atop Sphinx’s
-extension model. This makes it easy to extend Kaybee:</p>
-<ul class="simple">
-<li>Make new kinds of resources with a simple Python class (which is available
-in the template)</li>
-<li>Transparently associate a Jinja2 template with a resource type</li>
-<li>Associate PEP-484 “models” with resource types for validation</li>
-<li>Extend the site settings to give users validated knobs for settings</li>
-<li>Define a reference system such as author, category, tag, etc. using simple
-Python classes</li>
-<li>Handle Sphinx events, register Sphinx directives, and more</li>
-</ul>
-<p>Kaybee also has some related projects. Primarily, a layout based on
-<a class="reference external" href="https://bulma.io">Bulma</a> with some interesting approaches.</p>
-<p>Additionally, Kaybee has a <em>lot</em> of unit tests (usually at or close to
-100% coverage) and integration tests (usually over 90%.)</p>
-</div>
-<div class="section" id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="whysphinx.html">Why Sphinx</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="whysphinx.html#uh-not-markdown">Uh, Not Markdown?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whysphinx.html#structural">Structural</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whysphinx.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whysphinx.html#extensibility">Extensibility</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whysphinx.html#not-sphinx">Not Sphinx</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="using/index.html">Using Kaybee</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="using/installation.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/templates.html">Templates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/widgets.html">Widgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/genericpage.html">Generic Page</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/references.html">References</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using/layouts.html">Layouts</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="extending/index.html">Extending Kaybee</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="extending/resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extending/articles.html">Articles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extending/loading_directives.html">Loading Directives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extending/events.html">Registering Event Callbacks</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="development/index.html">Kaybee Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="development/setup.html">Development Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/debugging.html">Debugging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/testing.html">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/lineage.html">Lineage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/models.html">Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development/directives.html">Directives</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="implementation/index.html">Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="implementation/setup_function.html">Setup Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/app.html">kb, the Default App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/registry.html">Registry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/events.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/templates.html">Templates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/templates.html#html-context">HTML Context</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/debugdump.html">Debugdump</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/genericpage.html">Generic Page</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/queries.html">Queries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/widgets.html">Widgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/references.html">References</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation/layouts.html">Layouts</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="whysphinx.html">Why Sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="development/index.html">Kaybee Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation/index.html">Implementation</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="whysphinx.html" title="next chapter">Why Sphinx</a></li>
-  </ul></li>
-</ul>
-</div>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>

@@ -1,61 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Debugging</title>
+    
+        <link rel="icon"
+              href="../_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="../_static/kaybee_bulma.bundle.js"></script>
+    <script src="../_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Debugging &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Testing" href="testing.html" />
-    <link rel="prev" title="Development Setup" href="setup.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<section>
+    <nav id="kbb-navbar" class="navbar is-info"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="../index.html">
             
-  <div class="section" id="debugging">
+            <img src="../_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="../features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="../using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="../articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="../extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item is-active"
+                   href="index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="../implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="../categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon danger">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero is-info"
+        style="">
+    <div class="hero-head">
+    </div>
+    
+</section>
+
+<section class="section content article"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column sb_body">
+                <div class="title is-1">Debugging</div>
+                <div id="kbb-sphinx-body"><div class="section" id="debugging">
 <h1>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h1>
 <p>Most of your Kaybee development will involve making mistakes.
 Which means most of your time is spent debugging.</p>
 <div class="section" id="debugdump">
 <span id="debugdump-dev"></span><h2>Debugdump<a class="headerlink" href="#debugdump" title="Permalink to this headline">¶</a></h2>
 <p>It can be hard to find out what’s going on with your Kaybee configuration and
-state. What is the <code class="docutils literal"><span class="pre">published</span></code> value on a certain resource? Unit testing
+state. What is the <code class="docutils literal notranslate"><span class="pre">published</span></code> value on a certain resource? Unit testing
 isn’t always the right fit, running Sphinx and guessing at the output is
 frustrating, and making an integration test helps but you have to look at
 the HTML rendering.</p>
-<p>Or do you? The <code class="docutils literal"><span class="pre">debugdump</span></code> plugin serializes a JSON representation of your
+<p>Or do you? The <code class="docutils literal notranslate"><span class="pre">debugdump</span></code> plugin serializes a JSON representation of your
 entire system, into a single file. When combined with JSON-oriented
 integration tests, this is a key tool during development.</p>
 <p>To use it, write some code like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kb_app.dumper</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@kb_app.dumper</span><span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">handle_event</span><span class="p">(</span><span class="n">kb_app</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">resource</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
@@ -66,7 +134,7 @@ integration tests, this is a key tool during development.</p>
 </pre></div>
 </div>
 <p>The dict you return will be merged with the dicts from all the other
-callbacks and written to <code class="docutils literal"><span class="pre">debug_dump.json</span></code> in the output directory. You
+callbacks and written to <code class="docutils literal notranslate"><span class="pre">debug_dump.json</span></code> in the output directory. You
 can then write integration test fixtures which load this file, letting you
 easily make assertions about the state of the system.</p>
 <p>For more information, read about the
@@ -81,77 +149,116 @@ changing “modes”.</p>
 <p>As a note, when running tests under the debugger, the nice graphical test
 window is under the “Console” tab. You can get to the console prompt, but due
 to a bug, it doesn’t show output. You’re better off using PyCharm’s graphical
-<code class="docutils literal"><span class="pre">Evaluate</span> <span class="pre">Expression</span></code> tool.</p>
+<code class="docutils literal notranslate"><span class="pre">Evaluate</span> <span class="pre">Expression</span></code> tool.</p>
 <p>When you’re at a breakpoint in PyCharm, remember that you can quickly spot
 variable values with the psuedo-comments PyCharm inserts in your code.</p>
 <p>When running your integration tests, remember to use the debugger there as
 well, as it is a very productive mode to figure out what’s going on.</p>
 </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Kaybee Development</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Development Setup</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Debugging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Kaybee Development</a><ul>
-      <li>Previous: <a href="setup.html" title="previous chapter">Development Setup</a></li>
-      <li>Next: <a href="testing.html" title="next chapter">Testing</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
 </div>
+
+                
+                
+            </div>
+
+            <div class="column is-3">
+                <aside id="sidebarCollapseTarget" class="menu kbb-sidenav">
+
+    <div id="kb-sidenav-published-heading">
+        
+            <p class="menu-label">
+                Published
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#">
+                        Published on
+                        2018-01-02
+                        at
+                        12:01.
+                    </a>
+                </li>
+            </ul>
+        
+    </div>
+
+    
+    
+    <p class="menu-label">
+        Breadcrumbs
+    </p>
+    <ul class="menu-list">
+            <li>
+                <a href="index.html">
+                    
+                        <span class="kb-breadcrumb-separator">></span>
+                    
+                    Kaybee Development
+                </a>
+            </li>
+
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Previous
+    </p>
+    <ul class="menu-list">
+        <a href="setup.html"
+           title="previous chapter">Development Setup</a>
+    </ul>
+    
+
+    
+    <p class="menu-label">
+        Next
+    </p>
+    <ul class="menu-list">
+        <a href="testing.html"
+           title="next chapter">Testing</a>
+    </ul>
+    
+
+    
+    
+
+    
+</aside>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/development/debugging.rst.txt"
-          rel="nofollow">Page source</a>
     </div>
 
-    
+</section>
 
-    
-  </body>
+<footer class="footer is-info">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
 </html>

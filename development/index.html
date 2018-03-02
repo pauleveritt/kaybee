@@ -1,138 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Kaybee Development</title>
+    
+        <link rel="icon"
+              href="../_static/kaybee_logo.png"/>
+    
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet">
+    <script src="../_static/kaybee_bulma.bundle.js"></script>
+    <script src="../_static/app.bundle.js"></script>
+</head>
+<body>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Kaybee Development &#8212; Kaybee 0.0.7 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.7',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Development Setup" href="setup.html" />
-    <link rel="prev" title="Registering Event Callbacks" href="../extending/events.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<section>
+    <nav id="kbb-navbar" class="navbar is-info"
+     role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="../index.html">
             
-  <div class="section" id="kaybee-development">
+            <img src="../_static/kaybee_logo.png"
+                 alt="Kaybee Logo Alt">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+            
+                <a class="navbar-item"
+                   href="../features.html">
+                    Features
+                </a>
+            
+                <a class="navbar-item"
+                   href="../using/index.html">
+                    Using
+                </a>
+            
+                <a class="navbar-item"
+                   href="../articles/index.html">
+                    Articles
+                </a>
+            
+                <a class="navbar-item"
+                   href="../extending/index.html">
+                    Extending
+                </a>
+            
+                <a class="navbar-item is-active"
+                   href="index.html">
+                    Developing
+                </a>
+            
+                <a class="navbar-item"
+                   href="../implementation/index.html">
+                    Implementation
+                </a>
+            
+                <a class="navbar-item"
+                   href="../categories/index.html">
+                    Categories
+                </a>
+            
+
+        </div>
+
+        <div class="navbar-end">
+            
+                <a class="navbar-item" id="kbb-config-github"
+                   href="https://github.com/xxx">
+                <span class="icon has-text-black">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+            
+                <a class="navbar-item" id="kbb-config-twitter"
+                   href="https://twitter.com/xxx">
+                <span class="icon danger">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </span>
+                </a>
+            
+        </div>
+    </div>
+</nav>
+</section>
+<section
+        class="hero is-info"
+        style="">
+    <div class="hero-head">
+    </div>
+    
+    <div class="container">
+        <div class="hero-body">
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <p class="title">
+                        Kaybee Development
+                    </p>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section content section"
+         id="kbb-sphinx-body">
+    
+    <div class="container">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-9 kb-body">
+                <div id="kbb-sphinx-body"><div class="section" id="kaybee-development">
 <h1>Kaybee Development<a class="headerlink" href="#kaybee-development" title="Permalink to this headline">¶</a></h1>
 <p>If you’re a developer of Kaybee, or want to use to source, or want to
 setup a Kaybee project in a similar way, these docs will get you started.</p>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Development Setup</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#development">Development</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#live-reload">Live Reload</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html#release">Release</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debugging.html#debugdump">Debugdump</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debugging.html#use-the-debugger">Use the Debugger</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#personal-preferences">Personal Preferences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#unit-testing">Unit Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#integration-testing">Integration Testing</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lineage.html">Lineage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="directives.html">Directives</a></li>
-</ul>
-</div>
-</div>
+<div class="columns kbb-listing">
+    <div class="column">
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h2 class="title">Contents</h2>
+                </div>
+            </div>
 
+            <div class="level-right">
+                <div class="level-item">
+                    <p class="subtitle">
+                        <strong id="kbb-debug-result_count">8</strong>
+                        published
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <table class="table kbb-listing-table">
+            <tbody>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/setup.html">Development Setup</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Want to hack on Kaybee? This page gives instructions for getting an
+environment setup, as well as making releases.
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/debugging.html">Debugging</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Most of your Kaybee development will involve making mistakes.
+Which means most of your time is spent debugging.
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/testing.html">Testing</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Kaybee aims to be developed using TDD. This isn’t always easy with Sphinx. As
+such, the test strategies for unit testing and integration testing vary.
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/settings.html">Settings</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Plugin developers need a way to expose settings
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/resources.html">Resources</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                How are resources created
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/lineage.html">Lineage</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Storing parent identifier on each resource
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/models.html">Models</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Resources let authors embed properties onto a resource. The site settings let
+users configure a docs project.
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <div class="kbb-listing-title">
+                            <a class="kbb-debug-result"
+                               href="/development/directives.html">Directives</a>
+                        </div>
+                        
+                            <p class="kbb-listing-excerpt">
+                                Here’s how the resources plugin uses directives:
+                            </p>
+                        
+                    </td>
+                    <td class="kbb-listing-timeago">
+                        
+                            2018-01-02
+                        
+                    </td>
+                </tr>
+            
 
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Kaybee</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../whysphinx.html">Why Sphinx</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using/index.html">Using Kaybee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">Extending Kaybee</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Kaybee Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Development Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="settings.html">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lineage.html">Lineage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../implementation/index.html">Implementation</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../extending/events.html" title="previous chapter">Registering Event Callbacks</a></li>
-      <li>Next: <a href="setup.html" title="next chapter">Development Setup</a></li>
-  </ul></li>
-</ul>
-</div>
-        </div>
-      </div>
-      <div class="clearer"></div>
+            </tbody>
+        </table>
     </div>
-    <div class="footer">
-      &copy;.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="../_sources/development/index.rst.txt"
-          rel="nofollow">Page source</a>
+</div></div>
+</div>
+</div>
+            </div>
+            <div class="column"></div>
+        </div>
     </div>
 
-    
+</section>
 
-    
-  </body>
+<footer class="footer is-info">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Powered by Kaybee, which uses
+                <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>,
+                <a href="http://bulma.io">Bulma</a>,
+                <a href="http://dectate.readthedocs.io/en/latest/">Dectate</a>,
+                <a href="https://pydantic-docs.helpmanual.io">pydantic</a>,
+                and more.
+            </p>
+            <p id="kb-config-copyright">
+                &copy; 2018, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT: '',
+        VERSION: '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+</script>
+
+</body>
 </html>
