@@ -1,21 +1,21 @@
 language: python
 python:
-  - "3.6"
+- '3.6'
 sudo: false
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 script:
-  - set -e
-  - pip install doctr
-  - cd docs
-  - sphinx-build -E -b html . _build
-  - cd ..
-  - doctr deploy . --built-docs docs/_build
+- set -e
+- pip install doctr
+- cd docs
+- sphinx-build -E -b html . _build
+- cd ..
+- doctr deploy . --built-docs docs/_build
 deploy:
   provider: pypi
   user: pauleveritt
   password:
-    secure: G1aCzqR5kCtbwRRPBCsZWM6ag56wniOwPi3neKFylSoiiI7KoIdnflIYboJ500c6XTL1voltMOHVW39bN/NQYq7fVUJmOGn8bBZNFg4iyNiYSth6spgYDRCBtyOc0Js9975Vzwa6FCuFtMAU5PvVNsth3Lr3gzOmlPxPYHVxVwmRM0BXBQkk8uNaU1HjmbGRDrG/jc+uVj9hB/0TmhtzMZ5tfwbWnCh/dkktAkNCldzB2o3KxCikewfABKky4n56W6K7qV2oNzJmbvMDXc7VEwAtslQKCU3Lk6kCqH2nItkP71mOl46/CyXNACdIxs0Lq7P38PuMmU3I1qt/gg0TeXgYzFNSLqIstT8wzKKZRMB50G4hTvESOaDFcmU5GRSurM6F0JPEXtfqNpsiLuTi4INHLlf2FX7d8CL4QZJ4IVlFwiOpdTFKKkmqIeNc4gycUwwJMnXHq++cu1UA8/XxuJo2YRmKJCrQY63XbGnrPvNWGihLhg/rA4Yyef8R8q5ddlQzVaMzmI038jR7zlz3N07bE8O+dvsVFT5vq8405+bZJ0Rn2YRV7EPGMfXlx9JHltpZho2znUp49ji/TTDrIbLOzjCvJ6KeQEhPuzKRRfrwSD29ZcsQanx9lCGyMsOy6+03MpUOFCgKzZoGfExIjrs+84o8TI+Z0ab05lqQ6+Q=
+    secure: pLlGmkkKI8Vmanns6ljWvrPjw3R7z7y+dlV4Sstf0lZqL9eOfTUlzA55AvzCamy8EvnoJFZD3BiyvehpvnED6w56rJwXgVU7Qbwv/0URgSSRDmY087pV00r8ZbdtHNBxFcijuW8/xAwwLQMSw9fCYpBrini0k7S7R2UtL9ORTbJEIpGEV2zdvIgzZqN4D+QYTaY5e8J+RIew7xfZpLLYa9pA4BSgmN8Ckq343t3nAtYgxC4AcEqlueRvPUV3bqXjsN0dePpAKIpF4bMJQf6Brw5DUGrq41DUIzk3o8OFDcqj5T4HTfTnzfUb8gCEm+7YzfPTEjaw76krX1XvWlv3fJpjbrB3WPKg3A94jIpOoCTU659WKx4xP13m2yglzjfl3DEfRSnUNUjlRBiYzWh5dDPNu1PAFj/o1A7MqmlVab1hDLK2Ut1oI4GY/90eTC9XtGHxDrzY54eFA0nkXN7aGd6E4Jw7sQkFbCnlViynuqK8FMb0/Q0c900Fkqy6+pk8aw/IpiXirE1c70u2Lu+Whlm6TB2Z3UHuA8xG364A+2zYZvs9gwGlLeJBu6KNvM70A/qC7CXz1kE/qgovrinBT9ccK9SkEnmxS88Pp/mr/bNiQgRNu/4Ti8NHBR9GvlcSr0cSTOyQEBIDJA5bhiXOZSGJsSxVCwgg3z9vdPfgH0s=
   distributions: sdist bdist_wheel
   skip_cleanup: true
   on:
@@ -23,6 +23,4 @@ deploy:
     python: 3.6
 env:
   global:
-    # Doctr deploy key for pauleveritt/kaybee
-    - secure: "f++EMBjXsv2DtJioBhTy88L1B8PwkorKKqem0j4T4Ep1VcfD/HoUs3nixMKhcRW4cBejWiNz+efAgrJDvY26hAkLiZr9PIKu21ol4CqTcSJOEPsotcuVisd7hRqU6nJbZQWRGXhKRSiG7bn1hQVz7TG+520CtPmqxLchJr/26kWCDifTzUNTzbQEq7xmVdGDx7/kEH2pyfsroDoCJa/yYHul5ThbP/0zUKKDz/1oLCo4hEamkqz9214Zdn3M6NFATLzA4v1ArKge5xBExBbRfmXAbvAr0KIVyyHyji0XQ4G0iuoJW5HUMRwkgFb1SamhNsI5SfAoMfuG3aWMns+pGNCu4kb7YC+Fns72AUc+tezNNtlxnYwzury7NT2K/7wPCCn5ZTNcvqRnCrvc00fWNxlUr4QQfr6o2v8aRXWOjU54ZqaqBsSRPB+YRgalUllNbXTS4dW28HgNubbhEgLaB1nlv6uVXZnAB6qz3c9cgsZrh5ALWZJaPytzavvcv9du7A6WlYBGGnKaVGiSer4z1HUtgAjPQt7DDAVFA6AZdWTrjZGzKpXPfWHHDQc56VZxXWuQO5E1eCAQ+VVU4OSeck5JNgNYUpU9CdojqUQzTY2ti3mglS6xgnJhLMmzSFPHKm1pV5vtA/Q/ky17XqgeE5bJCPVotfRsbktn4jFNT40="
-
+  - secure: f++EMBjXsv2DtJioBhTy88L1B8PwkorKKqem0j4T4Ep1VcfD/HoUs3nixMKhcRW4cBejWiNz+efAgrJDvY26hAkLiZr9PIKu21ol4CqTcSJOEPsotcuVisd7hRqU6nJbZQWRGXhKRSiG7bn1hQVz7TG+520CtPmqxLchJr/26kWCDifTzUNTzbQEq7xmVdGDx7/kEH2pyfsroDoCJa/yYHul5ThbP/0zUKKDz/1oLCo4hEamkqz9214Zdn3M6NFATLzA4v1ArKge5xBExBbRfmXAbvAr0KIVyyHyji0XQ4G0iuoJW5HUMRwkgFb1SamhNsI5SfAoMfuG3aWMns+pGNCu4kb7YC+Fns72AUc+tezNNtlxnYwzury7NT2K/7wPCCn5ZTNcvqRnCrvc00fWNxlUr4QQfr6o2v8aRXWOjU54ZqaqBsSRPB+YRgalUllNbXTS4dW28HgNubbhEgLaB1nlv6uVXZnAB6qz3c9cgsZrh5ALWZJaPytzavvcv9du7A6WlYBGGnKaVGiSer4z1HUtgAjPQt7DDAVFA6AZdWTrjZGzKpXPfWHHDQc56VZxXWuQO5E1eCAQ+VVU4OSeck5JNgNYUpU9CdojqUQzTY2ti3mglS6xgnJhLMmzSFPHKm1pV5vtA/Q/ky17XqgeE5bJCPVotfRsbktn4jFNT40=
