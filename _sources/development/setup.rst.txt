@@ -69,7 +69,7 @@ trigger the PyPI part of ``.travis.yml``.)
 
 #. Run bumpversion to go back to dev
 
-#. Run ``gitchangelog > CHANGES.md`` to generate the history that goes into
+#. Run ``gitchangelog > CHANGES.rst`` to generate the history that goes into
    the package. Tip: Use the commit message prefixes from their `reference
    <https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference>`_
 
