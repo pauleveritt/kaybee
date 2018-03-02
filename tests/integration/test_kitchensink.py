@@ -36,6 +36,11 @@ def test_homepage(page):
     assert 'categories/index.html' in anchors[1][0]
     assert 'Category Listing' == anchors[1][1]
 
+    # Featuretiles
+    featuretiles = page.find_all(class_='kbb-featuretiles-tile')
+    assert 6 == len(featuretiles)
+    assert 'First Feature' == featuretiles[0].contents[0].strip()
+
 
 @pytest.mark.parametrize('page', ['2018/intro_django.html', ], indirect=True)
 def test_article(page):

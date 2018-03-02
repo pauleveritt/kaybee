@@ -6,7 +6,7 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.util.osutil import relative_uri
 
 from kaybee.utils.models import load_model
-from utils.rst import rst_to_html
+from kaybee.utils.rst import rst_to_html
 
 
 class BaseWidgetModel(BaseModel):

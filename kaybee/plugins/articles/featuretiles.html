@@ -1,0 +1,13 @@
+<div class="kbb-featuretiles-{{ widget.props.name }}">
+    <ul class="kbb-featuretiles-rows">
+        {% for row in widget.props.rows %}
+            <li>
+                <ul class="kbb-featuretiles-rows">
+                    {% for feature in row %}
+                        <li class="kbb-featuretiles-tile">{{ feature.heading }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

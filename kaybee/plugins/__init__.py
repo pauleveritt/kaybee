@@ -1,4 +1,5 @@
 import kaybee.plugins.articles.article
+import kaybee.plugins.articles.featuretiles
 import kaybee.plugins.articles.handlers
 import kaybee.plugins.articles.homepage
 import kaybee.plugins.articles.querylist
