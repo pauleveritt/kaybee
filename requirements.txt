@@ -1,5 +1,5 @@
 -e .
--e git+git://github.com/pauleveritt/kaybee_bulma.git#kaybee_bulma
+-e git+git://github.com/pauleveritt/kaybee_bulma.git#egg=kaybee_bulma
 sphinx
 pydantic
 docutils
