@@ -1,7 +1,8 @@
 .. article::
-    category:
-        - category1
-        - category3
+    references:
+        category:
+            - category1
+            - category3
 
 =========
 Article 2

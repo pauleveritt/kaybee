@@ -1,19 +1,13 @@
 import dectate
 import pytest
-from pydantic import BaseModel
 
 from kaybee.plugins.references.base_reference import BaseReference
 from kaybee.plugins.references.container import ReferencesContainer
-from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.resources.base_resource import (
     BaseResource,
     BaseResourceModel,
 )
-
-
-class DummyArticleModel(BaseModel):
-    reference: ReferencesType = []
 
 
 class DummyResource(BaseResource):

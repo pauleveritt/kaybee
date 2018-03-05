@@ -17,7 +17,6 @@ from kaybee.plugins.articles.base_article_reference import (
     BaseArticleReferenceModel,
 )
 from kaybee.plugins.genericpage.genericpage import Genericpage
-from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import (
     BaseResource,
     BaseResourceModel
@@ -69,7 +68,6 @@ class KsGenericpage(Genericpage):
 
 class KsArticleModel(BaseArticleModel):
     ksarticle_flag: int
-    ksfeature: ReferencesType = []
 
 
 @kb.resource('ksarticle')

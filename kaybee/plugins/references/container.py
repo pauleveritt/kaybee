@@ -9,8 +9,6 @@ Store/retrieve each as sphinx_app.env.references[rtype][label]
 from collections import UserDict
 from typing import List, Mapping, Any
 
-from kaybee.plugins.references.model_types import ReferencesType
-
 
 class ReferencesContainer(UserDict):
 

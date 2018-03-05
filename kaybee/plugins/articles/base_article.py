@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import List
 
 from kaybee.plugins.articles.image_type import ImageModel
-from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.base_resource import (
     BaseResource,
     BaseResourceModel
@@ -16,8 +15,6 @@ class BaseArticleModel(BaseResourceModel):
     nav_title: str = None
     weight: int = 0
     published: datetime = None
-    category: ReferencesType = []
-    tag: ReferencesType = []
     excerpt: str = None
     auto_excerpt: int = 1
     images: List[ImageModel] = []
