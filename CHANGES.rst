@@ -2,6 +2,21 @@ Changelog
 =========
 
 
+0.1.5 (2018-03-05)
+------------------
+
+Changes
+~~~~~~~
+- References are now under a YAML node of ``references`` meaning you can
+  extend the references scheme without having to write new models and
+  thus make all-new types. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Let's release 0.1.5. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.4 (2018-03-02)
 ------------------
 - @WIP Let's make 0.1.4. [Paul Everitt]
