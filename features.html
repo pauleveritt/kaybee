@@ -161,7 +161,7 @@ is the YAML:</p>
 Sphinx’s registered directories.</p>
 <p>Let’s give a sneak peek at writing your own “kinds of things”. This Python
 makes a <code class="docutils literal notranslate"><span class="pre">ksresource</span></code> resource:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">KsResourceModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">KsResourceModel</span><span class="p">(</span><span class="n">BaseResourceModel</span><span class="p">):</span>
     <span class="n">ksresource_flag</span><span class="p">:</span> <span class="nb">int</span>
 
 
@@ -323,9 +323,10 @@ Bunches of stuff about Django...which needs a lot of stuff.
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">article</span><span class="p">::</span>
     in_nav: True
     weight: 20
-    category:
-        <span class="m">-</span> django
-        <span class="m">-</span> postgresql
+    references:
+        category:
+            <span class="m">-</span> django
+            <span class="m">-</span> postgresql
 
 <span class="gh">===============</span>
 <span class="gh">Intro to Django</span>
@@ -474,7 +475,7 @@ use the <a class="reference internal" href="categories/kaybee_bulma.html" title=
 <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
         URL_ROOT: '',
-        VERSION: '0.1.4',
+        VERSION: '0.1.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
