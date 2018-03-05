@@ -1,5 +1,5 @@
 -e .
--e https://github.com/pauleveritt/kaybee_bulma.git
+-e git+git://github.com/pauleveritt/kaybee_bulma.git#kaybee_bulma
 sphinx
 pydantic
 docutils
