@@ -34,6 +34,8 @@
 ./_sources/implementation/templates.rst.txt
 ./_sources/implementation/widgets.rst.txt
 ./_sources/index.rst.txt
+./_sources/topics/debugging.rst.txt
+./_sources/topics/index.rst.txt
 ./_sources/using/acquireds.rst.txt
 ./_sources/using/genericpage.rst.txt
 ./_sources/using/index.rst.txt
@@ -92,6 +94,8 @@
 ./objects.inv
 ./search.html
 ./searchindex.js
+./topics/debugging.html
+./topics/index.html
 ./using/acquireds.html
 ./using/genericpage.html
 ./using/index.html

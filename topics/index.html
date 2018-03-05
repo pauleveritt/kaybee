@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Extending Kaybee</title>
+    <title>Topics</title>
     
         <link rel="icon"
               href="../_static/kaybee_logo.png"/>
@@ -17,7 +17,7 @@
 <body>
 
 <section>
-    <nav id="kbb-navbar" class="navbar is-link"
+    <nav id="kbb-navbar" class="navbar is-dark"
      role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="../index.html">
@@ -49,8 +49,8 @@
                     Articles
                 </a>
             
-                <a class="navbar-item is-active"
-                   href="index.html">
+                <a class="navbar-item"
+                   href="../extending/index.html">
                     Extending
                 </a>
             
@@ -69,8 +69,8 @@
                     Categories
                 </a>
             
-                <a class="navbar-item"
-                   href="../topics/index.html">
+                <a class="navbar-item is-active"
+                   href="index.html">
                     Topics
                 </a>
             
@@ -89,7 +89,7 @@
             
                 <a class="navbar-item" id="kbb-config-twitter"
                    href="https://twitter.com/xxx">
-                <span class="icon danger">
+                <span class="icon has-text-info">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </span>
                 </a>
@@ -99,7 +99,7 @@
 </nav>
 </section>
 <section
-        class="hero is-link"
+        class="hero is-dark"
         style="">
     <div class="hero-head">
     </div>
@@ -109,7 +109,7 @@
             <div class="columns is-vcentered">
                 <div class="column">
                     <p class="title">
-                        Extending Kaybee
+                        Topics
                     </p>
                     
                 </div>
@@ -128,18 +128,9 @@
         <div class="columns">
             <div class="column"></div>
             <div class="column is-9 kb-body">
-                <div id="kbb-sphinx-body"><div class="section" id="extending-kaybee">
-<h1>Extending Kaybee<a class="headerlink" href="#extending-kaybee" title="Permalink to this headline">¶</a></h1>
-<p>Out-of-the box, Kaybee provides a number of useful features. Also, others can
-provide a “box”: plugins which provide you with new kinds of things to
-use in your documents.</p>
-<p>But perhaps you’d like to extend Kaybee yourself, either inline in a docs
-project or as Python packages that get installed.</p>
-<p>This section covers aspects of extending Kaybee.</p>
-<p>TODO
-- Document using livereload, PyCharm and avoiding the sphinx run config
-- debugdumper
-- Start with templates</p>
+                <div id="kbb-sphinx-body"><div class="section" id="topics">
+<h1>Topics<a class="headerlink" href="#topics" title="Permalink to this headline">¶</a></h1>
+<p>Resources in these docs are organized into topics.</p>
 <div class="toctree-wrapper compound">
 <div class="columns kbb-listing">
     <div class="column">
@@ -153,7 +144,7 @@ project or as Python packages that get installed.</p>
             <div class="level-right">
                 <div class="level-item">
                     <p class="subtitle">
-                        <strong id="kbb-debug-result_count">6</strong>
+                        <strong id="kbb-debug-result_count">1</strong>
                         published
                     </p>
                 </div>
@@ -166,110 +157,11 @@ project or as Python packages that get installed.</p>
                     <td>
                         <div class="kbb-listing-title">
                             <a class="kbb-debug-result"
-                               href="resources.html">Resources</a>
+                               href="debugging.html">Debugging</a>
                         </div>
                         
                             <p class="kbb-listing-excerpt">
-                                The resources plugin serves as the foundation of a knowledge base in
-Kaybee. Let’s investigate how to extend it.
-                            </p>
-                        
-                    </td>
-                    <td class="kbb-listing-timeago">
-                        
-                            2018-01-02
-                        
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <div class="kbb-listing-title">
-                            <a class="kbb-debug-result"
-                               href="articles.html">Articles</a>
-                        </div>
-                        
-                            <p class="kbb-listing-excerpt">
-                                Base article/section/homepage/widget
-                            </p>
-                        
-                    </td>
-                    <td class="kbb-listing-timeago">
-                        
-                            2018-01-02
-                        
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <div class="kbb-listing-title">
-                            <a class="kbb-debug-result"
-                               href="loading_directives.html">Loading Directives</a>
-                        </div>
-                        
-                            <p class="kbb-listing-excerpt">
-                                Kaybee is an extensible system. Your docs project, blog, website, intranet,
-etc. can be written in terms of your kinds of things.
-                            </p>
-                        
-                    </td>
-                    <td class="kbb-listing-timeago">
-                        
-                            2018-01-02
-                        
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <div class="kbb-listing-title">
-                            <a class="kbb-debug-result"
-                               href="events.html">Registering Event Callbacks</a>
-                        </div>
-                        
-                            <p class="kbb-listing-excerpt">
-                                Sphinx has a system for registering functions that can be run at different
-times during the lifecycle of page building. This event system, though, is a
-bit cryptic to use.
-                            </p>
-                        
-                    </td>
-                    <td class="kbb-listing-timeago">
-                        
-                            2018-01-02
-                        
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <div class="kbb-listing-title">
-                            <a class="kbb-debug-result"
-                               href="images.html">Images</a>
-                        </div>
-                        
-                            <p class="kbb-listing-excerpt">
-                                New kind of pydantic field type
-                            </p>
-                        
-                    </td>
-                    <td class="kbb-listing-timeago">
-                        
-                            2018-01-02
-                        
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <div class="kbb-listing-title">
-                            <a class="kbb-debug-result"
-                               href="theming.html">Theming</a>
-                        </div>
-                        
-                            <p class="kbb-listing-excerpt">
-                                This site uses the kaybee_bulma theme
+                                Debugging stuff.
                             </p>
                         
                     </td>
@@ -294,7 +186,7 @@ bit cryptic to use.
 
 </section>
 
-<footer class="footer is-link">
+<footer class="footer is-dark">
     <div class="container">
         <div class="content has-text-centered">
             <p>

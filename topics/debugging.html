@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>kb, the Default App</title>
+    <title>Debugging</title>
     
         <link rel="icon"
               href="../_static/kaybee_logo.png"/>
@@ -17,7 +17,7 @@
 <body>
 
 <section>
-    <nav id="kbb-navbar" class="navbar is-danger"
+    <nav id="kbb-navbar" class="navbar is-dark"
      role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="../index.html">
@@ -59,8 +59,8 @@
                     Developing
                 </a>
             
-                <a class="navbar-item is-active"
-                   href="index.html">
+                <a class="navbar-item"
+                   href="../implementation/index.html">
                     Implementation
                 </a>
             
@@ -69,8 +69,8 @@
                     Categories
                 </a>
             
-                <a class="navbar-item"
-                   href="../topics/index.html">
+                <a class="navbar-item is-active"
+                   href="index.html">
                     Topics
                 </a>
             
@@ -99,76 +99,42 @@
 </nav>
 </section>
 <section
-        class="hero is-danger"
+        class="hero is-dark"
         style="">
     <div class="hero-head">
     </div>
     
 </section>
 
-<section class="section content article"
+<section class="section content topic"
          id="kbb-sphinx-body">
     
     <div class="container">
         <div class="columns">
             <div class="column sb_body">
-                <div class="title is-1">kb, the Default App</div>
-                <div id="kbb-sphinx-body"><div class="section" id="kb-the-default-app">
-<h1>kb, the Default App<a class="headerlink" href="#kb-the-default-app" title="Permalink to this headline">¶</a></h1>
-<p>Kaybee has a registry. The registry lets you add configuration statements
-that form a plugin system.</p>
-<p>What is this “registry”? Let’s take a quick look.</p>
-<div class="section" id="dectate-and-apps">
-<h2>Dectate and “apps”<a class="headerlink" href="#dectate-and-apps" title="Permalink to this headline">¶</a></h2>
-<p>When you use a Kaybee directive such as
-<code class="docutils literal notranslate"><span class="pre">&#64;kb.resource('article')</span></code>, you are adding a configuration statement: “I
-am adding a new kind of resource called <code class="docutils literal notranslate"><span class="pre">article</span></code> to the registry.”</p>
-<p>Dectate, the underlying configuration framework used by Kaybee, then springs
-into action. <code class="docutils literal notranslate"><span class="pre">resource</span></code> is an “action” in Dectate terms. Something has
-defined “resource” as a part of the registry that can accept configuration
-statements conforming to some rules it defines.</p>
-<p>But what is <code class="docutils literal notranslate"><span class="pre">kb</span></code>? The various actions are grouped together into what Dectate
-calls an “app class”, or app. The app is the registry. Each action is a
-class attribute. Every time you use the decorator, you add stuff to the
-configuration via the action.</p>
-<p>This app class – such as <code class="docutils literal notranslate"><span class="pre">kb</span></code> – isn’t something you make an instance of.
-Behind the scenes, weird stuff is happening with state being stored on the
-class itself. This lets you simply import the app and do things, rather than
-pass around a variable.</p>
-</div>
-<div class="section" id="the-kb-app">
-<h2>The <code class="docutils literal notranslate"><span class="pre">kb</span></code> App<a class="headerlink" href="#the-kb-app" title="Permalink to this headline">¶</a></h2>
-<p>By default, Kaybee has one of these app classes called <code class="docutils literal notranslate"><span class="pre">kb</span></code>. You can import
-it in your documentation project and get going. It has some actions configured
-alread: <code class="docutils literal notranslate"><span class="pre">kb.event</span></code>, <code class="docutils literal notranslate"><span class="pre">kb.resource</span></code>, <code class="docutils literal notranslate"><span class="pre">kb.widget</span></code>, etc.</p>
-<p>That’s not your only choice, though.</p>
-</div>
-<div class="section" id="adding-new-actions">
-<h2>Adding New Actions<a class="headerlink" href="#adding-new-actions" title="Permalink to this headline">¶</a></h2>
-<p>Kaybee is plugin-oriented. You might find some other plugin that does
-something interesting. It needs to be added to your app class. Simply
-subclass <code class="docutils literal notranslate"><span class="pre">kb</span></code> and add the actions you’re interested in.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This section is fishy. Sure would be nice to figure out a way to
-just add plugins to the app.</p>
-</div>
-</div>
-<div class="section" id="other-kinds-of-state">
-<h2>Other Kinds of State<a class="headerlink" href="#other-kinds-of-state" title="Permalink to this headline">¶</a></h2>
-<p>As a closing point, we discussed how Dectate stores state on the class,
-which means you don’t have to pass around a registry. Just import it and you
-get all the configuration added by any of the code.</p>
-<p>Sure would be a great place to store document state, instead of passing around
-a “site”. At the moment, Kaybee doesn’t plan to go that far.</p>
-<ul class="simple">
-<li>Using the Sphinx app in the html context</li>
-</ul>
-</div>
+                <h1 class="title is-1">
+                    <span style="text-transform: capitalize">topic</span>:
+                    Debugging</h1>
+                <div id="kbb-sphinx-body"><div class="section" id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h1>
+<p>Debugging stuff.</p>
 </div>
 </div>
 
+                <h2>Resources With This
+                    <span style="text-transform: capitalize">topic</span></h2>
                 
+                    <p>
+                    <div class="kbb-listing-title">
+                        <a href="../development/debugging.html">Debugging</a>
+                    </div>
+                    
+                        <div class="kb-listing-excerpt">
+                            Most of your Kaybee development will involve making mistakes.
+Which means most of your time is spent debugging.
+                        </div>
+                    
+                    </p>
                 
             </div>
 
@@ -202,7 +168,7 @@ a “site”. At the moment, Kaybee doesn’t plan to go that far.</p>
                     
                         <span class="kb-breadcrumb-separator">></span>
                     
-                    Implementation
+                    Topics
                 </a>
             </li>
 
@@ -214,19 +180,11 @@ a “site”. At the moment, Kaybee doesn’t plan to go that far.</p>
         Previous
     </p>
     <ul class="menu-list">
-        <a href="setup_function.html"
-           title="previous chapter">Setup Function</a>
+        <a href="index.html"
+           title="previous chapter">Topics</a>
     </ul>
     
 
-    
-    <p class="menu-label">
-        Next
-    </p>
-    <ul class="menu-list">
-        <a href="registry.html"
-           title="next chapter">Registry</a>
-    </ul>
     
 
     
@@ -240,7 +198,7 @@ a “site”. At the moment, Kaybee doesn’t plan to go that far.</p>
 
 </section>
 
-<footer class="footer is-danger">
+<footer class="footer is-dark">
     <div class="container">
         <div class="content has-text-centered">
             <p>
