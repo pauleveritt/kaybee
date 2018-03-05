@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+0.1.4 (2018-03-02)
+------------------
+- @WIP Let's make 0.1.4. [Paul Everitt]
+- @WIP Sigh, forgot to go back to dev. [Paul Everitt]
+
+
+0.1.3 (2018-03-02)
+------------------
+- @WIP Release 0.1.3. [Paul Everitt]
+- @WIP Fixed the PyPI credentials in .travis.yml. [Paul Everitt]
+- @WIP Back to dev. Add in changelog. [Paul Everitt]
+
+
 0.1.2 (2018-03-02)
 ------------------
 - @WIP Let's make a PyPI release. [Paul Everitt]

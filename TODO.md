@@ -1,12 +1,21 @@
 # Now
 
-- GitHub deployment with doctr
-
 - Update documentation
 
     - Re-organizing "Using" to be plugin-based
 
 # Next
+
+- Re-invent references
+
+    - No longer need to change source schemas whenever you dream up a 
+      new scheme
+      
+    - Create the scheme itself (e.g. ``author``, ``category``) in content 
+      e.g. a folder
+      
+    - Allow a reference hierarchy e.g. ``frontend-jest`` to let categories 
+      be grouped in super-categories
 
 - Search
 
@@ -19,6 +28,9 @@
   duplicating style in a section
   
 - The OOTB references directive requires template: page
+
+- Get rid of widget make_context and just have a standard for getting 
+  results as a property (rather than doing it up front)
 
 # Could Be Better
 
