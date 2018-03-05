@@ -6,24 +6,10 @@
 
 # Next
 
-- Re-invent references
-
-    - No longer need to change source schemas whenever you dream up a 
-      new scheme
-      
-    - Create the scheme itself (e.g. ``author``, ``category``) in content 
-      e.g. a folder
-      
-    - Allow a reference hierarchy e.g. ``frontend-jest`` to let categories 
-      be grouped in super-categories
-
 - Search
 
 - Images
 
-- Make get_targets/sources into jargon that makes sense and is technically 
-  correct
-  
 - Overhaul acquire and template to have shared code which also eliminates 
   duplicating style in a section
   
@@ -33,6 +19,9 @@
   results as a property (rather than doing it up front)
 
 # Could Be Better
+
+- Allow a reference hierarchy e.g. ``frontend-jest`` to let categories 
+  be grouped in super-categories
 
 - Feeds
 

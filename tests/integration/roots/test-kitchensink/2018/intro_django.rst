@@ -1,9 +1,10 @@
 .. article::
     in_nav: True
     weight: 20
-    category:
-        - django
-        - postgresql
+    references:
+        category:
+            - django
+            - postgresql
 
 ===============
 Intro to Django

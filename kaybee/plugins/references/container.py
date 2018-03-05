@@ -55,20 +55,14 @@ class ReferencesContainer(UserDict):
          """
 
         references = dict()
-        reference_fieldnames = [
-            field.name
-            for field in resource.props.fields.values()
-            if field.type_ == ReferencesType
-        ]
-
-        for field_name in reference_fieldnames:
-            references[field_name] = []
+        for reference_label in resource.props.references:
+            references[reference_label] = []
 
             # Iterate over each value on this field, e.g.
             # tags: tag1, tag2, tag3
-            for target_label in getattr(resource.props, field_name):
+            for target_label in resource.props.references.get(reference_label):
                 # Ask the site to get the object
-                target = self.get_reference(field_name, target_label)
-                references[field_name].append(target)
+                target = self.get_reference(reference_label, target_label)
+                references[reference_label].append(target)
 
         return references

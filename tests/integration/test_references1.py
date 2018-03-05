@@ -14,7 +14,7 @@ class TestReferences1:
 
         # Let's look at the two types of generated reference links
         refs = page.find_all("a", class_="internal")
-        assert 3 == len(refs)  # Includes toctree on
+        assert 4 == len(refs)  # Includes toctree on
         derived_title = refs[0].find('em').contents[0].strip()
         assert 'Reference 1' == derived_title
         explicit_title = refs[1].find('em').contents[0].strip()
@@ -24,7 +24,34 @@ class TestReferences1:
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestReferences1Debug:
 
-    def test_settings(self, json_page):
+    def test_references(self, json_page):
+        assert 'references' in json_page
+        references = json_page['references']
+
+        # First: The reference reference
+        reference = references['values']['reference']
+        assert 'reference1' in reference
+        assert 'reference1' == reference['reference1']['docname']
+
+        # Let's see on the other side with the source of the reference
+        reference1 = json_page['resources']['values']['index']
+        assert 'reference1' == reference1['props']['references']['reference'][
+            0]
+
+        # Next: The author reference
+        author_targets = references['values']['author']
+        assert 'author1' in author_targets
+        assert 'author1' == author_targets['author1']['docname']
+
+        # Let's see on the other side with the source of the reference
+        author1 = json_page['resources']['values']['index']
+        assert 'author1' == author1['props']['references']['author'][0]
+
+
+@pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
+class TestReferences1RegistryDebug:
+
+    def test_references(self, json_page):
         assert 'references' in json_page
         references = json_page['references']
         assert 'config' in references
@@ -36,12 +63,4 @@ class TestReferences1Debug:
 
         # one value in references
         values = references['values']
-        assert 3 == len(values)
-        assert 'reference' in values
-        reference = values['reference']
-        assert 'reference1' in reference
-        assert 'reference1' == reference['reference1']['docname']
-
-        # Let's see on the other side with the source of the reference
-        resource = json_page['resources']['values']['index']
-        assert 'reference1' == resource['props']['reference'][0]
+        assert 4 == len(values)

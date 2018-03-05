@@ -1,4 +1,4 @@
-from typing import Mapping
+from typing import Mapping, List
 
 from pydantic import BaseModel
 
@@ -30,7 +30,7 @@ def parse_parent(docname):
         # This should be blog/sub/about
         parent = '/'.join(lineage[:-1]) + '/index'
 
-    return parent # This is a path
+    return parent  # This is a path
 
 
 class BaseResourceModel(BaseModel):
@@ -38,6 +38,7 @@ class BaseResourceModel(BaseModel):
 
     template: str = None
     acquireds: Mapping[str, Mapping[str, str]] = None
+    references: Mapping[str, List[str]] = dict()
 
     class Config:
         ignore_extra = False

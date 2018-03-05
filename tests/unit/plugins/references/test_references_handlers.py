@@ -10,8 +10,6 @@ from kaybee.plugins.references.handlers import (
     validate_references,
     missing_reference,
     dump_settings,
-    reference_fieldnames,
-    get_reference_classes,
 )
 
 
@@ -88,9 +86,11 @@ class TestValidateReferences:
 
     def test_missing_reference_type(self, references_kb_app, html_builder,
                                     references_sphinx_env):
-        # Resource points at a reference type (e.g. 'reference') that
-        # isn't registered
+        # Erase the database of defined references labels, e.g. "reference"
         references_sphinx_env.references = dict()
+
+        # dummy_resource has a "reference" reference, which no longer exists,
+        # so throw execption.
         with pytest.raises(KeyError):
             validate_references(references_kb_app, html_builder,
                                 references_sphinx_env)
@@ -98,7 +98,7 @@ class TestValidateReferences:
     def test_missing_reference_value(self, references_kb_app, html_builder,
                                      references_sphinx_env):
         # Resource points at a reference type (e.g. 'reference') that
-        # *is* registered, but then at a reference lable that isn't
+        # *is* registered, but then at a reference label that isn't
         references_sphinx_env.references['reference'] = dict()
 
         with pytest.raises(KeyError):
@@ -122,13 +122,13 @@ class TestMissingReference:
                       mocker):
         resources = references_sphinx_env.resources
         references = references_sphinx_env.references
-        article1 = resources['article1']
+        resource1 = resources['resource1']
         mocker.patch.object(references, 'get_reference',
-                            return_value=article1)
+                            return_value=resource1)
         mocker.patch.object(references_sphinx_app.builder, 'get_relative_uri',
                             return_value=9)
         node = dict(
-            refdoc=article1,
+            refdoc=resource1,
             reftarget='reference-reference1',
             refexplicit=True
         )
@@ -139,7 +139,7 @@ class TestMissingReference:
             'reference', 'reference1'
         )
         references_sphinx_app.builder.get_relative_uri.assert_called_once_with(
-            node['refdoc'], article1.docname
+            node['refdoc'], resource1.docname
         )
         assert 'first' == newnode[0][0]
 
@@ -178,14 +178,14 @@ class TestMissingReference:
                           mocker):
         resources = references_sphinx_env.resources
         references = references_sphinx_env.references
-        article1 = resources['article1']
-        article1.title = 'not explicit title'
+        resource1 = resources['resource1']
+        resource1.title = 'not explicit title'
         mocker.patch.object(references, 'get_reference',
-                            return_value=article1)
+                            return_value=resource1)
         mocker.patch.object(references_sphinx_app.builder, 'get_relative_uri',
                             return_value=9)
         node = dict(
-            refdoc=article1,
+            refdoc=resource1,
             reftarget='reference-reference1',
             refexplicit=False
         )
@@ -196,7 +196,7 @@ class TestMissingReference:
             'reference', 'reference1'
         )
         references_sphinx_app.builder.get_relative_uri.assert_called_once_with(
-            node['refdoc'], article1.docname
+            node['refdoc'], resource1.docname
         )
         assert 'not explicit title' == newnode[0][0]
 
@@ -231,21 +231,3 @@ class TestReferencesDumpSettings:
         assert 'references' in result
         reference = result['references']['values']['reference']
         assert 'reference1' == reference['reference1']['docname']
-
-
-class TestUtilityFunctions:
-    def test_imports(self):
-        assert 'reference_fieldnames' == reference_fieldnames.__name__
-        assert 'get_reference_classes' == get_reference_classes.__name__
-
-    def test_reference_fieldnames(self, dummy_article):
-        results = reference_fieldnames(dummy_article)
-        assert 'reference' in results
-
-    def test_get_reference_classes(self, dummy_reference, dummy_article):
-        resource_classes = [
-            dummy_reference.__class__,
-            dummy_article.__class__
-        ]
-        results = get_reference_classes(resource_classes)
-        assert dummy_reference.__class__ == results[0]

@@ -6,15 +6,18 @@ from kaybee.plugins.references.base_reference import BaseReference
 from kaybee.plugins.references.container import ReferencesContainer
 from kaybee.plugins.references.model_types import ReferencesType
 from kaybee.plugins.resources.action import ResourceAction
-from kaybee.plugins.resources.base_resource import BaseResource
+from kaybee.plugins.resources.base_resource import (
+    BaseResource,
+    BaseResourceModel,
+)
 
 
 class DummyArticleModel(BaseModel):
     reference: ReferencesType = []
 
 
-class DummyArticle(BaseResource):
-    props: DummyArticleModel
+class DummyResource(BaseResource):
+    props: BaseResourceModel
 
 
 class DummyReference(BaseReference):
@@ -34,12 +37,12 @@ def references_kb_app():
 
 
 @pytest.fixture()
-def dummy_article():
+def dummy_resource():
     yaml_content = '''\
-reference:
-    - reference1
+references:
+    reference: [reference1]
     '''
-    yield DummyArticle('article1', 'article', yaml_content)
+    yield DummyResource('resource1', 'resource', yaml_content)
 
 
 @pytest.fixture()
@@ -60,13 +63,13 @@ def references_sphinx_app(sphinx_app, references_sphinx_env):
 
 
 @pytest.fixture()
-def references_sphinx_env(sphinx_env, dummy_article, dummy_reference):
+def references_sphinx_env(sphinx_env, dummy_resource, dummy_reference):
     sphinx_env.references = DummyReferences()
     sphinx_env.references['reference'] = dict(
         reference1=dummy_reference
     )
     sphinx_env.resources = dict(
-        article1=dummy_article
+        resource1=dummy_resource
     )
     yield sphinx_env
 

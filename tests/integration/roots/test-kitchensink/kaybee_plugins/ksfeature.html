@@ -12,7 +12,7 @@
 
     <h2>Kitchen Sink Resources</h2>
     <ul id="kb-reference-listing">
-        {% for resource in resource.get_targets(resources) %}
+        {% for resource in resource.get_sources(resources) %}
             <li><a
                     class="kb-reference-item"
                     href="{{ pathto(resource.docname, 1) + '.html' }}">{{ resource.title }}</a>

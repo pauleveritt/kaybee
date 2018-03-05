@@ -38,14 +38,18 @@ def article_resources():
     acquireds:
         all:
     """
+    f1_about_yaml = """
+published: 2015-04-25 12:01
+references:
+    category: [c1,]
+    """
     index = BaseHomepage('index', 'homepage', 'logo: somelogo.png')
     index.title = 'Index'
     about = BaseArticle('about', 'article', '')
     about.title = 'About'
     f1 = BaseSection('f1/index', 'section', f1_content)
     f1.title = 'F1'
-    f1_about = BaseArticle('f1/about', 'article',
-                           'published: 2015-04-25 12:01')
+    f1_about = BaseArticle('f1/about', 'article', f1_about_yaml)
     f1_about.title = 'F1 About'
     f2 = BaseSection('f1/f2/index', 'section', '')
     f2.title = 'F2 Index'
@@ -182,4 +186,3 @@ Test
 def past_datetime() -> datetime:
     past = datetime(2012, 4, 25, 13, 26)
     yield past
-

@@ -42,7 +42,7 @@ class TestReferencesContainer:
         assert None is result
 
     def test_resource_references(self, references_sphinx_app,
-                                 dummy_article, dummy_reference):
+                                 dummy_resource, dummy_reference):
         references = references_sphinx_app.env.references
-        results = references.resource_references(dummy_article)
+        results = references.resource_references(dummy_resource)
         assert dummy_reference == results['reference'][0]

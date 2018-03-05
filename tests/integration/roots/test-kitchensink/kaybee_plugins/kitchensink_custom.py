@@ -5,7 +5,6 @@ Make some custom stuff for testing/demo purposes:
 - Custom: article_reference, homepage, section
 
 """
-from pydantic import BaseModel
 from sphinx.application import Sphinx
 
 from kaybee.app import kb
@@ -19,7 +18,10 @@ from kaybee.plugins.articles.base_article_reference import (
 )
 from kaybee.plugins.genericpage.genericpage import Genericpage
 from kaybee.plugins.references.model_types import ReferencesType
-from kaybee.plugins.resources.base_resource import BaseResource
+from kaybee.plugins.resources.base_resource import (
+    BaseResource,
+    BaseResourceModel
+)
 from kaybee.plugins.widgets.base_widget import (
     BaseWidget,
     BaseWidgetModel,
@@ -27,7 +29,7 @@ from kaybee.plugins.widgets.base_widget import (
 
 
 # Start KsResource Model and Class
-class KsResourceModel(BaseModel):
+class KsResourceModel(BaseResourceModel):
     ksresource_flag: int
 
 

@@ -9,24 +9,6 @@ from sphinx.environment import BuildEnvironment
 from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.references.container import ReferencesContainer
-from kaybee.plugins.references.model_types import ReferencesType
-
-
-def reference_fieldnames(resource):
-    """ Look in model and return each fieldname that is a reference """
-
-    return [
-        field.name
-        for field in resource.props.fields.values()
-        if field.type_ == ReferencesType
-    ]
-
-
-def get_reference_classes(resource_classes):
-    """ Given resource classes from config, filter is_reference """
-
-    return [rc for rc in resource_classes
-            if getattr(rc, 'is_reference', False)]
 
 
 @kb.event(SphinxEvent.EBRD, scope='references', system_order=40)
@@ -85,27 +67,28 @@ def validate_references(kb_app: kb,
     references = sphinx_env.references
 
     for resource in resources.values():
-        # This line looks at the props model to see which props are marked
-        # as reference-able
-        for field_name in reference_fieldnames(resource):
-            # And this looks at this resource's props for that field, and
-            # each of the values in the sequence.
-            for target_label in getattr(resource.props, field_name):
-                # Make sure this label exists in site.reference
+        for (reference_label,
+             reference_targets) in resource.props.references.items():
+            # Make sure this label exists in site.reference
+            try:
+                site_reference = references[reference_label]
+            except KeyError:
+                msg = f'''\
+            Document {resource.docname} uses unregistered reference label "{
+            reference_label}"'''
+                raise KeyError(msg)
+
+            # Look through the values on this resource's
+            # references['reference'] and ensure they are registered as a
+            # target.
+            for reference_target in reference_targets:
                 try:
-                    srfn = references[field_name]
-                except KeyError:
-                    msg = f'''\
-                Document {resource.docname} has unregistered reference "{
-                field_name}"'''
-                    raise KeyError(msg)
-                try:
-                    # Make sure references['category'] has 'category1'
-                    assert target_label in srfn
+                    # Make sure references['reference'] has 'reference1'
+                    assert reference_target in site_reference
                 except AssertionError:
                     msg = f'''\
-                Document {resource.docname} has "{field_name}" with orphan {
-                target_label} '''
+            Document {resource.docname} has "{reference_label}" with orphan {
+        reference_target} '''
                     raise KeyError(msg)
 
 

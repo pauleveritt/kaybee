@@ -1,6 +1,7 @@
 .. indexpage::
-    reference:
-        - reference1
+    references:
+        reference: [reference1,]
+        author: [author1,]
 
 ===========
 Hello World
@@ -12,3 +13,4 @@ title using :ref:`Reference 1-ish <reference-reference1>`.
 .. toctree::
 
     reference1
+    author1

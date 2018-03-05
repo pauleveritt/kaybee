@@ -19,7 +19,7 @@ class BaseArticleReference(BaseArticle):
     props: BaseArticleReferenceModel
     is_reference = True
 
-    def get_targets(self, resources):
+    def get_sources(self, resources):
         """ Filter resources based on which have this reference """
 
         rtype = self.rtype  # E.g. category

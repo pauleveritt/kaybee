@@ -7,7 +7,7 @@ from kaybee.plugins.resources.base_resource import (
 def is_reference_target(resource, rtype, label):
     """ Return true if the resource has this rtype with this label """
 
-    prop = getattr(resource.props, rtype, False)
+    prop = resource.props.references.get(rtype, False)
     if prop:
         return label in prop
 
@@ -20,7 +20,7 @@ class BaseReference(BaseResource):
     props: BaseReferenceModel
     is_reference = True
 
-    def get_targets(self, resources):
+    def get_sources(self, resources):
         """ Filter resources based on which have this reference """
 
         rtype = self.rtype  # E.g. category
