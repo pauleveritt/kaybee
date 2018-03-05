@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.1.6 (2018-03-05)
+------------------
+- @WIP Let's release 0.1.6. [Paul Everitt]
+- @WIP Screwed up the package ref. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.5 (2018-03-05)
 ------------------
 
