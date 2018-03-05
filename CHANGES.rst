@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.1.8 (2018-03-05)
+------------------
+- @WIP Let's make a release. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.7 (2018-03-05)
 ------------------
 - @WIP Let's make a release. [Paul Everitt]
