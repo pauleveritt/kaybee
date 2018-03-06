@@ -10,6 +10,32 @@ class TestArticles1:
         h1 = page.find('h1').contents[0].strip()
         assert 'Article 1' == h1
 
+        # Author listing
+        authors = page.find(id='kb-author-listing').find_all('li')
+        assert 2 == len(authors)
+        author1 = authors[0].find('a').contents[0].strip()
+        assert 'Author 1' == author1
+
+        # Categories listing
+        categories = page.find(id='kb-category-listing').find_all('li')
+        assert 2 == len(categories)
+        category1 = categories[0].find('a').contents[0].strip()
+        assert 'Category 2' == category1
+
+
+@pytest.mark.parametrize('page', ['authors/author1.html', ],
+                         indirect=True)
+class TestAuthor1:
+
+    def test_author1(self, page):
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Author 1' == h1
+
+        items = [i.contents[0].strip()
+                 for i in page.find_all(class_='kb-reference-item')]
+        assert 2 == len(items)
+        assert 'Article 1' in items
+
 
 @pytest.mark.parametrize('page', ['categories/category2.html', ],
                          indirect=True)
@@ -19,8 +45,6 @@ class TestCategories2:
         h1 = page.find('h1').contents[0].strip()
         assert 'Category 2' == h1
 
-        ul = page.find(id='kb-reference-listing')
-        li = ul.find_all('li')
         items = [i.contents[0].strip()
                  for i in page.find_all(class_='kb-reference-item')]
         assert 2 == len(items)

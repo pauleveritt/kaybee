@@ -3,6 +3,8 @@
         category:
             - category1
             - category3
+        author:
+            - author1
 
 =========
 Article 2

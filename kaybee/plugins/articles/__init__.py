@@ -1,5 +1,6 @@
 from kaybee.plugins.articles import (
     article,
+    author,
     featuretiles,
     handlers,
     homepage,

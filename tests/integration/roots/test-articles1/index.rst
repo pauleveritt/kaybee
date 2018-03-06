@@ -8,3 +8,4 @@ Hello World
     articles/index
     section1/index
     categories/index
+    authors/index

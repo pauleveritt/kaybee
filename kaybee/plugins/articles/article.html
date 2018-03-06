@@ -2,6 +2,16 @@
 {% block body %}
     {{ body }}
 
+    <h2>Authors</h2>
+    <ul id="kb-author-listing">
+        {% for author in references.resource_references(resource)['author'] %}
+            <li><a
+                    class="kb-author-item"
+                    href="{{ pathto(author.docname, 1) + '.html' }}">{{ author.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
     <h2>Categories</h2>
     <ul id="kb-category-listing">
         {% for category in references.resource_references(resource)['category'] %}
