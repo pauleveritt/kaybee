@@ -7,6 +7,16 @@ from tests.unit.plugins.queries.conftest import (
 )
 
 
+@pytest.fixture()
+def dummy_prop():
+    class Prop:
+        def __init__(self):
+            self.key = 'template'
+            self.value = 'I am c1'
+
+    yield Prop()
+
+
 class TestQueryService:
     def test_import(self):
         assert 'Query' == Query.__name__
@@ -44,20 +54,16 @@ class TestQueryService:
         assert len(results) == 1
         assert 'Child' == results[0].title
 
-    def test_filter_resources_props(self, query_resources):
-        props = [
-            dict(key='template', value='I am c1'),
-        ]
+    def test_filter_resources_props(self, query_resources, dummy_prop):
+        props = [dummy_prop, ]
         kw = dict(props=props)
         results = Query.filter_collection(query_resources, **kw)
         assert 1 == len(results)
         assert 'About' == results[0].title
 
-    def test_filter_resources_empty_props(self, query_resources):
-        props = [
-            dict(key='template', value=None),
-        ]
-        kw = dict(props=props)
+    def test_filter_resources_empty_props(self, query_resources, dummy_prop):
+        dummy_prop.value = None
+        kw = dict(props=[dummy_prop])
         results = Query.filter_collection(query_resources, **kw)
         assert 6 == len(results)
         assert 'About' == results[0].title
@@ -97,4 +103,3 @@ class TestQueryService:
                                           reverse=True)
         first_title = results[0].title
         assert 'Z Last weights first' == first_title
-

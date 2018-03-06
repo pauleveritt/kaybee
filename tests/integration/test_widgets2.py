@@ -29,6 +29,16 @@ class TestWidgets2:
         resource = page.find(id='resource').contents[0].strip()
         assert 'index' == resource
 
+        # Querylist
+        ql = page.find(id='querylist-ql1')
+        ql_results = ql.find_all('ul')[1].find_all('li')
+        assert 1 == len(ql_results)
+
+        # Sectionquery
+        ql = page.find(id='sectionquery-sectionquery1')
+        ql_results = ql.find_all('ul')[0].find_all('li')
+        assert 2 == len(ql_results)
+
 
 @pytest.mark.parametrize('json_page', ['debug_dump.json', ], indirect=True)
 class TestWidgets2Debug:
@@ -44,7 +54,7 @@ class TestWidgets2Debug:
 
         # one value in widgets
         values = widgets['values']
-        assert 1 == len(values)
+        assert 3 == len(values)
         assert 'index-widgets1hello' in values
         index = values['index-widgets1hello']
         assert 'index' == index['docname']

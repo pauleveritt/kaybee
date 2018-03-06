@@ -4,6 +4,8 @@ from typing import List, Dict, Optional
 import pydash
 from pydash import py_
 
+from kaybee.plugins.queries.props_model import CorePropFilterModel
+
 
 class Query:
     def __init__(self, docname):
@@ -62,7 +64,7 @@ class Query:
                           reverse: bool = False,
                           limit: int = None,
                           parent_name: str = None,
-                          props: List[Dict[str, str]] = [],
+                          props: List[CorePropFilterModel] = [],
                           ):
 
         # Set the limit
@@ -73,7 +75,7 @@ class Query:
         r1 = collection
         for prop in props:
             r1 = pydash.filter_(r1,
-                                Query._prop_lambda(prop['key'], prop['value']))
+                                Query._prop_lambda(prop.key, prop.value))
 
         r1 = py_(r1) \
             .filter_(Query._attr_lambda('rtype', rtype)) \
