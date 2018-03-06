@@ -1,4 +1,6 @@
 ./_sources/articles/index.rst.txt
+./_sources/authors/index.rst.txt
+./_sources/authors/paul.rst.txt
 ./_sources/categories/bulma.rst.txt
 ./_sources/categories/index.rst.txt
 ./_sources/categories/kaybee_bulma.rst.txt
@@ -55,6 +57,8 @@
 ./_static/library.jpg
 ./_static/pygments.css
 ./articles/index.html
+./authors/index.html
+./authors/paul.html
 ./categories/bulma.html
 ./categories/index.html
 ./categories/kaybee_bulma.html

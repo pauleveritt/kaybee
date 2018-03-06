@@ -5,6 +5,9 @@
     weight: 20
     published: 2018-01-01 12:23
     is_series: True
+    references:
+        author:
+            - paul
     acquireds:
         all:
             style: light
