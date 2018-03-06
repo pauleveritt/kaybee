@@ -51,4 +51,11 @@ class ImageModel(BaseModel):
         docpath = Path(docname)
         parent = docpath.parent
         target_imgpath = str(Path(build_dir, parent, self.filename))
+
+        # Does the target dir exist yet in the build dir? Probably not. If
+        # not, make it
+        target_dir = Path(build_dir, parent)
+        if not target_dir.exists():
+            target_dir.mkdir()
+
         shutil.copy(source_imgpath, target_imgpath)
