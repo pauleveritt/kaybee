@@ -6628,6 +6628,8 @@ footer.footer.is-danger {
   .kbb-sidenav ul {
     list-style: none;
     margin: 0; }
+  .kbb-sidenav #kb-sidenav-published-heading li {
+    padding: 0.5em 0.75em; }
 
 .kbb-querylist nav.panel p.panel-heading {
   margin-bottom: 0; }
