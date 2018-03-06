@@ -23,6 +23,9 @@
 - Allow a reference hierarchy e.g. ``frontend-jest`` to let categories 
   be grouped in super-categories
 
+- Sucks typing author, published, etc. on a whole bunch of stuff in a 
+  folder. Wish I could put this in acquireds.
+  
 - Feeds
 
 - Get kaybee_settings into the html context as ``settings``

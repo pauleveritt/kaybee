@@ -3,6 +3,7 @@
     in_nav: True
     weight: 60
     published: 2018-01-01 12:23
+    featured_resource: categories/pydantic
     acquireds:
         all:
             style: warning

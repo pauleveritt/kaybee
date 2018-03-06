@@ -3,6 +3,8 @@
     references:
         category:
             - pydantic
+        author:
+            - paul
 
 =========
 Resources

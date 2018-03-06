@@ -134,4 +134,5 @@ Contents
     development/index
     implementation/index
     categories/index
+    authors/index
     topics/index
