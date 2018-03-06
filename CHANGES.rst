@@ -2,6 +2,24 @@ Changelog
 =========
 
 
+0.1.9 (2018-03-06)
+------------------
+
+Changes
+~~~~~~~
+- Put some author references into the docs for testing. [Paul Everitt]
+- Make "author" a reference label for the article system. [Paul Everitt]
+
+Fix
+~~~
+- Querying by props wasn't working. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Let's make a release. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.8 (2018-03-05)
 ------------------
 - @WIP Let's make a release. [Paul Everitt]
