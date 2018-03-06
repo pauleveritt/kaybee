@@ -7,7 +7,7 @@ from kaybee.app import kb
 from kaybee.plugins.events import EventAction, SphinxEvent
 from kaybee.plugins.settings.model import KaybeeSettings
 
-__version__ = '0.1.9.dev0'
+__version__ = '0.1.9'
 __title__ = "kaybee"
 
 
