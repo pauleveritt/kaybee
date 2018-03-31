@@ -6,6 +6,7 @@
     hero_image: library.jpg
     style: dark
 
+=======================================
 kaybee Static Sites for Knowledge Bases
 =======================================
 
@@ -20,6 +21,14 @@ kaybee Static Sites for Knowledge Bases
 
     Kaybee is a Knowledge Base (KB, kaybee) in which you define
     kinds of content, put the data in your docs, then do neat stuff.
+
+.. container:: container illustration
+
+
+    .. image:: homepage_illustration.png
+        :width: 1093
+        :height: 286
+        :alt: Homepage Illustration
 
 .. featuretiles::
     name: featuretiles1
@@ -37,11 +46,11 @@ kaybee Static Sites for Knowledge Bases
             style: is-primary
             more_href: features
           - heading: Resources
-            subheading: Embed YAML in pages to make resources.
+            subheading: YAML in pages to make resources
             bullets:
                 - Use a special Sphinx directive to put some YAML at the top of your
                   document
-                - Kaybee then records this in a Python database in your app
+                - Kaybee then records this in a Python document database in your app
                 - Use out-of-the-box directives or write classes to make your own
                   resources using a simple decorator on a Python class
                 - Access the resource in your Jinja2 template
@@ -49,7 +58,7 @@ kaybee Static Sites for Knowledge Bases
             style: is-info
             more_href: using/resources
           - heading: Schemas
-            subheading: Some third feature text.
+            subheading: Rich PEP-compliant validation
             style: is-warning
             more_href: using/schemas
             bullets:
@@ -62,7 +71,7 @@ kaybee Static Sites for Knowledge Bases
                 - Push some properties to parents in the resource tree, to control
                   whole sections of the site
         - - heading: Templates
-            subheading: Some fourth feature text.
+            subheading: Normal Python Jinja2 templating
             style: is-primary
             more_href: using/templates
             bullets:
@@ -72,7 +81,7 @@ kaybee Static Sites for Knowledge Bases
                 - Associate a template with a specific widget on a certain page
                 - Easily customize the data available in a template
           - heading: Widgets
-            subheading: Some fifth feature text.
+            subheading: Report on your data in rich ways
             style: is-info
             more_href: using/widgets
             bullets:
@@ -82,7 +91,7 @@ kaybee Static Sites for Knowledge Bases
                 - Express a query in YAML which collects resources from the Python
                   collection and renders in a custom template
           - heading: References
-            subheading: Some sixth feature text.
+            subheading: Organized data with validated connections
             style: is-warning
             more_href: using/references
             bullets:
@@ -95,7 +104,7 @@ kaybee Static Sites for Knowledge Bases
                 - Easily interate over forward and backwards references in templates
                 - Make inline-linking references in content using the Sphinx syntax
         - - heading: Articles
-            subheading: Some fourth feature text.
+            subheading: Starter kit for common cases
             style: is-primary
             more_href: using/articles
             bullets:
@@ -104,13 +113,16 @@ kaybee Static Sites for Knowledge Bases
                 - Articles with publication date filtering
                 - Widgets which query the resources in interesting ways
           - heading: Extensibility
-            subheading: Some fifth feature text.
+            subheading: New kinds of things with simplified API
             style: is-info
             more_href: extending/index
             bullets:
-                - some points
+                - Use Python classes with decorators to make new resources and widgets
+                - Instances are available in templates
+                - Far simpler than the Sphinx extension model
+                - Easy to test
           - heading: Sphinx
-            subheading: Some sixth feature text.
+            subheading: Built atop powerful Sphinx document system
             style: is-warning
             bullets:
                 - Built on the mature static-site-generator used for ReadTheDocs and
@@ -119,9 +131,6 @@ kaybee Static Sites for Knowledge Bases
                   content
                 - Kaybee is a layer atop Sphinx that provides a simpler extension model
 
-
-Contents
-========
 
 .. toctree::
     :hidden:

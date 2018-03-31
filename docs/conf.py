@@ -45,7 +45,7 @@ kaybee_bulma_siteconfig = SiteConfig(
     copyright='2018, All Rights Reserved',
     favicon='kaybee_logo.png',
     social_media=dict(
-        twitter='xxx',
-        github='xxx'
+        twitter='https://twitter.com/paulweveritt',
+        github='pauleveritt/kaybee'
     )
 )
