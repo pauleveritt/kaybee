@@ -15,7 +15,7 @@ extensions = [
 ]
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
-    'sphinx': ('http://sphinx.pocoo.org', None),
+    'sphinx': ('http://www.sphinx-doc.org/en/master', None),
     'dectate': ('http://dectate.readthedocs.io/en/latest', None),
 }
 
