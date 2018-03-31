@@ -85,7 +85,7 @@
         <div class="navbar-end">
             
                 <a class="navbar-item" id="kbb-config-github"
-                   href="https://github.com/xxx">
+                   href="https://github.com/pauleveritt/kaybee">
                 <span class="icon has-text-black">
                     <i class="fab fa-github" aria-hidden="true"></i>
                 </span>
@@ -93,7 +93,7 @@
             
             
                 <a class="navbar-item" id="kbb-config-twitter"
-                   href="https://twitter.com/xxx">
+                   href="https://twitter.com/https://twitter.com/paulweveritt">
                 <span class="icon has-text-info">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </span>
@@ -148,7 +148,7 @@ Sphinx app</li>
 <div class="section" id="the-base-directive">
 <h3>The Base Directive<a class="headerlink" href="#the-base-directive" title="Permalink to this headline">¶</a></h3>
 <p>Sphinx (actually reStructuredText) has a concept of
-<a class="reference external" href="http://www.sphinx-doc.org/en/master/rest.html#directives" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">directives</span></a> – sort of like tags in HTML. RST and
+<a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#rst-directives" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">directives</span></a> – sort of like tags in HTML. RST and
 Sphinx have a bunch of directives built-in, but you can also register
 your own directives.</p>
 <p>That’s what Kaybee does. You define “kinds of things” called <em>resource
@@ -185,7 +185,7 @@ to the resource for the current docname.</p>
 <h3>Parents<a class="headerlink" href="#parents" title="Permalink to this headline">¶</a></h3>
 <p>Files on disk are organized into folders and subfolders. So are static
 websites. And so is Sphinx, which has a
-<a class="reference external" href="http://www.sphinx-doc.org/en/master/markup/toctree.html#toctree-directive" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">sphinx:toctree directive</span></a> which lets a document
+<a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#toctree-directive" title="(in Sphinx v1.8.0+)"><span class="xref std std-ref">sphinx:toctree directive</span></a> which lets a document
 list (in order or wildcard) its children. As such, Sphinx has a very strong
 concept of hierarchy in a document collection.</p>
 <p>As you organize your <code class="docutils literal notranslate"><span class="pre">.rst</span></code> documents into folders and subfolders, you might
@@ -268,6 +268,8 @@ it’s used instead of the parent’s property.</p>
 <li>genericpage</li>
 <li>Query.filter_collection</li>
 <li>Uses the rtype as the base name (without <code class="docutils literal notranslate"><span class="pre">.html</span></code>) for the template</li>
+<li>Helper method first_item which gets the first item in a prop that is a
+list (e.g. images), where a key equals a value (or returns None)</li>
 </ul>
 </div>
 </div>
@@ -498,7 +500,7 @@ store them on a folder?
 <script type="text/javascript">
     var DOCUMENTATION_OPTIONS = {
         URL_ROOT: '',
-        VERSION: '0.1.10',
+        VERSION: '0.1.11.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,

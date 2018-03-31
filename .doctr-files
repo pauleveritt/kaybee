@@ -1,3 +1,4 @@
+./_images/homepage_illustration.png
 ./_sources/articles/index.rst.txt
 ./_sources/authors/index.rst.txt
 ./_sources/authors/paul.rst.txt
@@ -59,6 +60,8 @@
 ./articles/index.html
 ./authors/index.html
 ./authors/paul.html
+./authors/paul_headshotx128.jpeg
+./authors/paul_headshotx24.jpeg
 ./categories/bulma.html
 ./categories/index.html
 ./categories/kaybee_bulma.html
