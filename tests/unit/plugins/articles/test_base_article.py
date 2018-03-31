@@ -67,6 +67,34 @@ class TestBaseArticle:
         assert None is result['series']
 
 
+class TestFindPropItem:
+    def test_find_prop_item(self, article_resources):
+        index = article_resources['index']
+        first_image = [dict(usage='imagex24.jpeg', filename='x.png')]
+        index.props.images = first_image
+        f1 = index.find_prop_item('images', 'usage',
+                                  first_image[0]['usage'])
+        assert 'x.png' == f1['filename']
+
+    def test_not_find_prop_item(self, article_resources):
+        index = article_resources['index']
+        first_image = [dict(usage='imagex24.jpeg', filename='x.png')]
+        index.props.images = first_image
+        f1 = index.find_prop_item('images', 'usage', 'xxx')
+        assert None is f1
+
+    def test_no_images(self, article_resources):
+        index = article_resources['index']
+        f1 = index.find_prop_item('images', 'usage', 'headshot')
+        assert None is f1
+
+    def test_empty_images(self, article_resources):
+        index = article_resources['index']
+        index.props.images = []
+        f1 = index.find_prop_item('images', 'usage', 'headshot')
+        assert None is f1
+
+
 class TestSeries:
     def test_method_exists(self, article_resources):
         resource = article_resources['f1/f2/about']

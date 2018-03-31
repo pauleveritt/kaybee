@@ -117,6 +117,22 @@ class BaseResource:
             else:
                 return self.rtype
 
+    def find_prop_item(self, prop_name, prop_key, prop_value):
+        """ Look for a list prop with an item where key == value """
+        # Image props are a sequence of dicts. We often need one of them.
+        # Where one of the items has a dict key matching a value, and if
+        # nothing matches, return None
+
+        prop = getattr(self.props, prop_name, None)
+        if prop:
+            return next(
+                (p for p in prop
+                 if getattr(p, prop_key) == prop_value),
+                None
+            )
+
+        return None
+
     def __json__(self, resources):
         # The root has different rules about parents
         if self.docname == 'index':
