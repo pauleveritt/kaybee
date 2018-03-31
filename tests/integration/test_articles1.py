@@ -36,6 +36,11 @@ class TestAuthor1:
         assert 2 == len(items)
         assert 'Article 1' in items
 
+        # Headshot
+        img = page.find(class_='kb-author-headshot')
+        src = img.attrs['src']
+        assert 'paul_headshotx128.jpeg' == src
+
 
 @pytest.mark.parametrize('page', ['categories/category2.html', ],
                          indirect=True)

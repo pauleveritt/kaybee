@@ -68,19 +68,14 @@ class TestBaseArticle:
 
 
 class TestFindPropItem:
-    def test_find_prop_item(self, article_resources):
-        index = article_resources['index']
-        first_image = [dict(usage='imagex24.jpeg', filename='x.png')]
-        index.props.images = first_image
-        f1 = index.find_prop_item('images', 'usage',
-                                  first_image[0]['usage'])
-        assert 'x.png' == f1['filename']
+    def test_find_prop_item(self, dummy_image_article):
+        first_image = dummy_image_article.props.images[0]
+        f1 = dummy_image_article.find_prop_item('images', 'usage',
+                                                first_image.usage)
+        assert first_image.filename == f1.filename
 
-    def test_not_find_prop_item(self, article_resources):
-        index = article_resources['index']
-        first_image = [dict(usage='imagex24.jpeg', filename='x.png')]
-        index.props.images = first_image
-        f1 = index.find_prop_item('images', 'usage', 'xxx')
+    def test_not_find_prop_item(self, dummy_image_article):
+        f1 = dummy_image_article.find_prop_item('images', 'usage', 'xxx')
         assert None is f1
 
     def test_no_images(self, article_resources):

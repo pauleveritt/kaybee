@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
+    {% set headshot = resource.find_prop_item('images', 'usage', 'icon_128') %}
+    <img class="kb-author-headshot" src="{{ headshot.filename }}"/>
     {{ body }}
 
     <h2>Resources With This Author</h2>

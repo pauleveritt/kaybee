@@ -88,6 +88,19 @@ def dummy_article(article_resources):
 
 
 @pytest.fixture()
+def dummy_image_article(article_resources):
+    yaml_content = """
+    images:
+        - usage: icon_24
+          filename: paul_headshotx24.jpeg
+        - usage: icon_128
+          filename: paul_headshotx128.jpeg    
+    """
+    article = BaseArticle('image_article', 'article', yaml_content)
+    yield article
+
+
+@pytest.fixture()
 def dummy_section(article_resources):
     yield article_resources['f1/f2/f3/index']
 
