@@ -2,6 +2,23 @@ Changelog
 =========
 
 
+0.1.11 (2018-03-31)
+-------------------
+
+Changes
+~~~~~~~
+- Improve the home page. [Paul Everitt]
+- In the basic template, show a headshot of the author. [Paul Everitt]
+- Add paul as an author. [Paul Everitt]
+- Wrong intersphinx hostname. [Paul Everitt]
+- Fix bad labels on intersphinx. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Release 0.1.11. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.10 (2018-03-06)
 -------------------
 - @WIP Let's make a release. [Paul Everitt]
