@@ -30,7 +30,7 @@ Kaybee turns these documents into *resources*. By sprinkling some metadata
 at the top, you create a resource stored in a Python object that can be
 then queried like a database.
 
-- Custom ``resource`` Sphinx :ref:`directive <sphinx:directives>`
+- Custom ``resource`` Sphinx :ref:`directive <sphinx:rst-directives>`
 
 - The body of the directive is YAML
 

@@ -49,7 +49,7 @@ The Base Directive
 ------------------
 
 Sphinx (actually reStructuredText) has a concept of
-:ref:`directives <sphinx:directives>` -- sort of like tags in HTML. RST and
+:ref:`directives <sphinx:rst-directives>` -- sort of like tags in HTML. RST and
 Sphinx have a bunch of directives built-in, but you can also register
 your own directives.
 
@@ -170,3 +170,5 @@ TODO
 - genericpage
 - Query.filter_collection
 - Uses the rtype as the base name (without ``.html``) for the template
+- Helper method first_item which gets the first item in a prop that is a
+  list (e.g. images), where a key equals a value (or returns None)
