@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+0.1.12 (2018-04-11)
+-------------------
+
+Changes
+~~~~~~~
+- Make it easier to get an author's headshot. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Let's make a release. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.11 (2018-03-31)
 -------------------
 
