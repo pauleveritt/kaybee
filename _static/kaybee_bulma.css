@@ -2900,13 +2900,13 @@ a.box:active {
   .notification.is-link {
     background-color: #3273dc;
     color: #fff; }
-  .notification.is-info {
+  .notification.is-info, .admonition.note {
     background-color: #209cee;
     color: #fff; }
   .notification.is-success {
     background-color: #23d160;
     color: #fff; }
-  .notification.is-warning {
+  .notification.is-warning, .admonition.warning {
     background-color: #ffdd57;
     color: rgba(0, 0, 0, 0.7); }
   .notification.is-danger {
@@ -6517,6 +6517,23 @@ label.panel-block {
 
 .section .section {
   padding: 0.75rem 0; }
+
+#kbb-sphinx-body .highlight, #kbb-sphinx-body .literal-block-wrapper.container {
+  margin-bottom: 1rem; }
+
+#kbb-sphinx-body .literal-block-wrapper.container {
+  width: 800px;
+  max-width: 800px; }
+
+.image.is-rounded img {
+  object-fit: cover;
+  object-position: center center;
+  height: 100%;
+  width: 100%;
+  border-radius: 250983px; }
+
+.kbb-author span {
+  padding: 0 0.3rem; }
 
 section.section.content.homepage {
   padding: 0; }
