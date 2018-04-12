@@ -2,6 +2,26 @@ Changelog
 =========
 
 
+0.1.13 (2018-04-12)
+-------------------
+
+Changes
+~~~~~~~
+- The author headshot thumbnail now includes the path to the document.
+  [Paul Everitt]
+
+Fix
+~~~
+- Intermediate directories now created for nested resources that use
+  images. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Let's make a release. [Paul Everitt]
+- @WIP Write a test that recreates the error. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.12 (2018-04-11)
 -------------------
 
