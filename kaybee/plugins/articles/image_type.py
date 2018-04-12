@@ -56,6 +56,6 @@ class ImageModel(BaseModel):
         # not, make it
         target_dir = Path(build_dir, parent)
         if not target_dir.exists():
-            target_dir.mkdir()
+            target_dir.mkdir(parents=True, exist_ok=True)
 
         shutil.copy(source_imgpath, target_imgpath)
