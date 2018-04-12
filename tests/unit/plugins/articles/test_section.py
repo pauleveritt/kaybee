@@ -1,28 +1,26 @@
 import pytest
 
-from kaybee.plugins.articles.section import Section
+from kaybee.plugins.articles.author import Author
 
 
 @pytest.fixture()
-def dummy_section():
+def dummy_author():
     yaml = """
-featured_resource: f1/about    
+label: author1    
+images:
+    - usage: icon_24
+      filename: paul_headshotx24.jpeg
     """
-    yield Section('section1', 'section', yaml)
+    yield Author('authors/author1', 'author', yaml)
 
 
-class TestSection:
+class TestAuthor:
     def test_import(self):
-        assert 'Section' == Section.__name__
+        assert 'Author' == Author.__name__
 
-    def test_construction(self, dummy_section):
-        assert 'f1/about' == dummy_section.props.featured_resource
+    def test_construction(self, dummy_author):
+        assert 'authors/author1' == dummy_author.docname
 
-    def test_no_featured_resource(self, dummy_section, article_resources):
-        dummy_section.props.featured_resource = None
-        result = dummy_section.featured_resource(article_resources)
-        assert None is result
-
-    def test_featured_resource(self, dummy_section, article_resources):
-        result = dummy_section.featured_resource(article_resources)
-        assert 'f1/about' == result.docname
+    def test_no_featured_resource(self, dummy_author: Author):
+        ht = dummy_author.headshot_thumbnail('icon_24')
+        assert 'authors/paul_headshotx24.jpeg' == ht
