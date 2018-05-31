@@ -6,7 +6,8 @@ from kaybee.app import kb
 @kb.jsondumper('testjsondumper')
 def dump_some_resources(kb_app: kb, sphinx_env: BuildEnvironment):
     return dict(
-        resources=[
+        filename='testjsondumper.json',
+        results=[
             dict(
                 docname='a/b/1',
                 title='One'
