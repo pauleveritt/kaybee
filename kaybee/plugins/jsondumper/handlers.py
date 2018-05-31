@@ -20,12 +20,6 @@ def datetime_handler(x):
 @kb.event(SphinxEvent.ECC, scope='jsondump', system_order=80)
 def generate_json_info(kb_app: kb, builder: StandaloneHTMLBuilder,
                         sphinx_env: BuildEnvironment):
-    # If the config value doesn't enable dumping, bail out
-    dumper_settings = sphinx_env.app.config.kaybee_settings.jsondumper
-    use_jsondump = dumper_settings.use_jsondump
-
-    if not use_jsondump:
-        return
 
     # Get all the dumpers and dump their results
     dumpers = DumperAction.get_callbacks(kb_app)

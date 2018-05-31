@@ -38,20 +38,9 @@ class TestPluginGenerateDebugEvent:
 
     def test_debug_true(self, mocker, jsondumper_kb_app, html_builder,
                         sphinx_env, register_valid_event):
-        # Turn on debug
-        sphinx_env.app.config.kaybee_settings.jsondumper.use_jsondump = True
-
         output_file = mocker.mock_open()
         mocker.patch('builtins.open', output_file, create=True)
         mocker.patch('json.dump')
         generate_json_info(jsondumper_kb_app, html_builder, sphinx_env)
         actual = json.dump.mock_calls[0][1][0]
         assert isinstance(actual['resource']['published'], datetime.datetime)
-
-    def test_debug_false(self, mocker, jsondumper_kb_app, html_builder,
-                         sphinx_env, register_valid_event):
-        output_file = mocker.mock_open()
-        mocker.patch('builtins.open', output_file, create=True)
-        mocker.patch('json.dump')
-        generate_json_info(jsondumper_kb_app, html_builder, sphinx_env)
-        assert 0 == len(json.dump.mock_calls)
