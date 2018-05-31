@@ -1,5 +1,6 @@
 import kaybee.plugins.articles
 import kaybee.plugins.debugdumper.handlers
+import kaybee.plugins.jsondumper.handlers
 import kaybee.plugins.genericpage.handlers
 import kaybee.plugins.localtemplates.handlers
 import kaybee.plugins.queries.handlers

@@ -8,6 +8,7 @@ from sphinx.environment import BuildEnvironment
 
 from kaybee.plugins.articles.settings import ArticlesModel
 from kaybee.plugins.debugdumper.settings import DebugdumperModel
+from kaybee.plugins.jsondumper.settings import JsondumperModel
 from kaybee.plugins.events import EventAction
 
 
@@ -23,6 +24,7 @@ def kb_app():
 def kaybee_settings():
     class KaybeeSettings(BaseModel):
         debugdumper: DebugdumperModel = DebugdumperModel()
+        jsondumper: JsondumperModel = JsondumperModel()
         articles: ArticlesModel = ArticlesModel()
         plugins_dir = ''
 
