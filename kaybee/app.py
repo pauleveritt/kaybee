@@ -16,6 +16,7 @@ from kaybee.plugins.articles.actions import ToctreeAction
 from kaybee.plugins.debugdumper.action import DumperAction
 from kaybee.plugins.events import EventAction
 from kaybee.plugins.genericpage.action import GenericpageAction
+from kaybee.plugins.jsondumper.action import JsondumperAction
 from kaybee.plugins.postrenderer.action import PostrendererAction
 from kaybee.plugins.resources.action import ResourceAction
 from kaybee.plugins.widgets.action import WidgetAction
@@ -24,6 +25,7 @@ from kaybee.plugins.widgets.action import WidgetAction
 class kb(dectate.App):
     event = dectate.directive(EventAction)
     dumper = dectate.directive(DumperAction)
+    jsondumper = dectate.directive(JsondumperAction)
     resource = dectate.directive(ResourceAction)
     genericpage = dectate.directive(GenericpageAction)
     widget = dectate.directive(WidgetAction)

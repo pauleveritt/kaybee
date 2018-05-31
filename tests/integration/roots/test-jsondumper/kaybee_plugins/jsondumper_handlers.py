@@ -1,10 +1,19 @@
-import datetime
 from sphinx.environment import BuildEnvironment
 
 from kaybee.app import kb
 
 
-@kb.dumper('testjsondumper')
-def dump_hello(kb_app: kb, sphinx_env: BuildEnvironment):
-    then = datetime.datetime(2017, 12, 30, 12, 00, 00)
-    return dict(then=then)
+@kb.jsondumper('testjsondumper')
+def dump_some_resources(kb_app: kb, sphinx_env: BuildEnvironment):
+    return dict(
+        resources=[
+            dict(
+                docname='a/b/1',
+                title='One'
+            ),
+            dict(
+                docname='a/b/2',
+                title='Two'
+            )
+        ]
+    )

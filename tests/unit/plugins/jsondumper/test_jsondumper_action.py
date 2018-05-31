@@ -1,19 +1,19 @@
 import dectate
 import pytest
 
-from kaybee.plugins.jsondumper.action import DumperAction
+from kaybee.plugins.jsondumper.action import JsondumperAction
 
 
 class TestDebugDumperAction:
     def test_import(self):
-        assert 'DumperAction' == DumperAction.__name__
+        assert 'JsondumperAction' == JsondumperAction.__name__
 
     def test_construction(self, jsondumper_kb_app):
         dectate.commit(jsondumper_kb_app)
         assert True
 
     def test_identifier_default(self):
-        da = DumperAction('resources')
+        da = JsondumperAction('resources')
         assert 'resources' == da.identifier([])
 
     def test_identifiers_conflict(self, jsondumper_kb_app,
@@ -24,5 +24,5 @@ class TestDebugDumperAction:
             dectate.commit(jsondumper_kb_app)
 
     def test_get_callbacks(self, jsondumper_kb_app, register_valid_event):
-        callbacks = DumperAction.get_callbacks(jsondumper_kb_app)
+        callbacks = JsondumperAction.get_callbacks(jsondumper_kb_app)
         assert register_valid_event == callbacks[0]

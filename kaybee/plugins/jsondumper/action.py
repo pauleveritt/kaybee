@@ -7,25 +7,25 @@ An action for the kb registry app.
 import dectate
 
 
-class DumperAction(dectate.Action):
+class JsondumperAction(dectate.Action):
     config = {
-        'dumpers': dict
+        'jsondumpers': dict
     }
 
     def __init__(self, name: str):
         super().__init__()
         self.name = name
 
-    def identifier(self, dumpers):
+    def identifier(self, jsondumpers):
         return self.name
 
     # noinspection PyMethodOverriding
-    def perform(self, obj, dumpers):
-        dumpers[self.name] = obj
+    def perform(self, obj, jsondumpers):
+        jsondumpers[self.name] = obj
 
     @classmethod
     def get_callbacks(cls, registry):
         # Presumes the registry has been committed
 
-        q = dectate.Query('dumper')
+        q = dectate.Query('jsondumper')
         return [args[1] for args in q(registry)]
