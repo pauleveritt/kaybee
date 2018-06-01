@@ -64,7 +64,7 @@ references:
     f4.title = 'F4'
     f4_about = BaseArticle('f1/f2/f3/f4/about', 'article', '')
     f4.title = 'F4 About'
-    c1 = BaseArticleReference('categories/c1', 'category', 'label: c1')
+    c1 = BaseArticleReference('category/c1', 'category', 'label: c1')
     c1.title = 'C1'
 
     yield {
@@ -78,8 +78,20 @@ references:
         'f1/f2/f3/about': f3_about,
         'f1/f2/f3/f4/index': f4,
         'f1/f2/f3/f4/about': f4_about,
-        'categories/c1': c1
+        'category/c1': c1
     }
+
+
+@pytest.fixture()
+def article_references(article_resources):
+    """ Make a sample implementation sphinx_env.references """
+    references = dict(
+        category=dict(
+            c1=(article_resources['category/c1'])
+        ),
+        reference={}
+    )
+    yield references
 
 
 @pytest.fixture()

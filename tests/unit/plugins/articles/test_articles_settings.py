@@ -18,6 +18,7 @@ class TestArticlesSettings:
     def test_construction(self):
         am = ArticlesModel(**dict(use_toctree=False))
         assert False is am.use_toctree
+        assert True is am.json_catalog
 
     def test_datefmt_short_default(self, past_datetime: datetime):
         am = ArticlesModel(**dict())

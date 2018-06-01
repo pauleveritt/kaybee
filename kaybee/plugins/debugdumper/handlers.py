@@ -1,20 +1,13 @@
-import datetime
 import json
-
 import os
+
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
 from kaybee.app import kb
-from kaybee.plugins.events import SphinxEvent
 from kaybee.plugins.debugdumper.action import DumperAction
-
-
-def datetime_handler(x):
-    """ Allow serializing datetime objects to JSON """
-    if isinstance(x, datetime.datetime):
-        return x.isoformat()
-    raise TypeError("Unknown type")
+from kaybee.plugins.events import SphinxEvent
+from kaybee.utils.datetime_handler import datetime_handler
 
 
 @kb.event(SphinxEvent.ECC, scope='debugdump', system_order=80)
