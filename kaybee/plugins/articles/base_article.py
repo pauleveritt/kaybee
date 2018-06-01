@@ -83,9 +83,14 @@ class BaseArticle(BaseResource):
 
     def __json__(self, resources):
         d = super().__json__(resources)
-        d['excerpt'] = self.excerpt
-        d['section'] = getattr(self.section(resources), 'docname', '')
-        d['toctree'] = self.toctree
-        d['series'] = self.series(resources)
+        if self.excerpt:
+            d['excerpt'] = self.excerpt
+        section = getattr(self.section(resources), 'docname', '')
+        if section:
+            d['section'] = section
+        if self.toctree:
+            d['toctree'] = self.toctree
+        if self.series:
+            d['series'] = self.series(resources)
 
         return d

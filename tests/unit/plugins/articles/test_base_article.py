@@ -53,9 +53,9 @@ class TestBaseArticle:
         assert 'article' == result['rtype']
         assert 'f1/f2/f3/index' == result['parent']
         assert 1 == result['props']['auto_excerpt']
-        assert None is result['excerpt']
+        assert 'excerpt' not in result  # Blank values filtered out
         assert 'f1/f2/index' == result['section']
-        assert 0 == len(result['toctree'])
+        assert 'toctree' not in result
         assert 0 == len(result['series'])
 
     def test_index(self, article_resources):
@@ -63,7 +63,7 @@ class TestBaseArticle:
         result = index.__json__(article_resources)
         assert 'index' == result['docname']
         assert None is result['parent']
-        assert 0 == len(result['toctree'])
+        assert 'toctree' not in result
         assert None is result['series']
 
 

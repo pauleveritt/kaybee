@@ -140,13 +140,20 @@ class BaseResource:
         else:
             parent_docnames = [p.docname for p in
                                self.parents(resources)]
-        return dict(
+        d = dict(
             docname=self.docname,
             title=self.title,
             parent_docnames=parent_docnames,
             template=self.template(resources),
             rtype=self.rtype,
             parent=self.parent,
-            props=self.props.dict(),
+            props={},
             repr=repr(self),
         )
+
+        # Add props, but only when they have a value
+        for key, value in self.props.dict().items():
+            if bool(value):
+                d['props'][key] = value
+
+        return d
