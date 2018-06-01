@@ -2,6 +2,8 @@ import datetime
 import json
 
 import os
+from copy import deepcopy
+
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.environment import BuildEnvironment
 
@@ -19,16 +21,27 @@ def datetime_handler(x):
 
 @kb.event(SphinxEvent.ECC, scope='jsondump', system_order=80)
 def generate_json_info(kb_app: kb, builder: StandaloneHTMLBuilder,
-                        sphinx_env: BuildEnvironment):
-
+                       sphinx_env: BuildEnvironment):
     # Get all the jsondumpers and dump their results
     jsondumpers = JsondumperAction.get_callbacks(kb_app)
-    jsondumper_results = [jsondumper(kb_app, sphinx_env) for jsondumper in jsondumpers]
-    output = {k: v for d in jsondumper_results for k, v in d.items()}
+    for jsondumper in jsondumpers:
+        jsondumper_results = jsondumper(kb_app, sphinx_env)
+        filename = jsondumper_results['filename']
+        results = jsondumper_results['results']
+        output_filename = os.path.join(builder.outdir, filename)
+        with open(output_filename, 'w') as f:
+            json.dump(results, f, default=datetime_handler)
 
-    # Now write the result to disk
-    filename = output['filename']
-    results = output['results']
-    output_filename = os.path.join(builder.outdir, filename)
-    with open(output_filename, 'w') as f:
-        json.dump(results, f, default=datetime_handler)
+    # For fun, let's dump all the resources (without the body) and the
+    # references, as is
+    resources = {}
+    for resource in sphinx_env.resources.values():
+        resources[resource.docname] = resource.__json__(sphinx_env.resources)
+
+    #
+    new_results = dict(
+        resources=resources
+    )
+    new_output_filename = os.path.join(builder.outdir, 'catalog.json')
+    with open(new_output_filename, 'w') as f:
+        json.dump(new_results, f, default=datetime_handler)

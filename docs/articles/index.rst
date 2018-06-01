@@ -18,3 +18,9 @@ The Article System
 
 - Articles can be in a "series" which shows a block at the bottom. The
   parent should have ``is_series: True`` in the YAML.
+
+
+.. filteredlisting::
+    name: widgets1hello
+    filename: ../all_resources.json
+
