@@ -96,7 +96,7 @@ class TestArticles1Debug:
         homepage = resource_values['index']
         assert 'index' == homepage['docname']
         assert 'Hello World' == homepage['title']
-        assert '' == homepage['section']
+        assert 'section' not in homepage
         assert 'articles/index' in homepage['toctree']
         assert None is homepage['series']
 
@@ -104,7 +104,7 @@ class TestArticles1Debug:
         articles = resource_values['articles/index']
         assert 'articles/index' == articles['docname']
         assert 'Articles' == articles['title']
-        assert '' == articles['section']
+        assert 'section' not in homepage
         assert None is articles['series']
 
         # article1
@@ -112,13 +112,25 @@ class TestArticles1Debug:
         assert 'articles/article1' == article1['docname']
         assert 'Article 1' == article1['title']
         assert 'articles/index' == article1['section']
-        assert [] == article1['toctree']
+        assert 'toctree' not in article1
         assert 3 == len(article1['series'])
 
         # section1
         section1 = resource_values['section1/index']
         assert 'section1/index' == section1['docname']
         assert 'Section 1' == section1['title']
-        assert '' == section1['section']
+        assert 'section' not in homepage
         assert ['section1/article2'] == section1['toctree']
         assert 'section1/article2' == section1['get_featured_resource']
+
+
+@pytest.mark.parametrize('json_page', ['catalog.json', ], indirect=True)
+class TestJsoncatalog:
+
+    def test_testjsoncatalog(self, json_page):
+        resources = json_page['resources']
+        references = json_page['references']
+
+        # Basic assertion
+        assert 12 == len(resources.keys())
+        assert 3 == len(references.keys())

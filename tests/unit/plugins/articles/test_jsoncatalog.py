@@ -19,9 +19,11 @@ class TestJsoncatalog:
 
     def test_references_to_json(self, article_resources, article_references):
         expected = dict(category=dict(c1=1), reference=dict())
-        actual = references_to_json(article_resources, article_references)
+        result = references_to_json(article_resources, article_references)
+        c1 = result['category']['c1']
 
-        assert expected == actual
+        assert 1 == c1['count']
+        assert 'category/c1' == c1['docname']
 
     def test_generate_output(self, mocker,
                              kb_app, html_builder, sphinx_env,
@@ -47,4 +49,7 @@ class TestJsoncatalog:
         resources = results['resources']
         assert 11 == len(resources.keys())
         references = results['references']
-        assert dict(category=dict(c1=1), reference=dict()) == references
+        c1 = references['category']['c1']
+
+        assert 1 == c1['count']
+        assert 'category/c1' == c1['docname']
