@@ -7,6 +7,9 @@
     acquireds:
         all:
             style: primary
+    references:
+        author:
+            - paul
 
 
 ==================
