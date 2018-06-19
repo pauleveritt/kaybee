@@ -12,7 +12,7 @@ from sphinx.environment import BuildEnvironment
 
 from kaybee.app import kb
 from kaybee.plugins.events import SphinxEvent
-from utils.datetime_handler import datetime_handler
+from kaybee.utils.datetime_handler import datetime_handler
 
 
 def clean_resource_json(resource_json):
