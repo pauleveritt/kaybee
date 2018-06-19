@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.1.15 (2018-06-19)
+-------------------
+- @WIP Let's make a release. [Paul Everitt]
+- @WIP Didn't have a fully-qualified import. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.14 (2018-06-19)
 -------------------
 
