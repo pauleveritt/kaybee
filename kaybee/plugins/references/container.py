@@ -38,7 +38,6 @@ class ReferencesContainer(UserDict):
         # kb registry for all registered reference names.
         self.data[reftype][label] = target
 
-
     def resource_references(self, resource) -> Mapping[str, List[Any]]:
         """ Resolve and return reference resources pointed to by object
 
