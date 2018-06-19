@@ -2,6 +2,30 @@ Changelog
 =========
 
 
+0.1.14 (2018-06-19)
+-------------------
+
+Changes
+~~~~~~~
+- Provide a jsondumper more targeted towards PWAs. [Paul Everitt]
+- About to refactor into giving the article system a built-in "catalog"
+  which dumps to JSON and has a setting. [Paul Everitt]
+- Can now register a jsondumper directive that writes output to a
+  specified filename. [Paul Everitt]
+- Make a place for integration tests. [Paul Everitt]
+
+Other
+~~~~~
+- @WIP Have Travis build on multiple platforms. [Paul Everitt]
+- Extra blank line. [Paul Everitt]
+- @WIP Make a jsondumper which generates output to a file for resources
+  and references. [Paul Everitt]
+- @WIP Add some references to the docs. [Paul Everitt]
+- @WIP Decrease the payload size. [Paul Everitt]
+- @WIP Jsoncatalog tests pass. [Paul Everitt]
+- @WIP Back to dev. [Paul Everitt]
+
+
 0.1.13 (2018-04-12)
 -------------------
 
