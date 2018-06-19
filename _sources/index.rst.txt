@@ -5,6 +5,9 @@
     subheading: Extensible Knowledge Base for Static Sites
     hero_image: library.jpg
     style: dark
+    references:
+        author:
+            - paul
 
 =======================================
 kaybee Static Sites for Knowledge Bases
