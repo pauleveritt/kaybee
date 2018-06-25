@@ -20,6 +20,7 @@ class BaseArticleModel(BaseResourceModel):
     images: List[ImageModel] = []
     is_series: bool = False
     duration: str = None
+    primary_reference: str = None
 
 
 class BaseArticle(BaseResource):
