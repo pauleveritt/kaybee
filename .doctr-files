@@ -49,10 +49,9 @@
 ./_sources/using/templates.rst.txt
 ./_sources/using/widgets.rst.txt
 ./_sources/whysphinx.rst.txt
-./_static/app.bundle.js
-./_static/basic.css
-./_static/kaybee_bulma.bundle.js
 ./_static/kaybee_bulma.css
+./_static/kaybee_bulma.js
+./_static/kaybee_bulma.map
 ./_static/kaybee_logo.png
 ./_static/kaybee_logo.svg
 ./_static/library.jpg
