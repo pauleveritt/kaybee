@@ -4,7 +4,7 @@ sphinx
 pydantic
 docutils
 gitchangelog
-bumpversion
+bump2version
 pytest
 pytest-mock
 travis-encrypt
