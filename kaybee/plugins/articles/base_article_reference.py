@@ -13,6 +13,7 @@ from kaybee.plugins.articles.base_article import (
 
 class BaseArticleReferenceModel(BaseArticleModel):
     label: str
+    logo: str = None
 
 
 class BaseArticleReference(BaseArticle):
