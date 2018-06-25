@@ -19,6 +19,7 @@ class BaseArticleModel(BaseResourceModel):
     auto_excerpt: int = 1
     images: List[ImageModel] = []
     is_series: bool = False
+    duration: str = None
 
 
 class BaseArticle(BaseResource):
