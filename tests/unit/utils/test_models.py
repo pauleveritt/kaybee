@@ -1,5 +1,4 @@
 import pytest
-from pydantic import ValidationError
 from sphinx.errors import SphinxError
 
 from kaybee.plugins.articles.base_article import BaseArticleModel
