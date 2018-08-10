@@ -20,6 +20,9 @@
 
 # Could Be Better
 
+- Use Sphinx add_ref_node or whatever to simplify the ref:stuff
+
+
 - Allow a reference hierarchy e.g. ``frontend-jest`` to let categories 
   be grouped in super-categories
 

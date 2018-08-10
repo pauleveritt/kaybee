@@ -24,9 +24,9 @@ def image_model():
 
 
 @pytest.fixture()
-def get_module_dir():
+def get_module_dir(request):
     # Need to get path to image in this tests's directory
-    gf = getfile(get_module_dir)
+    gf = getfile(request.node.module)
     yield Path(gf).parent
 
 
