@@ -55,6 +55,9 @@ class BaseArticle(BaseResource):
             return published < now
         return False
 
+    def steps(self, resources):
+        return self.parents(resources)[0].toctree
+
     def series(self, resources):
         # Make sure the parent is a registered resource
         parent = resources.get(self.parent)
