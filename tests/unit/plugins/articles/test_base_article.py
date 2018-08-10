@@ -146,3 +146,18 @@ class TestSeries:
         series = resource.series(article_resources)
         expected = len(parent.toctree) - 1
         assert expected == len(series)
+
+
+class TestBreadcrumbs:
+    def test_method_exists(self, article_resources):
+        resource = article_resources['f1/f2/about']
+        assert 'breadcrumbs' == resource.breadcrumbs.__name__
+
+    def test_entries(self, article_resources):
+        resource = article_resources['f1/f2/about']
+        bc = resource.breadcrumbs(article_resources)
+        assert 'Home' == bc[0]['label']
+        assert 'F1' == bc[1]['label']
+        assert 'F2 Index' == bc[2]['label']
+        assert 'F2 About' == bc[3]['label']
+        assert True == bc[3]['is_active']

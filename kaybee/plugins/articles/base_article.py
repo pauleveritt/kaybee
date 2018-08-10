@@ -83,6 +83,20 @@ class BaseArticle(BaseResource):
                 )
         return results
 
+    def breadcrumbs(self, resources):
+        entries = [
+            dict(
+                label=r.title,
+                docname=r.docname
+            )
+            for r in self.parents(resources)[:-1]
+        ]
+        entries.reverse()
+        entries.insert(0, dict(label='Home', docname='/index'))
+        entries.append(dict(
+            label=self.title, docname=self.docname, is_active=True))
+        return entries
+
     def __json__(self, resources):
         d = super().__json__(resources)
         if self.excerpt:
