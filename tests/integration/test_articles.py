@@ -1,6 +1,13 @@
 import pytest
 
-pytestmark = pytest.mark.sphinx('html', testroot='articles1')
+pytestmark = pytest.mark.sphinx('html', testroot='articles')
+
+
+def get_strings(page, class_):
+    return [
+        i.string
+        for i in page.find_all(class_=class_)
+    ]
 
 
 @pytest.mark.parametrize('page', ['articles/article1.html', ], indirect=True)
@@ -54,6 +61,32 @@ class TestCategories2:
                  for i in page.find_all(class_='kb-reference-item')]
         assert 2 == len(items)
         assert 'Article 1' in items
+
+
+@pytest.mark.parametrize('page', ['navpage1.html', ],
+                         indirect=True)
+class TestNavpage1:
+
+    def test_navpage1(self, page):
+        h1 = page.find('h1').contents[0].strip()
+        assert 'Navpage 1' == h1
+
+        # Get the first level menu entries
+        labels = get_strings(page, 'kb-menuentry-label')
+        subheadings = get_strings(page, 'kb-menuentry-subheading')
+
+        # You can specify a label in the navpage entry, if not, the resource
+        # title will be used.
+        assert 3 == len(labels)
+        assert 'Articles' == labels[0]
+        assert 'Authors' == labels[1]
+        assert 'Categories With Label' == labels[2]
+
+        # Subheadings can come from the entry or the resource subheading
+        assert 3 == len(subheadings)
+        assert 'This subheading from articles resource' == subheadings[0]
+        assert 'Do not use authors subheading' == subheadings[1]
+        assert None is subheadings[2]
 
 
 @pytest.mark.parametrize('page', ['articles/article2.html', ],

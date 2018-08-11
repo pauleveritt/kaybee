@@ -1,3 +1,5 @@
+.. section::
+
 ==========
 Categories
 ==========

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+    {{ body }}
+    <h2>Menu</h2>
+    <ul>
+        {% for entry in resource.entries(resources) %}
+            <li class="kb-menuentry">
+                <span class="kb-menuentry-label">{{ entry['label'] }}</span>
+                <span class="kb-menuentry-subheading">{{ entry['subheading'] }}</span>
+                <span class="kb-menuentry-accent">{{ entry['accent'] }}</span>
+                <span class="kb-menuentry-icon">{{ entry['icon'] }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    {% include 'kaybee_debug.html' %}
+{% endblock %}

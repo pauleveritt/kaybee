@@ -4,6 +4,7 @@ from kaybee.plugins.articles import (
     featuretiles,
     handlers,
     homepage,
+    navpage,
     querylist,
     category,
     section,
