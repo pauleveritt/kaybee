@@ -5,6 +5,7 @@
     <ul>
         {% for entry in resource.entries(resources) %}
             <li class="kb-menuentry">
+                <span class="kb-menuentry-docname">{{ entry['docname'] }}</span>
                 <span class="kb-menuentry-label">{{ entry['label'] }}</span>
                 <span class="kb-menuentry-subheading">{{ entry['subheading'] }}</span>
                 <span class="kb-menuentry-accent">{{ entry['accent'] }}</span>

@@ -72,8 +72,15 @@ class TestNavpage1:
         assert 'Navpage 1' == h1
 
         # Get the first level menu entries
+        docnames = get_strings(page, 'kb-menuentry-docname')
         labels = get_strings(page, 'kb-menuentry-label')
         subheadings = get_strings(page, 'kb-menuentry-subheading')
+        accents = get_strings(page, 'kb-menuentry-accent')
+        icons = get_strings(page, 'kb-menuentry-icon')
+
+        # docnames
+        assert 3 == len(docnames)
+        assert 'articles/index' == docnames[0]
 
         # You can specify a label in the navpage entry, if not, the resource
         # title will be used.
@@ -88,6 +95,13 @@ class TestNavpage1:
         assert 'Do not use authors subheading' == subheadings[1]
         assert None is subheadings[2]
 
+        # Accent and icons
+        assert 3 == len(accents)
+        assert 3 == len(icons)
+        assert 'info' == accents[0]
+        assert 'primary' == accents[1]
+        assert 'fas booboo' == icons[0]
+        assert 'fas fa-eye' == icons[1]
 
 @pytest.mark.parametrize('page', ['articles/article2.html', ],
                          indirect=True)

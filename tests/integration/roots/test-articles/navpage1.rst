@@ -1,6 +1,8 @@
 .. navpage::
     entries:
         - docname: articles/index
+          accent: info
+          icon: 'fas booboo'
         - docname: authors/index
           subheading: Do not use authors subheading
         - docname: categories/index

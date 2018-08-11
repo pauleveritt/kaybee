@@ -41,8 +41,9 @@ class Navpage(BaseSection):
         results = []
         for entry in self.props.entries:
             # Get the resource for this entry
-            result = {}
             resource = resources[entry.docname]
+
+            result = dict(docname=entry.docname)
             result['label'] = entry.label if entry.label else resource.title
 
             # Subheading can come from several places
@@ -53,6 +54,10 @@ class Navpage(BaseSection):
                 if subheading is None:
                     subheading = ''
                 result['subheading'] = subheading
+
+            # Accent and icon
+            result['accent'] = entry.accent
+            result['icon'] = entry.icon
 
             results.append(result)
 
