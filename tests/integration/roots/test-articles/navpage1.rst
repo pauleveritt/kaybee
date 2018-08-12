@@ -8,7 +8,7 @@
         - docname: categories/index
           label: Categories With Label
           query:
-             rtype: resource
+             rtype: article
              limit: 5
 
 =========

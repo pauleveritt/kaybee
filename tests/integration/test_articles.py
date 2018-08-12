@@ -48,7 +48,6 @@ class TestAuthor1:
         src = img.attrs['src']
         assert 'paul_headshotx128.jpeg' == src
 
-
 @pytest.mark.parametrize('page', ['categories/category2.html', ],
                          indirect=True)
 class TestCategories2:
@@ -102,6 +101,14 @@ class TestNavpage1:
         assert 'primary' == accents[1]
         assert 'fas booboo' == icons[0]
         assert 'fas fa-eye' == icons[1]
+
+        # Now results
+        result_docnames = get_strings(page, 'kb-menuresult-docname')
+        result_authors = get_strings(page, 'kb-menuresult-author')
+
+        # Result docnames
+        assert 4 == len(result_docnames)
+        assert 4 == len(result_authors)
 
 @pytest.mark.parametrize('page', ['articles/article2.html', ],
                          indirect=True)

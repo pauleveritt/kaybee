@@ -3,13 +3,22 @@
     {{ body }}
     <h2>Menu</h2>
     <ul>
-        {% for entry in resource.entries(resources) %}
+        {% for entry in resource.entries(resources, references) %}
             <li class="kb-menuentry">
                 <span class="kb-menuentry-docname">{{ entry['docname'] }}</span>
                 <span class="kb-menuentry-label">{{ entry['label'] }}</span>
                 <span class="kb-menuentry-subheading">{{ entry['subheading'] }}</span>
                 <span class="kb-menuentry-accent">{{ entry['accent'] }}</span>
                 <span class="kb-menuentry-icon">{{ entry['icon'] }}</span>
+                <ul>
+                    {% for result in entry.entries %}
+                        <li class="kbb-menuresult">
+                            <span class="kb-menuresult-docname">{{ result['docname'] }}</span>
+                            <span class="kb-menuresult-title">{{ result['title'] }}</span>
+                            <span class="kb-menuresult-author">{{ result['author']['title'] }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
             </li>
         {% endfor %}
     </ul>
