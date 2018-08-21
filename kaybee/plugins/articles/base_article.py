@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import List
 
+from sphinx.util import relative_uri
+
 from kaybee.plugins.articles.image_type import ImageModel
 from kaybee.plugins.resources.base_resource import (
     BaseResource,
@@ -21,6 +23,8 @@ class BaseArticleModel(BaseResourceModel):
     is_series: bool = False
     duration: str = None
     primary_reference: str = None
+    icon: str = 'fas fa-eye'
+    accent: str = 'primary'
 
 
 class BaseArticle(BaseResource):
@@ -99,6 +103,60 @@ class BaseArticle(BaseResource):
         entries.append(dict(
             label=self.title, docname=self.docname, is_active=True))
         return entries
+
+    def get_author(self, references):
+        # Used by section_entries to make the listing of links resources
+        # as "tags"
+        resource_references = self.props.references
+        if resource_references:
+            if 'author' in resource_references:
+                pa_label = resource_references['author'][0]
+                pa = references["author"][pa_label]
+                images = pa.props.images
+                first_image = images[0].filename if images else None
+                author_href = relative_uri(self.docname, pa.docname)
+                thumbnail_url = author_href + '/../' + first_image
+                author = dict(
+                    title=pa.title,
+                    href=author_href,
+                    thumbnail_url=thumbnail_url,
+                )
+                return author
+
+    def get_references(self, references):
+        # Used by section_entries to make the listing of links resources
+        # as "tags"
+        # Used by section_entries to make the listing of links resources
+        # as "tags"
+
+        resource_references = self.props.references
+        if resource_references:
+            # Handle all non-author references for tag-like links
+            these_references = []
+            for reftype, labels in resource_references.items():
+                this_reftype = references[reftype]
+                if reftype != 'author':
+                    for label in labels:
+                        this_ref = this_reftype[label]
+                        this_href = relative_uri(self.docname,
+                                                 this_ref.docname)
+                        these_references.append(
+                            dict(
+                                label=label,
+                                href=this_href,
+                            )
+                        )
+            return these_references
+
+    def get_logo(self, resources):
+        # Find the primary_reference logo
+        PYTHON_LOGO = 'https://cdn.worldvectorlogo.com/logos/python-5.svg'
+        primary_reference = self.props.primary_reference
+        if not primary_reference:
+            return PYTHON_LOGO
+        reference_resource = resources[primary_reference]
+        logo = reference_resource.props.logo
+        return logo if logo else PYTHON_LOGO
 
     def __json__(self, resources):
         d = super().__json__(resources)

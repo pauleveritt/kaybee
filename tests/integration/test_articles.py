@@ -126,7 +126,7 @@ class TestQuerylist:
             for result in page.find_all(class_='kb-querylist-item')]
         assert 2 == len(labels)
         assert 'Recent Blog Posts' in labels
-        assert 6 == len(items)
+        assert 8 == len(items)
         assert 'Section 1' in items
 
 
@@ -186,5 +186,5 @@ class TestJsoncatalog:
         references = json_page['references']
 
         # Basic assertion
-        assert 12 == len(resources.keys())
+        assert 15 == len(resources.keys())
         assert 3 == len(references.keys())

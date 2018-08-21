@@ -10,4 +10,5 @@ class Author(BaseArticleReference):
         docpath = Path(self.docname)
         parent = docpath.parent
         prop = self.find_prop_item('images', 'usage', usage)
-        return str(Path(parent, prop.filename))  # prop.filename
+        if prop:
+            return str(Path(parent, prop.filename))  # prop.filename
