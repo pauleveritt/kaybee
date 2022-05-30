@@ -19,3 +19,4 @@ directives in YAML.
 See ``docs`` for details.
 
 **Note: This package requires Python 3.6+**
+
